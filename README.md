@@ -40,6 +40,7 @@ npm run build:all
 1. Copy an existing app folder (e.g. `introduction/`) and rename it.
 2. Update `package.json`, ports in `vite.config.ts`, and lecture content.
 3. Add a row to the table above in this README.
+4. Reuse the standard cover hint in `CoverScene` (see `COVER_HINT_LIVE` / `COVER_HINT_PRINT` in any existing `scenes.tsx`).
 
 ## Stack
 

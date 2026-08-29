@@ -56,6 +56,10 @@ function SceneFrame({
   );
 }
 
+const COVER_HINT_LIVE =
+  "Use ← → or the buttons above. Numbers in every example can be redrawn. Download PDF for a printable handout.";
+const COVER_HINT_PRINT = "Printed handout · interactive examples on the website";
+
 function CoverScene() {
   const print = usePrintMode();
   return (
@@ -64,11 +68,7 @@ function CoverScene() {
         <p className={styles.kicker}>DOTE2011G · Statistical Analysis for Business Decisions</p>
         <h1 className={styles.coverTitle}>Introduction</h1>
         <p className={styles.lead}>Turn data into decisions — without drowning in definitions on day one.</p>
-        <p className={styles.hint}>
-          {print
-            ? "Printed handout · interactive games on the website"
-            : "Use ← → or the buttons above. This lecture replaces the 51-slide PDF with fewer words and more doing."}
-        </p>
+        <p className={styles.hint}>{print ? COVER_HINT_PRINT : COVER_HINT_LIVE}</p>
       </div>
     </section>
   );

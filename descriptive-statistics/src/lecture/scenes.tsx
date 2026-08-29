@@ -74,6 +74,10 @@ function SceneFrame({
   );
 }
 
+const COVER_HINT_LIVE =
+  "Use ← → or the buttons above. Numbers in every example can be redrawn. Download PDF for a printable handout.";
+const COVER_HINT_PRINT = "Printed handout · interactive examples on the website";
+
 function CoverScene() {
   const print = usePrintMode();
   return (
@@ -82,11 +86,7 @@ function CoverScene() {
         <p className={styles.kicker}>DOTE2011G · Statistical Analysis for Business Decisions</p>
         <h1 className={styles.coverTitle}>Descriptive Statistics</h1>
         <p className={styles.lead}>From a pile of numbers to a picture — and a decision you can defend.</p>
-        <p className={styles.hint}>
-          {print
-            ? "Printed handout · textbook examples · practice games on the website"
-            : "Use ← → or the buttons above. Numbers in every example can be redrawn. Download PDF for a printable handout."}
-        </p>
+        <p className={styles.hint}>{print ? COVER_HINT_PRINT : COVER_HINT_LIVE}</p>
       </div>
     </section>
   );
