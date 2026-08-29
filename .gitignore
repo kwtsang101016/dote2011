@@ -1,0 +1,19 @@
+# Dependencies and build output (each app)
+node_modules/
+dist/
+dist-ssr/
+
+# Logs and local env
+logs/
+*.log
+npm-debug.log*
+*.local
+.env
+.env.*
+
+# Editor / OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,12 @@
+{
+  "name": "dote2011",
+  "private": true,
+  "description": "DOTE2011G interactive lecture apps (monorepo)",
+  "scripts": {
+    "dev:intro": "npm run dev --prefix introduction",
+    "dev:desc": "npm run dev --prefix descriptive-statistics",
+    "build:intro": "npm run build --prefix introduction",
+    "build:desc": "npm run build --prefix descriptive-statistics",
+    "build:all": "npm run build:intro && npm run build:desc"
+  }
+}

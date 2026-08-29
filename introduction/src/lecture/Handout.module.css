@@ -1,0 +1,125 @@
+.slides {
+  width: 100%;
+  background: #fff4d2;
+}
+
+.slidePage {
+  break-after: page;
+  page-break-after: always;
+  break-inside: avoid;
+  page-break-inside: avoid;
+  min-height: 680px;
+  padding-bottom: 12px;
+  background: #fff4d2;
+}
+
+.slidePage:last-child {
+  break-after: auto;
+  page-break-after: auto;
+}
+
+.slideHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 24px;
+  color: #fff4d2;
+  background: #16213c;
+  border-top: 4px solid #f5cf6b;
+  font: 800 10px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Compact slide content so each scene fits one printed page */
+.slides :global(.scene) {
+  min-height: 0 !important;
+  padding: 28px 32px 24px !important;
+}
+
+.slides :global(.scene h1),
+.slides :global(.coverTitle) {
+  font-size: clamp(28px, 4vw, 44px) !important;
+}
+
+.slides :global(.lead) {
+  margin-top: 14px !important;
+  font-size: 16px !important;
+}
+
+.slides :global(.cover) {
+  min-height: 620px !important;
+}
+
+.slides :global(.coverInner) {
+  padding: 48px 28px !important;
+}
+
+.slides :global(.choices) {
+  gap: 10px !important;
+}
+
+.slides :global(.choice) {
+  min-height: 64px !important;
+  padding: 14px 16px !important;
+  cursor: default !important;
+  box-shadow: 4px 4px 0 #16213c !important;
+}
+
+.slides :global(.chartCard) {
+  box-shadow: 4px 4px 0 #16213c !important;
+}
+
+.slides :global(.split),
+.slides :global(.splitWide),
+.slides :global(.three) {
+  gap: 16px !important;
+}
+
+.slides :global(.statPair article) {
+  min-height: 140px !important;
+}
+
+.slides :global(.statPair strong) {
+  font-size: 28px !important;
+}
+
+.slides :global(.card h1) {
+  font-size: 32px !important;
+}
+
+.slides :global(.printNote) {
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: #fffaf0;
+  border-left: 4px solid #2e7190;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.slides :global(.printGrid2) {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.slides :global(.printGrid4) {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.slides :global(.printAnswer) {
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: #d9edf1;
+  border: 2px solid #16213c;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.slides :global(table) {
+  font-size: 13px;
+}
