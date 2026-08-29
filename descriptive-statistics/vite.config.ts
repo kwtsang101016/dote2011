@@ -1,12 +1,15 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-export default defineConfig({
+const REPO = "dote2011";
+const APP = "descriptive-statistics";
+
+export default defineConfig(({ command }) => ({
   plugins: [react()],
-  base: "./",
+  base: command === "build" ? `/${REPO}/${APP}/` : "/",
   server: {
     host: "127.0.0.1",
     port: 5173,
     strictPort: false,
   },
-});
+}));

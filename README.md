@@ -4,10 +4,12 @@ Interactive HTML lecture apps for **DOTE2011G Statistical Analysis for Business 
 
 ## Lectures
 
-| Topic | Folder | Dev server |
-|-------|--------|------------|
-| Introduction | [`introduction/`](introduction/) | `npm run dev` → http://127.0.0.1:5174 |
-| Descriptive Statistics | [`descriptive-statistics/`](descriptive-statistics/) | `npm run dev` → http://127.0.0.1:5173 |
+| Topic | Folder | Live (GitHub Pages) | Local dev |
+|-------|--------|---------------------|-----------|
+| Introduction | [`introduction/`](introduction/) | [Open lecture](https://kwtsang101016.github.io/dote2011/introduction/) | `npm run dev` → http://127.0.0.1:5174 |
+| Descriptive Statistics | [`descriptive-statistics/`](descriptive-statistics/) | [Open lecture](https://kwtsang101016.github.io/dote2011/descriptive-statistics/) | `npm run dev` → http://127.0.0.1:5173 |
+
+**Course hub:** https://kwtsang101016.github.io/dote2011/
 
 ## Quick start
 
