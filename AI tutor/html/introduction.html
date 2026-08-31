@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DOTE2011G · Introduction (interactive lecture)</title>
+</head>
+<body>
+<article class="dote2011-knowledge">
+<h1>DOTE2011G · Introduction (interactive lecture)</h1>
+<p><strong>Live site:</strong> https://kwtsang101016.github.io/dote2011/introduction/</p>
+<p><strong>Page numbers</strong> match the website slide counter and downloadable PDF (01/14 … 14/14).</p>
+<hr />
+<h2>Index</h2>
+<table><thead><tr><th>Page</th><th>Title</th></tr></thead><tbody><tr><td>01</td><td>Cover</td></tr><tr><td>02</td><td>Why statistics</td></tr><tr><td>03</td><td>Two meanings of “statistics”</td></tr><tr><td>04</td><td>Business uses</td></tr><tr><td>05</td><td>Data vocabulary</td></tr><tr><td>06</td><td>Game · label or number?</td></tr><tr><td>07</td><td>Cross-section vs time series</td></tr><tr><td>08</td><td>Data sources</td></tr><tr><td>09</td><td>Describe vs infer</td></tr><tr><td>10</td><td>Pail metaphor (population vs sample)</td></tr><tr><td>11</td><td>Population & sample (bearings)</td></tr><tr><td>12</td><td>Inference preview</td></tr><tr><td>13</td><td>AI · get data</td></tr><tr><td>14</td><td>AI · plot data</td></tr><tr><td>15</td><td>Ethics game</td></tr><tr><td>16</td><td>Takeaways</td></tr></tbody></table>
+<hr />
+<section id="introduction-page-01" data-lecture="introduction" data-page="1"><h2>Page 01 · Cover</h2>
+<p><strong>Title:</strong> Introduction</p>
+<p><strong>Lead:</strong> Turn data into decisions — without drowning in definitions on day one.</p>
+<p><strong>Navigation:</strong> Use arrow keys or on-screen buttons. Numbers in examples can be redrawn. Download PDF for a printable handout.</p>
+</section>
+<hr />
+<section id="introduction-page-02" data-lecture="introduction" data-page="2"><h2>Page 02 · Why statistics</h2>
+<p><strong>Title:</strong> Business runs on uncertainty.</p>
+<p><strong>Questions statistics helps with:</strong> Should we launch the product? Which supplier is safer? Is wait time really above five minutes?</p>
+<p>You rarely see the whole population — you see a sample, noise, and competing stories.</p>
+<table><thead><tr><th>Without statistics</th><th>With statistics</th></tr></thead><tbody><tr><td>Gut feel — anecdotes swap places with evidence</td><td>Structured doubt — summarise, quantify uncertainty, separate signal from wishful thinking</td></tr></tbody></table>
+</section>
+<hr />
+<section id="introduction-page-03" data-lecture="introduction" data-page="3"><h2>Page 03 · Two meanings of “statistics”</h2>
+<p><strong>Title:</strong> “Statistics” is a noun and a subject.</p>
+<p><strong>As numbers (published figures):</strong> “HK inflation 2.1%.” “Median rent $8,200.” “On-time delivery 94%.” — numerical summaries someone computed from data.</p>
+<p><strong>As a discipline:</strong> Collect → organise → display → analyse → interpret — with rules for when a claim is fair. This course trains both reading and doing.</p>
+</section>
+<hr />
+<section id="introduction-page-04" data-lecture="introduction" data-page="4"><h2>Page 04 · Business uses</h2>
+<p><strong>Title:</strong> Statistics shows up everywhere in business.</p>
+<table><thead><tr><th>Function</th><th>Example use</th></tr></thead><tbody><tr><td>Finance</td><td>Price–earnings ratios and dividend yields guide investment advice</td></tr><tr><td>Economics</td><td>Forecast models turn historical data into views about the economy ahead</td></tr><tr><td>Production</td><td>Quality-control charts watch whether a process is drifting off target</td></tr><tr><td>Marketing</td><td>Checkout scanners feed data on what customers buy together</td></tr></tbody></table>
+<p>Accounting audits use statistical sampling too — same idea, different vocabulary.</p>
+</section>
+<hr />
+<section id="introduction-page-05" data-lecture="introduction" data-page="5"><h2>Page 05 · Data vocabulary</h2>
+<p><strong>Title:</strong> One row = one observation.</p>
+<ul><li><strong>Data set</strong> — every case you measured</li><li><strong>Element</strong> — one case (e.g. one company)</li><li><strong>Variable</strong> — what you record (sales, exchange)</li><li><strong>Observation</strong> — one row (all values for one company)</li></ul>
+<p><strong>Example table (5 companies × 3 variables → 5 observations):</strong></p>
+<table><thead><tr><th>Company</th><th>Sales ($M)</th><th>Earn/Share</th><th>Exchange</th></tr></thead><tbody><tr><td>Dataram</td><td>73.1</td><td>0.86</td><td>N</td></tr><tr><td>EnergySouth</td><td>74.0</td><td>1.67</td><td>N</td></tr><tr><td>Keystone</td><td>365.7</td><td>0.86</td><td>NQ</td></tr><tr><td>LandCare</td><td>111.4</td><td>0.33</td><td>N</td></tr><tr><td>Psychemedics</td><td>17.6</td><td>0.13</td><td>N</td></tr></tbody></table>
+<p><strong>Tip:</strong> Ask first — label or number? You do not need every scale-of-measurement label on day one.</p>
+</section>
+<hr />
+<section id="introduction-page-06" data-lecture="introduction" data-page="6"><h2>Page 06 · Game · label or number?</h2>
+<p><strong>Title:</strong> Label or number?</p>
+<p><strong>Rule:</strong> Is this a <strong>name/label</strong> (categorical) or a <strong>number</strong> (quantitative)?</p>
+<table><thead><tr><th>Observation</th><th>Type</th><th>Why</th></tr></thead><tbody><tr><td>CUHK student blood type</td><td><strong>Categorical</strong></td><td>Label/category</td></tr><tr><td>Number of siblings</td><td><strong>Quantitative</strong></td><td>Count</td></tr><tr><td>Country of residence</td><td><strong>Categorical</strong></td><td>Label</td></tr><tr><td>Height (cm)</td><td><strong>Quantitative</strong></td><td>Measured number</td></tr><tr><td>Annual sales ($M)</td><td><strong>Quantitative</strong></td><td>Measured amount</td></tr><tr><td>Stock exchange: N or NQ</td><td><strong>Categorical</strong></td><td>Label/code</td></tr></tbody></table>
+</section>
+<hr />
+<section id="introduction-page-07" data-lecture="introduction" data-page="7"><h2>Page 07 · Cross-section vs time series</h2>
+<p><strong>Title:</strong> Same variable — different snapshot.</p>
+<p><strong>Cross-section (one point in time):</strong> Salary of <em>all</em> fresh graduates at <em>each</em> HK university in <strong>2021</strong> — compare places at the same moment.</p>
+<p><strong>Time series (many periods):</strong> Salary of CUHK fresh graduates in <strong>2022, 2023, 2024</strong> — same group moving forward. Gasoline price by month is a classic time-series picture.</p>
+</section>
+<hr />
+<section id="introduction-page-08" data-lecture="introduction" data-page="8"><h2>Page 08 · Data sources</h2>
+<p><strong>Title:</strong> Who collected it — and did they control anything?</p>
+<table><thead><tr><th>Source</th><th>Description</th></tr></thead><tbody><tr><td><strong>Existing data</strong></td><td>Company records, Census & Statistics Department, industry reports, databases — fast, but ask who collected it and why</td></tr><tr><td><strong>Designed experiment</strong></td><td>You control inputs and measure outputs (e.g. Salk polio trial). Strong for cause; expensive; ethical limits</td></tr><tr><td><strong>Observational study</strong></td><td>Watch without assigning treatment — surveys, smoker vs non-smoker comparisons. Lurking variables can fool you</td></tr></tbody></table>
+<p>Bad data cheaply acquired can be worse than no data.</p>
+</section>
+<hr />
+<section id="introduction-page-09" data-lecture="introduction" data-page="9"><h2>Page 09 · Describe vs infer</h2>
+<p><strong>Title:</strong> Describe the sample. Infer about the population.</p>
+<table><thead><tr><th>Descriptive</th><th>Inferential</th></tr></thead><tbody><tr><td>Compress what is <strong>in front of you</strong> — tables, charts, averages</td><td>Use a <strong>sample</strong> to learn about a <strong>larger group</strong> you did not fully measure</td></tr><tr><td>Example: 50 tune-up invoices → histogram → “parts average about $79”</td><td>Example: estimate mean wait time; test a claim; predict sales from ad spend</td></tr></tbody></table>
+<p>Most headlines show descriptive statistics. Most business decisions need inferential ones — with uncertainty attached.</p>
+</section>
+<hr />
+<section id="introduction-page-10" data-lecture="introduction" data-page="10"><h2>Page 10 · Pail metaphor</h2>
+<p><strong>Title:</strong> Probability and statistics ask opposite questions.</p>
+<p><strong>Population</strong> = the whole pail (e.g. 10 squares + 5 circles = 15 items).</p>
+<p><strong>Sample</strong> = a handful scooped from the pail (e.g. 4 squares + 2 circles = 6 items). Same shapes in both — the handful is drawn <em>from</em> the pail.</p>
+<table><thead><tr><th>Direction</th><th>Question</th></tr></thead><tbody><tr><td><strong>Probability</strong> (population → sample)</td><td>The pail mix is known. If you scoop 6 items, what mix might land in your hand?</td></tr><tr><td><strong>Statistics</strong> (sample → population)</td><td>You scooped 4 squares and 2 circles. What mix in the full pail is plausible?</td></tr></tbody></table>
+<p>Later topics: probability & distributions; then sampling, confidence intervals, hypothesis tests, ANOVA, regression.</p>
+</section>
+<hr />
+<section id="introduction-page-11" data-lecture="introduction" data-page="11"><h2>Page 11 · Population & sample</h2>
+<p><strong>Title:</strong> You almost never weigh every bearing.</p>
+<ul><li><strong>Population</strong> = every element you care about (e.g. 48 bearings produced today)</li><li><strong>Sample</strong> = the subset you actually measure (e.g. 10 inspected)</li><li><strong>Census</strong> = measure all 48; <strong>sample survey</strong> = measure 10</li></ul>
+<p>Inference uses the sample to speak about the population.</p>
+</section>
+<hr />
+<section id="introduction-page-12" data-lecture="introduction" data-page="12"><h2>Page 12 · Inference preview</h2>
+<p><strong>Title:</strong> Inference in one picture.</p>
+<p><strong>Estimation:</strong> Sample average wait = 5.07 min → best guess for population mean. Later: confidence interval — how far can 5.07 move?</p>
+<p><strong>Hypothesis test:</strong> Claim: mean wait ≤ 5 min. Data average = 5.07. Enough evidence to reject? Same pattern for any yes/no claim about a population.</p>
+<p><strong>Linear regression:</strong> Campus café — predict wait time (Y) from staff (X₁), capacity (X₂), time of day (X₃):</p>
+<p><strong>Y = β₀ + β₁X₁ + β₂X₂ + β₃X₃ + ε</strong></p>
+<p>Y = wait time (minutes); ε = leftover noise.</p>
+</section>
+<hr />
+<section id="introduction-page-13" data-lecture="introduction" data-page="13"><h2>Page 13 · AI · get data</h2>
+<p><strong>Title:</strong> Step 1 — ask an assistant to download data.</p>
+<p>Use an AI coding assistant to fetch public data for <strong>practice</strong> (follow course AI policy for graded work).</p>
+<p><strong>Example prompt:</strong> Download Apple (AAPL) daily stock data for the past year using Python (yfinance or akshare). Save as <code>aapl_daily.csv</code>. Show first five rows and column names.</p>
+<p><strong>Check:</strong> CSV should have Date, Open, High, Low, Close, Volume.</p>
+</section>
+<hr />
+<section id="introduction-page-14" data-lecture="introduction" data-page="14"><h2>Page 14 · AI · plot data</h2>
+<p><strong>Title:</strong> Step 2 — ask for a chart, then read it like a statistician.</p>
+<p><strong>Example prompt:</strong> Read <code>aapl_daily.csv</code> and plot a candlestick chart for the past year. Label axes. Save as <code>aapl_candles.png</code>.</p>
+<p><strong>Ask yourself:</strong> Trend up or down? Wide candles (volatility)? Correct date range?</p>
+</section>
+<hr />
+<section id="introduction-page-15" data-lecture="introduction" data-page="15"><h2>Page 15 · Ethics game</h2>
+<p><strong>Title:</strong> Spot the shady statistics.</p>
+<table><thead><tr><th>Statement</th><th>Verdict</th></tr></thead><tbody><tr><td>Convenience sample dressed up as representative</td><td><strong>Problem</strong> — easy-to-reach people ≠ the population you claim</td></tr><tr><td>Chart axis starts at zero when comparing amounts</td><td><strong>Good</strong> — avoids exaggerating small differences</td></tr><tr><td>Report only the subgroup that supports the story</td><td><strong>Problem</strong> — cherry-picking hides the full study</td></tr><tr><td>Call correlation “proof of cause”</td><td><strong>Problem</strong> — two trends can move together for other reasons</td></tr><tr><td>Show sample size and how data were collected</td><td><strong>Good</strong> — context builds trust</td></tr></tbody></table>
+<p><strong>Axis example:</strong> Revenue $101M vs $102M — axis from 0 shows ~1% gap (honest); axis from 100 makes 102 look twice 101 (misleading).</p>
+</section>
+<hr />
+<section id="introduction-page-16" data-lecture="introduction" data-page="16"><h2>Page 16 · Takeaways</h2>
+<p><strong>Title:</strong> Data → picture → number → honest claim.</p>
+<ol><li><strong>Ask the type</strong> — Label or number? Sample or population?</li><li><strong>Describe first</strong> — Tables and charts before you quote an average.</li><li><strong>Infer carefully</strong> — Correlation ≠ cause. Show your sample. Report uncertainty.</li></ol>
+</section>
+</article>
+</body>
+</html>

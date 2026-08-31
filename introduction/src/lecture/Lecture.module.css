@@ -239,6 +239,43 @@
   border-left-color: var(--paper);
 }
 
+.promptCard {
+  margin-top: 16px;
+  padding: 16px 18px;
+  background: var(--ink);
+  color: var(--cream);
+  border: 3px solid var(--ink);
+  border-left: 6px solid var(--paper);
+  font: 500 14px/1.55 ui-monospace, SFMono-Regular, Menlo, monospace;
+  white-space: pre-wrap;
+}
+
+.promptList {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.promptItem {
+  padding: 14px 16px;
+  background: var(--white);
+  border: 3px solid var(--ink);
+}
+
+.promptItem strong {
+  display: block;
+  margin-bottom: 8px;
+  font: 800 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.06em;
+  color: var(--red);
+}
+
+.promptItem p {
+  margin: 0;
+  font: 500 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--ink);
+}
+
 .muted { color: var(--muted); font-size: 14px; line-height: 1.45; }
 .small { margin: 8px 0 0; color: var(--muted); font-size: 12px; }
 

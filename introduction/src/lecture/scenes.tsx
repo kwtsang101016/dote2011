@@ -582,6 +582,48 @@ function InferencePreviewScene() {
   );
 }
 
+function AiDataScene() {
+  return (
+    <SceneFrame kicker="Practice with AI" title="Step 1 — ask an assistant to download data." tone="white">
+      <p className={styles.lead}>
+        AI coding assistants can fetch public data so you can practise statistics on <strong>real numbers</strong>.
+        Treat this as exploration on your own machine — follow the course AI policy for anything graded.
+      </p>
+      <p className={styles.kicker} style={{ marginTop: 18 }}>EXAMPLE PROMPT · COPY AND ADAPT</p>
+      <pre className={styles.promptCard}>{`Download Apple (AAPL) daily stock data for the past one year using Python.
+Use the yfinance package (or akshare if you prefer).
+Save the result as a CSV file named aapl_daily.csv.
+Show me the first five rows and list the column names.`}</pre>
+      <p className={styles.note}>
+        <strong>Check before you analyse:</strong> open the CSV — you should see dates and prices (Open, High, Low, Close, Volume).
+        If a column is missing, ask the assistant to fix the download script.
+      </p>
+    </SceneFrame>
+  );
+}
+
+function AiPlotScene() {
+  return (
+    <SceneFrame kicker="Practice with AI" title="Step 2 — ask for a chart, then read it like a statistician." tone="white">
+      <p className={styles.lead}>
+        Once the CSV exists, prompt for a picture. A candlestick chart needs <strong>open, high, low, close</strong> by date —
+        the same OHLC idea finance desks use every day.
+      </p>
+      <p className={styles.kicker} style={{ marginTop: 18 }}>EXAMPLE PROMPT · COPY AND ADAPT</p>
+      <pre className={styles.promptCard}>{`Read aapl_daily.csv and plot a candlestick chart of Apple's stock
+for the past year. Label the axes. Use matplotlib or plotly.
+Save the figure as aapl_candles.png.`}</pre>
+      <p className={styles.note}>
+        <strong>Questions to ask yourself:</strong> Is the trend up or down? Any unusually wide candles (high volatility)?
+        Does the chart match the date range you requested? Later in this course you will summarise these prices with tables and numbers — not just pictures.
+      </p>
+      <p className={styles.small}>
+        Swap the ticker, date range, or chart type (line chart of Close, histogram of daily % change) and run the prompt again.
+      </p>
+    </SceneFrame>
+  );
+}
+
 function EthicsGame() {
   const print = usePrintMode();
   const [selectedLive, setSelectedLive] = useState<string | null>(null);
@@ -652,6 +694,8 @@ export const SCENES: SceneDef[] = [
   { id: "pail", chapter: "Core ideas", label: "Pail metaphor", Scene: PailScene },
   { id: "population", chapter: "Core ideas", label: "Population & sample", Scene: PopulationScene },
   { id: "infer", chapter: "Core ideas", label: "Inference preview", Scene: InferencePreviewScene },
+  { id: "ai-data", chapter: "Practice", label: "AI · get data", Scene: AiDataScene },
+  { id: "ai-plot", chapter: "Practice", label: "AI · plot data", Scene: AiPlotScene },
   { id: "ethics", chapter: "Course", label: "Ethics game", Scene: EthicsGame },
   { id: "close", chapter: "Course", label: "Takeaways", Scene: CloseScene },
 ];

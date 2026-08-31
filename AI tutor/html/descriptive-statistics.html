@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DOTE2011G · Descriptive Statistics (interactive lecture)</title>
+</head>
+<body>
+<article class="dote2011-knowledge">
+<h1>DOTE2011G · Descriptive Statistics (interactive lecture)</h1>
+<p><strong>Live site:</strong> https://kwtsang101016.github.io/dote2011/descriptive-statistics/</p>
+<p><strong>Page numbers</strong> match the website slide counter and downloadable PDF (01/26 … 26/26).</p>
+<hr />
+<h2>Index</h2>
+<table><thead><tr><th>Page</th><th>Title</th></tr></thead><tbody><tr><td>01</td><td>Cover</td></tr><tr><td>02</td><td>Why summarise</td></tr><tr><td>03</td><td>Game · Name, or number?</td></tr><tr><td>04</td><td>Hyatt · categorical data</td></tr><tr><td>05</td><td>Pareto diagram</td></tr><tr><td>06</td><td>Game · Read the chart</td></tr><tr><td>07</td><td>Classes and histogram</td></tr><tr><td>08</td><td>Game · Skewness shape</td></tr><tr><td>09</td><td>Skewness formula</td></tr><tr><td>10</td><td>Stem-and-leaf</td></tr><tr><td>11</td><td>Cumulative / ogive</td></tr><tr><td>12</td><td>Crosstab</td></tr><tr><td>13</td><td>Game · Simpson's paradox</td></tr><tr><td>14</td><td>Scatter diagrams</td></tr><tr><td>15</td><td>Tool map</td></tr><tr><td>16</td><td>Mean / median / mode</td></tr><tr><td>17</td><td>Percentiles and quartiles</td></tr><tr><td>18</td><td>Game · Compute mean & median</td></tr><tr><td>19</td><td>Variability</td></tr><tr><td>20</td><td>Game · Two suppliers</td></tr><tr><td>21</td><td>z-scores, Chebyshev, empirical rule</td></tr><tr><td>22</td><td>Box plot</td></tr><tr><td>23</td><td>Correlation</td></tr><tr><td>24</td><td>Weighted mean / grouped data</td></tr><tr><td>25</td><td>Game · Cloud vs table</td></tr><tr><td>26</td><td>Prompts to try</td></tr><tr><td>27</td><td>Takeaways</td></tr></tbody></table>
+<hr />
+<section id="descriptive-statistics-page-01" data-lecture="descriptive-statistics" data-page="1"><h2>Page 01 · Cover</h2>
+<p><strong>Title:</strong> Descriptive Statistics</p>
+<p><strong>Lead:</strong> From a pile of numbers to a picture — and a decision you can defend.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-02" data-lecture="descriptive-statistics" data-page="2"><h2>Page 02 · Why summarise</h2>
+<p><strong>Title:</strong> Raw data is not a story.</p>
+<p>William Auto: 50 tune-up <strong>parts costs</strong> ($) — a long list of numbers (52, 57, 62, …). You cannot hold 50 numbers in your head. Descriptive statistics compresses them into a table, a picture, or a few honest numbers.</p>
+<table><thead><tr><th>Type</th><th>Meaning</th><th>Examples</th></tr></thead><tbody><tr><td><strong>Categorical</strong></td><td>Labels</td><td>Rating, home type, supplier name</td></tr><tr><td><strong>Quantitative</strong></td><td>Amounts</td><td>Cost, rate, shots, rent ($)</td></tr></tbody></table>
+</section>
+<hr />
+<section id="descriptive-statistics-page-03" data-lecture="descriptive-statistics" data-page="3"><h2>Page 03 · Game · Name, or number?</h2>
+<p><strong>Title:</strong> Name, or number?</p>
+<p><strong>Rule:</strong> Categorical = label/name/group. Quantitative = numeric amount or count.</p>
+<h3>All classify examples (complete deck)</h3>
+<table><thead><tr><th>Observation</th><th>Answer</th><th>Why</th></tr></thead><tbody><tr><td>Hyatt guest rating: Above Average</td><td><strong>Categorical</strong></td><td>Label/category</td></tr><tr><td>Tune-up parts cost: $91</td><td><strong>Quantitative</strong></td><td>Dollar amount</td></tr><tr><td>Shatin home type: Flat</td><td><strong>Categorical</strong></td><td>Label</td></tr><tr><td>Number of shots on goal</td><td><strong>Quantitative</strong></td><td>Count</td></tr><tr><td>Supplier name: FastGo</td><td><strong>Categorical</strong></td><td>Label</td></tr><tr><td>Daily studio rent in Tai Po</td><td><strong>Quantitative</strong></td><td>Dollar amount</td></tr></tbody></table>
+</section>
+<hr />
+<section id="descriptive-statistics-page-04" data-lecture="descriptive-statistics" data-page="4"><h2>Page 04 · Hyatt · categorical data</h2>
+<p><strong>Title:</strong> Twenty guests. One table. Two pictures.</p>
+<p>Frequency = count. Relative frequency = count ÷ n. Percent frequency = relative × 100. <strong>n = 20.</strong></p>
+<table><thead><tr><th>Rating</th><th>f</th><th>Relative</th><th>Percent</th></tr></thead><tbody><tr><td>Poor</td><td>2</td><td>0.10</td><td>10%</td></tr><tr><td>Below Average</td><td>3</td><td>0.15</td><td>15%</td></tr><tr><td>Average</td><td>5</td><td>0.25</td><td>25%</td></tr><tr><td>Above Average</td><td>9</td><td>0.45</td><td>45%</td></tr><tr><td>Excellent</td><td>1</td><td>0.05</td><td>5%</td></tr></tbody></table>
+<p>Tools: bar chart (frequency), pie chart (percent). Pie slice = relative frequency × 360°.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-05" data-lecture="descriptive-statistics" data-page="5"><h2>Page 05 · Pareto diagram</h2>
+<p><strong>Title:</strong> Sort the bars. The biggest problems come first.</p>
+<p>Bar chart of causes ordered <strong>most frequent → least</strong>, often with cumulative-% line (Vilfredo Pareto; quality/operations standard).</p>
+<p><strong>Hyatt complaints (n = 100):</strong></p>
+<table><thead><tr><th>Cause</th><th>Count</th><th>%</th><th>Cum. %</th></tr></thead><tbody><tr><td>Check-in</td><td>48</td><td>48%</td><td>48%</td></tr><tr><td>Cleanliness</td><td>24</td><td>24%</td><td>72%</td></tr><tr><td>Wi-Fi</td><td>12</td><td>12%</td><td>84%</td></tr><tr><td>Noise</td><td>9</td><td>9%</td><td>93%</td></tr><tr><td>Billing</td><td>7</td><td>7%</td><td>100%</td></tr></tbody></table>
+<p><strong>Key point:</strong> Check-in + Cleanliness = <strong>72%</strong> of complaints — fix those first (80/20 idea).</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-06" data-lecture="descriptive-statistics" data-page="6"><h2>Page 06 · Game · Read the chart</h2>
+<p><strong>Title:</strong> What percent said “Above Average”?</p>
+<p>Count the bar, divide by <strong>n = 20</strong>. Textbook: <strong>9/20 = 45%</strong>. Website redraws samples — learn the method, not one memorised answer.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-07" data-lecture="descriptive-statistics" data-page="7"><h2>Page 07 · Classes and histogram</h2>
+<p><strong>Title:</strong> Classes are a choice. Make them honest.</p>
+<p>William Auto: 50 parts costs ($). <strong>6 classes, width 10, start $50.</strong></p>
+<p>Approx. width = (max − min) / k. Guideline: <strong>5–20 classes</strong>. Each value in exactly one class.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-08" data-lecture="descriptive-statistics" data-page="8"><h2>Page 08 · Game · Skewness shape</h2>
+<p><strong>Title:</strong> Which way does the tail point?</p>
+<table><thead><tr><th>Shape</th><th>Tail</th><th>Examples</th></tr></thead><tbody><tr><td>Symmetric</td><td>Neither side longer</td><td>Heights, weights</td></tr><tr><td>Skewed left</td><td>Long left tail</td><td>Some exam score sets</td></tr><tr><td>Skewed right</td><td>Long right tail</td><td>Property prices, salaries</td></tr><tr><td>Highly skewed right</td><td>Very long right tail</td><td>Few huge values pull the mean</td></tr></tbody></table>
+<p>Skewness is named for the <strong>long tail</strong>, not the pile.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-09" data-lecture="descriptive-statistics" data-page="9"><h2>Page 09 · Skewness formula</h2>
+<p><strong>Title:</strong> Skewness turns the histogram into one number.</p>
+<p><strong>70 Shatin/Tai Po studio rates ($).</strong> Formula:</p>
+<p><strong>Skewness = [n / ((n − 1)(n − 2))] × Σ [(xᵢ − x̄) / s]³</strong></p>
+<table><thead><tr><th>Value</th><th>Meaning</th></tr></thead><tbody><tr><td>0</td><td>Symmetric</td></tr><tr><td>Negative</td><td>Left tail</td></tr><tr><td>Positive</td><td>Right tail (mean usually above median)</td></tr></tbody></table>
+<p>Textbook sample: skewness = <strong>0.92</strong> (moderate right skew).</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-10" data-lecture="descriptive-statistics" data-page="10"><h2>Page 10 · Stem-and-leaf</h2>
+<p><strong>Title:</strong> Stem-and-leaf is a histogram that still shows the data.</p>
+<p>Stem = leading digits; leaf = last digit. Can split stems (0–4 / 5–9). Companion: dot plot. Leaf unit = 1 here (if data were 8.6, 9.1, use leaf unit 0.1).</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-11" data-lecture="descriptive-statistics" data-page="11"><h2>Page 11 · Cumulative / ogive</h2>
+<p><strong>Title:</strong> How many costs fall at or below each limit?</p>
+<p>Histogram: count <strong>inside</strong> each class. Cumulative: count <strong>at most</strong> each upper limit. Read “at most,” not “exactly.”</p>
+<p><strong>Tune-up costs (textbook):</strong></p>
+<table><thead><tr><th>At most</th><th>Cum. f</th><th>Cum. %</th></tr></thead><tbody><tr><td>≤ $59</td><td>2</td><td>4%</td></tr><tr><td>≤ $69</td><td>15</td><td>30%</td></tr><tr><td>≤ $79</td><td>31</td><td>62%</td></tr><tr><td>≤ $89</td><td>38</td><td>76%</td></tr><tr><td>≤ $99</td><td>45</td><td>90%</td></tr><tr><td>≤ $109</td><td>50</td><td>100%</td></tr></tbody></table>
+<p>Example: <strong>15 of 50</strong> tune-ups cost ≤ <strong>$69</strong> = <strong>30%</strong>. Ogive uses class upper boundaries (59.5, 69.5, …).</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-12" data-lecture="descriptive-statistics" data-page="12"><h2>Page 12 · Crosstab</h2>
+<p><strong>Title:</strong> A crosstab is two frequency distributions sharing one table.</p>
+<p>100 Shatin homes: <strong>type</strong> (categorical) × <strong>price band</strong> (grouped quantitative).</p>
+<table><thead><tr><th>Price \ Type</th><th>HOS</th><th>House</th><th>Flat</th><th>HOS (G)</th><th>Total</th></tr></thead><tbody><tr><td>< $5M</td><td>18</td><td>6</td><td>19</td><td>12</td><td>55</td></tr><tr><td>≥ $5M</td><td>12</td><td>14</td><td>16</td><td>3</td><td>45</td></tr><tr><td><strong>Total</strong></td><td><strong>30</strong></td><td><strong>20</strong></td><td><strong>35</strong></td><td><strong>15</strong></td><td><strong>100</strong></td></tr></tbody></table>
+<ul><li><strong>HOS</strong> = Home Ownership Scheme flat</li><li><strong>HOS (G)</strong> = HOS under Green Form</li></ul>
+<p>Row % = given price band, what type? Column % = given type, what price? Different questions.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-13" data-lecture="descriptive-statistics" data-page="13"><h2>Page 13 · Game · Simpson's paradox</h2>
+<p><strong>Title:</strong> The total can reverse every subgroup.</p>
+<p>Two cafés — 5-star rates:</p>
+<table><thead><tr><th></th><th>5-star</th><th>Orders</th><th>Rate</th></tr></thead><tbody><tr><td>Shop A</td><td>273</td><td>350</td><td>78%</td></tr><tr><td>Shop B</td><td>289</td><td>350</td><td><strong>83%</strong></td></tr></tbody></table>
+<p><strong>Weekdays:</strong> A 93% vs B 87%. <strong>Weekends:</strong> A 73% vs B 69%. <strong>A wins both subgroups</strong> — B only wins overall because it takes more easy weekday orders. <strong>Simpson&#x27;s paradox:</strong> aggregating hid the lurking variable (day type).</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-14" data-lecture="descriptive-statistics" data-page="14"><h2>Page 14 · Scatter diagrams</h2>
+<p><strong>Title:</strong> The cloud is the relationship.</p>
+<p>Manchester United: <strong>goals vs shots</strong> (5 matches). <strong>r ≈ 0.90.</strong> Trendline sketches the cloud — not proof of cause.</p>
+<table><thead><tr><th>Goals</th><th>Shots</th></tr></thead><tbody><tr><td>1</td><td>14</td></tr><tr><td>3</td><td>24</td></tr><tr><td>2</td><td>18</td></tr><tr><td>1</td><td>17</td></tr><tr><td>3</td><td>30</td></tr></tbody></table>
+</section>
+<hr />
+<section id="descriptive-statistics-page-15" data-lecture="descriptive-statistics" data-page="15"><h2>Page 15 · Tool map</h2>
+<p><strong>Categorical tools:</strong> frequency / relative / percent tables; bar; pie; Pareto; crosstab.</p>
+<p><strong>Quantitative tools:</strong> frequency tables, histogram, dot plot, stem-and-leaf, ogive, scatter, crosstab.</p>
+<p>Next: center, spread, shape, association as numbers.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-16" data-lecture="descriptive-statistics" data-page="16"><h2>Page 16 · Mean / median / mode</h2>
+<p><strong>Mean</strong> x̄ = Σxᵢ / n — walks toward outliers.</p>
+<p><strong>Median</strong> — middle of ordered list — more stable.</p>
+<p><strong>Mode</strong> — most frequent value.</p>
+<p>Example: 12, 14, 18, 19, 26, 27, 27. “Star salary” demo: mean pulled up; median barely moves.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-17" data-lecture="descriptive-statistics" data-page="17"><h2>Page 17 · Percentiles and quartiles</h2>
+<p><strong>70 hotel studio rates</strong>, ordered. <strong>p-th percentile:</strong> at least p% of values are this much or less.</p>
+<ol><li>i = (p/100) × n</li><li><strong>Case A — i whole number:</strong> average xᵢ and xᵢ₊₁ (e.g. median i = 35 → avg #35 and #36)</li><li><strong>Case B — i decimal:</strong> round <strong>up</strong>; take that position (e.g. Q1 i = 17.5 → #18)</li></ol>
+<table><thead><tr><th>Measure</th><th>Value</th></tr></thead><tbody><tr><td>Q1</td><td>445</td></tr><tr><td>Q2 (median)</td><td>475</td></tr><tr><td>Q3</td><td>525</td></tr><tr><td>80th percentile</td><td><strong>542</strong></td></tr></tbody></table>
+</section>
+<hr />
+<section id="descriptive-statistics-page-18" data-lecture="descriptive-statistics" data-page="18"><h2>Page 18 · Game · Compute</h2>
+<p>Order 8 values first. Compute <strong>mean</strong> and <strong>median</strong>. Answers change when sample is redrawn.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-19" data-lecture="descriptive-statistics" data-page="19"><h2>Page 19 · Variability</h2>
+<p><strong>Range</strong> = max − min (sensitive to outliers).</p>
+<p><strong>IQR</strong> = Q3 − Q1 (middle 50%).</p>
+<p><strong>Sample s</strong> = √[Σ(xᵢ − x̄)² / (n − 1)].</p>
+<p><strong>CV</strong> = (s / x̄) × 100% (relative variability).</p>
+<p>Dataset: 70 hotel studio rates.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-20" data-lecture="descriptive-statistics" data-page="20"><h2>Page 20 · Game · Two suppliers</h2>
+<table><thead><tr><th></th><th>FastGo</th><th>Steady</th></tr></thead><tbody><tr><td>Delivery days</td><td>4,5,5,5,6,<strong>14</strong></td><td>6,7,7,8,8,9</td></tr><tr><td>Mean</td><td>6.5</td><td>7.5</td></tr><tr><td>s</td><td>3.73</td><td>1.05</td></tr></tbody></table>
+<p><strong>Choose Steady</strong> — similar average, much less scatter. One 14-day delay is the business risk.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-21" data-lecture="descriptive-statistics" data-page="21"><h2>Page 21 · z-scores and rules</h2>
+<p><strong>z = (x − x̄) / s</strong> — standardised value; |z| > 3 often flagged as outlier.</p>
+<p><strong>Chebyshev:</strong> for any data, fraction within z SD of mean ≥ 1 − 1/z².</p>
+<p><strong>Empirical rule (bell-shaped only):</strong> ~68% within ±1s, ~95% within ±2s, ~99.7% within ±3s.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-22" data-lecture="descriptive-statistics" data-page="22"><h2>Page 22 · Box plot</h2>
+<p>Five-number summary: min, Q1, median, Q3, max. Whiskers to last point within <strong>1.5 × IQR</strong> of quartiles; points beyond = outliers.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-23" data-lecture="descriptive-statistics" data-page="23"><h2>Page 23 · Correlation</h2>
+<p>Golf: driving distance vs score (6 rounds). <strong>r ≈ −0.96</strong> (longer drives, lower scores).</p>
+<p><strong>s_xy</strong> = Σ(xᵢ − x̄)(yᵢ − ȳ) / (n − 1)</p>
+<p><strong>r = s_xy / (s_x s_y)</strong> — always between −1 and +1.</p>
+<p><strong>Correlation measures linear association — not causation.</strong></p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-24" data-lecture="descriptive-statistics" data-page="24"><h2>Page 24 · Weighted mean / grouped data</h2>
+<p><strong>GPA:</strong> x̄_w = Σ wᵢxᵢ / Σ wᵢ. Example: <strong>3.53</strong> (not plain average 3.50) because credits weight courses.</p>
+<p><strong>Grouped data:</strong> use class midpoints Mᵢ and frequencies fᵢ:</p>
+<p>x̄ ≈ Σ fᵢMᵢ / n; s² ≈ Σ fᵢ(Mᵢ − x̄)² / (n − 1).</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-25" data-lecture="descriptive-statistics" data-page="25"><h2>Page 25 · Game · Cloud vs table</h2>
+<p>Plot before trusting <strong>r</strong>. Textbook trap table (A and B both climb): <strong>r ≈ 0.95</strong> — strong positive linear — but always <strong>plot first</strong>.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-26" data-lecture="descriptive-statistics" data-page="26"><h2>Page 26 · Prompts to try</h2>
+<p><strong>Title:</strong> Practice descriptive statistics on your own CSV.</p>
+<p>Use <code>aapl_daily.csv</code> (from Introduction) with an AI assistant. Example prompts:</p>
+<ul><li><strong>Histogram · daily returns</strong> — compute % return from Close; histogram ~15 classes; mean and s of returns</li><li><strong>Center &amp; spread</strong> — mean, median, s of Close</li><li><strong>Time series</strong> — line chart of Close + 20-day moving average</li><li><strong>Box plot · volatility</strong> — weekly range of Close; box plot</li><li><strong>Two variables</strong> — scatter Volume vs |daily % return|</li><li><strong>Compare two stocks</strong> — normalized Close for AAPL vs MSFT</li></ul>
+<p>For graded work, follow course AI policy.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-27" data-lecture="descriptive-statistics" data-page="27"><h2>Page 27 · Takeaways</h2>
+<ol><li><strong>See the type</strong> — categorical vs quantitative picks the tool.</li><li><strong>Show the shape</strong> — before quoting a mean.</li><li><strong>Name the risk</strong> — outliers, lurking variables, correlation ≠ cause.</li></ol>
+<p>Descriptive statistics makes the sample legible; inference (later) asks how far the story travels.</p>
+</section>
+</article>
+</body>
+</html>

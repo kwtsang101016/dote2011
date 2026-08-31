@@ -1730,8 +1730,56 @@ function FinalQuiz() {
   );
 }
 
+function PromptsToTryScene() {
+  const prompts = [
+    {
+      topic: "Histogram · daily returns",
+      text: "From aapl_daily.csv, compute daily % return from Close. Plot a histogram with about 15 classes. Report the mean and standard deviation of daily returns.",
+    },
+    {
+      topic: "Center & spread",
+      text: "Using aapl_daily.csv, report the mean, median, and sample standard deviation of the Close price. Which centre is more affected if one day had a bad data entry?",
+    },
+    {
+      topic: "Time series",
+      text: "Plot Close price against Date as a line chart. Add a 20-day moving average on the same axes.",
+    },
+    {
+      topic: "Box plot · volatility",
+      text: "Split the past year into weeks. For each week, compute the range (max Close − min Close). Draw a box plot of weekly ranges.",
+    },
+    {
+      topic: "Two variables",
+      text: "Scatter plot: Volume (x) vs absolute daily % return (y). Describe the cloud — positive, negative, or no clear linear pattern?",
+    },
+    {
+      topic: "Compare two stocks",
+      text: "Download Microsoft (MSFT) for the same period. Overlay normalized Close prices (start = 100) for AAPL and MSFT on one chart.",
+    },
+  ];
+
+  return (
+    <SceneFrame kicker="Prompts to try" title="Practice descriptive statistics on your own CSV." tone="gold">
+      <p className={styles.lead}>
+        Use an AI coding assistant with the <strong>aapl_daily.csv</strong> file from Introduction (or any ticker you downloaded).
+        Each prompt below practises a tool from this lecture — adapt the ticker, dates, or chart type.
+      </p>
+      <div className={styles.promptList}>
+        {prompts.map((item) => (
+          <article key={item.topic} className={styles.promptItem}>
+            <strong>{item.topic.toUpperCase()}</strong>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+      <p className={styles.small} style={{ marginTop: 16 }}>
+        For graded work, follow the course AI policy. These prompts are for your own practice and exploration.
+      </p>
+    </SceneFrame>
+  );
+}
+
 function CloseScene() {
-  const print = usePrintMode();
   return (
     <SceneFrame kicker="Take this into the rest of the course" title="A picture, a table, then one honest number.">
       <p className={styles.lead}>Descriptive statistics does not prove a claim about a population. It makes the sample legible. Inference, later in the semester, asks how far that story can travel.</p>
@@ -1740,11 +1788,9 @@ function CloseScene() {
         <article className={styles.card}><p className={styles.kicker}>02</p><h1 style={{ fontSize: 28 }}>Show the shape</h1><p className={styles.muted}>Table, bar, histogram, box, scatter — before you quote a mean.</p></article>
         <article className={styles.card}><p className={styles.kicker}>03</p><h1 style={{ fontSize: 28 }}>Name the risk</h1><p className={styles.muted}>Outliers, lurking variables, and correlation dressed up as cause.</p></article>
       </div>
-      <p className={styles.footerNote}>
-        {print
-          ? "DOTE2011G · Descriptive Statistics · CUHK"
-          : "DOTE2011G · Descriptive Statistics · arrow keys to move · redraw buttons change the numbers"}
-      </p>
+      <PrintOnly>
+        <p className={styles.footerNote}>DOTE2011G · Descriptive Statistics · CUHK</p>
+      </PrintOnly>
     </SceneFrame>
   );
 }
@@ -1775,5 +1821,6 @@ export const SCENES: SceneDef[] = [
   { id: "corr", chapter: "Association", label: "Correlation", Scene: CorrelationScene },
   { id: "grouped", chapter: "Association", label: "Weighted / grouped", Scene: GroupedScene },
   { id: "final", chapter: "Wrap-up", label: "Game · cloud vs table", Scene: FinalQuiz },
+  { id: "prompts", chapter: "Wrap-up", label: "Prompts to try", Scene: PromptsToTryScene },
   { id: "end", chapter: "Wrap-up", label: "Takeaways", Scene: CloseScene },
 ];
