@@ -6,14 +6,15 @@
 
 ## How page numbers work
 
-- **Page N** = the N-th slide in the interactive lecture (same order as the PDF handout header “NN / total”).
-- **Introduction** has **16 pages**. **Descriptive Statistics** has **27 pages**.
-- If a student says “Page 3” without naming the lecture, ask which topic — Page 3 differs by lecture.
+- **Page N** = the N-th slide in the interactive lecture (same order as the PDF handout).
+- **Introduction** = 16 pages · **Descriptive Statistics** = 27 pages · **Probability** = 22 pages.
+- If a student says “Page 3” without naming the lecture, ask which topic.
 
 | Lecture | Page 3 title |
 |---------|--------------|
 | Introduction | Two meanings of “statistics” |
-| Descriptive Statistics | Game · Name, or number? (categorical vs quantitative) |
+| Descriptive Statistics | Game · Name, or number? |
+| Probability | Experiments & sample space |
 
 ---
 
@@ -23,6 +24,7 @@
 |---------|-----|
 | Introduction | https://kwtsang101016.github.io/dote2011/introduction/ |
 | Descriptive Statistics | https://kwtsang101016.github.io/dote2011/descriptive-statistics/ |
+| Probability | https://kwtsang101016.github.io/dote2011/probability/ |
 
 ---
 
@@ -32,9 +34,17 @@ Ask: **Is this a name/label, or a number with meaning?**
 
 | Categorical (label) | Quantitative (number) |
 |---------------------|-------------------------|
-| Blood type, home type (Flat/HOS), rating label, supplier name, exchange code (N/NQ) | Height (cm), cost ($), rent ($), count of siblings, shots, sales ($M) |
+| Blood type, home type, rating label, supplier name, exchange N/NQ | Height (cm), cost ($), rent ($), counts, sales ($M) |
 
-**Exchange “N” vs “NQ”** is **categorical** — codes/labels, not amounts.
+---
+
+## Quick probability facts
+
+- 0 ≤ P ≤ 1; sample-space probabilities sum to 1  
+- Addition: P(A∪B)=P(A)+P(B)−P(A∩B)  
+- Conditional: P(A|B)=P(A∩B)/P(B)  
+- Independent iff P(A∩B)=P(A)P(B)  
+- Bayes: revise priors with new data → posteriors  
 
 ---
 
@@ -42,19 +52,9 @@ Ask: **Is this a name/label, or a number with meaning?**
 
 | Term | Meaning |
 |------|---------|
-| **Population** | Every element you care about (whole pail) |
-| **Sample** | Subset you actually measure (handful from pail) |
-| **Census** | Measure the entire population |
-| **Inference** | Use sample to learn about population (with uncertainty) |
-
----
-
-## Descriptive vs inferential
-
-| Descriptive | Inferential |
-|-------------|-------------|
-| Summarise data in front of you | Generalise from sample to population |
-| Tables, charts, mean, s | Confidence intervals, hypothesis tests, regression |
+| Population | Every element you care about |
+| Sample | Subset you measure |
+| Inference | Use sample to learn about population |
 
 ---
 
@@ -62,48 +62,33 @@ Ask: **Is this a name/label, or a number with meaning?**
 
 | Wrong | Right |
 |-------|-------|
-| Correlation proves cause | Correlation shows linear association; lurking variables matter |
-| Mean always best centre | Median better when outliers/skew |
-| Higher overall rate always better | Check subgroups (Simpson's paradox) |
-| Truncated y-axis is fine | Start at zero (or show full scale) when comparing amounts |
-| Convenience sample = random sample | Mall exit survey ≠ all residents |
+| Correlation proves cause | Association ≠ causation |
+| Mutually exclusive = independent | Mutually exclusive events with P&gt;0 cannot be independent |
+| Prior probabilities never change | Bayes updates priors with new information |
 
 ---
 
 ## Which knowledge file to search
 
+The platform allows **5 uploads**. Prof. Tsang chooses **two** lecture HTML files each time (current + previous). All lecture HTML files still exist on disk; only the uploaded ones are searchable in the agent.
+
 | Question type | Primary HTML file |
 |---------------|-------------------|
-| Midterm date, grading, schedule, policies | course-admin.html |
-| Introduction slide content | introduction.html |
-| Descriptive Statistics slide content | descriptive-statistics.html |
-| Older / compressed topics | older-lectures.html |
-| “Which page?” / general rules | faq-and-index.html |
+| Midterm, grading, schedule, policies | course-admin.html |
+| A lecture that was uploaded | That lecture’s HTML (introduction / descriptive-statistics / probability / …) |
+| Topics only if Prof. Tsang added them here | older-lectures.html |
+| “Which page?” / routing | faq-and-index.html |
+
+Live lecture URLs (always available to students):
+
+- Introduction — https://kwtsang101016.github.io/dote2011/introduction/
+- Descriptive Statistics — https://kwtsang101016.github.io/dote2011/descriptive-statistics/
+- Probability — https://kwtsang101016.github.io/dote2011/probability/
 
 ---
 
-## Mid-semester rotation (instructor note)
+## Games quick reference
 
-When students focus on **Probability** (or later topics):
+**Probability:** Page 07 counting game · Page 19 Bayes game  
 
-1. Keep **course-admin** and **faq-and-index** uploaded.  
-2. Replace one “recent” slot with the **newest lecture** (full detail).  
-3. Move finished lectures into **older-lectures.html** (compressed summaries).  
-4. Drop the separate full HTML file for lectures now only in the archive.
-
-Example mid-semester uploads: course-admin.html · probability.html · descriptive-statistics.html · faq-and-index.html · older-lectures.html (intro compressed inside).
-
----
-
-## Games quick reference (Descriptive Statistics)
-
-| Page | Game | Skill |
-|------|------|-------|
-| 3 | Name or number? | Categorical vs quantitative |
-| 6 | Read the chart | Percent from bar chart |
-| 8 | Shape | Skew direction |
-| 13 | Simpson | Lurking variables |
-| 18 | Compute | Mean & median |
-| 20 | Two suppliers | Variability vs average |
-| 21 | z-score | Standardise |
-| 25 | Cloud vs table | Plot before r |
+**Descriptive Statistics:** Pages 3, 6, 8, 13, 18, 20, 21, 25 (see descriptive-statistics.html)

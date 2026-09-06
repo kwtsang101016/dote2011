@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DOTE2011G · Probability (interactive lecture)</title>
+</head>
+<body>
+<article class="dote2011-knowledge">
+<h1>DOTE2011G · Probability (interactive lecture)</h1>
+<p><strong>Live site:</strong> https://kwtsang101016.github.io/dote2011/probability/</p>
+<p><strong>Page numbers</strong> match the website slide counter and downloadable PDF (01/22 … 22/22).</p>
+<hr />
+<h2>Index</h2>
+<table><thead><tr><th>Page</th><th>Title</th></tr></thead><tbody><tr><td>01</td><td>Cover</td></tr><tr><td>02</td><td>What is probability</td></tr><tr><td>03</td><td>Experiments & sample space</td></tr><tr><td>04</td><td>DSME sample space</td></tr><tr><td>05</td><td>Multiple-step counting</td></tr><tr><td>06</td><td>Combinations & permutations</td></tr><tr><td>07</td><td>Game · counting</td></tr><tr><td>08</td><td>Three methods of assigning probabilities</td></tr><tr><td>09</td><td>Relative frequency (William Mini-Library)</td></tr><tr><td>10</td><td>Subjective · DSME probabilities</td></tr><tr><td>11</td><td>Events as sets</td></tr><tr><td>12</td><td>Complement · union · intersection</td></tr><tr><td>13</td><td>Addition law</td></tr><tr><td>14</td><td>Distributive · De Morgan</td></tr><tr><td>15</td><td>Conditional probability</td></tr><tr><td>16</td><td>Joint probability table</td></tr><tr><td>17</td><td>Independence</td></tr><tr><td>18</td><td>Bayes story (Dennis Fashion)</td></tr><tr><td>19</td><td>Bayes table</td></tr><tr><td>20</td><td>Game · Bayes</td></tr><tr><td>21</td><td>Prompts to try</td></tr><tr><td>22</td><td>Takeaways</td></tr></tbody></table>
+<hr />
+<section id="probability-page-02" data-lecture="probability" data-page="2"><h2>Page 02 · What is probability</h2>
+<p>Probability = numerical measure of likelihood, always between <strong>0 and 1</strong>. Near 0 → unlikely; near 1 → almost certain.</p>
+</section>
+<hr />
+<h2>Page 03–04 · Experiments & DSME</h2>
+<p><strong>Experiment</strong> = process with well-defined outcomes. <strong>Sample space</strong> S = all outcomes.</p>
+<p><strong>DSME:</strong> ICBC ∈ {10, 5, 0, −20}, China Mobile ∈ {8, −2} → <strong>8</strong> sample points (net gains from +18 to −22, in $000).</p>
+<hr />
+<h2>Page 05–07 · Counting</h2>
+<ul><li>Multiple-step: n₁ × n₂ × … × nₖ (tree diagrams). DSME: 4 × 2 = 8.</li><li><strong>Combinations</strong> C(N,n) = N! / [n!(N−n)!] — order irrelevant.</li><li><strong>Permutations</strong> P(N,n) = N! / (N−n)! — order matters. P = C × n!.</li></ul>
+<hr />
+<h2>Page 08–10 · Assigning probabilities</h2>
+<p>Rules: 0 ≤ P(Eᵢ) ≤ 1 and Σ P(Eᵢ) = 1.</p>
+<table><thead><tr><th>Method</th><th>Idea</th></tr></thead><tbody><tr><td>Classical</td><td>Equally likely → 1/n</td></tr><tr><td>Relative frequency</td><td>frequency / trials (e.g. library books: P(2)=18/40=0.45)</td></tr><tr><td>Subjective</td><td>Judgment / degree of belief (DSME analyst table sums to 1)</td></tr></tbody></table>
+<hr />
+<h2>Page 11–13 · Events and relationships</h2>
+<p>Event = collection of sample points; P(event) = sum of those probabilities.</p>
+<p>DSME: <strong>P(I)=0.70</strong> (ICBC profitable), <strong>P(C)=0.48</strong> (Mobile profitable), <strong>P(I∩C)=0.36</strong>.</p>
+<ul><li>Complement: P(Aᶜ)=1−P(A)</li><li>Union A∪B; Intersection A∩B</li><li><strong>Addition law:</strong> P(A∪B)=P(A)+P(B)−P(A∩B). If mutually exclusive, drop the intersection term.</li></ul>
+<p><strong>Distributive laws:</strong></p>
+<p>A ∪ (B ∩ C) = (A ∪ B) ∩ (A ∪ C)</p>
+<p>A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C)</p>
+<p><strong>De Morgan’s laws:</strong></p>
+<p>(A ∪ B)ᶜ = Aᶜ ∩ Bᶜ</p>
+<p>(A ∩ B)ᶜ = Aᶜ ∪ Bᶜ</p>
+<p>DSME check: (I ∪ C)ᶜ = “neither profitable” = Iᶜ ∩ Cᶜ.</p>
+<hr />
+<h2>Page 15–17 · Conditioning & independence</h2>
+<p><strong>P(A|B)=P(A∩B)/P(B).</strong> Example: P(C|I)=0.36/0.70≈0.5143.</p>
+<p><strong>Multiplication:</strong> P(A∩B)=P(B)×P(A|B).</p>
+<p>Joint table: body = joints; margins = totals.</p>
+<p><strong>Independent</strong> iff P(A∩B)=P(A)P(B). DSME: 0.70×0.48=0.34 ≠ 0.36 → <strong>not independent</strong>.</p>
+<p>Do not confuse with mutually exclusive (cannot both occur).</p>
+<hr />
+<h2>Page 18–20 · Bayes’ theorem</h2>
+<p>Dennis Fashion / zoning: priors P(A₁)=0.70, P(A₂)=0.30; B = board recommends against; P(B|A₁)=0.20, P(B|A₂)=0.90.</p>
+<p>Joints: 0.14 and 0.27; P(B)=0.41; <strong>posteriors ≈ 0.34 and 0.66</strong>. Negative board news lowers P(approve) from 0.70 to ≈0.34.</p>
+<p>Formula: P(Aᵢ|B) = [P(B|Aᵢ)P(Aᵢ)] / Σⱼ P(B|Aⱼ)P(Aⱼ).</p>
+<hr />
+<h2>Page 21–22 · Practice & takeaways</h2>
+<p>Prompts: simulate a die; C/P; joint conditionals; Bayes medical test.</p>
+<p>Takeaways: <strong>Count → assign → update</strong> (sample space, event laws, Bayes).</p>
+</article>
+</body>
+</html>

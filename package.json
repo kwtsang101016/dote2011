@@ -5,8 +5,10 @@
   "scripts": {
     "dev:intro": "npm run dev --prefix introduction",
     "dev:desc": "npm run dev --prefix descriptive-statistics",
+    "dev:prob": "npm run dev --prefix probability",
     "build:intro": "npm run build --prefix introduction",
     "build:desc": "npm run build --prefix descriptive-statistics",
-    "build:all": "npm run build:intro && npm run build:desc"
+    "build:prob": "npm run build --prefix probability",
+    "build:all": "npm run build:intro && npm run build:desc && npm run build:prob"
   }
 }

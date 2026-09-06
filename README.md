@@ -8,6 +8,7 @@ Interactive HTML lecture apps for **DOTE2011G Statistical Analysis for Business 
 |-------|--------|---------------------|-----------|
 | Introduction | [`introduction/`](introduction/) | [Open lecture](https://kwtsang101016.github.io/dote2011/introduction/) | `npm run dev` → http://127.0.0.1:5174 |
 | Descriptive Statistics | [`descriptive-statistics/`](descriptive-statistics/) | [Open lecture](https://kwtsang101016.github.io/dote2011/descriptive-statistics/) | `npm run dev` → http://127.0.0.1:5173 |
+| Probability | [`probability/`](probability/) | [Open lecture](https://kwtsang101016.github.io/dote2011/probability/) | `npm run dev` → http://127.0.0.1:5175 |
 
 **Course hub:** https://kwtsang101016.github.io/dote2011/
 
@@ -32,6 +33,7 @@ From the repo root you can also run:
 ```bash
 npm run dev:intro
 npm run dev:desc
+npm run dev:prob
 npm run build:all
 ```
 
@@ -41,6 +43,7 @@ npm run build:all
 2. Update `package.json`, ports in `vite.config.ts`, and lecture content.
 3. Add a row to the table above in this README.
 4. Reuse the standard cover hint in `CoverScene` (see `COVER_HINT_LIVE` / `COVER_HINT_PRINT` in any existing `scenes.tsx`).
+5. Add the app to `.github/workflows/pages.yml` and `site/index.html`.
 
 ## Stack
 

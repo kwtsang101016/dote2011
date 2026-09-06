@@ -29,6 +29,7 @@ jobs:
           cache-dependency-path: |
             introduction/package-lock.json
             descriptive-statistics/package-lock.json
+            probability/package-lock.json
 
       - name: Install and build introduction
         run: |
@@ -40,11 +41,17 @@ jobs:
           npm ci --prefix descriptive-statistics
           npm run build --prefix descriptive-statistics
 
+      - name: Install and build probability
+        run: |
+          npm ci --prefix probability
+          npm run build --prefix probability
+
       - name: Assemble site
         run: |
-          mkdir -p _site/introduction _site/descriptive-statistics
+          mkdir -p _site/introduction _site/descriptive-statistics _site/probability
           cp -r introduction/dist/* _site/introduction/
           cp -r descriptive-statistics/dist/* _site/descriptive-statistics/
+          cp -r probability/dist/* _site/probability/
           cp site/index.html _site/index.html
           touch _site/.nojekyll
 

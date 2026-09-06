@@ -1,38 +1,49 @@
 # AI tutor — knowledge base
 
-## For the AI platform
+## CRITICAL — for agents / future edits
 
-1. **System prompt:** copy from [`../agent-prompt.md`](../agent-prompt.md) (everything under “Language” through “Routing cheat sheet”).
-2. **Upload these 5 HTML files** from [`../html/`](../html/):
+**Do NOT delete lecture HTML files.** Keep every lecture knowledge HTML forever once generated:
 
-| File | Size (approx.) |
-|------|----------------|
-| course-admin.html | ~5 KB |
-| introduction.html | ~12 KB |
-| descriptive-statistics.html | ~17 KB |
-| faq-and-index.html | ~5 KB |
-| older-lectures.html | ~4 KB |
+- `introduction.html`
+- `descriptive-statistics.html`
+- `probability.html`
+- (and any future lecture HTML)
 
-## Regenerate HTML after editing slides
+Reasons:
 
-Edit the `.md` files in this folder, then run:
+1. The course may not have started yet — there are **no** “past” lectures to archive automatically.
+2. Moving a lecture into `older-lectures` is **not** automatic and is **not** a reason to delete its full HTML.
+3. The instructor manually chooses which **two** lecture HTML files to upload to the AI platform (current week + previous week). All other lecture HTML files stay on disk for later use.
+
+### When to touch `older-lectures`
+
+Only when the instructor explicitly says something like:
+
+> Please add XX.html to older-lectures.html
+
+Until then, leave `older-lectures.md` / `.html` as a light placeholder (upcoming topics, routing notes). Do **not** compress Introduction (or any lecture) into older-lectures on your own.
+
+### Platform limit (5 uploads)
+
+The AI platform accepts **5 HTML files**. Typical upload set (instructor chooses the two lecture slots):
+
+| Slot | File |
+|------|------|
+| 1 | course-admin.html |
+| 2–3 | **Two** lecture HTMLs (manual pick) |
+| 4 | faq-and-index.html |
+| 5 | older-lectures.html |
+
+Full lecture sources stay in `knowledge/*.md` and are always regenerated into `html/`.
+
+## Regenerate HTML
 
 ```bash
 python "AI tutor/scripts/build_knowledge_html.py"
 ```
 
-Re-upload any changed `.html` files to the platform.
+This builds **all** listed knowledge files, including every lecture HTML. Never remove a lecture from the build list just because it is not currently among the five uploads.
 
-## Source files
+## Source markdown
 
-| Markdown (edit here) | HTML (upload) |
-|------------------------|---------------|
-| course-admin.md | course-admin.html |
-| introduction.md | introduction.html |
-| descriptive-statistics.md | descriptive-statistics.html |
-| faq-and-index.md | faq-and-index.html |
-| older-lectures.md | older-lectures.html |
-
-## Mid-semester rotation
-
-When **Probability** becomes the focus: replace one recent HTML slot with `probability.html`, compress finished lectures into `older-lectures.html`, keep `course-admin.html` and `faq-and-index.html`.
+Edit `.md` here; HTML is generated into [`../html/`](../html/).

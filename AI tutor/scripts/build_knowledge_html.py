@@ -11,10 +11,14 @@ ROOT = Path(__file__).resolve().parents[1]
 KNOWLEDGE = ROOT / "knowledge"
 OUTPUT = ROOT / "html"
 
+# Generate ALL knowledge HTML files. Never drop a lecture from this list just
+# because the AI platform only uploads 5 files — instructor picks uploads manually.
+# See knowledge/README.md (do not delete lecture HTML; do not auto-archive).
 FILES: list[tuple[str, str | None]] = [
     ("course-admin.md", None),
     ("introduction.md", "introduction"),
     ("descriptive-statistics.md", "descriptive-statistics"),
+    ("probability.md", "probability"),
     ("faq-and-index.md", None),
     ("older-lectures.md", None),
 ]
