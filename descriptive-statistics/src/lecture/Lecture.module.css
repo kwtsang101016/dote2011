@@ -103,6 +103,17 @@
   box-shadow: 6px 6px 0 var(--ink);
 }
 
+.toolBtnActive {
+  color: var(--white);
+  background: var(--red);
+  box-shadow: inset 0 0 0 2px var(--ink);
+}
+
+.toolBtnActive:hover {
+  color: var(--white);
+  background: var(--red);
+}
+
 .progress {
   font: 800 12px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
   letter-spacing: 0.08em;
@@ -131,6 +142,7 @@
 
 .stage {
   min-height: calc(100vh - 78px);
+  zoom: var(--stage-zoom, 1);
 }
 
 .scene {

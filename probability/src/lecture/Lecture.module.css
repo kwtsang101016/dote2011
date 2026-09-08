@@ -142,6 +142,7 @@
 
 .stage {
   min-height: calc(100vh - 78px);
+  zoom: var(--stage-zoom, 1);
 }
 
 .scene {

@@ -4,13 +4,45 @@ import { SCENES } from "./scenes";
 import { HandoutDocument } from "./HandoutDocument";
 import { downloadHandoutPdf, printHandout } from "./downloadHandout";
 
+const TEXT_SCALE_KEY = "dote2011-lecture-text-scale";
+const TEXT_SCALES = [
+  { zoom: 1, label: "Aa", title: "Text size: default (good for phones)" },
+  { zoom: 1.25, label: "Aa+", title: "Text size: large (lecture hall)" },
+  { zoom: 1.5, label: "Aa++", title: "Text size: extra large" },
+] as const;
+
+function readStoredScaleIndex(): number {
+  try {
+    const raw = localStorage.getItem(TEXT_SCALE_KEY);
+    const value = raw == null ? 0 : Number(raw);
+    if (Number.isInteger(value) && value >= 0 && value < TEXT_SCALES.length) return value;
+  } catch {
+    /* ignore */
+  }
+  return 0;
+}
+
 export function Lecture() {
   const [index, setIndex] = useState(0);
   const [downloading, setDownloading] = useState(false);
   const [handoutMessage, setHandoutMessage] = useState("");
+  const [textScaleIndex, setTextScaleIndex] = useState(readStoredScaleIndex);
   const handoutRef = useRef<HTMLDivElement>(null);
   const scene = SCENES[index];
   const progress = useMemo(() => ((index + 1) / SCENES.length) * 100, [index]);
+  const textScale = TEXT_SCALES[textScaleIndex];
+
+  const cycleTextScale = () => {
+    setTextScaleIndex((current) => {
+      const next = (current + 1) % TEXT_SCALES.length;
+      try {
+        localStorage.setItem(TEXT_SCALE_KEY, String(next));
+      } catch {
+        /* ignore */
+      }
+      return next;
+    });
+  };
 
   const handleDownloadPdf = async () => {
     const source = handoutRef.current;
@@ -59,7 +91,7 @@ export function Lecture() {
   const Scene = scene.Scene;
 
   return (
-    <main className={styles.page}>
+    <main className={styles.page} style={{ ["--stage-zoom" as string]: String(textScale.zoom) }}>
       <nav className={styles.nav} aria-label="Lecture navigation">
         <a className={styles.brand} href="#cover" onClick={(event) => { event.preventDefault(); setIndex(0); }}>
           DOTE2011G
@@ -78,6 +110,15 @@ export function Lecture() {
             onClick={() => setIndex((value) => value + 1)}
           >
             NEXT →
+          </button>
+          <button
+            className={`${styles.toolBtn} ${textScaleIndex > 0 ? styles.toolBtnActive : ""}`}
+            type="button"
+            onClick={cycleTextScale}
+            title={textScale.title}
+            aria-label={textScale.title}
+          >
+            {textScale.label}
           </button>
           <button
             className={styles.downloadBtn}
