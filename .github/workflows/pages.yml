@@ -30,6 +30,7 @@ jobs:
             introduction/package-lock.json
             descriptive-statistics/package-lock.json
             probability/package-lock.json
+            discrete-distributions/package-lock.json
 
       - name: Install and build introduction
         run: |
@@ -46,12 +47,18 @@ jobs:
           npm ci --prefix probability
           npm run build --prefix probability
 
+      - name: Install and build discrete-distributions
+        run: |
+          npm ci --prefix discrete-distributions
+          npm run build --prefix discrete-distributions
+
       - name: Assemble site
         run: |
-          mkdir -p _site/introduction _site/descriptive-statistics _site/probability
+          mkdir -p _site/introduction _site/descriptive-statistics _site/probability _site/discrete-distributions
           cp -r introduction/dist/* _site/introduction/
           cp -r descriptive-statistics/dist/* _site/descriptive-statistics/
           cp -r probability/dist/* _site/probability/
+          cp -r discrete-distributions/dist/* _site/discrete-distributions/
           cp site/index.html _site/index.html
           touch _site/.nojekyll
 

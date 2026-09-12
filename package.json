@@ -6,9 +6,11 @@
     "dev:intro": "npm run dev --prefix introduction",
     "dev:desc": "npm run dev --prefix descriptive-statistics",
     "dev:prob": "npm run dev --prefix probability",
+    "dev:disc": "npm run dev --prefix discrete-distributions",
     "build:intro": "npm run build --prefix introduction",
     "build:desc": "npm run build --prefix descriptive-statistics",
     "build:prob": "npm run build --prefix probability",
-    "build:all": "npm run build:intro && npm run build:desc && npm run build:prob"
+    "build:disc": "npm run build --prefix discrete-distributions",
+    "build:all": "npm run build:intro && npm run build:desc && npm run build:prob && npm run build:disc"
   }
 }

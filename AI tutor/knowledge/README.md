@@ -7,6 +7,7 @@
 - `introduction.html`
 - `descriptive-statistics.html`
 - `probability.html`
+- `discrete-distributions.html`
 - (and any future lecture HTML)
 
 Reasons:

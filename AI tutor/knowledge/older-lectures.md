@@ -16,7 +16,7 @@ Until then, it holds upcoming topics and routing notes only. **Full lecture HTML
 
 | Topic | Status |
 |-------|--------|
-| Probability Distributions (discrete & continuous) | Coming |
+| Continuous Probability Distributions | Coming |
 | Sampling and Sampling Distribution | Coming |
 | Interval Estimation | Coming — after midterm |
 | Hypothesis Tests | Coming |
@@ -29,6 +29,7 @@ Until then, it holds upcoming topics and routing notes only. **Full lecture HTML
 | Introduction | https://kwtsang101016.github.io/dote2011/introduction/ |
 | Descriptive Statistics | https://kwtsang101016.github.io/dote2011/descriptive-statistics/ |
 | Probability | https://kwtsang101016.github.io/dote2011/probability/ |
+| Discrete Probability Distributions | https://kwtsang101016.github.io/dote2011/discrete-distributions/ |
 
 **For schedule dates**, see course-admin.html.
 

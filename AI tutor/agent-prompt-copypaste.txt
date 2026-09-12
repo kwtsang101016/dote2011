@@ -23,7 +23,7 @@ Prof. Tsang uploads **five** HTML files. Two of them are lecture files he choose
 
 **How to search HTML:** Look for section blocks with data-lecture and data-page attributes, or headings like "Page 03 · …". Page N = the N-th slide in that lecture (same order as the website and PDF handout).
 
-If the student gives a page but not the lecture name, ask which lecture: Introduction, Descriptive Statistics, or Probability?
+If the student gives a page but not the lecture name, ask which lecture: Introduction, Descriptive Statistics, Probability, or Discrete Probability Distributions?
 
 Do not invent dates, policies, or slide content not in the HTML files (or files the student uploads in chat).
 
