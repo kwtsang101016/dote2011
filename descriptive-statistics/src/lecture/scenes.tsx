@@ -451,6 +451,7 @@ function BinningScene() {
   const width = Math.max(1, Math.round((maxValue - start) / classCount) || 10);
   const bins = classHistogram(costs, start, width, classCount);
   const approx = (maxValue - minValue) / classCount;
+  const lastUpper = bins[bins.length - 1]?.upper ?? maxValue;
 
   return (
     <SceneFrame kicker="Quantitative data · William Auto" title="Classes are a choice. Make them honest.">
@@ -482,6 +483,9 @@ function BinningScene() {
       <p className={styles.formula}>
         approx. width = (largest − smallest) / k = ({maxValue} − {minValue}) / {classCount} = {formatNumber(approx, 1)}
         &nbsp;→ used width {width}
+        {lastUpper > start + classCount * width - 1
+          ? ` · last class extended to ${lastUpper} so the largest cost is included`
+          : ""}
       </p>
       <div className={styles.splitWide}>
         <HistogramChart bins={bins} title="Histogram · parts cost ($)" />

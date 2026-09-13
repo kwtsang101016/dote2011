@@ -250,12 +250,17 @@ export function classHistogram(values: number[], start: number, width: number, c
   if (width <= 0 || classCount < 1) {
     throw new Error("Class width and class count must be positive.");
   }
+  const dataMax = Math.max(...values);
   const bins: HistogramBin[] = [];
   for (let index = 0; index < classCount; index += 1) {
     const lower = start + index * width;
-    const upper = lower + width - 1;
+    // Closed integer classes: [lower, lower + width − 1]. Extend the last class so the sample max is never left outside.
+    let upper = lower + width - 1;
     const isLast = index === classCount - 1;
-    const count = values.filter((value) => (isLast ? value >= lower : value >= lower && value <= upper)).length;
+    if (isLast) {
+      upper = Math.max(upper, dataMax);
+    }
+    const count = values.filter((value) => value >= lower && value <= upper).length;
     bins.push({
       label: `${lower}–${upper}`,
       lower,
