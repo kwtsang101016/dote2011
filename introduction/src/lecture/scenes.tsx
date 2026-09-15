@@ -589,6 +589,17 @@ function AiDataScene() {
         AI coding assistants can fetch public data so you can practise statistics on <strong>real numbers</strong>.
         Treat this as exploration on your own machine — follow the course AI policy for anything graded.
       </p>
+      <p className={styles.note}>
+        <strong>You may try:</strong> paste the prompt into{" "}
+        <a href="https://copilot.microsoft.com/" target="_blank" rel="noopener noreferrer">
+          Microsoft Copilot
+        </a>{" "}
+        (copilot.microsoft.com), then run the Python in{" "}
+        <a href="https://colab.research.google.com/" target="_blank" rel="noopener noreferrer">
+          Google Colab
+        </a>{" "}
+        (colab.research.google.com) — download any files, and still read the code so you know what the assistant did.
+      </p>
       <p className={styles.kicker} style={{ marginTop: 18 }}>EXAMPLE PROMPT · COPY AND ADAPT</p>
       <pre className={styles.promptCard}>{`Download Apple (AAPL) daily stock data for the past one year using Python.
 Use the yfinance package (or akshare if you prefer).
@@ -608,6 +619,17 @@ function AiPlotScene() {
       <p className={styles.lead}>
         Once the CSV exists, prompt for a picture. A candlestick chart needs <strong>open, high, low, close</strong> by date —
         the same OHLC idea finance desks use every day.
+      </p>
+      <p className={styles.note}>
+        <strong>You may try:</strong> paste the prompt into{" "}
+        <a href="https://copilot.microsoft.com/" target="_blank" rel="noopener noreferrer">
+          Microsoft Copilot
+        </a>{" "}
+        (copilot.microsoft.com), then run the Python in{" "}
+        <a href="https://colab.research.google.com/" target="_blank" rel="noopener noreferrer">
+          Google Colab
+        </a>{" "}
+        (colab.research.google.com) — download any files, and still read the code so you know what the assistant did.
       </p>
       <p className={styles.kicker} style={{ marginTop: 18 }}>EXAMPLE PROMPT · COPY AND ADAPT</p>
       <pre className={styles.promptCard}>{`Read aapl_daily.csv and plot a candlestick chart of Apple's stock

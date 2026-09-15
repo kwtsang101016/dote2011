@@ -110,6 +110,8 @@ If N ≫ n, hypergeometric ≈ binomial with p=r/N; E≈np, Var≈np(1−p).
 
 Self-contained coding prompts: simulate binomial; Broadway moments; Poisson ER; hypergeometric chip draw.
 
+**You may try:** paste the prompt into Microsoft Copilot (https://copilot.microsoft.com/), then run the Python in Google Colab (https://colab.research.google.com/) — download any files, and still read the code so you know what the assistant did.
+
 ## Page 27 · Takeaways
 
 (1) Distributions: f≥0, sum=1. (2) Moments: expectation & variance (with linearity / scale properties). (3) Families: binomial, Poisson, hypergeometric.

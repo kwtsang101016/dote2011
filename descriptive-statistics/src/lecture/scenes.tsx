@@ -1738,7 +1738,7 @@ function PromptsToTryScene() {
   const prompts = [
     {
       topic: "Histogram · daily returns",
-      text: "From aapl_daily.csv, compute daily % return from Close. Plot a histogram with about 15 classes. Report the mean and standard deviation of daily returns.",
+      text: "From aapl_daily.csv, compute daily % return from Close. Plot a histogram; let a sensible rule choose the number of classes from the data (e.g. Freedman–Diaconis or Sturges—do not hard-code 15). State how many classes and the class width you used. Report the mean and standard deviation of daily returns.",
     },
     {
       topic: "Center & spread",
@@ -1767,6 +1767,17 @@ function PromptsToTryScene() {
       <p className={styles.lead}>
         Use an AI coding assistant with the <strong>aapl_daily.csv</strong> file from Introduction (or any ticker you downloaded).
         Each prompt below practises a tool from this lecture — adapt the ticker, dates, or chart type.
+      </p>
+      <p className={styles.note}>
+        <strong>You may try:</strong> paste the prompt into{" "}
+        <a href="https://copilot.microsoft.com/" target="_blank" rel="noopener noreferrer">
+          Microsoft Copilot
+        </a>{" "}
+        (copilot.microsoft.com), then run the Python in{" "}
+        <a href="https://colab.research.google.com/" target="_blank" rel="noopener noreferrer">
+          Google Colab
+        </a>{" "}
+        (colab.research.google.com) — download any files, and still read the code so you know what the assistant did.
       </p>
       <div className={styles.promptList}>
         {prompts.map((item) => (

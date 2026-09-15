@@ -201,6 +201,8 @@ Y = wait time (minutes); ε = leftover noise.
 
 Use an AI coding assistant to fetch public data for **practice** (follow course AI policy for graded work).
 
+**You may try:** paste the prompt into Microsoft Copilot (https://copilot.microsoft.com/), then run the Python in Google Colab (https://colab.research.google.com/) — download any files, and still read the code so you know what the assistant did.
+
 **Example prompt:** Download Apple (AAPL) daily stock data for the past year using Python (yfinance or akshare). Save as `aapl_daily.csv`. Show first five rows and column names.
 
 **Check:** CSV should have Date, Open, High, Low, Close, Volume.
@@ -210,6 +212,8 @@ Use an AI coding assistant to fetch public data for **practice** (follow course 
 ## Page 14 · AI · plot data
 
 **Title:** Step 2 — ask for a chart, then read it like a statistician.
+
+**You may try:** paste the prompt into Microsoft Copilot (https://copilot.microsoft.com/), then run the Python in Google Colab (https://colab.research.google.com/) — download any files, and still read the code so you know what the assistant did.
 
 **Example prompt:** Read `aapl_daily.csv` and plot a candlestick chart for the past year. Label axes. Save as `aapl_candles.png`.
 

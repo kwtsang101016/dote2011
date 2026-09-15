@@ -109,5 +109,8 @@ Formula: P(Aᵢ|B) = [P(B|Aᵢ)P(Aᵢ)] / Σⱼ P(B|Aⱼ)P(Aⱼ).
 
 ## Page 21–22 · Practice & takeaways
 
-Prompts: simulate a die; C/P; joint conditionals; Bayes medical test.  
+Prompts: simulate a die; C/P; joint conditionals; Bayes medical test.
+
+**You may try:** paste the prompt into Microsoft Copilot (https://copilot.microsoft.com/), then run the Python in Google Colab (https://colab.research.google.com/) — download any files, and still read the code so you know what the assistant did.
+
 Takeaways: **Count → assign → update** (sample space, event laws, Bayes).

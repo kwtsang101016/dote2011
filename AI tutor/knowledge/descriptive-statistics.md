@@ -354,9 +354,13 @@ Plot before trusting **r**. Textbook trap table (A and B both climb): **r ≈ 0.
 
 **Title:** Practice descriptive statistics on your own CSV.
 
-Use `aapl_daily.csv` (from Introduction) with an AI assistant. Example prompts:
+Use `aapl_daily.csv` (from Introduction) with an AI assistant.
 
-- **Histogram · daily returns** — compute % return from Close; histogram ~15 classes; mean and s of returns  
+**You may try:** paste the prompt into Microsoft Copilot (https://copilot.microsoft.com/), then run the Python in Google Colab (https://colab.research.google.com/) — download any files, and still read the code so you know what the assistant did.
+
+Example prompts:
+
+- **Histogram · daily returns** — compute % return from Close; histogram with class count chosen from the data (e.g. Freedman–Diaconis or Sturges—not a fixed 15); state k and width; mean and s of returns  
 - **Center & spread** — mean, median, s of Close  
 - **Time series** — line chart of Close + 20-day moving average  
 - **Box plot · volatility** — weekly range of Close; box plot  

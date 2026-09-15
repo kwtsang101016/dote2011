@@ -233,6 +233,15 @@
   line-height: 1.45;
 }
 
+.note a,
+.lead a,
+.small a {
+  color: var(--red);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 .formula {
   font: 800 18px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
   background: var(--ink);

@@ -1282,6 +1282,17 @@ function PromptsToTryScene() {
       <p className={styles.lead}>
         Use these prompts on your own machine. For graded work, follow the course AI policy.
       </p>
+      <p className={styles.note}>
+        <strong>You may try:</strong> paste the prompt into{" "}
+        <a href="https://copilot.microsoft.com/" target="_blank" rel="noopener noreferrer">
+          Microsoft Copilot
+        </a>{" "}
+        (copilot.microsoft.com), then run the Python in{" "}
+        <a href="https://colab.research.google.com/" target="_blank" rel="noopener noreferrer">
+          Google Colab
+        </a>{" "}
+        (colab.research.google.com) — download any files, and still read the code so you know what the assistant did.
+      </p>
       <div className={styles.promptList}>
         {prompts.map((item) => (
           <article key={item.topic} className={styles.promptItem}>
