@@ -50,6 +50,7 @@ Probability = numerical measure of likelihood, always between **0 and 1**. Near 
 ## Page 05–07 · Counting
 
 - Multiple-step: n₁ × n₂ × … × nₖ (tree diagrams). DSME: 4 × 2 = 8.  
+- **Factorial:** n! = n × (n−1) × ⋯ × 1 (e.g. 3! = 6); 0! = 1 by definition.  
 - **Combinations** C(N,n) = N! / [n!(N−n)!] — order irrelevant.  
 - **Permutations** P(N,n) = N! / (N−n)! — order matters. P = C × n!.
 

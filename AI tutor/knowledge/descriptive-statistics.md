@@ -360,7 +360,7 @@ Use `aapl_daily.csv` (from Introduction) with an AI assistant.
 
 Example prompts:
 
-- **Histogram · daily returns** — compute % return from Close; histogram with class count chosen from the data (e.g. Freedman–Diaconis or Sturges—not a fixed 15); state k and width; mean and s of returns  
+- **Histogram · daily returns** — compute % return from Close; histogram with class count chosen from the data; state k and width; mean and s of returns  
 - **Center & spread** — mean, median, s of Close  
 - **Time series** — line chart of Close + 20-day moving average  
 - **Box plot · volatility** — weekly range of Close; box plot  

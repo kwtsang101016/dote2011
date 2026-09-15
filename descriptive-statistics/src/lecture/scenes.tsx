@@ -1738,7 +1738,7 @@ function PromptsToTryScene() {
   const prompts = [
     {
       topic: "Histogram · daily returns",
-      text: "From aapl_daily.csv, compute daily % return from Close. Plot a histogram; let a sensible rule choose the number of classes from the data (e.g. Freedman–Diaconis or Sturges—do not hard-code 15). State how many classes and the class width you used. Report the mean and standard deviation of daily returns.",
+      text: "From aapl_daily.csv, compute daily % return from Close. Plot a histogram; let a sensible rule choose the number of classes from the data. State how many classes and the class width you used. Report the mean and standard deviation of daily returns.",
     },
     {
       topic: "Center & spread",

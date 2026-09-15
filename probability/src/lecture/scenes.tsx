@@ -9,6 +9,7 @@ import {
   permutations,
   shuffle,
 } from "../utils";
+import { Formula, InlineMath, MathText, tex } from "./Math";
 import styles from "./Lecture.module.css";
 import { LiveOnly, PrintOnly, usePrintMode } from "./printContext";
 
@@ -56,7 +57,7 @@ function SceneFrame({
   children,
 }: {
   kicker: string;
-  title: string;
+  title: ReactNode;
   tone?: "cream" | "gold" | "white" | "dark";
   children: ReactNode;
 }) {
@@ -90,8 +91,9 @@ function WhatIsProbScene() {
   return (
     <SceneFrame kicker="Start here" title="Probability measures how likely an event is.">
       <p className={styles.lead}>
-        A probability is always a number on the scale from <strong>0</strong> to <strong>1</strong>. Near 0 → very unlikely.
-        Near 1 → almost certain. Around 0.5 → about as likely as not.
+        <MathText
+          text={tex`A probability is always a number on the scale from $0$ to $1$. Near $0$ → very unlikely. Near $1$ → almost certain. Around $0.5$ → about as likely as not.`}
+        />
       </p>
       <div className={styles.probScale} aria-hidden="true">
         <div className={styles.probScaleBar}>
@@ -123,9 +125,9 @@ function ExperimentScene() {
   return (
     <SceneFrame kicker="Sample space" title="An experiment generates well-defined outcomes.">
       <p className={styles.lead}>
-        In statistics an <strong>experiment</strong> is any process with well-defined outcomes. The{" "}
-        <strong>sample space</strong> S is the set of all outcomes (sample points). Repeat the same procedure and you may
-        still get a different outcome — that is why we call them random experiments.
+        <MathText
+          text={tex`In statistics an experiment is any process with well-defined outcomes. The sample space $S$ is the set of all outcomes (sample points). Repeat the same procedure and you may still get a different outcome — that is why we call them random experiments.`}
+        />
       </p>
       <div className={styles.tableWrap}>
         <table>
@@ -177,7 +179,9 @@ function DsmeSpaceScene() {
           </tbody>
         </table>
       </div>
-      <p className={styles.small}>8 sample points = 4 ICBC results × 2 China Mobile results. We will return to this example all lecture.</p>
+      <p className={styles.small}>
+        <MathText text={tex`$8$ sample points $= 4$ ICBC results $\times 2$ China Mobile results. We will return to this example all lecture.`} />
+      </p>
     </SceneFrame>
   );
 }
@@ -198,10 +202,11 @@ function CountingMultiScene() {
   return (
     <SceneFrame kicker="Counting rules" title="Multiple-step experiments: multiply the choices.">
       <p className={styles.lead}>
-        If an experiment has <strong>k</strong> steps with n₁, n₂, …, nₖ possible results, the number of outcomes is{" "}
-        <strong>n₁ × n₂ × … × nₖ</strong>. A <strong>tree diagram</strong> shows the paths.
+        <MathText
+          text={tex`If an experiment has $k$ steps with $n_1, n_2, \ldots, n_k$ possible results, the number of outcomes is $n_1 \times n_2 \times \cdots \times n_k$. A tree diagram shows the paths.`}
+        />
       </p>
-      <p className={styles.formula}>n₁ × n₂ = 4 × 2 = 8 outcomes (DSME)</p>
+      <Formula tex={tex`n_1 \times n_2 = 4 \times 2 = 8 \text{ outcomes (DSME)}`} />
       <div className={styles.treeBox}>
         <p className={styles.kicker}>TREE · ICBC THEN CHINA MOBILE</p>
         <svg
@@ -300,8 +305,14 @@ function CombinationsScene() {
   return (
     <SceneFrame kicker="Counting rules" title="Combinations ignore order. Permutations care about order.">
       <p className={styles.lead}>
-        Pool of <strong>N</strong> letters; pick <strong>n</strong>. Each <em>circle</em> is one combination (same people).
-        Inside the circle are the <strong>n!</strong> different orders — those are the permutations.
+        <MathText
+          text={tex`Pool of $N$ letters; pick $n$. Each circle is one combination (same people). Inside the circle are the $n!$ different orders — those are the permutations.`}
+        />
+      </p>
+      <p className={styles.note}>
+        <MathText
+          text={tex`Factorial: $n! = n \times (n-1) \times \cdots \times 1$ (multiply down to $1$). Example: $3! = 3 \times 2 \times 1 = 6$. By definition $0! = 1$.`}
+        />
       </p>
       <LiveOnly>
         <div className={styles.tools}>
@@ -345,9 +356,7 @@ function CombinationsScene() {
         {groups.map((group) => (
           <article key={group.key} className={styles.comboCircle}>
             <p className={styles.comboLabel}>
-              Combination {"{"}
-              {group.combo.join(", ")}
-              {"}"}
+              <MathText text={tex`Combination $\{${group.combo.join(", ")}\}$`} />
             </p>
             <div className={styles.permChips}>
               {group.perms.map((perm) => (
@@ -356,23 +365,24 @@ function CombinationsScene() {
                 </span>
               ))}
             </div>
-            <p className={styles.comboFoot}>{group.perms.length} order{group.perms.length === 1 ? "" : "s"} (= {n}!)</p>
+            <p className={styles.comboFoot}>
+              {group.perms.length} order{group.perms.length === 1 ? "" : "s"} (
+              <InlineMath tex={tex`${n}!`} />)
+            </p>
           </article>
         ))}
       </div>
       <p className={styles.note}>
-        <strong>C({N}, {n}) = {cCount}</strong> circles (unordered teams)
-        &nbsp;·&nbsp;
-        <strong>P({N}, {n}) = {pCount}</strong> ordered lists
-        &nbsp;·&nbsp;
-        P = C × n! = {cCount} × {permsPerCombo}
+        <MathText
+          text={tex`$C(${N},${n}) = ${cCount}$ circles (unordered teams) · $P(${N},${n}) = ${pCount}$ ordered lists · $P = C \times n! = ${cCount} \times ${permsPerCombo}$`}
+        />
       </p>
-      <p className={styles.formula} style={{ fontSize: 15 }}>
-        C(N, n) = N! / [n!(N − n)!] &nbsp;&nbsp;|&nbsp;&nbsp; P(N, n) = N! / (N − n)!
-      </p>
+      <Formula tex={tex`C(N,n)=\dfrac{N!}{n!(N-n)!}\qquad P(N,n)=\dfrac{N!}{(N-n)!}`} />
       <PrintOnly>
         <p className={styles.small}>
-          Example N=3, n=2: combinations {"{A,B}"}, {"{A,C}"}, {"{B,C}"}; each has 2! = 2 orders. C(3,2)=3, P(3,2)=6.
+          <MathText
+            text={tex`Example $N=3$, $n=2$: combinations $\{A,B\}$, $\{A,C\}$, $\{B,C\}$; each has $2! = 2$ orders. $C(3,2)=3$, $P(3,2)=6$.`}
+          />
         </p>
       </PrintOnly>
     </SceneFrame>
@@ -383,15 +393,31 @@ function CountingGame() {
   const print = usePrintMode();
   const [seed, setSeed] = useState(0);
   const [guess, setGuess] = useState("");
-  const [feedback, setFeedback] = useState("");
+  const [feedback, setFeedback] = useState<ReactNode>("");
   const items = useMemo(
     () =>
       shuffle(
         [
-          { q: "A PIN has 4 digits; each digit 0–9. How many PINs?", a: 10 ** 4, hint: "10 × 10 × 10 × 10" },
-          { q: "Choose 3 committee members from 8 people (order irrelevant).", a: combinations(8, 3), hint: "C(8,3)" },
-          { q: "Award gold, silver, bronze to 3 of 10 runners (order matters).", a: permutations(10, 3), hint: "P(10,3)" },
-          { q: "A lunch has 3 mains × 2 sides × 4 drinks. How many meals?", a: 3 * 2 * 4, hint: "Multiply steps" },
+          {
+            q: tex`A PIN has $4$ digits; each digit $0$–$9$. How many PINs?`,
+            a: 10 ** 4,
+            hint: tex`$10 \times 10 \times 10 \times 10$`,
+          },
+          {
+            q: tex`Choose $3$ committee members from $8$ people (order irrelevant).`,
+            a: combinations(8, 3),
+            hint: tex`$C(8,3)$`,
+          },
+          {
+            q: tex`Award gold, silver, bronze to $3$ of $10$ runners (order matters).`,
+            a: permutations(10, 3),
+            hint: tex`$P(10,3)$`,
+          },
+          {
+            q: tex`A lunch has $3$ mains $\times 2$ sides $\times 4$ drinks. How many meals?`,
+            a: 3 * 2 * 4,
+            hint: tex`Multiply the step counts`,
+          },
         ],
         createRng(print ? 1 : seed + 3),
       ),
@@ -405,12 +431,20 @@ function CountingGame() {
       setFeedback("Enter a number.");
       return;
     }
-    setFeedback(value === current.a ? `Correct — ${current.hint}.` : `Not quite. Hint: ${current.hint}. Answer = ${current.a}.`);
+    setFeedback(
+      value === current.a ? (
+        <MathText text={tex`Correct — ${current.hint}.`} />
+      ) : (
+        <MathText text={tex`Not quite. Hint: ${current.hint}. Answer $= ${current.a}$.`} />
+      ),
+    );
   };
 
   return (
     <SceneFrame kicker="Game 1 · Counting" title="Which counting rule fits?" tone="gold">
-      <p className={styles.lead}>{current.q}</p>
+      <p className={styles.lead}>
+        <MathText text={current.q} />
+      </p>
       <LiveOnly>
         <div className={styles.tools}>
           <input
@@ -439,7 +473,7 @@ function CountingGame() {
       </LiveOnly>
       <PrintOnly>
         <p className={styles.note}>
-          Answer: {current.a} ({current.hint}). Practice more questions on the interactive site.
+          <MathText text={tex`Answer: $${current.a}$ (${current.hint}). Practice more questions on the interactive site.`} />
         </p>
       </PrintOnly>
     </SceneFrame>
@@ -450,24 +484,29 @@ function AssignMethodsScene() {
   return (
     <SceneFrame kicker="Assigning probabilities" title="Three ways to put numbers on outcomes.">
       <p className={styles.lead}>
-        Whatever method you use, two rules always hold: each P(Eᵢ) is between 0 and 1, and the probabilities of all
-        sample points sum to 1.
+        <MathText
+          text={tex`Whatever method you use, two rules always hold: each $P(E_i)$ is between $0$ and $1$, and the probabilities of all sample points sum to $1$.`}
+        />
       </p>
       <div className={styles.three}>
         <article className={styles.card}>
           <p className={styles.kicker}>CLASSICAL</p>
-          <p>Equally likely outcomes → each gets 1/n. Fair die: P(each face) = 1/6.</p>
+          <p>
+            <MathText text={tex`Equally likely outcomes → each gets $1/n$. Fair die: $P(\text{each face}) = 1/6$.`} />
+          </p>
         </article>
         <article className={styles.card}>
           <p className={styles.kicker}>RELATIVE FREQUENCY</p>
-          <p>From data: P ≈ (times outcome occurred) / (trials). Historical frequencies.</p>
+          <p>
+            <MathText text={tex`From data: $P \approx \dfrac{\text{times outcome occurred}}{\text{trials}}$. Historical frequencies.`} />
+          </p>
         </article>
         <article className={styles.card}>
           <p className={styles.kicker}>SUBJECTIVE</p>
           <p>Judgment / degree of belief when history is thin or conditions change fast.</p>
         </article>
       </div>
-      <p className={styles.formula}>0 ≤ P(Eᵢ) ≤ 1 &nbsp;and&nbsp; Σ P(Eᵢ) = 1</p>
+      <Formula tex={tex`0 \le P(E_i) \le 1 \quad\text{and}\quad \sum P(E_i) = 1`} />
     </SceneFrame>
   );
 }
@@ -476,8 +515,9 @@ function RelativeFreqScene() {
   return (
     <SceneFrame kicker="Relative frequency" title="William Mini-Library — books borrowed per day.">
       <p className={styles.lead}>
-        Over {LIBRARY_N} days, William recorded how many books students borrowed. Relative frequency = days with that
-        count ÷ {LIBRARY_N}.
+        <MathText
+          text={tex`Over ${LIBRARY_N} days, William recorded how many books students borrowed. Relative frequency $= \dfrac{\text{days with that count}}{${LIBRARY_N}}$.`}
+        />
       </p>
       <div className={styles.tableWrap}>
         <table>
@@ -510,7 +550,9 @@ function RelativeFreqScene() {
           </tbody>
         </table>
       </div>
-      <p className={styles.small}>Example: P(exactly 2 books) = 18/40 = 0.45.</p>
+      <p className={styles.small}>
+        <MathText text={tex`Example: $P(\text{exactly 2 books}) = 18/40 = 0.45$.`} />
+      </p>
     </SceneFrame>
   );
 }
@@ -529,7 +571,9 @@ function SubjectiveDsmeScene() {
             <tr>
               <th>Outcome (ICBC, Mobile)</th>
               <th>Net ($000)</th>
-              <th>P</th>
+              <th>
+                <InlineMath tex={tex`P`} />
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -546,7 +590,8 @@ function SubjectiveDsmeScene() {
         </table>
       </div>
       <p className={styles.note}>
-        Σ P = {sum.toFixed(2)} {Math.abs(sum - 1) < 1e-9 ? "✓ valid assignment" : "✗ must equal 1"}
+        <MathText text={tex`$\sum P = ${sum.toFixed(2)}$`} />{" "}
+        {Math.abs(sum - 1) < 1e-9 ? "✓ valid assignment" : "✗ must equal 1"}
       </p>
     </SceneFrame>
   );
@@ -565,34 +610,33 @@ function EventsScene() {
 
   const note =
     show === "I" ? (
-      <>
-        <strong>I</strong> = ICBC profitable (ICBC gain &gt; 0). Four outcomes. P(I) = {formatProb(P_I)} (= 0.20+0.08+0.16+0.26).
-      </>
+      <MathText
+        text={tex`$I$ = ICBC profitable (ICBC gain $> 0$). Four outcomes. $P(I) = ${formatProb(P_I)}$ ($= 0.20+0.08+0.16+0.26$).`}
+      />
     ) : show === "C" ? (
-      <>
-        <strong>C</strong> = China Mobile profitable (Mobile = +8). Four outcomes. P(C) = {formatProb(P_C)} (= 0.20+0.16+0.10+0.02).
-      </>
+      <MathText
+        text={tex`$C$ = China Mobile profitable (Mobile $= +8$). Four outcomes. $P(C) = ${formatProb(P_C)}$ ($= 0.20+0.16+0.10+0.02$).`}
+      />
     ) : show === "intersection" ? (
-      <>
-        <strong>I ∩ C</strong> = <em>both</em> stocks profitable — only (10, 8) and (5, 8). P(I ∩ C) = {formatProb(P_I_AND_C)}.
-      </>
+      <MathText
+        text={tex`$I \cap C$ = both stocks profitable — only $(10, 8)$ and $(5, 8)$. $P(I \cap C) = ${formatProb(P_I_AND_C)}$.`}
+      />
     ) : show === "union" ? (
-      <>
-        <strong>I ∪ C</strong> = ICBC profitable <em>or</em> Mobile profitable <em>or both</em> (six outcomes). P(I ∪ C) ={" "}
-        {formatProb(P_I_OR_C)}.
-      </>
+      <MathText
+        text={tex`$I \cup C$ = ICBC profitable or Mobile profitable or both (six outcomes). $P(I \cup C) = ${formatProb(P_I_OR_C)}$.`}
+      />
     ) : (
-      <>
-        <strong>Neither</strong> = not in I and not in C: (0, −2) and (−20, −2). ICBC is not profitable (0 or loss){" "}
-        <em>and</em> Mobile loses 2 — so these points miss both events.
-      </>
+      <MathText
+        text={tex`Neither = not in $I$ and not in $C$: $(0, -2)$ and $(-20, -2)$. ICBC is not profitable ($0$ or loss) and Mobile loses $2$ — so these points miss both events.`}
+      />
     );
 
   return (
     <SceneFrame kicker="Events" title="An event is a collection of sample points.">
       <p className={styles.lead}>
-        Each chip is one DSME outcome (ICBC, Mobile). An event is just a subset of these chips. P(event) = sum of the
-        probabilities on the chips in the subset.
+        <MathText
+          text={tex`Each chip is one DSME outcome (ICBC, Mobile). An event is just a subset of these chips. $P(\text{event})$ = sum of the probabilities on the chips in the subset.`}
+        />
       </p>
       <LiveOnly>
         <div className={styles.tools}>
@@ -631,8 +675,9 @@ function EventsScene() {
       <p className={styles.note}>{note}</p>
       <PrintOnly>
         <p className={styles.small}>
-          I = ICBC profitable; C = Mobile profitable; I ∩ C = both; I ∪ C = at least one. (0,−2) and (−20,−2) are in
-          neither I nor C.
+          <MathText
+            text={tex`$I$ = ICBC profitable; $C$ = Mobile profitable; $I \cap C$ = both; $I \cup C$ = at least one. $(0,-2)$ and $(-20,-2)$ are in neither $I$ nor $C$.`}
+          />
         </p>
       </PrintOnly>
     </SceneFrame>
@@ -643,17 +688,25 @@ type VennMode = "complement" | "union" | "intersection";
 
 function VennDiagram({ mode }: { mode: VennMode }) {
   // Sample space rectangle; circle A left, circle B right
-  const title =
+  const titleText =
     mode === "complement"
-      ? "Aᶜ — outside circle A (inside the sample space)"
+      ? tex`$A^c$ — outside circle $A$ (inside the sample space)`
       : mode === "union"
-        ? "A ∪ B — everything in A or B (or both)"
-        : "A ∩ B — only the overlapping lens";
+        ? tex`$A \cup B$ — everything in $A$ or $B$ (or both)`
+        : tex`$A \cap B$ — only the overlapping lens`;
+  const ariaLabel =
+    mode === "complement"
+      ? "A complement — outside circle A"
+      : mode === "union"
+        ? "A union B"
+        : "A intersection B";
 
   return (
     <figure className={styles.vennFigure}>
-      <figcaption>{title}</figcaption>
-      <svg viewBox="0 0 420 220" role="img" aria-label={title} className={styles.vennSvg}>
+      <figcaption>
+        <MathText text={titleText} />
+      </figcaption>
+      <svg viewBox="0 0 420 220" role="img" aria-label={ariaLabel} className={styles.vennSvg}>
         <defs>
           <clipPath id={`venn-a-${mode}`}>
             <circle cx="155" cy="110" r="72" />
@@ -752,7 +805,7 @@ function RelationsScene() {
   return (
     <SceneFrame kicker="Relationships" title="Complement, union, and intersection.">
       <p className={styles.lead}>
-        Think of the rectangle as the sample space <strong>S</strong>. Circles are events. Shaded = the set we mean.
+        <MathText text={tex`Think of the rectangle as the sample space $S$. Circles are events. Shaded = the set we mean.`} />
       </p>
       <LiveOnly>
         <div className={styles.tools}>
@@ -785,30 +838,31 @@ function RelationsScene() {
       {mode === "complement" && (
         <>
           <p className={styles.lead}>
-            A<sup>c</sup> = everything in <strong>S</strong> that is <strong>outside</strong> circle A. Always: P(A) +
-            P(A<sup>c</sup>) = 1, so P(A<sup>c</sup>) = 1 − P(A).
+            <MathText
+              text={tex`$A^c$ = everything in $S$ that is outside circle $A$. Always: $P(A) + P(A^c) = 1$, so $P(A^c) = 1 - P(A)$.`}
+            />
           </p>
-          <p className={styles.formula}>
-            P(I<sup>c</sup>) = 1 − P(I) = 1 − {formatProb(P_I)} = {formatProb(1 - P_I)}
-          </p>
+          <Formula tex={tex`P(I^c) = 1 - P(I) = 1 - ${formatProb(P_I)} = ${formatProb(1 - P_I)}`} />
         </>
       )}
       {mode === "union" && (
         <>
           <p className={styles.lead}>
-            A ∪ B = the region covered by <strong>either circle</strong> (including the overlap). For DSME: I ∪ C = ICBC
-            or Mobile (or both) profitable.
+            <MathText
+              text={tex`$A \cup B$ = the region covered by either circle (including the overlap). For DSME: $I \cup C$ = ICBC or Mobile (or both) profitable.`}
+            />
           </p>
-          <p className={styles.formula}>P(I ∪ C) = {formatProb(P_I_OR_C)} (sum of six sample points)</p>
+          <Formula tex={tex`P(I \cup C) = ${formatProb(P_I_OR_C)} \text{ (sum of six sample points)}`} />
         </>
       )}
       {mode === "intersection" && (
         <>
           <p className={styles.lead}>
-            A ∩ B = <strong>only the lens</strong> where the circles overlap. For DSME: I ∩ C = both stocks profitable →
-            (10, 8) and (5, 8).
+            <MathText
+              text={tex`$A \cap B$ = only the lens where the circles overlap. For DSME: $I \cap C$ = both stocks profitable → $(10, 8)$ and $(5, 8)$.`}
+            />
           </p>
-          <p className={styles.formula}>P(I ∩ C) = 0.20 + 0.16 = {formatProb(P_I_AND_C)}</p>
+          <Formula tex={tex`P(I \cap C) = 0.20 + 0.16 = ${formatProb(P_I_AND_C)}`} />
         </>
       )}
       <PrintOnly>
@@ -817,8 +871,9 @@ function RelationsScene() {
           <VennDiagram mode="intersection" />
         </div>
         <p className={styles.note}>
-          Complement: outside A. Union: A or B (shaded above). Intersection: overlap only. DSME: P(I)={formatProb(P_I)},
-          P(C)={formatProb(P_C)}, P(I∩C)={formatProb(P_I_AND_C)}.
+          <MathText
+            text={tex`Complement: outside $A$. Union: $A$ or $B$ (shaded above). Intersection: overlap only. DSME: $P(I)=${formatProb(P_I)}$, $P(C)=${formatProb(P_C)}$, $P(I \cap C)=${formatProb(P_I_AND_C)}$.`}
+          />
         </p>
       </PrintOnly>
     </SceneFrame>
@@ -828,15 +883,21 @@ function RelationsScene() {
 function AdditionLawScene() {
   const addition = P_I + P_C - P_I_AND_C;
   return (
-    <SceneFrame kicker="Addition law" title="P(A ∪ B) = P(A) + P(B) − P(A ∩ B).">
+    <SceneFrame
+      kicker="Addition law"
+      title={<MathText text={tex`$P(A \cup B) = P(A) + P(B) - P(A \cap B)$`} />}
+    >
       <p className={styles.lead}>
-        Adding P(A) and P(B) double-counts the intersection. Subtract it once. If A and B are{" "}
-        <strong>mutually exclusive</strong> (no points in common), P(A ∩ B) = 0 and the formula simplifies to P(A) + P(B).
+        <MathText
+          text={tex`Adding $P(A)$ and $P(B)$ double-counts the intersection. Subtract it once. If $A$ and $B$ are mutually exclusive (no points in common), $P(A \cap B) = 0$ and the formula simplifies to $P(A) + P(B)$.`}
+        />
       </p>
-      <p className={styles.formula}>
-        P(I ∪ C) = {formatProb(P_I)} + {formatProb(P_C)} − {formatProb(P_I_AND_C)} = {formatProb(addition)}
+      <Formula
+        tex={tex`P(I \cup C) = ${formatProb(P_I)} + ${formatProb(P_C)} - ${formatProb(P_I_AND_C)} = ${formatProb(addition)}`}
+      />
+      <p className={styles.note}>
+        <MathText text={tex`Matches the direct sum of sample points in $I \cup C$. Always a useful check.`} />
       </p>
-      <p className={styles.note}>Matches the direct sum of sample points in I ∪ C. Always a useful check.</p>
       <div className={styles.splitWide} style={{ marginTop: 16 }}>
         <article className={styles.card}>
           <p className={styles.kicker}>MUTUALLY EXCLUSIVE</p>
@@ -844,7 +905,9 @@ function AdditionLawScene() {
         </article>
         <article className={styles.card}>
           <p className={styles.kicker}>NOT MUTUALLY EXCLUSIVE</p>
-          <p>I and C can both happen (both stocks profitable). Use the full addition law.</p>
+          <p>
+            <MathText text={tex`$I$ and $C$ can both happen (both stocks profitable). Use the full addition law.`} />
+          </p>
         </article>
       </div>
     </SceneFrame>
@@ -854,15 +917,18 @@ function AdditionLawScene() {
 type SetLawMode = "distributive" | "demorgan";
 
 function DeMorganVenn({ form }: { form: "union" | "intersect" }) {
-  const title =
+  const titleText =
     form === "union"
-      ? "(A ∪ B)ᶜ = Aᶜ ∩ Bᶜ — outside both circles"
-      : "(A ∩ B)ᶜ = Aᶜ ∪ Bᶜ — everything except the overlap";
+      ? tex`$(A \cup B)^c = A^c \cap B^c$ — outside both circles`
+      : tex`$(A \cap B)^c = A^c \cup B^c$ — everything except the overlap`;
+  const ariaLabel = form === "union" ? "De Morgan: complement of union" : "De Morgan: complement of intersection";
 
   return (
     <figure className={styles.vennFigure}>
-      <figcaption>{title}</figcaption>
-      <svg viewBox="0 0 420 220" role="img" aria-label={title} className={styles.vennSvg}>
+      <figcaption>
+        <MathText text={titleText} />
+      </figcaption>
+      <svg viewBox="0 0 420 220" role="img" aria-label={ariaLabel} className={styles.vennSvg}>
         <defs>
           <clipPath id={`dm-a-${form}`}>
             <circle cx="155" cy="110" r="72" />
@@ -943,22 +1009,19 @@ function SetLawsScene() {
       {mode === "distributive" && (
         <>
           <p className={styles.lead}>
-            Union and intersection <strong>distribute</strong> over each other — the same idea as a(b+c) = ab+ac in algebra,
-            with ∪ like “+” and ∩ like “×” (or the other way around).
+            <MathText
+              text={tex`Union and intersection distribute over each other — the same idea as $a(b+c) = ab+ac$ in algebra, with $\cup$ like “$+$” and $\cap$ like “$\times$” (or the other way around).`}
+            />
           </p>
           <div className={styles.splitWide}>
             <article className={styles.card}>
               <p className={styles.kicker}>∪ OVER ∩</p>
-              <p className={styles.formula} style={{ marginTop: 8, fontSize: 15 }}>
-                A ∪ (B ∩ C) = (A ∪ B) ∩ (A ∪ C)
-              </p>
+              <Formula tex={tex`A \cup (B \cap C) = (A \cup B) \cap (A \cup C)`} />
               <p className={styles.muted}>“A or (B and C)” = “(A or B) and (A or C)”.</p>
             </article>
             <article className={styles.card}>
               <p className={styles.kicker}>∩ OVER ∪</p>
-              <p className={styles.formula} style={{ marginTop: 8, fontSize: 15 }}>
-                A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C)
-              </p>
+              <Formula tex={tex`A \cap (B \cup C) = (A \cap B) \cup (A \cap C)`} />
               <p className={styles.muted}>“A and (B or C)” = “(A and B) or (A and C)”.</p>
             </article>
           </div>
@@ -994,25 +1057,30 @@ function SetLawsScene() {
             </div>
           </LiveOnly>
           <DeMorganVenn form={dmForm} />
-          <p className={styles.formula} style={{ fontSize: 16 }}>
-            {dmForm === "union" ? (
-              <>(A ∪ B)<sup>c</sup> = A<sup>c</sup> ∩ B<sup>c</sup></>
-            ) : (
-              <>(A ∩ B)<sup>c</sup> = A<sup>c</sup> ∪ B<sup>c</sup></>
-            )}
-          </p>
+          <Formula
+            tex={
+              dmForm === "union"
+                ? tex`(A \cup B)^c = A^c \cap B^c`
+                : tex`(A \cap B)^c = A^c \cup B^c`
+            }
+          />
           <p className={styles.note}>
-            DSME check: (I ∪ C)<sup>c</sup> = “neither stock profitable” = {(neither.map((o) => `(${o.icbc},${o.mobile})`).join(", "))}{" "}
-            = I<sup>c</sup> ∩ C<sup>c</sup>. Probability = {formatProb(neitherP)} = 1 − P(I ∪ C).
+            <MathText
+              text={tex`DSME check: $(I \cup C)^c$ = “neither stock profitable” = ${neither.map((o) => `(${o.icbc},${o.mobile})`).join(", ")} $= I^c \cap C^c$. Probability $= ${formatProb(neitherP)} = 1 - P(I \cup C)$.`}
+            />
           </p>
         </>
       )}
 
       <PrintOnly>
-        <p className={styles.formula} style={{ fontSize: 14 }}>
-          Distributive: A∪(B∩C)=(A∪B)∩(A∪C) and A∩(B∪C)=(A∩B)∪(A∩C). De Morgan: (A∪B)<sup>c</sup>=A<sup>c</sup>∩B<sup>c</sup>{" "}
-          and (A∩B)<sup>c</sup>=A<sup>c</sup>∪B<sup>c</sup>.
-        </p>
+        <Formula
+          tex={tex`\begin{aligned}
+A \cup (B \cap C) &= (A \cup B) \cap (A \cup C) \\
+A \cap (B \cup C) &= (A \cap B) \cup (A \cap C) \\
+(A \cup B)^c &= A^c \cap B^c \\
+(A \cap B)^c &= A^c \cup B^c
+\end{aligned}`}
+        />
       </PrintOnly>
     </SceneFrame>
   );
@@ -1021,16 +1089,20 @@ function SetLawsScene() {
 function ConditionalScene() {
   const pGiven = P_I_AND_C / P_I;
   return (
-    <SceneFrame kicker="Conditional probability" title="P(A | B) — probability of A given that B occurred.">
+    <SceneFrame
+      kicker="Conditional probability"
+      title={<MathText text={tex`$P(A \mid B)$ — probability of $A$ given that $B$ occurred`} />}
+    >
       <p className={styles.lead}>
-        Conditioning restricts the sample space to B. The formula uses the intersection over the probability of the
-        given event.
+        <MathText
+          text={tex`Conditioning restricts the sample space to $B$. The formula uses the intersection over the probability of the given event.`}
+        />
       </p>
-      <p className={styles.formula}>P(A | B) = P(A ∩ B) / P(B)</p>
+      <Formula tex={tex`P(A \mid B) = \dfrac{P(A \cap B)}{P(B)}`} />
       <p className={styles.note}>
-        China Mobile profitable <em>given</em> ICBC profitable:
-        <br />
-        P(C | I) = P(I ∩ C) / P(I) = {formatProb(P_I_AND_C)} / {formatProb(P_I)} = <strong>{formatProb(pGiven)}</strong>
+        <MathText
+          text={tex`China Mobile profitable given ICBC profitable: $P(C \mid I) = \dfrac{P(I \cap C)}{P(I)} = \dfrac{${formatProb(P_I_AND_C)}}{${formatProb(P_I)}} = ${formatProb(pGiven)}$.`}
+        />
       </p>
       <p className={styles.small}>About 51% chance Mobile is profitable if we already know ICBC is profitable.</p>
     </SceneFrame>
@@ -1047,23 +1119,30 @@ function JointTableScene() {
   return (
     <SceneFrame kicker="Joint probability table" title="Body = joints. Margins = totals.">
       <p className={styles.lead}>
-        Joint probabilities sit inside the table. Marginal probabilities are the row and column totals. Multiplication
-        law: P(A ∩ B) = P(B) × P(A | B).
+        <MathText
+          text={tex`Joint probabilities sit inside the table. Marginal probabilities are the row and column totals. Multiplication law: $P(A \cap B) = P(B) \times P(A \mid B)$.`}
+        />
       </p>
       <div className={styles.tableWrap}>
         <table>
           <thead>
             <tr>
               <th />
-              <th>C (Mobile profit)</th>
-              <th>C<sup>c</sup></th>
+              <th>
+                <MathText text={tex`$C$ (Mobile profit)`} />
+              </th>
+              <th>
+                <InlineMath tex={tex`C^c`} />
+              </th>
               <th>Total</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>
-                <strong>I (ICBC profit)</strong>
+                <strong>
+                  <MathText text={tex`$I$ (ICBC profit)`} />
+                </strong>
               </td>
               <td>{formatProb(joint.i_c)}</td>
               <td>{formatProb(joint.i_not)}</td>
@@ -1071,7 +1150,9 @@ function JointTableScene() {
             </tr>
             <tr>
               <td>
-                <strong>I<sup>c</sup></strong>
+                <strong>
+                  <InlineMath tex={tex`I^c`} />
+                </strong>
               </td>
               <td>{formatProb(joint.not_c)}</td>
               <td>{formatProb(joint.not_not)}</td>
@@ -1088,7 +1169,9 @@ function JointTableScene() {
           </tbody>
         </table>
       </div>
-      <p className={styles.formula}>P(I ∩ C) = P(I) × P(C | I) = {formatProb(P_I)} × {formatProb(P_I_AND_C / P_I)} = {formatProb(P_I_AND_C)}</p>
+      <Formula
+        tex={tex`P(I \cap C) = P(I) \times P(C \mid I) = ${formatProb(P_I)} \times ${formatProb(P_I_AND_C / P_I)} = ${formatProb(P_I_AND_C)}`}
+      />
     </SceneFrame>
   );
 }
@@ -1099,19 +1182,22 @@ function IndependenceScene() {
   return (
     <SceneFrame kicker="Independence" title="Independent ≠ mutually exclusive.">
       <p className={styles.lead}>
-        A and B are <strong>independent</strong> if P(A | B) = P(A) (knowing B does not change P(A)). Equivalent test:{" "}
-        P(A ∩ B) = P(A) × P(B).
+        <MathText
+          text={tex`$A$ and $B$ are independent if $P(A \mid B) = P(A)$ (knowing $B$ does not change $P(A)$). Equivalent test: $P(A \cap B) = P(A) \times P(B)$.`}
+        />
       </p>
-      <p className={styles.formula}>
-        P(I) × P(C) = {formatProb(P_I)} × {formatProb(P_C)} = {formatProb(product)}
-        <br />
-        P(I ∩ C) = {formatProb(P_I_AND_C)} {independent ? "=" : "≠"} product → I and C are{" "}
-        <strong>{independent ? "independent" : "not independent"}</strong>
-      </p>
+      <Formula
+        tex={tex`\begin{aligned}
+P(I) \times P(C) &= ${formatProb(P_I)} \times ${formatProb(P_C)} = ${formatProb(product)} \\
+P(I \cap C) &= ${formatProb(P_I_AND_C)} ${independent ? "=" : "\\ne"} P(I)P(C) \Rightarrow ${independent ? "I,C \\text{ independent}" : "I,C \\text{ not independent}"}
+\end{aligned}`}
+      />
       <div className={styles.splitWide}>
         <article className={styles.card}>
           <p className={styles.kicker}>MUTUALLY EXCLUSIVE</p>
-          <p>Cannot both occur. If P(A), P(B) &gt; 0, they cannot be independent.</p>
+          <p>
+            <MathText text={tex`Cannot both occur. If $P(A), P(B) > 0$, they cannot be independent.`} />
+          </p>
         </article>
         <article className={styles.card}>
           <p className={styles.kicker}>INDEPENDENT</p>
@@ -1126,12 +1212,14 @@ function BayesStoryScene() {
   return (
     <SceneFrame kicker="Bayes’ theorem" title="Update beliefs when new information arrives." tone="dark">
       <p className={styles.lead}>
-        <strong>Dennis Fashion</strong> faces a proposed shopping centre. Let A₁ = town council approves the zoning
-        change, A₂ = does not approve. Prior: P(A₁) = 0.70, P(A₂) = 0.30.
+        <MathText
+          text={tex`Dennis Fashion faces a proposed shopping centre. Let $A_1$ = town council approves the zoning change, $A_2$ = does not approve. Prior: $P(A_1) = 0.70$, $P(A_2) = 0.30$.`}
+        />
       </p>
       <p className={styles.lead}>
-        New information: planning board recommends <em>against</em> the change (event B). History suggests P(B | A₁) =
-        0.20 and P(B | A₂) = 0.90. Bayes revises the priors into <strong>posterior</strong> probabilities.
+        <MathText
+          text={tex`New information: planning board recommends against the change (event $B$). History suggests $P(B \mid A_1) = 0.20$ and $P(B \mid A_2) = 0.90$. Bayes revises the priors into posterior probabilities.`}
+        />
       </p>
       <p className={styles.darkNote}>
         Prior → new data → posterior. Same logic as medical tests, spam filters, and credit scoring.
@@ -1156,29 +1244,41 @@ function BayesComputeScene() {
   return (
     <SceneFrame kicker="Bayes’ theorem" title="Tabular approach — Dennis Fashion." tone="white">
       <p className={styles.lead}>
-        Columns: events → prior → P(B | Aᵢ) → joint P(Aᵢ ∩ B) → posterior P(Aᵢ | B).
+        <MathText
+          text={tex`Columns: events → prior → $P(B \mid A_i)$ → joint $P(A_i \cap B)$ → posterior $P(A_i \mid B)$.`}
+        />
       </p>
       <div className={styles.tableWrap}>
         <table>
           <thead>
             <tr>
               <th>Event</th>
-              <th>Prior P(Aᵢ)</th>
-              <th>P(B | Aᵢ)</th>
+              <th>
+                <MathText text={tex`Prior $P(A_i)$`} />
+              </th>
+              <th>
+                <InlineMath tex={tex`P(B \mid A_i)`} />
+              </th>
               <th>Joint</th>
-              <th>Posterior P(Aᵢ | B)</th>
+              <th>
+                <MathText text={tex`Posterior $P(A_i \mid B)$`} />
+              </th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>A₁ approve</td>
+              <td>
+                <MathText text={tex`$A_1$ approve`} />
+              </td>
               <td>{prior1.toFixed(2)}</td>
               <td>{lik1.toFixed(2)}</td>
               <td>{revealed ? joint1.toFixed(2) : "—"}</td>
               <td>{revealed ? post1.toFixed(2) : "—"}</td>
             </tr>
             <tr>
-              <td>A₂ reject</td>
+              <td>
+                <MathText text={tex`$A_2$ reject`} />
+              </td>
               <td>{prior2.toFixed(2)}</td>
               <td>{lik2.toFixed(2)}</td>
               <td>{revealed ? joint2.toFixed(2) : "—"}</td>
@@ -1190,7 +1290,13 @@ function BayesComputeScene() {
               </td>
               <td>1.00</td>
               <td />
-              <td>{revealed ? `P(B)=${pB.toFixed(2)}` : "—"}</td>
+              <td>
+                {revealed ? (
+                  <MathText text={tex`$P(B)=${pB.toFixed(2)}$`} />
+                ) : (
+                  "—"
+                )}
+              </td>
               <td>{revealed ? "1.00" : "—"}</td>
             </tr>
           </tbody>
@@ -1205,15 +1311,16 @@ function BayesComputeScene() {
       </LiveOnly>
       {revealed ? (
         <p className={styles.answer}>
-          Posterior P(A₁ | B) ≈ {post1.toFixed(2)} — down from prior 0.70. Bad news for the shopping centre; good news
-          for Dennis Fashion.
+          <MathText
+            text={tex`Posterior $P(A_1 \mid B) \approx ${post1.toFixed(2)}$ — down from prior $0.70$. Bad news for the shopping centre; good news for Dennis Fashion.`}
+          />
         </p>
       ) : (
-        <p className={styles.small}>Joint = prior × likelihood. Posterior = joint / P(B). Tap to fill the table.</p>
+        <p className={styles.small}>
+          <MathText text={tex`Joint $= \text{prior} \times \text{likelihood}$. Posterior $= \text{joint} / P(B)$. Tap to fill the table.`} />
+        </p>
       )}
-      <p className={styles.formula} style={{ fontSize: 15 }}>
-        P(Aᵢ | B) = [P(B | Aᵢ) P(Aᵢ)] / Σⱼ P(B | Aⱼ) P(Aⱼ)
-      </p>
+      <Formula tex={tex`P(A_i \mid B) = \dfrac{P(B \mid A_i)\, P(A_i)}{\sum_j P(B \mid A_j)\, P(A_j)}`} />
     </SceneFrame>
   );
 }
@@ -1222,10 +1329,15 @@ function BayesGame() {
   const print = usePrintMode();
   const [choice, setChoice] = useState<string | null>(print ? "down" : null);
   return (
-    <SceneFrame kicker="Game 2 · Bayes" title="What did the board’s “no” do to P(approve)?" tone="gold">
+    <SceneFrame
+      kicker="Game 2 · Bayes"
+      title={<MathText text={tex`What did the board’s “no” do to $P(\text{approve})$?`} />}
+      tone="gold"
+    >
       <p className={styles.lead}>
-        Prior P(approve) = 0.70. After a negative planning-board recommendation, the posterior is about 0.34. What
-        happened?
+        <MathText
+          text={tex`Prior $P(\text{approve}) = 0.70$. After a negative planning-board recommendation, the posterior is about $0.34$. What happened?`}
+        />
       </p>
       <div className={styles.choices}>
         {[
@@ -1246,9 +1358,13 @@ function BayesGame() {
       </div>
       {choice ? (
         <p className={styles.answer}>
-          {choice === "down"
-            ? "Correct — Bayes updated 0.70 → ≈0.34. New information revised the prior downward."
-            : "The negative recommendation lowered P(approve). Bayes does not force probability to 0 unless the data make the event impossible."}
+          {choice === "down" ? (
+            <MathText text={tex`Correct — Bayes updated $0.70 \to \approx 0.34$. New information revised the prior downward.`} />
+          ) : (
+            <MathText
+              text={tex`The negative recommendation lowered $P(\\text{approve})$. Bayes does not force probability to $0$ unless the data make the event impossible.`}
+            />
+          )}
         </p>
       ) : (
         <p className={styles.small}>Tap an answer.</p>
@@ -1261,20 +1377,19 @@ function PromptsToTryScene() {
   const prompts = [
     {
       topic: "Simulate a die",
-      text: "Write Python to simulate rolling a fair six-sided die 10,000 times. Plot a bar chart of relative frequencies. Do they approach 1/6?",
+      text: tex`Write Python to simulate rolling a fair six-sided die 10,000 times. Plot a bar chart of relative frequencies. Do they approach $1/6$?`,
     },
     {
       topic: "Combinations",
-      text: "Compute C(20, 3) and P(20, 3) with math.comb / math.perm. Explain in one sentence when each applies.",
+      text: tex`Compute $C(20, 3)$ and $P(20, 3)$ with math.comb / math.perm. Explain in one sentence when each applies.`,
     },
     {
       topic: "Joint table",
-      text:
-        "DSME joint table (I = ICBC profitable, C = Mobile profitable): P(I∩C)=0.36, P(I∩Cᶜ)=0.34, P(Iᶜ∩C)=0.12, P(Iᶜ∩Cᶜ)=0.18. In a notebook, compute P(C|I) and P(I|C). Confirm each with P(A∩B)/P(B).",
+      text: tex`DSME joint table ($I$ = ICBC profitable, $C$ = Mobile profitable): $P(I \cap C)=0.36$, $P(I \cap C^c)=0.34$, $P(I^c \cap C)=0.12$, $P(I^c \cap C^c)=0.18$. In a notebook, compute $P(C \mid I)$ and $P(I \mid C)$. Confirm each with $P(A \cap B)/P(B)$.`,
     },
     {
       topic: "Bayes medical test",
-      text: "Disease prevalence 1%. Test sensitivity 99%, false positive rate 5%. Given a positive test, what is P(disease|positive)? Show the Bayes table.",
+      text: tex`Disease prevalence $1\%$. Test sensitivity $99\%$, false positive rate $5\%$. Given a positive test, what is $P(\text{disease} \mid \text{positive})$? Show the Bayes table.`,
     },
   ];
   return (
@@ -1297,7 +1412,9 @@ function PromptsToTryScene() {
         {prompts.map((item) => (
           <article key={item.topic} className={styles.promptItem}>
             <strong>{item.topic.toUpperCase()}</strong>
-            <p>{item.text}</p>
+            <p>
+              <MathText text={item.text} />
+            </p>
           </article>
         ))}
       </div>
@@ -1312,7 +1429,9 @@ function CloseScene() {
         <article className={styles.card}>
           <p className={styles.kicker}>01</p>
           <h2 className={styles.cardTitle}>Sample space</h2>
-          <p className={styles.muted}>List outcomes; count with trees, C(N,n), P(N,n).</p>
+          <p className={styles.muted}>
+            <MathText text={tex`List outcomes; count with trees, $C(N,n)$, $P(N,n)$.`} />
+          </p>
         </article>
         <article className={styles.card}>
           <p className={styles.kicker}>02</p>

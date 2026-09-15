@@ -249,6 +249,43 @@
   border-left-color: var(--paper);
 }
 
+.mathDisplay {
+  display: block;
+  overflow-x: auto;
+  text-align: center;
+}
+
+.mathDisplay :global(.katex) {
+  color: var(--cream);
+  font-size: 1.15em;
+}
+
+.mathInline :global(.katex) {
+  font-size: 1em;
+}
+
+/* Keep KaTeX accessibility MathML clipped even if other rules interfere */
+:global(.katex .katex-mathml) {
+  position: absolute !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  padding: 0 !important;
+  border: 0 !important;
+  height: 1px !important;
+  width: 1px !important;
+  overflow: hidden !important;
+}
+
+.dark .card :global(.katex),
+.lead :global(.katex),
+.small :global(.katex),
+.card :global(.katex),
+.promptItem :global(.katex),
+.muted :global(.katex),
+.note :global(.katex) {
+  color: inherit;
+  font-size: 1em;
+}
+
 .promptCard {
   margin-top: 16px;
   padding: 16px 18px;
