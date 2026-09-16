@@ -19,7 +19,6 @@ import {
   mean,
   median,
   mode,
-  percentile,
   quartiles,
   sampleHotelRates,
   sampleCorrelationQuiz,
@@ -1019,39 +1018,46 @@ function MeanMedianScene() {
 
 function describePercentileStep(n: number, p: number, rates: number[]) {
   const i = (p / 100) * n;
+  const iTex = Number.isInteger(i) ? String(i) : formatNumber(i, 1);
   if (p === 0) {
     return {
       i,
+      iTex,
       method: "endpoint" as const,
       highlightIndices: [0],
-      stepTex: `x_1 = ${rates[0]}`,
+      resultTex: `x_{(1)} = ${rates[0]}`,
       shortRule: tex`endpoint`,
     };
   }
   if (p === 100) {
     return {
       i,
+      iTex,
       method: "endpoint" as const,
       highlightIndices: [n - 1],
-      stepTex: `x_{${n}} = ${rates[n - 1]}`,
+      resultTex: `x_{(${n})} = ${rates[n - 1]}`,
       shortRule: tex`endpoint`,
     };
   }
   if (Number.isInteger(i)) {
+    const left = rates[i - 1];
+    const right = rates[i];
     return {
       i,
+      iTex,
       method: "average" as const,
       highlightIndices: [i - 1, i],
-      stepTex: `\\dfrac{${rates[i - 1]} + ${rates[i]}}{2}`,
+      resultTex: `\\dfrac{x_{(${i})} + x_{(${i + 1})}}{2} = \\dfrac{${left} + ${right}}{2} = ${formatNumber((left + right) / 2, 1)}`,
       shortRule: tex`$i = ${i}$ is whole → average #${i} and #${i + 1}`,
     };
   }
   const rank = Math.ceil(i);
   return {
     i,
+    iTex,
     method: "round-up" as const,
     highlightIndices: [rank - 1],
-    stepTex: `x_{${rank}} = ${rates[rank - 1]}`,
+    resultTex: `x_{(${rank})} = ${rates[rank - 1]}`,
     shortRule: tex`$i = ${formatNumber(i, 1)}$ → round up to #${rank}`,
   };
 }
@@ -1062,7 +1068,6 @@ function PercentileScene() {
   const p = print ? 80 : pLive;
   const rates = TEXTBOOK.hotelRates;
   const n = rates.length;
-  const value = percentile(rates, p);
   const { q1, q2, q3 } = quartiles(rates);
   const step = describePercentileStep(n, p, rates);
   const q1Step = describePercentileStep(n, 25, rates);
@@ -1079,13 +1084,13 @@ function PercentileScene() {
         <article className={`${styles.ruleCard} ${activeMethod === "average" ? styles.ruleCardActive : ""}`}>
           <span>CASE A · i IS A WHOLE NUMBER</span>
           <MathText
-            text={tex`Average the two neighbours: $x_i$ and $x_{i+1}$. Example at $n = 70$: $p = 50 \Rightarrow i = 35$ → average #35 and #36.`}
+            text={tex`Average the two neighbours: $x_{(i)}$ and $x_{(i+1)}$. Example at $n = 70$: $p = 50 \Rightarrow i = 35$ → average #35 and #36.`}
           />
         </article>
         <article className={`${styles.ruleCard} ${activeMethod === "round-up" ? styles.ruleCardActive : ""}`}>
           <span>CASE B · i HAS A DECIMAL</span>
           <MathText
-            text={tex`Round $i$ up to the next position and take that one value: $x_{\lceil i \rceil}$. Example: $p = 25 \Rightarrow i = 17.5$ → take #18.`}
+            text={tex`Round $i$ up to the next position and take that one value: $x_{(\lceil i \rceil)}$. Example: $p = 25 \Rightarrow i = 17.5$ → take #18.`}
           />
         </article>
       </div>
@@ -1131,9 +1136,8 @@ function PercentileScene() {
           />
         )}
       </p>
-      <Formula
-        tex={tex`i = \dfrac{p}{100} \times n = \dfrac{${p}}{100} \times ${n} = ${formatNumber(step.i, 1)} \;\Rightarrow\; ${step.stepTex} = ${formatNumber(value, 1)}`}
-      />
+      <Formula tex={tex`i = \dfrac{p}{100}\times n = \dfrac{${p}}{100}\times ${n} = ${step.iTex}`} />
+      <Formula tex={tex`${p}\text{-th percentile} = ${step.resultTex}`} />
       <div className={styles.three}>
         <article className={styles.card}>
           <p className={styles.kicker}>
