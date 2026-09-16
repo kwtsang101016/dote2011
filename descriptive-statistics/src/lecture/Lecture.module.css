@@ -249,6 +249,21 @@
   border-left-color: var(--paper);
 }
 
+.mathDisplay {
+  display: block;
+  overflow-x: auto;
+  text-align: center;
+}
+
+.mathDisplay :global(.katex) {
+  color: var(--cream);
+  font-size: 1.15em;
+}
+
+.mathInline :global(.katex) {
+  font-size: 1em;
+}
+
 .promptCard {
   margin-top: 16px;
   padding: 16px 18px;

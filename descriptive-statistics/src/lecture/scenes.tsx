@@ -36,6 +36,7 @@ import {
   zScore,
 } from "../stats";
 import { BarChart, BoxPlotChart, DotPlot, HistogramChart, OgiveChart, ParetoChart, PieChart, ScatterChart } from "./charts";
+import { Formula, InlineMath, MathText, tex } from "./Math";
 import styles from "./Lecture.module.css";
 import { LiveOnly, PrintOnly, usePrintMode } from "./printContext";
 
@@ -60,7 +61,7 @@ function SceneFrame({
   children,
 }: {
   kicker: string;
-  title: string;
+  title: ReactNode;
   tone?: "cream" | "gold" | "white" | "dark";
   children: ReactNode;
 }) {
@@ -221,7 +222,9 @@ function HyattLive() {
   return (
     <SceneFrame kicker="Categorical data · Hyatt" title="Twenty guests. One table. Two pictures.">
       <p className={styles.lead}>
-        Guests rated their stay. Frequency = count. Relative frequency = count ÷ n. Percent frequency = relative frequency × 100.
+        <MathText
+          text={tex`Guests rated their stay. Frequency $=$ count. Relative frequency $=$ count $\div n$. Percent frequency $=$ relative frequency $\times 100$.`}
+        />
       </p>
       <LiveOnly>
         <div className={styles.tools}>
@@ -279,7 +282,9 @@ function HyattLive() {
           <PieChart data={rows.map((row) => ({ label: row.label, value: row.count }))} title="Pie chart · percent" />
         </div>
       </div>
-      <p className={styles.formula}>relative frequency = f / n &nbsp;&nbsp;|&nbsp;&nbsp; pie slice = relative frequency × 360°</p>
+      <Formula
+        tex={tex`\text{relative frequency} = \dfrac{f}{n} \qquad|\qquad \text{pie slice} = \text{relative frequency} \times 360°`}
+      />
     </SceneFrame>
   );
 }
@@ -392,7 +397,9 @@ function ChartReadGame() {
       title={print ? "What percent of guests said “Above Average”?" : `What percent of guests said “${target}”?`}
       tone="white"
     >
-      <p className={styles.lead}>Count the bar, then divide by n = 20.</p>
+      <p className={styles.lead}>
+        <MathText text={tex`Count the bar, then divide by $n = 20$.`} />
+      </p>
       <div className={styles.split}>
         <BarChart data={rows.map((row) => ({ label: row.label.replace(" Average", ""), value: row.count }))} title="Hyatt quality ratings" yLabel="Guests" />
         <div>
@@ -419,7 +426,9 @@ function ChartReadGame() {
           )}
           {(print || picked !== null) ? (
             <p className={styles.answer}>
-              {count} out of 20 is {percent}%. Relative frequency = {formatNumber(count / 20, 2)}; percent frequency = that × 100.
+              <MathText
+                text={tex`${count} out of $20$ is ${percent}\%. Relative frequency $= ${formatNumber(count / 20, 2)}$; percent frequency $=$ that $\times 100$.`}
+              />
             </p>
           ) : null}
           <LiveOnly>
@@ -480,13 +489,9 @@ function BinningScene() {
           </span>
         ))}
       </div>
-      <p className={styles.formula}>
-        approx. width = (largest − smallest) / k = ({maxValue} − {minValue}) / {classCount} = {formatNumber(approx, 1)}
-        &nbsp;→ used width {width}
-        {lastUpper > start + classCount * width - 1
-          ? ` · last class extended to ${lastUpper} so the largest cost is included`
-          : ""}
-      </p>
+      <Formula
+        tex={tex`\text{approx.\ width} = \dfrac{\text{largest} - \text{smallest}}{k} = \dfrac{${maxValue} - ${minValue}}{${classCount}} = ${formatNumber(approx, 1)} \;\Rightarrow\; \text{used width } ${width}${lastUpper > start + classCount * width - 1 ? ` \\;\\text{· last class extended to } ${lastUpper} \\text{ so the largest cost is included}` : ""}`}
+      />
       <div className={styles.splitWide}>
         <HistogramChart bins={bins} title="Histogram · parts cost ($)" />
         <div className={styles.tableWrap}>
@@ -527,12 +532,12 @@ function SkewnessScene() {
         Seventy Shatin / Tai Po studio rates. The histogram is moderately right-skewed — a longer tail on the right.
         Skewness measures that lack of symmetry.
       </p>
-      <p className={styles.formula}>
-        Skewness = [n / ((n − 1)(n − 2))] × Σᵢ [(xᵢ − x̄) / s]³
-      </p>
-      <p className={styles.formula}>
-        = [{n} / ({n - 1})({n - 2})] × Σᵢ [(xᵢ − {formatNumber(xBar, 1)}) / {formatNumber(s, 2)}]³ = {formatNumber(skew, 2)}
-      </p>
+      <Formula
+        tex={tex`\text{Skewness} = \dfrac{n}{(n-1)(n-2)} \sum_i \left[\dfrac{x_i - \bar{x}}{s}\right]^3`}
+      />
+      <Formula
+        tex={tex`= \dfrac{${n}}{(${n - 1})(${n - 2})} \sum_i \left[\dfrac{x_i - ${formatNumber(xBar, 1)}}{${formatNumber(s, 2)}}\right]^3 = ${formatNumber(skew, 2)}`}
+      />
       <div className={styles.splitWide}>
         <HistogramChart bins={bins} title="Hotel studio rates ($)" />
         <div>
@@ -549,7 +554,9 @@ function SkewnessScene() {
             </article>
           </div>
           <p className={styles.note}>
-            Textbook check: skewness = 0.92 for these 70 hotel rates. Positive skewness matches the right tail in the histogram.
+            <MathText
+              text={tex`Textbook check: skewness $= 0.92$ for these $70$ hotel rates. Positive skewness matches the right tail in the histogram.`}
+            />
           </p>
         </div>
       </div>
@@ -702,7 +709,8 @@ function CumulativeScene() {
         A histogram counts how many observations fall <strong>inside</strong> each class. A cumulative table adds them up: how many tune-up costs are <strong>at most</strong> $59? At most $69? At most $79?
       </p>
       <p className={styles.note}>
-        Example: {running[1].cumulative} of {costs.length} tune-ups cost ≤ ${running[1].upper} — that is {formatNumber(running[1].cumulativeRelative * 100, 0)}%. Read the table as “at most,” not “exactly.”
+        Example: {running[1].cumulative} of {costs.length} tune-ups cost{" "}
+        <MathText text={tex`$\le ${running[1].upper}$`} /> — that is {formatNumber(running[1].cumulativeRelative * 100, 0)}%. Read the table as “at most,” not “exactly.”
       </p>
       <div className={styles.splitWide}>
         <div className={styles.tableWrap}>
@@ -727,9 +735,9 @@ function CumulativeScene() {
           points={running.map((row) => ({ x: row.upper + 0.5, y: row.cumulativeRelative * 100 }))}
         />
       </div>
-      <p className={styles.formula}>
-        Cumulative frequency = count with value ≤ upper limit &nbsp;|&nbsp; ogive x-axis uses 59.5, 69.5, … (midpoints between classes) &nbsp;|&nbsp; last row = n = {costs.length}
-      </p>
+      <Formula
+        tex={tex`\text{Cumulative frequency} = \text{count with value } \le \text{upper limit} \qquad|\qquad \text{ogive } x\text{-axis uses } 59.5,\, 69.5,\, \ldots \text{ (midpoints)} \qquad|\qquad \text{last row } = n = ${costs.length}`}
+      />
     </SceneFrame>
   );
 }
@@ -903,7 +911,11 @@ function ScatterScene() {
       <div className={styles.splitWide}>
         <div>
           <ScatterChart points={united} title="Manchester United · shots vs goals" xLabel="Goals scored" yLabel="Shots" showTrend />
-          <p className={styles.small}>Textbook sample: r = {formatNumber(r, 2)}. Higher goals come with more shots, but the points are not on a line.</p>
+          <p className={styles.small}>
+            <MathText
+              text={tex`Textbook sample: $r = ${formatNumber(r, 2)}$. Higher goals come with more shots, but the points are not on a line.`}
+            />
+          </p>
         </div>
         <div>
           <LiveOnly>
@@ -964,7 +976,11 @@ function MeanMedianScene() {
 
   return (
     <SceneFrame kicker="Measures of location" title="The mean walks toward the outlier. The median does not.">
-      <p className={styles.lead}>Mean = average. Median = middle of the ordered list. Mode = the value that appears most often.</p>
+      <p className={styles.lead}>
+        <MathText
+          text={tex`Mean $=$ average. Median $=$ middle of the ordered list. Mode $=$ the value that appears most often.`}
+        />
+      </p>
       <LiveOnly>
         <div className={styles.sliderRow}>
           <b>ADD A STAR SALARY</b>
@@ -982,7 +998,15 @@ function MeanMedianScene() {
         ))}
       </div>
       <div className={styles.three} style={{ marginTop: 22 }}>
-        <article className={styles.card}><p className={styles.kicker}>MEAN x̄</p><h1 style={{ fontSize: 42 }}>{formatNumber(xBar, 1)}</h1><p className={styles.muted}>Σxᵢ / n</p></article>
+        <article className={styles.card}>
+          <p className={styles.kicker}>
+            MEAN <InlineMath tex={tex`\bar{x}`} />
+          </p>
+          <h1 style={{ fontSize: 42 }}>{formatNumber(xBar, 1)}</h1>
+          <p className={styles.muted}>
+            <InlineMath tex={tex`\sum x_i / n`} />
+          </p>
+        </article>
         <article className={styles.card}><p className={styles.kicker}>MEDIAN</p><h1 style={{ fontSize: 42 }}>{formatNumber(med, 1)}</h1><p className={styles.muted}>{values.length % 2 ? "middle value" : "average of two middle values"}</p></article>
         <article className={styles.card}><p className={styles.kicker}>MODE</p><h1 style={{ fontSize: 42 }}>{modes.length ? modes.join(", ") : "—"}</h1><p className={styles.muted}>{modes.length > 1 ? "bimodal / multimodal" : modes.length === 1 ? "most frequent" : "no repeated value"}</p></article>
       </div>
@@ -1000,8 +1024,8 @@ function describePercentileStep(n: number, p: number, rates: number[]) {
       i,
       method: "endpoint" as const,
       highlightIndices: [0],
-      stepText: `x₁ = ${rates[0]}`,
-      shortRule: "endpoint",
+      stepTex: `x_1 = ${rates[0]}`,
+      shortRule: tex`endpoint`,
     };
   }
   if (p === 100) {
@@ -1009,8 +1033,8 @@ function describePercentileStep(n: number, p: number, rates: number[]) {
       i,
       method: "endpoint" as const,
       highlightIndices: [n - 1],
-      stepText: `x${n} = ${rates[n - 1]}`,
-      shortRule: "endpoint",
+      stepTex: `x_{${n}} = ${rates[n - 1]}`,
+      shortRule: tex`endpoint`,
     };
   }
   if (Number.isInteger(i)) {
@@ -1018,8 +1042,8 @@ function describePercentileStep(n: number, p: number, rates: number[]) {
       i,
       method: "average" as const,
       highlightIndices: [i - 1, i],
-      stepText: `(${rates[i - 1]} + ${rates[i]}) / 2`,
-      shortRule: `i = ${i} is whole → average #${i} and #${i + 1}`,
+      stepTex: `\\dfrac{${rates[i - 1]} + ${rates[i]}}{2}`,
+      shortRule: tex`$i = ${i}$ is whole → average #${i} and #${i + 1}`,
     };
   }
   const rank = Math.ceil(i);
@@ -1027,8 +1051,8 @@ function describePercentileStep(n: number, p: number, rates: number[]) {
     i,
     method: "round-up" as const,
     highlightIndices: [rank - 1],
-    stepText: `x${rank} = ${rates[rank - 1]}`,
-    shortRule: `i = ${formatNumber(i, 1)} → round up to #${rank}`,
+    stepTex: `x_{${rank}} = ${rates[rank - 1]}`,
+    shortRule: tex`$i = ${formatNumber(i, 1)}$ → round up to #${rank}`,
   };
 }
 
@@ -1048,15 +1072,21 @@ function PercentileScene() {
 
   return (
     <SceneFrame kicker="Percentiles and quartiles" title="A percentile is a position, not a percent of the value." tone="white">
-      <p className={styles.lead}>70 Shatin / Tai Po studio rates, already ordered. At least p% of rooms cost this much or less.</p>
+      <p className={styles.lead}>
+        <MathText text={tex`70 Shatin / Tai Po studio rates, already ordered. At least $p\%$ of rooms cost this much or less.`} />
+      </p>
       <div className={styles.rulePair}>
         <article className={`${styles.ruleCard} ${activeMethod === "average" ? styles.ruleCardActive : ""}`}>
           <span>CASE A · i IS A WHOLE NUMBER</span>
-          Average the two neighbours: x<sub>i</sub> and x<sub>i+1</sub>. Example at n = 70: p = 50 → i = 35 → average #35 and #36.
+          <MathText
+            text={tex`Average the two neighbours: $x_i$ and $x_{i+1}$. Example at $n = 70$: $p = 50 \Rightarrow i = 35$ → average #35 and #36.`}
+          />
         </article>
         <article className={`${styles.ruleCard} ${activeMethod === "round-up" ? styles.ruleCardActive : ""}`}>
           <span>CASE B · i HAS A DECIMAL</span>
-          Round i <strong>up</strong> to the next position and take that one value: x<sub>⌈i⌉</sub>. Example: p = 25 → i = 17.5 → take #18.
+          <MathText
+            text={tex`Round $i$ up to the next position and take that one value: $x_{\lceil i \rceil}$. Example: $p = 25 \Rightarrow i = 17.5$ → take #18.`}
+          />
         </article>
       </div>
       <LiveOnly>
@@ -1072,7 +1102,9 @@ function PercentileScene() {
           <span>{pLive}</span>
         </div>
       </LiveOnly>
-      <p className={styles.small}>Ordered sample (n = {n}). Position labels show where each rate sits; highlighted cells are the ones used in the step below.</p>
+      <p className={styles.small}>
+        <MathText text={tex`Ordered sample ($n = ${n}$). Position labels show where each rate sits; highlighted cells are the ones used in the step below.`} />
+      </p>
       <div className={styles.chipsScroll}>
         <div className={styles.chips}>
           {rates.map((rate, index) => (
@@ -1087,36 +1119,56 @@ function PercentileScene() {
         </div>
       </div>
       <p className={styles.note}>
-        {step.method === "endpoint"
-          ? `At p = ${p}, use the ${p === 0 ? "smallest" : "largest"} ordered value.`
-          : step.method === "average"
-            ? `Right now: i = ${step.i} is a whole number → Case A → average positions ${step.i} and ${step.i + 1}.`
-            : `Right now: i = ${formatNumber(step.i, 1)} is not whole → Case B → round up to position ${Math.ceil(step.i)}.`}
+        {step.method === "endpoint" ? (
+          <MathText text={tex`At $p = ${p}$, use the ${p === 0 ? "smallest" : "largest"} ordered value.`} />
+        ) : step.method === "average" ? (
+          <MathText
+            text={tex`Right now: $i = ${step.i}$ is a whole number → Case A → average positions ${step.i} and ${step.i + 1}.`}
+          />
+        ) : (
+          <MathText
+            text={tex`Right now: $i = ${formatNumber(step.i, 1)}$ is not whole → Case B → round up to position ${Math.ceil(step.i)}.`}
+          />
+        )}
       </p>
-      <p className={styles.formula}>
-        i = (p/100) × n = ({p}/100) × {n} = {formatNumber(step.i, 1)} → {step.stepText} = {formatNumber(value, 1)}
-      </p>
+      <Formula
+        tex={tex`i = \dfrac{p}{100} \times n = \dfrac{${p}}{100} \times ${n} = ${formatNumber(step.i, 1)} \;\Rightarrow\; ${step.stepTex} = ${formatNumber(value, 1)}`}
+      />
       <div className={styles.three}>
         <article className={styles.card}>
-          <p className={styles.kicker}>FIRST QUARTILE · Q1</p>
+          <p className={styles.kicker}>
+            FIRST QUARTILE · <InlineMath tex={tex`Q_1`} />
+          </p>
           <p className={styles.small} style={{ margin: "4px 0 0" }}>25th percentile</p>
           <h1 style={{ fontSize: 36 }}>{q1}</h1>
-          <p className={styles.muted}>{q1Step.shortRule}</p>
+          <p className={styles.muted}>
+            <MathText text={q1Step.shortRule} />
+          </p>
         </article>
         <article className={styles.card}>
-          <p className={styles.kicker}>SECOND QUARTILE · Q2</p>
+          <p className={styles.kicker}>
+            SECOND QUARTILE · <InlineMath tex={tex`Q_2`} />
+          </p>
           <p className={styles.small} style={{ margin: "4px 0 0" }}>50th percentile · median</p>
           <h1 style={{ fontSize: 36 }}>{q2}</h1>
-          <p className={styles.muted}>{q2Step.shortRule}</p>
+          <p className={styles.muted}>
+            <MathText text={q2Step.shortRule} />
+          </p>
         </article>
         <article className={styles.card}>
-          <p className={styles.kicker}>THIRD QUARTILE · Q3</p>
+          <p className={styles.kicker}>
+            THIRD QUARTILE · <InlineMath tex={tex`Q_3`} />
+          </p>
           <p className={styles.small} style={{ margin: "4px 0 0" }}>75th percentile</p>
           <h1 style={{ fontSize: 36 }}>{q3}</h1>
-          <p className={styles.muted}>{q3Step.shortRule}</p>
+          <p className={styles.muted}>
+            <MathText text={q3Step.shortRule} />
+          </p>
         </article>
       </div>
-      <p className={styles.small}>Textbook check: 80th percentile of the hotel rates is 542; Q3 is 525.</p>
+      <p className={styles.small}>
+        <MathText text={tex`Textbook check: 80th percentile of the hotel rates is $542$; $Q_3$ is $525$.`} />
+      </p>
     </SceneFrame>
   );
 }
@@ -1139,8 +1191,13 @@ function ComputeGame() {
       setMessage("Enter both numbers first.");
       return;
     }
-    if (meanOk && medOk) setMessage(`Both right. Mean ${formatNumber(trueMean, 2)}, median ${formatNumber(trueMed, 1)}.`);
-    else setMessage(`Mean is ${formatNumber(trueMean, 2)} (you ${meanOk ? "got it" : "missed"}). Median is ${formatNumber(trueMed, 1)} (you ${medOk ? "got it" : "missed"}).`);
+    if (meanOk && medOk) {
+      setMessage(tex`Both right. Mean ${formatNumber(trueMean, 2)}, median ${formatNumber(trueMed, 1)}.`);
+    } else {
+      setMessage(
+        tex`Mean is ${formatNumber(trueMean, 2)} (you ${meanOk ? "got it" : "missed"}). Median is ${formatNumber(trueMed, 1)} (you ${medOk ? "got it" : "missed"}).`,
+      );
+    }
   };
 
   return (
@@ -1151,7 +1208,9 @@ function ComputeGame() {
       </div>
       {print ? (
         <p className="printAnswer">
-          Answers (ordered first): mean = {formatNumber(trueMean, 2)}, median = {formatNumber(trueMed, 1)}.
+          <MathText
+            text={tex`Answers (ordered first): mean $= ${formatNumber(trueMean, 2)}$, median $= ${formatNumber(trueMed, 1)}$.`}
+          />
         </p>
       ) : (
         <div className={styles.tools}>
@@ -1169,7 +1228,11 @@ function ComputeGame() {
           </button>
         </div>
       )}
-      {message ? <p className={styles.answer}>{message}</p> : null}
+      {message ? (
+        <p className={styles.answer}>
+          <MathText text={message} />
+        </p>
+      ) : null}
     </SceneFrame>
   );
 }
@@ -1206,7 +1269,11 @@ function VariabilityScene() {
 
   return (
     <SceneFrame kicker="Measures of variability" title="Same average, very different risk.">
-      <p className={styles.lead}>Range uses two points and panics at outliers. IQR keeps the middle 50%. Variance averages squared deviations; standard deviation puts that back in the original units.</p>
+      <p className={styles.lead}>
+        <MathText
+          text={tex`Range uses two points and panics at outliers. $\mathrm{IQR}$ keeps the middle $50\%$. Variance averages squared deviations; standard deviation puts that back in the original units.`}
+        />
+      </p>
       <LiveOnly>
         <div className={styles.tools}>
           <button className={styles.toolBtn} type="button" onClick={() => setSeed((value) => value + 1)}>NEW 70 RATES</button>
@@ -1214,11 +1281,13 @@ function VariabilityScene() {
         </div>
       </LiveOnly>
       <p className={styles.small}>
-        Ordered sample (n = {n}).
+        <MathText text={tex`Ordered sample ($n = ${n}$).`} />
         <LiveOnly> Click <strong>Range</strong> or <strong>IQR</strong> below to highlight the values each measure uses.</LiveOnly>
-        {focus === "range"
-          ? ` Highlighted: min = ${minVal}, max = ${maxVal}.`
-          : ` Highlighted: positions used for Q1 (${q1}) and Q3 (${q3}).`}
+        {focus === "range" ? (
+          <MathText text={tex` Highlighted: min $= ${minVal}$, max $= ${maxVal}$.`} />
+        ) : (
+          <MathText text={tex` Highlighted: positions used for $Q_1$ (${q1}) and $Q_3$ (${q3}).`} />
+        )}
       </p>
       <div className={styles.chipsScroll}>
         <div className={styles.chips}>
@@ -1247,9 +1316,13 @@ function VariabilityScene() {
           tabIndex={0}
         >
           <p className={styles.kicker}>RANGE</p>
-          <p className={styles.small} style={{ margin: "4px 0 0" }}>maximum − minimum</p>
+          <p className={styles.small} style={{ margin: "4px 0 0" }}>
+            <MathText text={tex`maximum $-$ minimum`} />
+          </p>
           <h1 style={{ fontSize: 36 }}>{formatNumber(dataRange(ordered), 0)}</h1>
-          <p className={styles.muted}>{maxVal} − {minVal}</p>
+          <p className={styles.muted}>
+            <MathText text={tex`${maxVal} - ${minVal}`} />
+          </p>
         </article>
         <article
           className={`${styles.card} ${styles.statCard} ${focus === "iqr" ? styles.statCardActive : ""}`}
@@ -1263,26 +1336,36 @@ function VariabilityScene() {
           role="button"
           tabIndex={0}
         >
-          <p className={styles.kicker}>INTERQUARTILE RANGE · IQR</p>
-          <p className={styles.small} style={{ margin: "4px 0 0" }}>Q3 − Q1 · spread of the middle 50%</p>
+          <p className={styles.kicker}>
+            INTERQUARTILE RANGE · <InlineMath tex={tex`\mathrm{IQR}`} />
+          </p>
+          <p className={styles.small} style={{ margin: "4px 0 0" }}>
+            <MathText text={tex`$Q_3 - Q_1$ · spread of the middle $50\%$`} />
+          </p>
           <h1 style={{ fontSize: 36 }}>{formatNumber(spread, 0)}</h1>
-          <p className={styles.muted}>Q3 {q3} − Q1 {q1}</p>
+          <p className={styles.muted}>
+            <MathText text={tex`$Q_3$ ${q3} $-$ $Q_1$ ${q1}`} />
+          </p>
         </article>
         <article className={styles.card}>
-          <p className={styles.kicker}>SAMPLE STANDARD DEVIATION · s</p>
+          <p className={styles.kicker}>
+            SAMPLE STANDARD DEVIATION · <InlineMath tex={tex`s`} />
+          </p>
           <p className={styles.small} style={{ margin: "4px 0 0" }}>typical distance from the mean, in original units</p>
           <h1 style={{ fontSize: 36 }}>{formatNumber(s, 2)}</h1>
           <p className={styles.muted}>
-            Coefficient of Variation (CV) = {formatNumber(cv, 1)}% of mean {formatNumber(xBar, 2)}
+            <MathText
+              text={tex`Coefficient of Variation ($\mathrm{CV}$) $= ${formatNumber(cv, 1)}\%$ of mean ${formatNumber(xBar, 2)}`}
+            />
           </p>
         </article>
       </div>
-      <p className={styles.formula}>
-        s² = Σ(xᵢ − x̄)² / (n − 1) = {formatNumber(s2, 2)} &nbsp;&nbsp; s = √s² = {formatNumber(s, 2)} &nbsp;&nbsp; sample uses n − 1
-      </p>
-      <p className={styles.formula}>
-        CV = (s / x̄) × 100% = ({formatNumber(s, 2)} / {formatNumber(xBar, 2)}) × 100% = {formatNumber(cv, 1)}%
-      </p>
+      <Formula
+        tex={tex`s^2 = \dfrac{\sum (x_i - \bar{x})^2}{n - 1} = ${formatNumber(s2, 2)} \qquad s = \sqrt{s^2} = ${formatNumber(s, 2)} \qquad \text{sample uses } n - 1`}
+      />
+      <Formula
+        tex={tex`\mathrm{CV} = \dfrac{s}{\bar{x}} \times 100\% = \dfrac{${formatNumber(s, 2)}}{${formatNumber(xBar, 2)}} \times 100\% = ${formatNumber(cv, 1)}\%`}
+      />
     </SceneFrame>
   );
 }
@@ -1315,7 +1398,9 @@ function SupplierGame() {
         <div>
           {print ? (
             <p className="printAnswer">
-              Steady · almost the same average, much less scatter. FastGo mean {formatNumber(mean(a), 1)}, s = {formatNumber(sampleStdev(a), 2)}. Steady mean {formatNumber(mean(b), 1)}, s = {formatNumber(sampleStdev(b), 2)}. One disastrous 14-day delay is the business risk.
+              <MathText
+                text={tex`Steady · almost the same average, much less scatter. FastGo mean ${formatNumber(mean(a), 1)}, $s = ${formatNumber(sampleStdev(a), 2)}$. Steady mean ${formatNumber(mean(b), 1)}, $s = ${formatNumber(sampleStdev(b), 2)}$. One disastrous 14-day delay is the business risk.`}
+              />
             </p>
           ) : (
             <>
@@ -1328,8 +1413,9 @@ function SupplierGame() {
               </div>
               {pick ? (
                 <p className={styles.answer}>
-                  FastGo mean {formatNumber(mean(a), 1)}, s = {formatNumber(sampleStdev(a), 2)}. Steady mean {formatNumber(mean(b), 1)}, s = {formatNumber(sampleStdev(b), 2)}.
-                  The extra “fast” average is one disastrous 14-day delay. Variability is the business risk.
+                  <MathText
+                    text={tex`FastGo mean ${formatNumber(mean(a), 1)}, $s = ${formatNumber(sampleStdev(a), 2)}$. Steady mean ${formatNumber(mean(b), 1)}, $s = ${formatNumber(sampleStdev(b), 2)}$. The extra “fast” average is one disastrous 14-day delay. Variability is the business risk.`}
+                  />
                 </p>
               ) : null}
             </>
@@ -1364,18 +1450,24 @@ function ZScene() {
   return (
     <SceneFrame kicker="z-scores, Chebyshev, empirical rule" title="How surprising is this room rate?">
       <p className={styles.lead}>
-        A <strong>z-score</strong> (also called a <strong>standardized value</strong>) counts how many standard deviations a data point sits from the mean. Positive z is above x̄; negative z is below.
+        <MathText
+          text={tex`A z-score (also called a standardized value) counts how many standard deviations a data point sits from the mean. Positive $z$ is above $\bar{x}$; negative $z$ is below.`}
+        />
       </p>
       <div className={styles.split}>
         <div>
-          <p className={styles.formula}>z = (x − x̄) / s &nbsp;&nbsp; x̄ = {formatNumber(xBar, 2)} &nbsp; s = {formatNumber(s, 2)}</p>
+          <Formula
+            tex={tex`z = \dfrac{x - \bar{x}}{s} \qquad \bar{x} = ${formatNumber(xBar, 2)} \qquad s = ${formatNumber(s, 2)}`}
+          />
           <p className={styles.muted}>
-            Smallest rate {smallest} → z = {formatNumber(zScore(smallest, xBar, s), 2)}.
-            Largest {largest} → z = {formatNumber(zScore(largest, xBar, s), 2)}.
-            |z| &gt; 3 is a common outlier flag — none here.
+            <MathText
+              text={tex`Smallest rate ${smallest} $\Rightarrow z = ${formatNumber(zScore(smallest, xBar, s), 2)}$. Largest ${largest} $\Rightarrow z = ${formatNumber(zScore(largest, xBar, s), 2)}$. $|z| > 3$ is a common outlier flag — none here.`}
+            />
           </p>
           <p className={styles.note}>
-            <strong>Chebyshev&apos;s theorem.</strong> For <em>any</em> data set, if z &gt; 1 then at least (1 − 1/z²) of the values lie within z standard deviations of the mean — between x̄ − zs and x̄ + zs. z need not be a whole number.
+            <MathText
+              text={tex`Chebyshev's theorem. For any data set, if $z > 1$ then at least $\left(1 - \dfrac{1}{z^2}\right)$ of the values lie within $z$ standard deviations of the mean — between $\bar{x} - zs$ and $\bar{x} + zs$. $z$ need not be a whole number.`}
+            />
           </p>
           <LiveOnly>
             <div className={styles.sliderRow}>
@@ -1384,31 +1476,47 @@ function ZScene() {
               <span>{formatNumber(zLive, 1)}</span>
             </div>
           </LiveOnly>
-          <p className={styles.formula}>
-            At least (1 − 1/{formatNumber(z, 1)}²) = {formatNumber(cheb * 100, 0)}% lie in [{formatNumber(lo, 0)}, {formatNumber(hi, 0)}]
-          </p>
+          <Formula
+            tex={tex`\text{At least } \left(1 - \dfrac{1}{${formatNumber(z, 1)}^2}\right) = ${formatNumber(cheb * 100, 0)}\% \text{ lie in } [${formatNumber(lo, 0)},\, ${formatNumber(hi, 0)}]`}
+          />
           <p className={styles.small}>
-            Empirical rule (bell-shaped data only): about 68% within ±1s, 95% within ±2s, 99.7% within ±3s.
+            <MathText
+              text={tex`Empirical rule (bell-shaped data only): about $68\%$ within $\pm 1s$, $95\%$ within $\pm 2s$, $99.7\%$ within $\pm 3s$.`}
+            />
           </p>
         </div>
         <div className={styles.card}>
           <p className={styles.kicker}>GAME 7 · COMPUTE A Z-SCORE</p>
-          <h1 style={{ fontSize: 32 }}>x = {challenge.x}</h1>
-          <p className={styles.muted}>Standardize this room rate using x̄ and s above.</p>
+          <h1 style={{ fontSize: 32 }}>
+            <MathText text={tex`$x = ${challenge.x}$`} />
+          </h1>
+          <p className={styles.muted}>
+            <MathText text={tex`Standardize this room rate using $\bar{x}$ and $s$ above.`} />
+          </p>
           {print ? (
-            <p className="printAnswer">z = {formatNumber(challenge.z, 2)}</p>
+            <p className="printAnswer">
+              <MathText text={tex`$z = ${formatNumber(challenge.z, 2)}$`} />
+            </p>
           ) : (
             <div className={styles.tools}>
               <input className={styles.numberInput} value={guess} onChange={(event) => setGuess(event.target.value)} />
               <button className={styles.primary} type="button" onClick={() => {
                 const value = Number(guess);
                 if (!Number.isFinite(value)) { setMsg("Enter a number."); return; }
-                setMsg(Math.abs(value - challenge.z) < 0.08 ? `Correct: z = ${formatNumber(challenge.z, 2)}` : `z = ${formatNumber(challenge.z, 2)}. Sign tells you which side of the mean.`);
+                setMsg(
+                  Math.abs(value - challenge.z) < 0.08
+                    ? tex`Correct: $z = ${formatNumber(challenge.z, 2)}$`
+                    : tex`$z = ${formatNumber(challenge.z, 2)}$. Sign tells you which side of the mean.`,
+                );
               }}>CHECK</button>
               <button className={styles.toolBtn} type="button" onClick={() => { setSeed((value) => value + 1); setGuess(""); setMsg(""); }}>NEW x</button>
             </div>
           )}
-          {msg ? <p className={styles.answer}>{msg}</p> : null}
+          {msg ? (
+            <p className={styles.answer}>
+              <MathText text={msg} />
+            </p>
+          ) : null}
         </div>
       </div>
     </SceneFrame>
@@ -1429,7 +1537,11 @@ function BoxPlotScene() {
 
   return (
     <SceneFrame kicker="Five-number summary" title="A box plot is a five-number summary you can see." tone="white">
-      <p className={styles.lead}>Min, Q1, median, Q3, max. Whiskers stop at the last point inside 1.5 × IQR of the quartiles. Stars beyond the fences are outliers.</p>
+      <p className={styles.lead}>
+        <MathText
+          text={tex`Min, $Q_1$, median, $Q_3$, max. Whiskers stop at the last point inside $1.5 \times \mathrm{IQR}$ of the quartiles. Stars beyond the fences are outliers.`}
+        />
+      </p>
       <LiveOnly>
         <div className={styles.sliderRow}>
           <b>DROP IN A PENTHOUSE</b>
@@ -1442,10 +1554,9 @@ function BoxPlotScene() {
         </div>
       </LiveOnly>
       <BoxPlotChart stats={stats} title="Hotel studio rates ($)" />
-      <p className={styles.formula}>
-        fences: Q1 − 1.5×IQR = {formatNumber(stats.lowerFence, 0)} &nbsp;·&nbsp; Q3 + 1.5×IQR = {formatNumber(stats.upperFence, 0)}
-        &nbsp;·&nbsp; outliers: {stats.outliers.length ? stats.outliers.join(", ") : "none"}
-      </p>
+      <Formula
+        tex={tex`\text{fences: } Q_1 - 1.5 \times \mathrm{IQR} = ${formatNumber(stats.lowerFence, 0)} \;\cdot\; Q_3 + 1.5 \times \mathrm{IQR} = ${formatNumber(stats.upperFence, 0)} \;\cdot\; \text{outliers: } ${stats.outliers.length ? stats.outliers.join(",\\ ") : "\\text{none}"}`}
+      />
     </SceneFrame>
   );
 }
@@ -1476,7 +1587,9 @@ function CorrelationScene() {
         Golfing study: across six rounds, a player logs <strong>average driving distance</strong> (how far the ball travels off the tee with the driver, in yards) and <strong>18-hole score</strong> (total strokes for the round). In golf, a <em>lower</em> score is better — 69 beats 71.
       </p>
       <p className={styles.note}>
-        Idea being tested: if longer drives leave shorter approach shots, rounds with more distance might also show fewer strokes. That would look like a <strong>negative</strong> correlation — distance up, score down. The data are just six rounds; r ≈ −0.96 describes the pattern, not proof that the driver caused the result.
+        <MathText
+          text={tex`Idea being tested: if longer drives leave shorter approach shots, rounds with more distance might also show fewer strokes. That would look like a negative correlation — distance up, score down. The data are just six rounds; $r \approx -0.96$ describes the pattern, not proof that the driver caused the result.`}
+        />
       </p>
       <div className={styles.splitWide}>
         <div>
@@ -1488,19 +1601,20 @@ function CorrelationScene() {
             showTrend
           />
           <p className={styles.note}>
-            <strong>s<sub>x</sub></strong> = sample standard deviation of x (driving distance).
-            &nbsp;<strong>s<sub>y</sub></strong> = sample standard deviation of y (score).
-            &nbsp;<strong>s<sub>xy</sub></strong> = sample covariance — average signed product of deviations; positive when x and y move together, negative when they move in opposite directions.
-            &nbsp;<strong>r</strong> = sample correlation coefficient — strength and direction of the <em>linear</em> association; always between −1 and +1.
+            <MathText
+              text={tex`$s_x$ = sample standard deviation of $x$ (driving distance). $s_y$ = sample standard deviation of $y$ (score). $s_{xy}$ = sample covariance — average signed product of deviations; positive when $x$ and $y$ move together, negative when they move in opposite directions. $r$ = sample correlation coefficient — strength and direction of the linear association; always between $-1$ and $+1$.`}
+            />
           </p>
-          <p className={styles.formula}>
-            s<sub>xy</sub> = Σ(xᵢ − x̄)(yᵢ − ȳ) / (n − 1) = {formatNumber(cov, 2)}
-          </p>
-          <p className={styles.formula}>
-            r = s<sub>xy</sub> / (s<sub>x</sub> s<sub>y</sub>) = {formatNumber(cov, 2)} / ({formatNumber(sx, 2)} × {formatNumber(sy, 2)}) = {formatNumber(r, 3)}
-          </p>
+          <Formula
+            tex={tex`s_{xy} = \dfrac{\sum (x_i - \bar{x})(y_i - \bar{y})}{n - 1} = ${formatNumber(cov, 2)}`}
+          />
+          <Formula
+            tex={tex`r = \dfrac{s_{xy}}{s_x s_y} = \dfrac{${formatNumber(cov, 2)}}{${formatNumber(sx, 2)} \times ${formatNumber(sy, 2)}} = ${formatNumber(r, 3)}`}
+          />
           <p className={styles.small}>
-            r ≈ −0.96 here — strong negative linear association (near −1). Near 0 would mean little linear pattern. Correlation is not causation: course management, putting, or easier courses could explain both distance and score.
+            <MathText
+              text={tex`$r \approx -0.96$ here — strong negative linear association (near $-1$). Near $0$ would mean little linear pattern. Correlation is not causation: course management, putting, or easier courses could explain both distance and score.`}
+            />
           </p>
         </div>
         <div>
@@ -1520,7 +1634,9 @@ function CorrelationScene() {
             showTrend={kind !== "none"}
           />
           <p className={styles.note}>
-            <strong>r</strong> = sample correlation coefficient — between −1 and +1. Positive r: upward cloud. Negative r: downward cloud. Near 0: little linear association (there may still be a curve).
+            <MathText
+              text={tex`$r$ = sample correlation coefficient — between $-1$ and $+1$. Positive $r$: upward cloud. Negative $r$: downward cloud. Near $0$: little linear association (there may still be a curve).`}
+            />
           </p>
         </div>
       </div>
@@ -1553,15 +1669,27 @@ function GroupedScene() {
   return (
     <SceneFrame kicker="Weighted mean and grouped data" title="When some values count more, stop using a plain average." tone="white">
       <p className={styles.lead}>
-        Example: one student&apos;s semester GPA. Each course has <strong>grade points</strong> (xᵢ) and <strong>credits</strong> (wᵢ).
-        A 4-credit A− should count more than a 2-credit B+ — that is a weighted mean, not a plain average of the four grades.
+        <MathText
+          text={tex`Example: one student's semester GPA. Each course has grade points ($x_i$) and credits ($w_i$). A 4-credit A− should count more than a 2-credit B+ — that is a weighted mean, not a plain average of the four grades.`}
+        />
       </p>
       <div className={styles.splitWide}>
         <div>
           <div className={styles.tableWrap}>
             <table>
               <thead>
-                <tr><th>Course</th><th>Credits wᵢ</th><th>Points xᵢ</th><th>wᵢxᵢ</th></tr>
+                <tr>
+                  <th>Course</th>
+                  <th>
+                    Credits <InlineMath tex={tex`w_i`} />
+                  </th>
+                  <th>
+                    Points <InlineMath tex={tex`x_i`} />
+                  </th>
+                  <th>
+                    <InlineMath tex={tex`w_i x_i`} />
+                  </th>
+                </tr>
               </thead>
               <tbody>
                 {courses.map((course) => (
@@ -1581,19 +1709,39 @@ function GroupedScene() {
               </tbody>
             </table>
           </div>
-          <p className={styles.formula}>
-            x̄ = Σ wᵢxᵢ / Σ wᵢ = ({courses.map((course) => `${course.credits}×${formatNumber(course.points, 1)}`).join(" + ")}) / {creditTotal} = {formatNumber(gpa, 2)}
-          </p>
+          <Formula
+            tex={tex`\bar{x} = \dfrac{\sum w_i x_i}{\sum w_i} = \dfrac{${courses.map((course) => `${course.credits} \\times ${formatNumber(course.points, 1)}`).join(" + ")}}{${creditTotal}} = ${formatNumber(gpa, 2)}`}
+          />
           <p className={styles.small}>
-            Plain average of the four grade points = {formatNumber(plainMean, 2)}. GPA = {formatNumber(gpa, 2)} because the 4-credit marketing grade pulls harder than the 2-credit economics grade.
+            <MathText
+              text={tex`Plain average of the four grade points $= ${formatNumber(plainMean, 2)}$. GPA $= ${formatNumber(gpa, 2)}$ because the 4-credit marketing grade pulls harder than the 2-credit economics grade.`}
+            />
           </p>
         </div>
         <div>
-          <p className={styles.muted}>Grouped data uses the same idea: class midpoints Mᵢ stand in for every value in the bin; frequencies fᵢ are the weights.</p>
+          <p className={styles.muted}>
+            <MathText
+              text={tex`Grouped data uses the same idea: class midpoints $M_i$ stand in for every value in the bin; frequencies $f_i$ are the weights.`}
+            />
+          </p>
           <div className={styles.tableWrap}>
             <table>
               <thead>
-                <tr><th>Class</th><th>M</th><th>f</th><th>fM</th><th>f(M−x̄)²</th></tr>
+                <tr>
+                  <th>Class</th>
+                  <th>
+                    <InlineMath tex={tex`M`} />
+                  </th>
+                  <th>
+                    <InlineMath tex={tex`f`} />
+                  </th>
+                  <th>
+                    <InlineMath tex={tex`fM`} />
+                  </th>
+                  <th>
+                    <InlineMath tex={tex`f(M-\bar{x})^2`} />
+                  </th>
+                </tr>
               </thead>
               <tbody>
                 {bins.map((bin) => (
@@ -1615,15 +1763,15 @@ function GroupedScene() {
               </tbody>
             </table>
           </div>
-          <p className={styles.formula}>
-            x̄ = Σ fᵢMᵢ / n = {formatNumber(sumFM, 0)} / {n} = {formatNumber(approxMean, 2)}
-          </p>
-          <p className={styles.formula}>
-            s² = Σ fᵢ(Mᵢ − x̄)² / (n − 1) = {formatNumber(sumFMDevSq, 0)} / {n - 1} = {formatNumber(groupedVar, 2)}
-          </p>
-          <p className={styles.formula}>s = √s² = {formatNumber(groupedS, 2)}</p>
+          <Formula tex={tex`\bar{x} = \dfrac{\sum f_i M_i}{n} = \dfrac{${formatNumber(sumFM, 0)}}{${n}} = ${formatNumber(approxMean, 2)}`} />
+          <Formula
+            tex={tex`s^2 = \dfrac{\sum f_i (M_i - \bar{x})^2}{n - 1} = \dfrac{${formatNumber(sumFMDevSq, 0)}}{${n - 1}} = ${formatNumber(groupedVar, 2)}`}
+          />
+          <Formula tex={tex`s = \sqrt{s^2} = ${formatNumber(groupedS, 2)}`} />
           <p className={styles.small}>
-            Hotel rates (n = {n}) · grouped x̄ = {formatNumber(approxMean, 2)} vs actual {formatNumber(trueMean, 2)} · grouped s = {formatNumber(groupedS, 2)} vs actual {formatNumber(trueS, 2)}. Approximations — close, not exact.
+            <MathText
+              text={tex`Hotel rates ($n = ${n}$) · grouped $\bar{x} = ${formatNumber(approxMean, 2)}$ vs actual ${formatNumber(trueMean, 2)} · grouped $s = ${formatNumber(groupedS, 2)}$ vs actual ${formatNumber(trueS, 2)}. Approximations — close, not exact.`}
+            />
           </p>
         </div>
       </div>
@@ -1644,18 +1792,18 @@ function FinalQuiz() {
   const answer = Math.abs(r) < 0.3 ? "weak" : r > 0.7 ? "strong-pos" : r < -0.7 ? "strong-neg" : "moderate";
   const answerNote = (() => {
     if (print || seed === 0) {
-      return `r = ${formatNumber(r, 2)}. The textbook table climbs in both columns, so many students guess about 0.95 without plotting — plot first, then read r.`;
+      return tex`$r = ${formatNumber(r, 2)}$. The textbook table climbs in both columns, so many students guess about $0.95$ without plotting — plot first, then read $r$.`;
     }
     if (answer === "weak") {
-      return `r = ${formatNumber(r, 2)}. Both columns can look busy in the table while the cloud shows little linear association.`;
+      return tex`$r = ${formatNumber(r, 2)}$. Both columns can look busy in the table while the cloud shows little linear association.`;
     }
     if (answer === "strong-neg") {
-      return `r = ${formatNumber(r, 2)}. A downward cloud is easy to miss if you only scan the table — plot, then compute r.`;
+      return tex`$r = ${formatNumber(r, 2)}$. A downward cloud is easy to miss if you only scan the table — plot, then compute $r$.`;
     }
     if (answer === "moderate") {
-      return `r = ${formatNumber(r, 2)}. Neither “no link” nor “perfect line” — let the scatter and r decide.`;
+      return tex`$r = ${formatNumber(r, 2)}$. Neither “no link” nor “perfect line” — let the scatter and $r$ decide.`;
     }
-    return `r = ${formatNumber(r, 2)}. Strong positive linear pattern — still plot before you trust the table.`;
+    return tex`$r = ${formatNumber(r, 2)}$. Strong positive linear pattern — still plot before you trust the table.`;
   })();
 
   const options = useMemo(
@@ -1675,8 +1823,9 @@ function FinalQuiz() {
   return (
     <SceneFrame kicker="Game 8 · Check your understanding" title="Do not trust a table until you see the cloud." tone="gold">
       <p className={styles.lead}>
-        Plot the table, then compute <strong>r</strong> — the sample correlation coefficient — do not guess from the numbers alone.
-        r measures linear association only; it always lies between −1 and +1.
+        <MathText
+          text={tex`Plot the table, then compute $r$ — the sample correlation coefficient — do not guess from the numbers alone. $r$ measures linear association only; it always lies between $-1$ and $+1$.`}
+        />
       </p>
       <div className={styles.split}>
         <div className={styles.tableWrap}>
@@ -1726,7 +1875,9 @@ function FinalQuiz() {
             ),
           )}
           {(print || pick) ? (
-            <p className={styles.answer}>{answerNote}</p>
+            <p className={styles.answer}>
+              <MathText text={answerNote} />
+            </p>
           ) : null}
         </div>
       </div>
