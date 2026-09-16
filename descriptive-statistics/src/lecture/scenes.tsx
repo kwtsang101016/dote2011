@@ -1082,13 +1082,13 @@ function PercentileScene() {
       </p>
       <div className={styles.rulePair}>
         <article className={`${styles.ruleCard} ${activeMethod === "average" ? styles.ruleCardActive : ""}`}>
-          <span>CASE A · i IS A WHOLE NUMBER</span>
+          <span className={styles.ruleCardLabel}>CASE A · i IS A WHOLE NUMBER</span>
           <MathText
             text={tex`Average the two neighbours: $x_{(i)}$ and $x_{(i+1)}$. Example at $n = 70$: $p = 50 \Rightarrow i = 35$ → average #35 and #36.`}
           />
         </article>
         <article className={`${styles.ruleCard} ${activeMethod === "round-up" ? styles.ruleCardActive : ""}`}>
-          <span>CASE B · i HAS A DECIMAL</span>
+          <span className={styles.ruleCardLabel}>CASE B · i HAS A DECIMAL</span>
           <MathText
             text={tex`Round $i$ up to the next position and take that one value: $x_{(\lceil i \rceil)}$. Example: $p = 25 \Rightarrow i = 17.5$ → take #18.`}
           />

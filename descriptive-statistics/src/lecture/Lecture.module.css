@@ -422,7 +422,7 @@ th { font: 800 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spa
   box-shadow: inset 0 0 0 2px var(--red);
 }
 
-.ruleCard span {
+.ruleCardLabel {
   display: block;
   margin-bottom: 6px;
   font: 800 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -430,7 +430,7 @@ th { font: 800 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spa
   color: var(--red);
 }
 
-.ruleCardActive span { color: var(--ink); }
+.ruleCardActive .ruleCardLabel { color: var(--ink); }
 
 .stem {
   font: 800 16px/1.7 ui-monospace, SFMono-Regular, Menlo, monospace;
