@@ -70,14 +70,15 @@ With n runners (e.g. n = 14):
 
 | Pool (EN / 中) | Meaning | Count |
 |------|---------|-------|
-| Win / 獨贏 | Who finishes 1st | n |
-| Place / 位置 | Finishes in the paying places | (rules depend on field) |
-| Forecast / 二重彩 | 1st & 2nd correct **order** | P(n,2) |
-| Quinella / 連贏 | 1st & 2nd **any** order | C(n,2) |
-| Tierce / 三重彩 | Top 3 correct order | P(n,3) |
-| Trio / 單T | Top 3 any order | C(n,3) |
+| Win / 獨贏 | Who finishes 1st | n | 1/n |
+| Place / 位置 | One named horse finishes in top 3 | — | **3/n** (not C(n,3)) |
+| Forecast / 二重彩 | 1st & 2nd correct **order** | P(n,2) | 1/P(n,2) |
+| Quinella / 連贏 | 1st & 2nd **any** order | C(n,2) | 1/C(n,2) |
+| Tierce / 三重彩 | Top 3 correct order | P(n,3) | 1/P(n,3) |
+| Trio / 單T | Top 3 any order | **C(n,3)** | 1/C(n,3) |
 
-Identity: P(n,2) = 2 · C(n,2); P(n,3) = 3! · C(n,3).
+Identity: P(n,2) = 2 · C(n,2); P(n,3) = 3! · C(n,3).  
+**Trap:** C(n,3) is 單T (which three horses fill the places), not 位置 (one horse among the top three).
 
 ---
 

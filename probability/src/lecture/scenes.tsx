@@ -559,10 +559,13 @@ function HorseRacingScene() {
                 <span className={styles.muted}>位置</span>
               </td>
               <td>
-                <MathText text={tex`Horse finishes in the top places (usually $1$–$3$; rules depend on field size)`} />
+                <MathText text={tex`You pick one horse; it finishes in the top $3$ (usual rule for a larger field)`} />
               </td>
-              <td colSpan={2}>
-                <span className={styles.muted}>Not a single “ordered list” count — still classical if each horse is equally likely to place</span>
+              <td>
+                <MathText text={tex`$n$ horses · $3$ paying places`} />
+              </td>
+              <td>
+                <InlineMath tex={tex`3/${n} = ${formatProb(3 / n)}`} />
               </td>
             </tr>
             <tr>
@@ -637,7 +640,7 @@ function HorseRacingScene() {
       />
       <p className={styles.note}>
         <MathText
-          text={tex`Questions: With $n=${n}$, how many 二重彩 (Forecast) tickets cover every ordered top-two? How many 連贏 (Quinella)? Why is Forecast twice Quinella? For 三重彩 vs 單T: $P(n,3)=3!\cdot C(n,3)$.`}
+          text={tex`Questions: With $n=${n}$, how many 二重彩 (Forecast) tickets cover every ordered top-two? How many 連贏 (Quinella)? Why is Forecast twice Quinella? For 三重彩 vs 單T: $P(n,3)=3!\cdot C(n,3)$. Do not confuse 位置 with 單T: $C(n,3)$ counts which three horses fill the frame (Trio); 位置 is one horse in the top $3$, so $P=3/n$ under equal chance.`}
         />
       </p>
       <p className={styles.small}>
