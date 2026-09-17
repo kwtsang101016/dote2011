@@ -655,113 +655,185 @@ function HorseRacingScene() {
 function CountingGame() {
   const print = usePrintMode();
   const [seed, setSeed] = useState(0);
-  const [guess, setGuess] = useState("");
-  const [feedback, setFeedback] = useState<ReactNode>("");
-  const items = useMemo(
-    () =>
-      shuffle(
-        [
-          {
-            q: tex`A PIN has $4$ digits; each digit $0$–$9$. How many PINs?`,
-            a: 10 ** 4,
-            hint: tex`$10 \times 10 \times 10 \times 10$`,
-          },
-          {
-            q: tex`Choose $3$ committee members from $8$ people (order irrelevant).`,
-            a: combinations(8, 3),
-            hint: tex`$C(8,3)$`,
-          },
-          {
-            q: tex`Award gold, silver, bronze to $3$ of $10$ runners (order matters).`,
-            a: permutations(10, 3),
-            hint: tex`$P(10,3)$`,
-          },
-          {
-            q: tex`A lunch has $3$ mains $\times 2$ sides $\times 4$ drinks. How many meals?`,
-            a: 3 * 2 * 4,
-            hint: tex`Multiply the step counts`,
-          },
-          {
-            q: tex`Mark Six: how many possible sets of $6$ Drawn Numbers from $1$–$49$?`,
-            a: combinations(49, 6),
-            hint: tex`$C(49,6)$`,
-          },
-          {
-            q: tex`Mark Six Multiple: you pick $7$ numbers. How many single $6$-number entries is that?`,
-            a: combinations(7, 6),
-            hint: tex`$C(7,6)=7$ (hence HK\$70 at HK\$10 each)`,
-          },
-          {
-            q: tex`A race has $14$ horses. How many Forecast outcomes ($1$st and $2$nd in order)?`,
-            a: permutations(14, 2),
-            hint: tex`$P(14,2)=14\times 13$`,
-          },
-          {
-            q: tex`Same $14$-horse race. How many Quinella outcomes ($1$st and $2$nd, any order)?`,
-            a: combinations(14, 2),
-            hint: tex`$C(14,2)$; half of Forecast`,
-          },
-          {
-            q: tex`Same $14$-horse race. How many Tierce outcomes (top $3$ in exact order)?`,
-            a: permutations(14, 3),
-            hint: tex`$P(14,3)$`,
-          },
-        ],
-        createRng(print ? 1 : seed + 3),
-      ),
-    [print, seed],
-  );
-  const current = items[0];
+  const [picked, setPicked] = useState<string | null>(null);
 
-  const check = () => {
-    const value = Number(guess);
-    if (!Number.isFinite(value)) {
-      setFeedback("Enter a number.");
-      return;
-    }
-    setFeedback(
-      value === current.a ? (
-        <MathText text={tex`Correct — ${current.hint}.`} />
-      ) : (
-        <MathText text={tex`Not quite. Hint: ${current.hint}. Answer $= ${current.a}$.`} />
-      ),
-    );
-  };
+  const bank = useMemo(
+    () => [
+      {
+        id: "pin",
+        q: tex`A PIN has $4$ digits; each digit $0$–$9$. How many PINs?`,
+        choices: [
+          { id: "a", label: tex`$10^4$`, ok: true },
+          { id: "b", label: tex`$10 \times 4$`, ok: false },
+          { id: "c", label: tex`$C(10,4)$`, ok: false },
+          { id: "d", label: tex`$P(10,4)$`, ok: false },
+        ],
+        explain: tex`Multiply the steps: $10^4 = 10{,}000$. Order of digits matters and repeats are allowed, so not $C$ or $P$.`,
+      },
+      {
+        id: "committee",
+        q: tex`Choose $3$ committee members from $8$ people (order irrelevant).`,
+        choices: [
+          { id: "a", label: tex`$C(8,3)$`, ok: true },
+          { id: "b", label: tex`$P(8,3)$`, ok: false },
+          { id: "c", label: tex`$8 \times 3$`, ok: false },
+          { id: "d", label: tex`$8^3$`, ok: false },
+        ],
+        explain: tex`Unordered team → combinations $C(8,3)=56$. $P(8,3)$ would count ordered lists.`,
+      },
+      {
+        id: "medals",
+        q: tex`Award gold, silver, bronze to $3$ of $10$ runners (order matters).`,
+        choices: [
+          { id: "a", label: tex`$P(10,3)$`, ok: true },
+          { id: "b", label: tex`$C(10,3)$`, ok: false },
+          { id: "c", label: tex`$10 \times 3$`, ok: false },
+          { id: "d", label: tex`$3^{10}$`, ok: false },
+        ],
+        explain: tex`Medals are ordered → permutations $P(10,3)=10\times 9\times 8$.`,
+      },
+      {
+        id: "lunch",
+        q: tex`A lunch has $3$ mains, $2$ sides, and $4$ drinks. How many meals?`,
+        choices: [
+          { id: "a", label: tex`$3 \times 2 \times 4$`, ok: true },
+          { id: "b", label: tex`$C(9,3)$`, ok: false },
+          { id: "c", label: tex`$3+2+4$`, ok: false },
+          { id: "d", label: tex`$P(9,3)$`, ok: false },
+        ],
+        explain: tex`Multiple-step experiment: multiply $3\times 2\times 4 = 24$.`,
+      },
+      {
+        id: "marksix-space",
+        q: tex`Mark Six: how many possible sets of $6$ Drawn Numbers from $1$–$49$?`,
+        choices: [
+          { id: "a", label: tex`$C(49,6)$`, ok: true },
+          { id: "b", label: tex`$P(49,6)$`, ok: false },
+          { id: "c", label: tex`$49^6$`, ok: false },
+          { id: "d", label: tex`$49 \times 6$`, ok: false },
+        ],
+        explain: tex`The six Drawn Numbers are an unordered set → $C(49,6)$. $P(49,6)$ would treat draw order as mattering.`,
+      },
+      {
+        id: "marksix-multi",
+        q: tex`Mark Six Multiple: you pick $7$ numbers. How many single $6$-number entries is that?`,
+        choices: [
+          { id: "a", label: tex`$C(7,6)=7$`, ok: true },
+          { id: "b", label: tex`$C(49,7)$`, ok: false },
+          { id: "c", label: tex`$7\times 6$`, ok: false },
+          { id: "d", label: tex`$P(7,6)$`, ok: false },
+        ],
+        explain: tex`Every way to drop one of the $7$ numbers: $C(7,6)=7$ unit tickets (HK\$70 at HK\$10 each).`,
+      },
+      {
+        id: "forecast",
+        q: tex`A race has $14$ horses. How many 二重彩 (Forecast) outcomes ($1$st and $2$nd in order)?`,
+        choices: [
+          { id: "a", label: tex`$P(14,2)$`, ok: true },
+          { id: "b", label: tex`$C(14,2)$`, ok: false },
+          { id: "c", label: tex`$14\times 2$`, ok: false },
+          { id: "d", label: tex`$2^{14}$`, ok: false },
+        ],
+        explain: tex`Order matters → $P(14,2)=14\times 13$. $C(14,2)$ is 連贏 (Quinella).`,
+      },
+      {
+        id: "quinella",
+        q: tex`Same $14$-horse race. How many 連贏 (Quinella) outcomes ($1$st and $2$nd, any order)?`,
+        choices: [
+          { id: "a", label: tex`$C(14,2)$`, ok: true },
+          { id: "b", label: tex`$P(14,2)$`, ok: false },
+          { id: "c", label: tex`$14+2$`, ok: false },
+          { id: "d", label: tex`$C(14,3)$`, ok: false },
+        ],
+        explain: tex`Any order → $C(14,2)=91$, half of Forecast.`,
+      },
+      {
+        id: "tierce",
+        q: tex`Same $14$-horse race. How many 三重彩 (Tierce) outcomes (top $3$ in exact order)?`,
+        choices: [
+          { id: "a", label: tex`$P(14,3)$`, ok: true },
+          { id: "b", label: tex`$C(14,3)$`, ok: false },
+          { id: "c", label: tex`$P(14,2)$`, ok: false },
+          { id: "d", label: tex`$3/14$`, ok: false },
+        ],
+        explain: tex`Exact order of top three → $P(14,3)$. $C(14,3)$ is 單T (Trio); $3/14$ is 位置 (Place) for one horse.`,
+      },
+      {
+        id: "place",
+        q: tex`Same $14$-horse race. You buy 位置 (Place) on one horse (top $3$ pays). Under equal chance, what is $P(\text{win the Place bet})$?`,
+        choices: [
+          { id: "a", label: tex`$3/14$`, ok: true },
+          { id: "b", label: tex`$C(14,3)$`, ok: false },
+          { id: "c", label: tex`$1/14$`, ok: false },
+          { id: "d", label: tex`$P(14,3)$`, ok: false },
+        ],
+        explain: tex`One horse in the top $3$ → $3/14$. $C(14,3)$ is 單T, not 位置.`,
+      },
+    ],
+    [],
+  );
+
+  const current = useMemo(() => {
+    const shuffledQs = shuffle([...bank], createRng(print ? 1 : seed + 3));
+    const q = shuffledQs[0];
+    const choices = shuffle([...q.choices], createRng(print ? 2 : seed + 11));
+    return { ...q, choices };
+  }, [bank, print, seed]);
+
+  const correct = current.choices.find((c) => c.ok);
 
   return (
     <SceneFrame kicker="Game 1 · Counting" title="Which counting rule fits?" tone="gold">
       <p className={styles.lead}>
         <MathText text={current.q} />
       </p>
+      <p className={styles.small}>Pick the matching expression — no calculator needed.</p>
+      <div className={styles.choices}>
+        {current.choices.map((item) => (
+          <button
+            key={item.id}
+            className={`${styles.choice} ${
+              picked === item.id ? (item.ok ? styles.choiceCorrect : styles.choiceWrong) : ""
+            } ${print && item.ok ? styles.choiceCorrect : ""}`}
+            type="button"
+            onClick={() => {
+              if (!print) setPicked(item.id);
+            }}
+          >
+            <MathText text={item.label} />
+          </button>
+        ))}
+      </div>
       <LiveOnly>
         <div className={styles.tools}>
-          <input
-            className={styles.numberInput}
-            style={{ width: 120 }}
-            value={guess}
-            onChange={(e) => setGuess(e.target.value)}
-            placeholder="answer"
-          />
-          <button className={styles.toolBtn} type="button" onClick={check}>
-            CHECK
-          </button>
           <button
             className={styles.ghost}
             type="button"
             onClick={() => {
               setSeed((s) => s + 1);
-              setGuess("");
-              setFeedback("");
+              setPicked(null);
             }}
           >
             NEW QUESTION
           </button>
         </div>
-        {feedback ? <p className={styles.answer}>{feedback}</p> : null}
+        {picked ? (
+          <p className={styles.answer}>
+            <MathText
+              text={
+                picked === correct?.id
+                  ? tex`Correct — ${current.explain}`
+                  : tex`Not quite. Hint: look for whether order matters. Answer: ${correct?.label ?? ""}. ${current.explain}`
+              }
+            />
+          </p>
+        ) : (
+          <p className={styles.small}>Tap an answer.</p>
+        )}
       </LiveOnly>
       <PrintOnly>
         <p className={styles.note}>
-          <MathText text={tex`Answer: $${current.a}$ (${current.hint}). Practice more questions on the interactive site.`} />
+          <MathText text={tex`Answer: ${correct?.label ?? ""}. ${current.explain}`} />
         </p>
       </PrintOnly>
     </SceneFrame>
