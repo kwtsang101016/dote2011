@@ -389,6 +389,213 @@ function CombinationsScene() {
   );
 }
 
+/** Mark Six: 6 drawn numbers from 1–49 (order irrelevant). Unit stake HK$10. */
+const MARK6_POOL = 49;
+const MARK6_DRAW = 6;
+const MARK6_UNIT = 10;
+
+function MarkSixScene() {
+  const print = usePrintMode();
+  const [pickLive, setPickLive] = useState(7);
+  const pick = print ? 7 : pickLive;
+  const totalOutcomes = combinations(MARK6_POOL, MARK6_DRAW);
+  const multiEntries = combinations(pick, MARK6_DRAW);
+  const cost = multiEntries * MARK6_UNIT;
+  const pFirst = 1 / totalOutcomes;
+
+  return (
+    <SceneFrame kicker="HK example · Mark Six" title="Mark Six is combinations — order does not matter.">
+      <p className={styles.lead}>
+        <MathText
+          text={tex`Hong Kong Mark Six draws $6$ numbers from $1$ to $49$. The winning set is unordered, so the sample space for the six Drawn Numbers is counted with combinations. (An Extra Number is also drawn for lower prizes; the first prize needs all six Drawn Numbers.)`}
+        />
+      </p>
+      <div className={styles.three}>
+        <article className={styles.card}>
+          <p className={styles.kicker}>Q1 · HOW MANY DRAWS?</p>
+          <p className={styles.muted}>Possible outcomes for the six Drawn Numbers</p>
+          <p className={styles.cardTitle} style={{ fontSize: 28 }}>
+            <InlineMath tex={tex`C(49,6)`} />
+          </p>
+          <p className={styles.muted}>
+            <InlineMath tex={tex`= ${totalOutcomes.toLocaleString("en-US")}`} />
+          </p>
+        </article>
+        <article className={styles.card}>
+          <p className={styles.kicker}>Q2 · FIRST PRIZE</p>
+          <p className={styles.muted}>One single entry matches the six Drawn Numbers</p>
+          <p className={styles.cardTitle} style={{ fontSize: 22 }}>
+            <InlineMath tex={tex`P(\text{1st}) = \dfrac{1}{C(49,6)}`} />
+          </p>
+          <p className={styles.muted}>
+            <MathText text={tex`$\approx ${pFirst.toExponential(2)}$ (about $1$ in $14$ million)`} />
+          </p>
+        </article>
+        <article className={styles.card}>
+          <p className={styles.kicker}>Q3 · WHY HK$70 FOR 7 NUMBERS?</p>
+          <p className={styles.muted}>Unit stake is HK${MARK6_UNIT}. Buying 7 numbers is a Multiple entry.</p>
+          <p className={styles.cardTitle} style={{ fontSize: 28 }}>
+            <InlineMath tex={tex`C(7,6)=7`} />
+          </p>
+          <p className={styles.muted}>7 single tickets × HK${MARK6_UNIT} = HK$70</p>
+        </article>
+      </div>
+      <Formula tex={tex`C(49,6)=\dfrac{49!}{6!(49-6)!}=${totalOutcomes.toLocaleString("en-US")}`} />
+      <p className={styles.note}>
+        <MathText
+          text={tex`Why seven times as expensive? Choosing $7$ numbers creates every $6$-number ticket you can make from those $7$: $C(7,6)=7$ entries. So the price is $7$ times one single entry — not “one ticket that is luckier.”`}
+        />
+      </p>
+      <LiveOnly>
+        <div className={styles.sliderRow}>
+          <b>MULTIPLE ENTRY · PICK k NUMBERS</b>
+          <input
+            type="range"
+            min={6}
+            max={12}
+            value={pickLive}
+            onChange={(event) => setPickLive(Number(event.target.value))}
+          />
+          <span>{pickLive}</span>
+        </div>
+      </LiveOnly>
+      <p className={styles.note}>
+        <MathText
+          text={tex`For $k = ${pick}$: number of entries $= C(${pick},6) = ${multiEntries.toLocaleString("en-US")}$.`}
+        />{" "}
+        Stake = {multiEntries.toLocaleString("en-US")} × HK${MARK6_UNIT} = HK${cost.toLocaleString("en-US")}.
+      </p>
+      <p className={styles.small}>
+        <MathText text={tex`Check: $k=8$ → $C(8,6)=28$ →`} /> HK$280;{" "}
+        <MathText text={tex`$k=10$ → $C(10,6)=210$ →`} /> HK$2,100 (same table the Jockey Club publishes).
+      </p>
+    </SceneFrame>
+  );
+}
+
+function HorseRacingScene() {
+  const print = usePrintMode();
+  const [fieldLive, setFieldLive] = useState(14);
+  const n = print ? 14 : fieldLive;
+  const forecast = permutations(n, 2);
+  const quinella = combinations(n, 2);
+  const tierce = permutations(n, 3);
+  const trio = combinations(n, 3);
+  const pWin = 1 / n;
+
+  return (
+    <SceneFrame kicker="HK example · horse racing" title="Same horses: order makes Forecast ≠ Quinella.">
+      <p className={styles.lead}>
+        <MathText
+          text={tex`A race with $n$ runners. Assume every finishing order is equally likely (a teaching model — real odds are not equal). Hong Kong pools care whether order matters.`}
+        />
+      </p>
+      <LiveOnly>
+        <div className={styles.sliderRow}>
+          <b>FIELD SIZE n</b>
+          <input
+            type="range"
+            min={8}
+            max={14}
+            value={fieldLive}
+            onChange={(event) => setFieldLive(Number(event.target.value))}
+          />
+          <span>{fieldLive}</span>
+        </div>
+      </LiveOnly>
+      <div className={styles.tableWrap} style={{ marginTop: 16 }}>
+        <table>
+          <thead>
+            <tr>
+              <th>Pool (HKJC idea)</th>
+              <th>What you must get right</th>
+              <th>Count</th>
+              <th>
+                <MathText text={tex`$P(\text{one ticket wins})$`} />
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Win</td>
+              <td>
+                <MathText text={tex`Which horse finishes $1$st`} />
+              </td>
+              <td>
+                <InlineMath tex={tex`${n}`} />
+              </td>
+              <td>
+                <InlineMath tex={tex`1/${n} = ${formatProb(pWin)}`} />
+              </td>
+            </tr>
+            <tr>
+              <td>Forecast</td>
+              <td>
+                <MathText text={tex`$1$st and $2$nd in the correct order`} />
+              </td>
+              <td>
+                <InlineMath tex={tex`P(${n},2)=${forecast}`} />
+              </td>
+              <td>
+                <InlineMath tex={tex`1/${forecast}`} />
+              </td>
+            </tr>
+            <tr>
+              <td>Quinella</td>
+              <td>
+                <MathText text={tex`$1$st and $2$nd in any order`} />
+              </td>
+              <td>
+                <InlineMath tex={tex`C(${n},2)=${quinella}`} />
+              </td>
+              <td>
+                <InlineMath tex={tex`1/${quinella}`} />
+              </td>
+            </tr>
+            <tr>
+              <td>Tierce</td>
+              <td>
+                <MathText text={tex`$1$st–$2$nd–$3$rd in correct order`} />
+              </td>
+              <td>
+                <InlineMath tex={tex`P(${n},3)=${tierce.toLocaleString("en-US")}`} />
+              </td>
+              <td>
+                <InlineMath tex={tex`1/${tierce.toLocaleString("en-US")}`} />
+              </td>
+            </tr>
+            <tr>
+              <td>Trio</td>
+              <td>
+                <MathText text={tex`$1$st–$2$nd–$3$rd in any order`} />
+              </td>
+              <td>
+                <InlineMath tex={tex`C(${n},3)=${trio}`} />
+              </td>
+              <td>
+                <InlineMath tex={tex`1/${trio}`} />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <Formula
+        tex={tex`P(n,2)=n(n-1)=${n}\times${n - 1}=${forecast}\qquad C(n,2)=\dfrac{n(n-1)}{2}=${quinella}\qquad P(n,2)=2\cdot C(n,2)`}
+      />
+      <p className={styles.note}>
+        <MathText
+          text={tex`Questions to ask: With $n=${n}$, how many Forecast tickets cover every ordered top-two? How many Quinella tickets? Why is Forecast twice as many as Quinella? For Tierce vs Trio: $P(n,3)=3!\cdot C(n,3)$.`}
+        />
+      </p>
+      <p className={styles.small}>
+        <MathText
+          text={tex`Win is the simplest classical probability: pick one horse, $P(\text{win})=1/n$ under equal chance. Real racing odds are subjective / market-based — that is the next chapter’s idea.`}
+        />
+      </p>
+    </SceneFrame>
+  );
+}
+
 function CountingGame() {
   const print = usePrintMode();
   const [seed, setSeed] = useState(0);
@@ -417,6 +624,31 @@ function CountingGame() {
             q: tex`A lunch has $3$ mains $\times 2$ sides $\times 4$ drinks. How many meals?`,
             a: 3 * 2 * 4,
             hint: tex`Multiply the step counts`,
+          },
+          {
+            q: tex`Mark Six: how many possible sets of $6$ Drawn Numbers from $1$–$49$?`,
+            a: combinations(49, 6),
+            hint: tex`$C(49,6)$`,
+          },
+          {
+            q: tex`Mark Six Multiple: you pick $7$ numbers. How many single $6$-number entries is that?`,
+            a: combinations(7, 6),
+            hint: tex`$C(7,6)=7$ (hence HK\$70 at HK\$10 each)`,
+          },
+          {
+            q: tex`A race has $14$ horses. How many Forecast outcomes ($1$st and $2$nd in order)?`,
+            a: permutations(14, 2),
+            hint: tex`$P(14,2)=14\times 13$`,
+          },
+          {
+            q: tex`Same $14$-horse race. How many Quinella outcomes ($1$st and $2$nd, any order)?`,
+            a: combinations(14, 2),
+            hint: tex`$C(14,2)$; half of Forecast`,
+          },
+          {
+            q: tex`Same $14$-horse race. How many Tierce outcomes (top $3$ in exact order)?`,
+            a: permutations(14, 3),
+            hint: tex`$P(14,3)$`,
           },
         ],
         createRng(print ? 1 : seed + 3),
@@ -1384,6 +1616,14 @@ function PromptsToTryScene() {
       text: tex`Compute $C(20, 3)$ and $P(20, 3)$ with math.comb / math.perm. Explain in one sentence when each applies.`,
     },
     {
+      topic: "Mark Six",
+      text: tex`Mark Six draws $6$ numbers from $1$–$49$. Compute $C(49,6)$ and $P(\text{1st prize})$ for one single entry. Explain why picking $7$ numbers costs $7\times$HK\$10 $=$ HK\$70.`,
+    },
+    {
+      topic: "Horse racing",
+      text: tex`A race has $14$ horses (equal chance). Compute $P(14,2)$, $C(14,2)$, $P(14,3)$, $C(14,3)$. Map them to Forecast, Quinella, Tierce, Trio. Why is Forecast twice Quinella?`,
+    },
+    {
       topic: "Joint table",
       text: tex`DSME joint table ($I$ = ICBC profitable, $C$ = Mobile profitable): $P(I \cap C)=0.36$, $P(I \cap C^c)=0.34$, $P(I^c \cap C)=0.12$, $P(I^c \cap C^c)=0.18$. In a notebook, compute $P(C \mid I)$ and $P(I \mid C)$. Confirm each with $P(A \cap B)/P(B)$.`,
     },
@@ -1430,7 +1670,7 @@ function CloseScene() {
           <p className={styles.kicker}>01</p>
           <h2 className={styles.cardTitle}>Sample space</h2>
           <p className={styles.muted}>
-            <MathText text={tex`List outcomes; count with trees, $C(N,n)$, $P(N,n)$.`} />
+            <MathText text={tex`List outcomes; count with trees, $C(N,n)$, $P(N,n)$ — Mark Six and horse racing are local examples.`} />
           </p>
         </article>
         <article className={styles.card}>
@@ -1458,6 +1698,8 @@ export const SCENES: SceneDef[] = [
   { id: "dsme", chapter: "Basics", label: "DSME sample space", Scene: DsmeSpaceScene },
   { id: "multi", chapter: "Counting", label: "Multiple-step counting", Scene: CountingMultiScene },
   { id: "combo", chapter: "Counting", label: "Combinations & permutations", Scene: CombinationsScene },
+  { id: "marksix", chapter: "Counting", label: "Mark Six", Scene: MarkSixScene },
+  { id: "racing", chapter: "Counting", label: "Horse racing", Scene: HorseRacingScene },
   { id: "count-game", chapter: "Counting", label: "Game · counting", Scene: CountingGame },
   { id: "methods", chapter: "Assigning", label: "Three methods", Scene: AssignMethodsScene },
   { id: "relative", chapter: "Assigning", label: "Relative frequency", Scene: RelativeFreqScene },

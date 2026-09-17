@@ -9,10 +9,10 @@
 <article class="dote2011-knowledge">
 <h1>DOTE2011G · Probability (interactive lecture)</h1>
 <p><strong>Live site:</strong> https://kwtsang101016.github.io/dote2011/probability/</p>
-<p><strong>Page numbers</strong> match the website slide counter and downloadable PDF (01/22 … 22/22).</p>
+<p><strong>Page numbers</strong> match the website slide counter and downloadable PDF (01/24 … 24/24).</p>
 <hr />
 <h2>Index</h2>
-<table><thead><tr><th>Page</th><th>Title</th></tr></thead><tbody><tr><td>01</td><td>Cover</td></tr><tr><td>02</td><td>What is probability</td></tr><tr><td>03</td><td>Experiments & sample space</td></tr><tr><td>04</td><td>DSME sample space</td></tr><tr><td>05</td><td>Multiple-step counting</td></tr><tr><td>06</td><td>Combinations & permutations</td></tr><tr><td>07</td><td>Game · counting</td></tr><tr><td>08</td><td>Three methods of assigning probabilities</td></tr><tr><td>09</td><td>Relative frequency (William Mini-Library)</td></tr><tr><td>10</td><td>Subjective · DSME probabilities</td></tr><tr><td>11</td><td>Events as sets</td></tr><tr><td>12</td><td>Complement · union · intersection</td></tr><tr><td>13</td><td>Addition law</td></tr><tr><td>14</td><td>Distributive · De Morgan</td></tr><tr><td>15</td><td>Conditional probability</td></tr><tr><td>16</td><td>Joint probability table</td></tr><tr><td>17</td><td>Independence</td></tr><tr><td>18</td><td>Bayes story (Dennis Fashion)</td></tr><tr><td>19</td><td>Bayes table</td></tr><tr><td>20</td><td>Game · Bayes</td></tr><tr><td>21</td><td>Prompts to try</td></tr><tr><td>22</td><td>Takeaways</td></tr></tbody></table>
+<table><thead><tr><th>Page</th><th>Title</th></tr></thead><tbody><tr><td>01</td><td>Cover</td></tr><tr><td>02</td><td>What is probability</td></tr><tr><td>03</td><td>Experiments & sample space</td></tr><tr><td>04</td><td>DSME sample space</td></tr><tr><td>05</td><td>Multiple-step counting</td></tr><tr><td>06</td><td>Combinations & permutations</td></tr><tr><td>07</td><td>Mark Six</td></tr><tr><td>08</td><td>Horse racing</td></tr><tr><td>09</td><td>Game · counting</td></tr><tr><td>10</td><td>Three methods of assigning probabilities</td></tr><tr><td>11</td><td>Relative frequency (William Mini-Library)</td></tr><tr><td>12</td><td>Subjective · DSME probabilities</td></tr><tr><td>13</td><td>Events as sets</td></tr><tr><td>14</td><td>Complement · union · intersection</td></tr><tr><td>15</td><td>Addition law</td></tr><tr><td>16</td><td>Distributive · De Morgan</td></tr><tr><td>17</td><td>Conditional probability</td></tr><tr><td>18</td><td>Joint probability table</td></tr><tr><td>19</td><td>Independence</td></tr><tr><td>20</td><td>Bayes story (Dennis Fashion)</td></tr><tr><td>21</td><td>Bayes table</td></tr><tr><td>22</td><td>Game · Bayes</td></tr><tr><td>23</td><td>Prompts to try</td></tr><tr><td>24</td><td>Takeaways</td></tr></tbody></table>
 <hr />
 <section id="probability-page-02" data-lecture="probability" data-page="2"><h2>Page 02 · What is probability</h2>
 <p>Probability = numerical measure of likelihood, always between <strong>0 and 1</strong>. Near 0 → unlikely; near 1 → almost certain.</p>
@@ -22,14 +22,20 @@
 <p><strong>Experiment</strong> = process with well-defined outcomes. <strong>Sample space</strong> S = all outcomes.</p>
 <p><strong>DSME:</strong> ICBC ∈ {10, 5, 0, −20}, China Mobile ∈ {8, −2} → <strong>8</strong> sample points (net gains from +18 to −22, in $000).</p>
 <hr />
-<h2>Page 05–07 · Counting</h2>
+<h2>Page 05–09 · Counting</h2>
 <ul><li>Multiple-step: n₁ × n₂ × … × nₖ (tree diagrams). DSME: 4 × 2 = 8.</li><li><strong>Factorial:</strong> n! = n × (n−1) × ⋯ × 1 (e.g. 3! = 6); 0! = 1 by definition.</li><li><strong>Combinations</strong> C(N,n) = N! / [n!(N−n)!] — order irrelevant.</li><li><strong>Permutations</strong> P(N,n) = N! / (N−n)! — order matters. P = C × n!.</li></ul>
+<h3>Mark Six (HK)</h3>
+<ul><li>Six Drawn Numbers from 1–49 (unordered) → <strong>C(49,6) = 13,983,816</strong> outcomes.</li><li>First prize (one single entry): <strong>P = 1 / C(49,6)</strong> ≈ 1 in 14 million.</li><li>Multiple entry of <strong>7 numbers</strong>: <strong>C(7,6) = 7</strong> single tickets → <strong>7 × HK$10 = HK$70</strong>.</li><li>General: k numbers → C(k,6) entries × HK$10.</li></ul>
+<h3>Horse racing (equal-chance teaching model)</h3>
+<p>With n runners (e.g. n = 14):</p>
+<table><thead><tr><th>Pool</th><th>Meaning</th><th>Count</th></tr></thead><tbody><tr><td>Win</td><td>Who finishes 1st</td><td>n</td></tr><tr><td>Forecast</td><td>1st & 2nd correct <strong>order</strong></td><td>P(n,2)</td></tr><tr><td>Quinella</td><td>1st & 2nd <strong>any</strong> order</td><td>C(n,2)</td></tr><tr><td>Tierce</td><td>Top 3 correct order</td><td>P(n,3)</td></tr><tr><td>Trio</td><td>Top 3 any order</td><td>C(n,3)</td></tr></tbody></table>
+<p>Identity: P(n,2) = 2 · C(n,2); P(n,3) = 3! · C(n,3).</p>
 <hr />
-<h2>Page 08–10 · Assigning probabilities</h2>
+<h2>Page 10–12 · Assigning probabilities</h2>
 <p>Rules: 0 ≤ P(Eᵢ) ≤ 1 and Σ P(Eᵢ) = 1.</p>
 <table><thead><tr><th>Method</th><th>Idea</th></tr></thead><tbody><tr><td>Classical</td><td>Equally likely → 1/n</td></tr><tr><td>Relative frequency</td><td>frequency / trials (e.g. library books: P(2)=18/40=0.45)</td></tr><tr><td>Subjective</td><td>Judgment / degree of belief (DSME analyst table sums to 1)</td></tr></tbody></table>
 <hr />
-<h2>Page 11–13 · Events and relationships</h2>
+<h2>Page 13–16 · Events and relationships</h2>
 <p>Event = collection of sample points; P(event) = sum of those probabilities.</p>
 <p>DSME: <strong>P(I)=0.70</strong> (ICBC profitable), <strong>P(C)=0.48</strong> (Mobile profitable), <strong>P(I∩C)=0.36</strong>.</p>
 <ul><li>Complement: P(Aᶜ)=1−P(A)</li><li>Union A∪B; Intersection A∩B</li><li><strong>Addition law:</strong> P(A∪B)=P(A)+P(B)−P(A∩B). If mutually exclusive, drop the intersection term.</li></ul>
@@ -41,20 +47,20 @@
 <p>(A ∩ B)ᶜ = Aᶜ ∪ Bᶜ</p>
 <p>DSME check: (I ∪ C)ᶜ = “neither profitable” = Iᶜ ∩ Cᶜ.</p>
 <hr />
-<h2>Page 15–17 · Conditioning & independence</h2>
+<h2>Page 17–19 · Conditioning & independence</h2>
 <p><strong>P(A|B)=P(A∩B)/P(B).</strong> Example: P(C|I)=0.36/0.70≈0.5143.</p>
 <p><strong>Multiplication:</strong> P(A∩B)=P(B)×P(A|B).</p>
 <p>Joint table: body = joints; margins = totals.</p>
 <p><strong>Independent</strong> iff P(A∩B)=P(A)P(B). DSME: 0.70×0.48=0.34 ≠ 0.36 → <strong>not independent</strong>.</p>
 <p>Do not confuse with mutually exclusive (cannot both occur).</p>
 <hr />
-<h2>Page 18–20 · Bayes’ theorem</h2>
+<h2>Page 20–22 · Bayes’ theorem</h2>
 <p>Dennis Fashion / zoning: priors P(A₁)=0.70, P(A₂)=0.30; B = board recommends against; P(B|A₁)=0.20, P(B|A₂)=0.90.</p>
 <p>Joints: 0.14 and 0.27; P(B)=0.41; <strong>posteriors ≈ 0.34 and 0.66</strong>. Negative board news lowers P(approve) from 0.70 to ≈0.34.</p>
 <p>Formula: P(Aᵢ|B) = [P(B|Aᵢ)P(Aᵢ)] / Σⱼ P(B|Aⱼ)P(Aⱼ).</p>
 <hr />
-<h2>Page 21–22 · Practice & takeaways</h2>
-<p>Prompts: simulate a die; C/P; joint conditionals; Bayes medical test.</p>
+<h2>Page 23–24 · Practice & takeaways</h2>
+<p>Prompts: simulate a die; C/P; Mark Six; horse racing pools; joint conditionals; Bayes medical test.</p>
 <p><strong>You may try:</strong> paste the prompt into Microsoft Copilot (https://copilot.microsoft.com/), then run the Python in Google Colab (https://colab.research.google.com/) — download any files, and still read the code so you know what the assistant did.</p>
 <p>Takeaways: <strong>Count → assign → update</strong> (sample space, event laws, Bayes).</p>
 </article>
