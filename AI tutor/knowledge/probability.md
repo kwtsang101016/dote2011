@@ -61,19 +61,21 @@ Probability = numerical measure of likelihood, always between **0 and 1**. Near 
 - Six Drawn Numbers from 1–49 (unordered) → **C(49,6) = 13,983,816** outcomes.  
 - First prize (one single entry): **P = 1 / C(49,6)** ≈ 1 in 14 million.  
 - Multiple entry of **7 numbers**: **C(7,6) = 7** single tickets → **7 × HK$10 = HK$70**.  
-- General: k numbers → C(k,6) entries × HK$10.
+- General: k numbers → C(k,6) entries × HK$10.  
+- **Buy-all discussion:** cost of every combination = 13,983,816 × HK$10 ≈ **HK$140M**. A first-division fund of about **HK$0.2B** looks larger, so a *sole* first-prize winner would more than cover cost in simple arithmetic — but the prize is **shared** among all winning units, so two or more winners can wipe out the “profit.” Teaching point: counting + sharing, not a strategy tip.
 
 ### Horse racing (equal-chance teaching model)
 
 With n runners (e.g. n = 14):
 
-| Pool | Meaning | Count |
+| Pool (EN / 中) | Meaning | Count |
 |------|---------|-------|
-| Win | Who finishes 1st | n |
-| Forecast | 1st & 2nd correct **order** | P(n,2) |
-| Quinella | 1st & 2nd **any** order | C(n,2) |
-| Tierce | Top 3 correct order | P(n,3) |
-| Trio | Top 3 any order | C(n,3) |
+| Win / 獨贏 | Who finishes 1st | n |
+| Place / 位置 | Finishes in the paying places | (rules depend on field) |
+| Forecast / 二重彩 | 1st & 2nd correct **order** | P(n,2) |
+| Quinella / 連贏 | 1st & 2nd **any** order | C(n,2) |
+| Tierce / 三重彩 | Top 3 correct order | P(n,3) |
+| Trio / 單T | Top 3 any order | C(n,3) |
 
 Identity: P(n,2) = 2 · C(n,2); P(n,3) = 3! · C(n,3).
 

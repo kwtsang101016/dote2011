@@ -402,6 +402,10 @@ function MarkSixScene() {
   const multiEntries = combinations(pick, MARK6_DRAW);
   const cost = multiEntries * MARK6_UNIT;
   const pFirst = 1 / totalOutcomes;
+  const buyAllCost = totalOutcomes * MARK6_UNIT;
+  /** Illustrative recent-scale first-division fund (HK$0.2 billion). */
+  const jackpotExample = 200_000_000;
+  const soleProfit = jackpotExample - buyAllCost;
 
   return (
     <SceneFrame kicker="HK example · Mark Six" title="Mark Six is combinations — order does not matter.">
@@ -469,6 +473,22 @@ function MarkSixScene() {
         <MathText text={tex`Check: $k=8$ → $C(8,6)=28$ →`} /> HK$280;{" "}
         <MathText text={tex`$k=10$ → $C(10,6)=210$ →`} /> HK$2,100 (same table the Jockey Club publishes).
       </p>
+      <p className={styles.note} style={{ marginTop: 16 }}>
+        <strong>Discussion · buy every combination?</strong> Cost of all{" "}
+        <InlineMath tex={tex`C(49,6)`} /> tickets = {totalOutcomes.toLocaleString("en-US")} × HK${"$"}
+        {MARK6_UNIT} ={" "}
+        <strong>HK${"$"}{buyAllCost.toLocaleString("en-US")}</strong> (about HK$140 million). Suppose a first-division
+        fund is about <strong>HK$0.2 billion</strong> (HK${"$"}
+        {jackpotExample.toLocaleString("en-US")}). If you alone held the winning first-prize ticket, the simplified
+        arithmetic is{" "}
+        <InlineMath
+          tex={tex`${jackpotExample.toLocaleString("en-US")} - ${buyAllCost.toLocaleString("en-US")} = ${soleProfit.toLocaleString("en-US")}`}
+        />{" "}
+        “left over.” But that is <em>not</em> a guaranteed profit: first prize is <strong>shared</strong> among all
+        winning unit investments. If two people (or syndicates) hit the same six numbers, each gets about half the fund
+        — and half of HK$0.2B is already below the ~HK$140M buy-all cost. Large jackpots also attract more players, so
+        sharing becomes more likely. Treat this as counting + expected-value thinking, not a tip.
+      </p>
     </SceneFrame>
   );
 }
@@ -484,10 +504,10 @@ function HorseRacingScene() {
   const pWin = 1 / n;
 
   return (
-    <SceneFrame kicker="HK example · horse racing" title="Same horses: order makes Forecast ≠ Quinella.">
+    <SceneFrame kicker="HK example · horse racing" title="Same horses: order makes 二重彩 ≠ 連贏.">
       <p className={styles.lead}>
         <MathText
-          text={tex`A race with $n$ runners. Assume every finishing order is equally likely (a teaching model — real odds are not equal). Hong Kong pools care whether order matters.`}
+          text={tex`A race with $n$ runners. Assume every finishing order is equally likely (a teaching model — real odds are not equal). Hong Kong Jockey Club pools care whether order matters — students often know the Chinese names from the betting board.`}
         />
       </p>
       <LiveOnly>
@@ -507,7 +527,7 @@ function HorseRacingScene() {
         <table>
           <thead>
             <tr>
-              <th>Pool (HKJC idea)</th>
+              <th>Pool</th>
               <th>What you must get right</th>
               <th>Count</th>
               <th>
@@ -517,7 +537,11 @@ function HorseRacingScene() {
           </thead>
           <tbody>
             <tr>
-              <td>Win</td>
+              <td>
+                Win
+                <br />
+                <span className={styles.muted}>獨贏</span>
+              </td>
               <td>
                 <MathText text={tex`Which horse finishes $1$st`} />
               </td>
@@ -529,7 +553,24 @@ function HorseRacingScene() {
               </td>
             </tr>
             <tr>
-              <td>Forecast</td>
+              <td>
+                Place
+                <br />
+                <span className={styles.muted}>位置</span>
+              </td>
+              <td>
+                <MathText text={tex`Horse finishes in the top places (usually $1$–$3$; rules depend on field size)`} />
+              </td>
+              <td colSpan={2}>
+                <span className={styles.muted}>Not a single “ordered list” count — still classical if each horse is equally likely to place</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Forecast
+                <br />
+                <span className={styles.muted}>二重彩</span>
+              </td>
               <td>
                 <MathText text={tex`$1$st and $2$nd in the correct order`} />
               </td>
@@ -541,7 +582,11 @@ function HorseRacingScene() {
               </td>
             </tr>
             <tr>
-              <td>Quinella</td>
+              <td>
+                Quinella
+                <br />
+                <span className={styles.muted}>連贏</span>
+              </td>
               <td>
                 <MathText text={tex`$1$st and $2$nd in any order`} />
               </td>
@@ -553,7 +598,11 @@ function HorseRacingScene() {
               </td>
             </tr>
             <tr>
-              <td>Tierce</td>
+              <td>
+                Tierce
+                <br />
+                <span className={styles.muted}>三重彩</span>
+              </td>
               <td>
                 <MathText text={tex`$1$st–$2$nd–$3$rd in correct order`} />
               </td>
@@ -565,7 +614,11 @@ function HorseRacingScene() {
               </td>
             </tr>
             <tr>
-              <td>Trio</td>
+              <td>
+                Trio
+                <br />
+                <span className={styles.muted}>單T</span>
+              </td>
               <td>
                 <MathText text={tex`$1$st–$2$nd–$3$rd in any order`} />
               </td>
@@ -584,12 +637,12 @@ function HorseRacingScene() {
       />
       <p className={styles.note}>
         <MathText
-          text={tex`Questions to ask: With $n=${n}$, how many Forecast tickets cover every ordered top-two? How many Quinella tickets? Why is Forecast twice as many as Quinella? For Tierce vs Trio: $P(n,3)=3!\cdot C(n,3)$.`}
+          text={tex`Questions: With $n=${n}$, how many 二重彩 (Forecast) tickets cover every ordered top-two? How many 連贏 (Quinella)? Why is Forecast twice Quinella? For 三重彩 vs 單T: $P(n,3)=3!\cdot C(n,3)$.`}
         />
       </p>
       <p className={styles.small}>
         <MathText
-          text={tex`Win is the simplest classical probability: pick one horse, $P(\text{win})=1/n$ under equal chance. Real racing odds are subjective / market-based — that is the next chapter’s idea.`}
+          text={tex`獨贏 (Win) is the simplest classical probability: pick one horse, $P(\text{win})=1/n$ under equal chance. Real racing odds are subjective / market-based — that is the next chapter’s idea.`}
         />
       </p>
     </SceneFrame>
