@@ -20,3 +20,6 @@ Thumbs.db
 
 # Word lock files
 ~$*
+
+# CAT local runtime state
+cat/data/state.json

@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: dote2011-cat
+    runtime: node
+    rootDir: cat
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: INSTRUCTOR_PIN
+        sync: false
+      - key: UPSTASH_REDIS_REST_URL
+        sync: false
+      - key: UPSTASH_REDIS_REST_TOKEN
+        sync: false
