@@ -319,6 +319,14 @@ export default function App() {
             <h1>DOTE2011 Class Attending Table</h1>
             <a
               className="title-link"
+              href="https://kwtsang101016.github.io/dote2011/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Course site
+            </a>
+            <a
+              className="title-link"
               href="https://kwtsang101016.github.io/"
               target="_blank"
               rel="noreferrer"
