@@ -2,6 +2,7 @@ services:
   - type: web
     name: dote2011-cat
     runtime: node
+    plan: free
     rootDir: cat
     buildCommand: npm install && npm run build
     startCommand: npm start
