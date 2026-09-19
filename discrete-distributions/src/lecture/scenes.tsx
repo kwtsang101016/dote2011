@@ -995,20 +995,12 @@ E(x) &\approx np \\
 function PromptsToTryScene() {
   const prompts = [
     {
-      topic: "Simulate binomial",
-      text: "Write Python to simulate Binomial(n=20, p=0.3) with 10,000 draws. Plot a histogram of x and overlay the theoretical PMF.",
+      topic: "Earthquake counts",
+      text: "Use Python to download the number of earthquakes each day in 2025 from https://earthquake.usgs.gov and save them as a CSV file. Plot a histogram of those daily counts. Report the mean and the variance.",
     },
     {
-      topic: "Broadway moments",
-      text: "Using f(x) = [0.40, 0.25, 0.20, 0.05, 0.10] for x=0..4, compute E(x) and Var(x) in a notebook. Confirm σ = sqrt(Var).",
-    },
-    {
-      topic: "Poisson ER",
-      text: "Patients arrive at rate μ=6 per hour. In Python, compute P(X=k) for k=0..10 in a 30-minute window (μ=3). Which k is most likely?",
-    },
-    {
-      topic: "Hypergeometric draw",
-      text: "A box has 10 chips: 4 red, 6 blue. Draw 3 without replacement. Compute P(exactly 2 red) with the hypergeometric formula; check with itertools combinations.",
+      topic: "Typhoon counts",
+      text: "Use Python to download https://www.hko.gov.hk/en/publica/tc/tc2023/table45.html and parse the HTML table yourself. Do not ask me to copy the numbers. The table has three columns: Year, the annual number of tropical cyclones in Hong Kong's area of responsibility, and the annual number necessitating warning signals. Keep only Year and the area-of-responsibility count. Drop the third column before any renaming. Skip the mean row at the bottom. Save 1956 to 2023 as a CSV file. Plot a histogram of those yearly counts. Report the mean and the variance.",
     },
   ];
   return (

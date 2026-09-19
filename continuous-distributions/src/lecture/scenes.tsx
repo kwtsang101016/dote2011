@@ -1221,13 +1221,13 @@ function PromptsScene() {
         <article className={styles.promptItem}>
           <strong>APPLE RETURNS · DOES IT LOOK NORMAL?</strong>
           <p>
-            In Colab, download Apple’s daily prices for the last two years with yfinance (ticker AAPL). Compute the daily percent return from the adjusted close. Plot a histogram and a boxplot. Overlay a normal curve that uses the sample mean and sample standard deviation. Say whether the histogram looks roughly normal, and whether the boxplot shows heavy tails or skew.
+            Use Python to download Apple’s daily prices for the last two years with yfinance (ticker AAPL). Compute the daily percent return from the adjusted close. Plot a histogram and a boxplot. Overlay a normal curve that uses the sample mean and sample standard deviation.
           </p>
         </article>
         <article className={styles.promptItem}>
           <strong>EARTHQUAKE WAITS · 2025</strong>
           <p>
-            Download the hours between successive earthquakes in 2025 from https://earthquake.usgs.gov and save them as a CSV file. Plot a histogram and a boxplot of those waiting times. Report the mean and the standard deviation.
+            Use Python to download the hours between successive earthquakes in 2025 from https://earthquake.usgs.gov and save them as a CSV file. Plot a histogram and a boxplot of those waiting times. Report the mean and the standard deviation.
           </p>
         </article>
       </div>
