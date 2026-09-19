@@ -10,6 +10,7 @@ Interactive HTML lecture apps for **DOTE2011G Statistical Analysis for Business 
 | Descriptive Statistics | [`descriptive-statistics/`](descriptive-statistics/) | [Open lecture](https://kwtsang101016.github.io/dote2011/descriptive-statistics/) | `npm run dev` → http://127.0.0.1:5173 |
 | Probability | [`probability/`](probability/) | [Open lecture](https://kwtsang101016.github.io/dote2011/probability/) | `npm run dev` → http://127.0.0.1:5175 |
 | Discrete Probability Distributions | [`discrete-distributions/`](discrete-distributions/) | [Open lecture](https://kwtsang101016.github.io/dote2011/discrete-distributions/) | `npm run dev` → http://127.0.0.1:5176 |
+| Continuous Probability Distributions | [`continuous-distributions/`](continuous-distributions/) | [Open lecture](https://kwtsang101016.github.io/dote2011/continuous-distributions/) | `npm run dev` → http://127.0.0.1:5177 |
 
 **Class Attending Table (CAT):** [`cat/`](cat/) — realtime seating board (Render + Redis). See [`cat/README.md`](cat/README.md).
 
@@ -38,6 +39,7 @@ npm run dev:intro
 npm run dev:desc
 npm run dev:prob
 npm run dev:disc
+npm run dev:cont
 npm run build:all
 ```
 

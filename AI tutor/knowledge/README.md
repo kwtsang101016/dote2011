@@ -8,6 +8,7 @@
 - `descriptive-statistics.html`
 - `probability.html`
 - `discrete-distributions.html`
+- `continuous-distributions.html`
 - (and any future lecture HTML)
 
 Reasons:

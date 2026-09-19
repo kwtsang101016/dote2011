@@ -32,66 +32,69 @@
 <section id="discrete-distributions-page-07" data-lecture="discrete-distributions" data-page="7"><h2>Page 07 · Broadway graph</h2>
 <p>Bar chart of Broadway f(x) vs x (TV sales).</p>
 </section>
-<section id="discrete-distributions-page-08" data-lecture="discrete-distributions" data-page="8"><h2>Page 08 · Discrete uniform</h2>
+<section id="discrete-distributions-page-08" data-lecture="discrete-distributions" data-page="8"><h2>Page 08 · Distribution function</h2>
+<p>The distribution function is F(x)=P(X ≤ x), also called the CDF. For an integer-valued count, f(x)=F(x)-F(x-1) with F(-1)=0. F is a step function: a jump of size f(x) at each possible x. F never decreases, starts at 0, and ends at 1. Broadway: F(2)=0.85, so f(2)=F(2)-F(1)=0.20.</p>
+</section>
+<section id="discrete-distributions-page-09" data-lecture="discrete-distributions" data-page="9"><h2>Page 09 · Discrete uniform</h2>
 <p>f(x)=1/n when n values are equally likely (e.g. fair die n=6).</p>
 </section>
-<section id="discrete-distributions-page-09" data-lecture="discrete-distributions" data-page="9"><h2>Page 09 · Expected value</h2>
+<section id="discrete-distributions-page-10" data-lecture="discrete-distributions" data-page="10"><h2>Page 10 · Expected value</h2>
 <p>For discrete X: E(X)=μ=Σ x f(x). Interpretation: average value of X (need not be attainable). Broadway E(x)=1.20 TVs.</p>
 </section>
-<section id="discrete-distributions-page-10" data-lecture="discrete-distributions" data-page="10"><h2>Page 10 · Expectation properties</h2>
+<section id="discrete-distributions-page-11" data-lecture="discrete-distributions" data-page="11"><h2>Page 11 · Expectation properties</h2>
 <p>(a) E(c)=c. (b) E(c g(X))=c E(g(X)). (c) E[c₁g₁(X)+c₂g₂(X)]=c₁E[g₁(X)]+c₂E[g₂(X)]. Expectation is a linear operator. For any RVs: E(X+Y)=E(X)+E(Y) (independence not required).</p>
 </section>
-<section id="discrete-distributions-page-11" data-lecture="discrete-distributions" data-page="11"><h2>Page 11 · Variance & SD</h2>
+<section id="discrete-distributions-page-12" data-lecture="discrete-distributions" data-page="12"><h2>Page 12 · Variance & SD</h2>
 <p>Var(X)=E[(X−E(X))²]=Σ(x−μ)²f(x)=E(X²)−[E(X)]². σ=√Var(X). Broadway σ²≈1.660, σ≈1.288.</p>
 </section>
-<section id="discrete-distributions-page-12" data-lecture="discrete-distributions" data-page="12"><h2>Page 12 · Variance properties</h2>
+<section id="discrete-distributions-page-13" data-lecture="discrete-distributions" data-page="13"><h2>Page 13 · Variance properties</h2>
 <p>Var(c)=0. Var(cX)=c² Var(X). For independent X,Y: Var(X+Y)=Var(X)+Var(Y).</p>
 </section>
-<section id="discrete-distributions-page-13" data-lecture="discrete-distributions" data-page="13"><h2>Page 13 · Broadway E and Var</h2>
+<section id="discrete-distributions-page-14" data-lecture="discrete-distributions" data-page="14"><h2>Page 14 · Broadway E and Var</h2>
 <p>Full computation table for Broadway moments (xf(x) and (x−μ)²f(x) columns).</p>
 </section>
-<section id="discrete-distributions-page-14" data-lecture="discrete-distributions" data-page="14"><h2>Page 14 · Binomial properties</h2>
+<section id="discrete-distributions-page-15" data-lecture="discrete-distributions" data-page="15"><h2>Page 15 · Binomial properties</h2>
 <p>(1) n identical trials (2) success/failure each trial (3) constant p (stationarity) (4) independent trials. x = number of successes.</p>
 </section>
-<section id="discrete-distributions-page-15" data-lecture="discrete-distributions" data-page="15"><h2>Page 15 · Binomial formula</h2>
+<section id="discrete-distributions-page-16" data-lecture="discrete-distributions" data-page="16"><h2>Page 16 · Binomial formula</h2>
 <p>f(x)=C(n,x) p^x (1−p)^(n−x). Running story: Café de Coral (大家樂) restaurant chain; try n=3, p=0.10, x=1 → f(1)=0.243.</p>
 </section>
-<section id="discrete-distributions-page-16" data-lecture="discrete-distributions" data-page="16"><h2>Page 16 · Café de Coral</h2>
+<section id="discrete-distributions-page-17" data-lecture="discrete-distributions" data-page="17"><h2>Page 17 · Café de Coral</h2>
 <p>Café de Coral is concerned about retention: ~10% annual turnover among hourly staff. Pick 3 hourly employees at random; P(exactly one leaves). Sequences (L,S,S), (S,L,S), (S,S,L) each 0.081; total 0.243. E(x)=np=0.3; Var=np(1−p)=0.27; σ≈0.52.</p>
 </section>
-<section id="discrete-distributions-page-17" data-lecture="discrete-distributions" data-page="17"><h2>Page 17 · Binomial mean & Var</h2>
+<section id="discrete-distributions-page-18" data-lecture="discrete-distributions" data-page="18"><h2>Page 18 · Binomial mean & Var</h2>
 <p>E(x)=np; Var(x)=np(1−p); σ=√[np(1−p)]. Interactive: choose n and p to compute the three quantities. Café de Coral check: n=3, p=0.10 → 0.3, 0.27, ≈0.52.</p>
 </section>
-<section id="discrete-distributions-page-18" data-lecture="discrete-distributions" data-page="18"><h2>Page 18 · Game · is it binomial</h2>
+<section id="discrete-distributions-page-19" data-lecture="discrete-distributions" data-page="19"><h2>Page 19 · Game · is it binomial</h2>
 <p>Large shipment, 5 items, each independently defective with p=0.02 → binomial (p≈constant). If the lot is small and sampling is without replacement, each draw changes the remaining fraction defective → dependent trials, non-constant p → hypergeometric instead. Large N is why binomial often approximates.</p>
 </section>
-<section id="discrete-distributions-page-19" data-lecture="discrete-distributions" data-page="19"><h2>Page 19 · Poisson idea</h2>
+<section id="discrete-distributions-page-20" data-lecture="discrete-distributions" data-page="20"><h2>Page 20 · Poisson idea</h2>
 <p>Counts occurrences in an interval of time/space; x=0,1,2,… Equal-length intervals same rate; disjoint intervals independent. Examples: toll booths, phone calls, ER arrivals.</p>
 </section>
-<section id="discrete-distributions-page-20" data-lecture="discrete-distributions" data-page="20"><h2>Page 20 · Poisson formula</h2>
+<section id="discrete-distributions-page-21" data-lecture="discrete-distributions" data-page="21"><h2>Page 21 · Poisson formula</h2>
 <p>f(x)=e^(−μ) μ^x / x!. Mean = variance = μ. Mercy default μ=3 (30 min), x=4 → ≈0.168.</p>
 </section>
-<section id="discrete-distributions-page-21" data-lecture="discrete-distributions" data-page="21"><h2>Page 21 · Mercy Hospital</h2>
+<section id="discrete-distributions-page-22" data-lecture="discrete-distributions" data-page="22"><h2>Page 22 · Mercy Hospital</h2>
 <p>Weekend evenings at Mercy Hospital ER average 6 arrivals/hour. For staffing a 30-minute window, μ=3; P(X=4)≈0.168; σ²=μ=3.</p>
 </section>
-<section id="discrete-distributions-page-22" data-lecture="discrete-distributions" data-page="22"><h2>Page 22 · Hypergeometric idea</h2>
+<section id="discrete-distributions-page-23" data-lecture="discrete-distributions" data-page="23"><h2>Page 23 · Hypergeometric idea</h2>
 <p>Finite population without replacement: trials not independent; success probability changes. N population size; r successes in population; n draws; x successes in sample.</p>
 </section>
-<section id="discrete-distributions-page-23" data-lecture="discrete-distributions" data-page="23"><h2>Page 23 · Hypergeometric formula</h2>
+<section id="discrete-distributions-page-24" data-lecture="discrete-distributions" data-page="24"><h2>Page 24 · Hypergeometric formula</h2>
 <p>f(x)=[C(r,x) C(N−r,n−x)] / C(N,n). Zero if x>r or n−x>N−r. Story: Tom mixed 2 good + 2 dead batteries (N=4, r=2).</p>
 </section>
-<section id="discrete-distributions-page-24" data-lecture="discrete-distributions" data-page="24"><h2>Page 24 · Batteries example</h2>
+<section id="discrete-distributions-page-25" data-lecture="discrete-distributions" data-page="25"><h2>Page 25 · Batteries example</h2>
 <p>Tom accidentally mingled 2 dead batteries with 2 good ones; draws 2 for the flashlight. P(both good)=C(2,2)C(2,0)/C(4,2)=1/6≈0.167. μ=n(r/N)=1; Var≈0.333.</p>
 </section>
-<section id="discrete-distributions-page-25" data-lecture="discrete-distributions" data-page="25"><h2>Page 25 · Large-N approximation</h2>
+<section id="discrete-distributions-page-26" data-lecture="discrete-distributions" data-page="26"><h2>Page 26 · Large-N approximation</h2>
 <p>If N ≫ n, hypergeometric ≈ binomial with p=r/N; E≈np, Var≈np(1−p).</p>
 </section>
-<section id="discrete-distributions-page-26" data-lecture="discrete-distributions" data-page="26"><h2>Page 26 · Prompts to try</h2>
+<section id="discrete-distributions-page-27" data-lecture="discrete-distributions" data-page="27"><h2>Page 27 · Prompts to try</h2>
 <p>Self-contained coding prompts: simulate binomial; Broadway moments; Poisson ER; hypergeometric chip draw.</p>
 <p><strong>You may try:</strong> paste the prompt into Microsoft Copilot (https://copilot.microsoft.com/), then run the Python in Google Colab (https://colab.research.google.com/) — download any files, and still read the code so you know what the assistant did.</p>
 </section>
-<section id="discrete-distributions-page-27" data-lecture="discrete-distributions" data-page="27"><h2>Page 27 · Takeaways</h2>
-<p>(1) Distributions: f≥0, sum=1. (2) Moments: expectation & variance (with linearity / scale properties). (3) Families: binomial, Poisson, hypergeometric.</p>
+<section id="discrete-distributions-page-28" data-lecture="discrete-distributions" data-page="28"><h2>Page 28 · Takeaways</h2>
+<p>(1) Distributions: f≥0, sum=1. F(x)=P(X≤x) jumps by f(x). (2) Moments: expectation & variance (with linearity / scale properties). (3) Families: binomial, Poisson, hypergeometric.</p>
 </section>
 </article>
 </body>

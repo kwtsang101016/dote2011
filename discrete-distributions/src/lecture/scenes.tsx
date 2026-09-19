@@ -295,6 +295,46 @@ function BroadwayTableScene() {
   );
 }
 
+function DistributionFunctionScene() {
+  let running = 0;
+  const rows = BROADWAY.map((row) => {
+    running += row.f;
+    return { x: row.x, f: row.f, F: running };
+  });
+  return (
+    <SceneFrame kicker="Distribution function" title="F(x) stacks the probability up to x.">
+      <p className={styles.lead}>
+        The distribution function, also called the cumulative distribution function, is <MathText text={tex`$F(x) = P(X \le x)$`} />. The probability function <MathText text={tex`$f$`} /> is the size of each jump.
+      </p>
+      <Formula tex={tex`f(x) = F(x) - F(x-1)`} />
+      <p className={styles.small}>
+        For an integer-valued count, take <MathText text={tex`$F(-1) = 0$`} />. <MathText text={tex`$F$`} /> is a step function: flat between the possible values, and a jump of height <MathText text={tex`$f(x)$`} /> at each value <MathText text={tex`$x$`} /> can take. <MathText text={tex`$F$`} /> never decreases, starts at 0, and ends at 1.
+      </p>
+      <div className={styles.tableWrap}>
+        <table>
+          <thead>
+            <tr>
+              <th>x</th>
+              <th>f(x)</th>
+              <th>F(x)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row) => (
+              <tr key={row.x}>
+                <td>{row.x}</td>
+                <td>{formatProb(row.f, 2)}</td>
+                <td>{formatProb(row.F, 2)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p className={styles.small}>Broadway: F(2) = 0.40 + 0.25 + 0.20 = 0.85, so f(2) = F(2) − F(1) = 0.20.</p>
+    </SceneFrame>
+  );
+}
+
 function BroadwayGraphScene() {
   return (
     <SceneFrame kicker="Example · Broadway Electronics" title="Graph the probability distribution.">
@@ -1005,7 +1045,7 @@ function CloseScene() {
           <p className={styles.kicker}>01</p>
           <h2 className={styles.cardTitle}>Distribution</h2>
           <p className={styles.muted}>
-            <MathText text={tex`$f(x)\ge 0$ and $\sum f(x)=1$. Use tables, graphs, or formulas.`} />
+            <MathText text={tex`$f(x)\ge 0$ and $\sum f(x)=1$. $F(x)=P(X\le x)$ jumps by $f(x)$.`} />
           </p>
         </article>
         <article className={styles.card}>
@@ -1036,6 +1076,7 @@ export const SCENES: SceneDef[] = [
   { id: "dist-idea", chapter: "Distributions", label: "Probability distributions", Scene: DistIdeaScene },
   { id: "broadway-table", chapter: "Distributions", label: "Broadway table", Scene: BroadwayTableScene },
   { id: "broadway-graph", chapter: "Distributions", label: "Broadway graph", Scene: BroadwayGraphScene },
+  { id: "cdf", chapter: "Distributions", label: "Distribution function", Scene: DistributionFunctionScene },
   { id: "uniform", chapter: "Distributions", label: "Discrete uniform", Scene: UniformScene },
   { id: "expectation", chapter: "Moments", label: "Expected value", Scene: ExpectationScene },
   { id: "expectation-props", chapter: "Moments", label: "Expectation properties", Scene: ExpectationPropertiesScene },
