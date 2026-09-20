@@ -14,7 +14,7 @@ Plus **two lecture HTML files** you choose (current week + previous week), e.g.:
 - descriptive-statistics.html  
 - probability.html  
 
-**All lecture HTML files are kept on disk.** Do not delete them when switching which two you upload. Do not add a lecture to older-lectures unless you explicitly ask an agent to do so.
+**All lecture HTML files are kept on disk.** Do not delete them when switching which two you upload. `older-lectures.html` is rebuilt with the full notes of every lecture in the build list. When a new lecture HTML is created, add it to `FILES` and regenerate so older-lectures includes it.
 
 **Lecture hub:** https://kwtsang101016.github.io/dote2011/
 

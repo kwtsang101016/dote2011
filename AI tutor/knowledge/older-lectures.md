@@ -1,18 +1,16 @@
 # DOTE2011G · Older lectures
 
-This file is updated **only when Prof. Tsang asks** to add a lecture summary here (e.g. “Please add introduction.html to older-lectures.html”).
+This file contains the **full tutor notes** for every lecture that has its own HTML file. The notes are copied here automatically when you run `python "AI tutor/scripts/build_knowledge_html.py"`.
 
-Until then, it holds upcoming topics and routing notes only. **Full lecture HTML files are never deleted** — see `knowledge/README.md`.
+When a new lecture HTML is created, add that lecture to `FILES` in `AI tutor/scripts/build_knowledge_html.py` and run the script. This file then includes it. **Do not delete** the separate lecture HTML files. Those stay on disk so two of them can still be uploaded on their own.
 
----
-
-## Currently archived here
-
-*(None yet — course not started / no lectures manually added.)*
+The lectures currently copied below are Introduction, Descriptive Statistics, Probability, Discrete Probability Distributions, and Continuous Probability Distributions. Search by lecture name and by headings such as `Page 03 · …`.
 
 ---
 
 ## Topics not yet on the interactive site
+
+These topics are **not** in the notes below yet.
 
 | Topic | Status |
 |-------|--------|
@@ -20,16 +18,6 @@ Until then, it holds upcoming topics and routing notes only. **Full lecture HTML
 | Interval Estimation | Coming — after midterm |
 | Hypothesis Tests | Coming |
 | Regression Analysis | Coming |
-
-**Live interactive lectures** (full detail is in their own HTML files, not here):
-
-| Lecture | URL |
-|---------|-----|
-| Introduction | https://kwtsang101016.github.io/dote2011/introduction/ |
-| Descriptive Statistics | https://kwtsang101016.github.io/dote2011/descriptive-statistics/ |
-| Probability | https://kwtsang101016.github.io/dote2011/probability/ |
-| Discrete Probability Distributions | https://kwtsang101016.github.io/dote2011/discrete-distributions/ |
-| Continuous Probability Distributions | https://kwtsang101016.github.io/dote2011/continuous-distributions/ |
 
 **For schedule dates**, see course-admin.html.
 
@@ -43,14 +31,6 @@ Until then, it holds upcoming topics and routing notes only. **Full lecture HTML
 
 ---
 
-## Routing
+## Lectures copied in full
 
-| Student question | Best source |
-|------------------|-------------|
-| A lecture that was **uploaded** this week | That lecture’s HTML (e.g. probability.html) |
-| A lecture **not** in the 5 uploads | Ask student to open the live URL above, or wait until that HTML is uploaded / added here by request |
-| Midterm / grading | course-admin.html |
-
----
-
-*Last updated: Fall 2026–27.*
+The sections after this heading are the same notes as each lecture’s own HTML file, in course order.

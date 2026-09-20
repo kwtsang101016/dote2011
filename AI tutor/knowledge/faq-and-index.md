@@ -95,13 +95,13 @@ Ask: **Is this a name/label, or a number with meaning?**
 
 ## Which knowledge file to search
 
-The platform allows **5 uploads**. Prof. Tsang chooses **two** lecture HTML files each time (current + previous). All lecture HTML files still exist on disk; only the uploaded ones are searchable in the agent.
+The platform allows **5 uploads**. Prof. Tsang chooses **two** lecture HTML files each time (current + previous). Every lecture’s full notes are also copied into older-lectures.html, which is always uploaded. The separate lecture HTML files stay on disk.
 
 | Question type | Primary HTML file |
 |---------------|-------------------|
 | Midterm, grading, schedule, policies | course-admin.html |
-| A lecture that was uploaded | That lecture’s HTML (introduction / descriptive-statistics / probability / …) |
-| Topics only if Prof. Tsang added them here | older-lectures.html |
+| A lecture that was uploaded | That lecture’s HTML (introduction / descriptive-statistics / probability / discrete-distributions / continuous-distributions) |
+| Any lecture, including one not in the two lecture uploads | older-lectures.html |
 | “Which page?” / routing | faq-and-index.html |
 
 Live lecture URLs (always available to students):

@@ -13,17 +13,19 @@
 
 Reasons:
 
-1. The course may not have started yet — there are **no** “past” lectures to archive automatically.
-2. Moving a lecture into `older-lectures` is **not** automatic and is **not** a reason to delete its full HTML.
-3. The instructor manually chooses which **two** lecture HTML files to upload to the AI platform (current week + previous week). All other lecture HTML files stay on disk for later use.
+1. The instructor manually chooses which **two** lecture HTML files to upload to the AI platform (current week + previous week). All other lecture HTML files stay on disk for later use.
+2. `older-lectures.html` is a **copy** of every lecture note, not a replacement. Never delete a lecture HTML because its text is also in older-lectures.
 
-### When to touch `older-lectures`
+### When to update `older-lectures`
 
-Only when the instructor explicitly says something like:
+`older-lectures.html` is rebuilt from every lecture in `FILES` (the entries with a slug) each time the build script runs. It already contains Introduction, Descriptive Statistics, Probability, Discrete Probability Distributions, and Continuous Probability Distributions.
 
-> Please add XX.html to older-lectures.html
+When a **new** lecture HTML is created:
 
-Until then, leave `older-lectures.md` / `.html` as a light placeholder (upcoming topics, routing notes). Do **not** compress Introduction (or any lecture) into older-lectures on your own.
+1. Add `("lecture-name.md", "lecture-name")` to `FILES` in `scripts/build_knowledge_html.py`.
+2. Run `python "AI tutor/scripts/build_knowledge_html.py"`.
+
+Do not paste lecture text into `older-lectures.md` by hand. That file is only the preamble (upcoming topics and the midterm reminder). The script appends the lectures.
 
 ### Platform limit (5 uploads)
 

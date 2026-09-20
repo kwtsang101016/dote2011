@@ -11,9 +11,9 @@ ROOT = Path(__file__).resolve().parents[1]
 KNOWLEDGE = ROOT / "knowledge"
 OUTPUT = ROOT / "html"
 
-# Generate ALL knowledge HTML files. Never drop a lecture from this list just
-# because the AI platform only uploads 5 files — instructor picks uploads manually.
-# See knowledge/README.md (do not delete lecture HTML; do not auto-archive).
+# Generate ALL knowledge HTML files. Never drop a lecture from this list.
+# Every entry with a slug is also copied into older-lectures.html.
+# See knowledge/README.md (do not delete lecture HTML).
 FILES: list[tuple[str, str | None]] = [
     ("course-admin.md", None),
     ("introduction.md", "introduction"),
@@ -78,7 +78,7 @@ def parse_table(lines: list[str], start: int) -> tuple[str, int]:
     return "".join(parts), i
 
 
-def md_to_html(md: str, lecture_slug: str | None) -> str:
+def convert_body(md: str, lecture_slug: str | None) -> str:
     lines = md.splitlines()
     body: list[str] = []
     i = 0
@@ -163,10 +163,10 @@ def md_to_html(md: str, lecture_slug: str | None) -> str:
         i += 1
 
     close_section()
+    return "\n".join(body)
 
-    title_match = re.search(r"^# (.+)$", md, re.MULTILINE)
-    doc_title = title_match.group(1) if title_match else "DOTE2011G Knowledge"
 
+def wrap_document(doc_title: str, body: str) -> str:
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -176,11 +176,30 @@ def md_to_html(md: str, lecture_slug: str | None) -> str:
 </head>
 <body>
 <article class="dote2011-knowledge">
-{chr(10).join(body)}
+{body}
 </article>
 </body>
 </html>
 """
+
+
+def md_to_html(md: str, lecture_slug: str | None) -> str:
+    title_match = re.search(r"^# (.+)$", md, re.MULTILINE)
+    doc_title = title_match.group(1) if title_match else "DOTE2011G Knowledge"
+    return wrap_document(doc_title, convert_body(md, lecture_slug))
+
+
+def older_lectures_html() -> str:
+    """Preamble plus every lecture that has its own HTML file."""
+    preamble = (KNOWLEDGE / "older-lectures.md").read_text(encoding="utf-8")
+    chunks = [convert_body(preamble, None)]
+    for filename, slug in FILES:
+        if slug is None:
+            continue
+        lecture_md = (KNOWLEDGE / filename).read_text(encoding="utf-8")
+        chunks.append("<hr />")
+        chunks.append(convert_body(lecture_md, slug))
+    return wrap_document("DOTE2011G · Older lectures", "\n".join(chunks))
 
 
 def main() -> None:
@@ -189,7 +208,10 @@ def main() -> None:
         src = KNOWLEDGE / filename
         dst = OUTPUT / filename.replace(".md", ".html")
         md = src.read_text(encoding="utf-8")
-        html_out = md_to_html(md, slug)
+        if filename == "older-lectures.md":
+            html_out = older_lectures_html()
+        else:
+            html_out = md_to_html(md, slug)
         dst.write_text(html_out, encoding="utf-8")
         print(f"Wrote {dst.relative_to(ROOT)} ({len(html_out):,} chars)")
 

@@ -1,7 +1,10 @@
 # DOTE2011G · Course information (Fall 2026–27)
 
 **Course:** DOTE2011G Statistical Analysis for Business Decisions · Section G · CUHK  
-**Interactive lectures:** https://kwtsang101016.github.io/dote2011/
+**Interactive lectures:** https://kwtsang101016.github.io/dote2011/  
+**Course calendar:** https://kwtsang101016.github.io/dote2011/calendar/  
+**CAT:** https://dote2011-cat.onrender.com/  
+**AI tutor:** https://dote2011g.sayo.ai/
 
 ---
 

@@ -23,10 +23,31 @@
         color: var(--ink);
         background: var(--cream);
       }
+      .top {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 20px 24px 0;
+        display: flex;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        gap: 10px 18px;
+      }
+      .top a {
+        font: 700 14px/1 Inter, ui-sans-serif, system-ui, sans-serif;
+        letter-spacing: 0.04em;
+        color: var(--ink);
+        text-decoration: none;
+        border-bottom: 2px solid transparent;
+        padding-bottom: 2px;
+      }
+      .top a:hover {
+        border-bottom-color: var(--red);
+        color: var(--red);
+      }
       main {
         max-width: 720px;
         margin: 0 auto;
-        padding: 48px 24px 64px;
+        padding: 28px 24px 64px;
       }
       h1 {
         margin: 0 0 8px;
@@ -81,6 +102,11 @@
     </style>
   </head>
   <body>
+    <div class="top">
+      <a href="./calendar/">Calendar</a>
+      <a href="https://dote2011-cat.onrender.com/" target="_blank" rel="noreferrer">CAT</a>
+      <a href="https://dote2011g.sayo.ai/" target="_blank" rel="noreferrer">AI tutor</a>
+    </div>
     <main>
       <p class="kicker">CUHK · DOTE2011G</p>
       <h1>Interactive Lectures</h1>

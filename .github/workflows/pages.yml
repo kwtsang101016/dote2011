@@ -32,6 +32,7 @@ jobs:
             probability/package-lock.json
             discrete-distributions/package-lock.json
             continuous-distributions/package-lock.json
+            calendar/package-lock.json
 
       - name: Install and build introduction
         run: |
@@ -58,14 +59,20 @@ jobs:
           npm ci --prefix continuous-distributions
           npm run build --prefix continuous-distributions
 
+      - name: Install and build calendar
+        run: |
+          npm ci --prefix calendar
+          npm run build --prefix calendar
+
       - name: Assemble site
         run: |
-          mkdir -p _site/introduction _site/descriptive-statistics _site/probability _site/discrete-distributions _site/continuous-distributions
+          mkdir -p _site/introduction _site/descriptive-statistics _site/probability _site/discrete-distributions _site/continuous-distributions _site/calendar
           cp -r introduction/dist/* _site/introduction/
           cp -r descriptive-statistics/dist/* _site/descriptive-statistics/
           cp -r probability/dist/* _site/probability/
           cp -r discrete-distributions/dist/* _site/discrete-distributions/
           cp -r continuous-distributions/dist/* _site/continuous-distributions/
+          cp -r calendar/dist/* _site/calendar/
           cp site/index.html _site/index.html
           touch _site/.nojekyll
 

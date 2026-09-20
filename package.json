@@ -8,11 +8,13 @@
     "dev:prob": "npm run dev --prefix probability",
     "dev:disc": "npm run dev --prefix discrete-distributions",
     "dev:cont": "npm run dev --prefix continuous-distributions",
+    "dev:cal": "npm run dev --prefix calendar",
     "build:intro": "npm run build --prefix introduction",
     "build:desc": "npm run build --prefix descriptive-statistics",
     "build:prob": "npm run build --prefix probability",
     "build:disc": "npm run build --prefix discrete-distributions",
     "build:cont": "npm run build --prefix continuous-distributions",
-    "build:all": "npm run build:intro && npm run build:desc && npm run build:prob && npm run build:disc && npm run build:cont"
+    "build:cal": "npm run build --prefix calendar",
+    "build:all": "npm run build:intro && npm run build:desc && npm run build:prob && npm run build:disc && npm run build:cont && npm run build:cal"
   }
 }

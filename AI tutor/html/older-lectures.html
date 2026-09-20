@@ -8,25 +8,531 @@
 <body>
 <article class="dote2011-knowledge">
 <h1>DOTE2011G · Older lectures</h1>
-<p>This file is updated <strong>only when Prof. Tsang asks</strong> to add a lecture summary here (e.g. “Please add introduction.html to older-lectures.html”).</p>
-<p>Until then, it holds upcoming topics and routing notes only. <strong>Full lecture HTML files are never deleted</strong> — see <code>knowledge/README.md</code>.</p>
-<hr />
-<h2>Currently archived here</h2>
-<p><em>(None yet — course not started / no lectures manually added.)</em></p>
+<p>This file contains the <strong>full tutor notes</strong> for every lecture that has its own HTML file. The notes are copied here automatically when you run <code>python &quot;AI tutor/scripts/build_knowledge_html.py&quot;</code>.</p>
+<p>When a new lecture HTML is created, add that lecture to <code>FILES</code> in <code>AI tutor/scripts/build_knowledge_html.py</code> and run the script. This file then includes it. <strong>Do not delete</strong> the separate lecture HTML files. Those stay on disk so two of them can still be uploaded on their own.</p>
+<p>The lectures currently copied below are Introduction, Descriptive Statistics, Probability, Discrete Probability Distributions, and Continuous Probability Distributions. Search by lecture name and by headings such as <code>Page 03 · …</code>.</p>
 <hr />
 <h2>Topics not yet on the interactive site</h2>
+<p>These topics are <strong>not</strong> in the notes below yet.</p>
 <table><thead><tr><th>Topic</th><th>Status</th></tr></thead><tbody><tr><td>Sampling and Sampling Distribution</td><td>Coming</td></tr><tr><td>Interval Estimation</td><td>Coming — after midterm</td></tr><tr><td>Hypothesis Tests</td><td>Coming</td></tr><tr><td>Regression Analysis</td><td>Coming</td></tr></tbody></table>
-<p><strong>Live interactive lectures</strong> (full detail is in their own HTML files, not here):</p>
-<table><thead><tr><th>Lecture</th><th>URL</th></tr></thead><tbody><tr><td>Introduction</td><td>https://kwtsang101016.github.io/dote2011/introduction/</td></tr><tr><td>Descriptive Statistics</td><td>https://kwtsang101016.github.io/dote2011/descriptive-statistics/</td></tr><tr><td>Probability</td><td>https://kwtsang101016.github.io/dote2011/probability/</td></tr><tr><td>Discrete Probability Distributions</td><td>https://kwtsang101016.github.io/dote2011/discrete-distributions/</td></tr><tr><td>Continuous Probability Distributions</td><td>https://kwtsang101016.github.io/dote2011/continuous-distributions/</td></tr></tbody></table>
 <p><strong>For schedule dates</strong>, see course-admin.html.</p>
 <hr />
 <h2>Midterm reminder</h2>
 <ul><li><strong>Date:</strong> Wednesday, <strong>21 October 2026</strong></li><li>Open notes and books; 1.5 hours</li><li>See course-admin.html for full assessment rules</li></ul>
 <hr />
-<h2>Routing</h2>
-<table><thead><tr><th>Student question</th><th>Best source</th></tr></thead><tbody><tr><td>A lecture that was <strong>uploaded</strong> this week</td><td>That lecture’s HTML (e.g. probability.html)</td></tr><tr><td>A lecture <strong>not</strong> in the 5 uploads</td><td>Ask student to open the live URL above, or wait until that HTML is uploaded / added here by request</td></tr><tr><td>Midterm / grading</td><td>course-admin.html</td></tr></tbody></table>
+<h2>Lectures copied in full</h2>
+<p>The sections after this heading are the same notes as each lecture’s own HTML file, in course order.</p>
 <hr />
-<p><em>Last updated: Fall 2026–27.</em></p>
+<h1>DOTE2011G · Introduction (interactive lecture)</h1>
+<p><strong>Live site:</strong> https://kwtsang101016.github.io/dote2011/introduction/</p>
+<p><strong>Page numbers</strong> match the website slide counter and downloadable PDF (01/14 … 14/14).</p>
+<hr />
+<h2>Index</h2>
+<table><thead><tr><th>Page</th><th>Title</th></tr></thead><tbody><tr><td>01</td><td>Cover</td></tr><tr><td>02</td><td>Why statistics</td></tr><tr><td>03</td><td>Two meanings of “statistics”</td></tr><tr><td>04</td><td>Business uses</td></tr><tr><td>05</td><td>Data vocabulary</td></tr><tr><td>06</td><td>Game · label or number?</td></tr><tr><td>07</td><td>Cross-section vs time series</td></tr><tr><td>08</td><td>Data sources</td></tr><tr><td>09</td><td>Describe vs infer</td></tr><tr><td>10</td><td>Pail metaphor (population vs sample)</td></tr><tr><td>11</td><td>Population & sample (bearings)</td></tr><tr><td>12</td><td>Inference preview</td></tr><tr><td>13</td><td>AI · get data</td></tr><tr><td>14</td><td>AI · plot data</td></tr><tr><td>15</td><td>Ethics game</td></tr><tr><td>16</td><td>Takeaways</td></tr></tbody></table>
+<hr />
+<section id="introduction-page-01" data-lecture="introduction" data-page="1"><h2>Page 01 · Cover</h2>
+<p><strong>Title:</strong> Introduction</p>
+<p><strong>Lead:</strong> Turn data into decisions — without drowning in definitions on day one.</p>
+<p><strong>Navigation:</strong> Use arrow keys or on-screen buttons. Numbers in examples can be redrawn. Download PDF for a printable handout.</p>
+</section>
+<hr />
+<section id="introduction-page-02" data-lecture="introduction" data-page="2"><h2>Page 02 · Why statistics</h2>
+<p><strong>Title:</strong> Business runs on uncertainty.</p>
+<p><strong>Questions statistics helps with:</strong> Should we launch the product? Which supplier is safer? Is wait time really above five minutes?</p>
+<p>You rarely see the whole population — you see a sample, noise, and competing stories.</p>
+<table><thead><tr><th>Without statistics</th><th>With statistics</th></tr></thead><tbody><tr><td>Gut feel — anecdotes swap places with evidence</td><td>Structured doubt — summarise, quantify uncertainty, separate signal from wishful thinking</td></tr></tbody></table>
+</section>
+<hr />
+<section id="introduction-page-03" data-lecture="introduction" data-page="3"><h2>Page 03 · Two meanings of “statistics”</h2>
+<p><strong>Title:</strong> “Statistics” is a noun and a subject.</p>
+<p><strong>As numbers (published figures):</strong> “HK inflation 2.1%.” “Median rent $8,200.” “On-time delivery 94%.” — numerical summaries someone computed from data.</p>
+<p><strong>As a discipline:</strong> Collect → organise → display → analyse → interpret — with rules for when a claim is fair. This course trains both reading and doing.</p>
+</section>
+<hr />
+<section id="introduction-page-04" data-lecture="introduction" data-page="4"><h2>Page 04 · Business uses</h2>
+<p><strong>Title:</strong> Statistics shows up everywhere in business.</p>
+<table><thead><tr><th>Function</th><th>Example use</th></tr></thead><tbody><tr><td>Finance</td><td>Price–earnings ratios and dividend yields guide investment advice</td></tr><tr><td>Economics</td><td>Forecast models turn historical data into views about the economy ahead</td></tr><tr><td>Production</td><td>Quality-control charts watch whether a process is drifting off target</td></tr><tr><td>Marketing</td><td>Checkout scanners feed data on what customers buy together</td></tr></tbody></table>
+<p>Accounting audits use statistical sampling too — same idea, different vocabulary.</p>
+</section>
+<hr />
+<section id="introduction-page-05" data-lecture="introduction" data-page="5"><h2>Page 05 · Data vocabulary</h2>
+<p><strong>Title:</strong> One row = one observation.</p>
+<ul><li><strong>Data set</strong> — every case you measured</li><li><strong>Element</strong> — one case (e.g. one company)</li><li><strong>Variable</strong> — what you record (sales, exchange)</li><li><strong>Observation</strong> — one row (all values for one company)</li></ul>
+<p><strong>Example table (5 companies × 3 variables → 5 observations):</strong></p>
+<table><thead><tr><th>Company</th><th>Sales ($M)</th><th>Earn/Share</th><th>Exchange</th></tr></thead><tbody><tr><td>Dataram</td><td>73.1</td><td>0.86</td><td>N</td></tr><tr><td>EnergySouth</td><td>74.0</td><td>1.67</td><td>N</td></tr><tr><td>Keystone</td><td>365.7</td><td>0.86</td><td>NQ</td></tr><tr><td>LandCare</td><td>111.4</td><td>0.33</td><td>N</td></tr><tr><td>Psychemedics</td><td>17.6</td><td>0.13</td><td>N</td></tr></tbody></table>
+<p><strong>Tip:</strong> Ask first — label or number? You do not need every scale-of-measurement label on day one.</p>
+</section>
+<hr />
+<section id="introduction-page-06" data-lecture="introduction" data-page="6"><h2>Page 06 · Game · label or number?</h2>
+<p><strong>Title:</strong> Label or number?</p>
+<p><strong>Rule:</strong> Is this a <strong>name/label</strong> (categorical) or a <strong>number</strong> (quantitative)?</p>
+<table><thead><tr><th>Observation</th><th>Type</th><th>Why</th></tr></thead><tbody><tr><td>CUHK student blood type</td><td><strong>Categorical</strong></td><td>Label/category</td></tr><tr><td>Number of siblings</td><td><strong>Quantitative</strong></td><td>Count</td></tr><tr><td>Country of residence</td><td><strong>Categorical</strong></td><td>Label</td></tr><tr><td>Height (cm)</td><td><strong>Quantitative</strong></td><td>Measured number</td></tr><tr><td>Annual sales ($M)</td><td><strong>Quantitative</strong></td><td>Measured amount</td></tr><tr><td>Stock exchange: N or NQ</td><td><strong>Categorical</strong></td><td>Label/code</td></tr></tbody></table>
+</section>
+<hr />
+<section id="introduction-page-07" data-lecture="introduction" data-page="7"><h2>Page 07 · Cross-section vs time series</h2>
+<p><strong>Title:</strong> Same variable — different snapshot.</p>
+<p><strong>Cross-section (one point in time):</strong> Salary of <em>all</em> fresh graduates at <em>each</em> HK university in <strong>2021</strong> — compare places at the same moment.</p>
+<p><strong>Time series (many periods):</strong> Salary of CUHK fresh graduates in <strong>2022, 2023, 2024</strong> — same group moving forward. Gasoline price by month is a classic time-series picture.</p>
+</section>
+<hr />
+<section id="introduction-page-08" data-lecture="introduction" data-page="8"><h2>Page 08 · Data sources</h2>
+<p><strong>Title:</strong> Who collected it — and did they control anything?</p>
+<table><thead><tr><th>Source</th><th>Description</th></tr></thead><tbody><tr><td><strong>Existing data</strong></td><td>Company records, Census & Statistics Department, industry reports, databases — fast, but ask who collected it and why</td></tr><tr><td><strong>Designed experiment</strong></td><td>You control inputs and measure outputs (e.g. Salk polio trial). Strong for cause; expensive; ethical limits</td></tr><tr><td><strong>Observational study</strong></td><td>Watch without assigning treatment — surveys, smoker vs non-smoker comparisons. Lurking variables can fool you</td></tr></tbody></table>
+<p>Bad data cheaply acquired can be worse than no data.</p>
+</section>
+<hr />
+<section id="introduction-page-09" data-lecture="introduction" data-page="9"><h2>Page 09 · Describe vs infer</h2>
+<p><strong>Title:</strong> Describe the sample. Infer about the population.</p>
+<table><thead><tr><th>Descriptive</th><th>Inferential</th></tr></thead><tbody><tr><td>Compress what is <strong>in front of you</strong> — tables, charts, averages</td><td>Use a <strong>sample</strong> to learn about a <strong>larger group</strong> you did not fully measure</td></tr><tr><td>Example: 50 tune-up invoices → histogram → “parts average about $79”</td><td>Example: estimate mean wait time; test a claim; predict sales from ad spend</td></tr></tbody></table>
+<p>Most headlines show descriptive statistics. Most business decisions need inferential ones — with uncertainty attached.</p>
+</section>
+<hr />
+<section id="introduction-page-10" data-lecture="introduction" data-page="10"><h2>Page 10 · Pail metaphor</h2>
+<p><strong>Title:</strong> Probability and statistics ask opposite questions.</p>
+<p><strong>Population</strong> = the whole pail (e.g. 10 squares + 5 circles = 15 items).</p>
+<p><strong>Sample</strong> = a handful scooped from the pail (e.g. 4 squares + 2 circles = 6 items). Same shapes in both — the handful is drawn <em>from</em> the pail.</p>
+<table><thead><tr><th>Direction</th><th>Question</th></tr></thead><tbody><tr><td><strong>Probability</strong> (population → sample)</td><td>The pail mix is known. If you scoop 6 items, what mix might land in your hand?</td></tr><tr><td><strong>Statistics</strong> (sample → population)</td><td>You scooped 4 squares and 2 circles. What mix in the full pail is plausible?</td></tr></tbody></table>
+<p>Later topics: probability & distributions; then sampling, confidence intervals, hypothesis tests, ANOVA, regression.</p>
+</section>
+<hr />
+<section id="introduction-page-11" data-lecture="introduction" data-page="11"><h2>Page 11 · Population & sample</h2>
+<p><strong>Title:</strong> You almost never weigh every bearing.</p>
+<ul><li><strong>Population</strong> = every element you care about (e.g. 48 bearings produced today)</li><li><strong>Sample</strong> = the subset you actually measure (e.g. 10 inspected)</li><li><strong>Census</strong> = measure all 48; <strong>sample survey</strong> = measure 10</li></ul>
+<p>Inference uses the sample to speak about the population.</p>
+</section>
+<hr />
+<section id="introduction-page-12" data-lecture="introduction" data-page="12"><h2>Page 12 · Inference preview</h2>
+<p><strong>Title:</strong> Inference in one picture.</p>
+<p><strong>Estimation:</strong> Sample average wait = 5.07 min → best guess for population mean. Later: confidence interval — how far can 5.07 move?</p>
+<p><strong>Hypothesis test:</strong> Claim: mean wait ≤ 5 min. Data average = 5.07. Enough evidence to reject? Same pattern for any yes/no claim about a population.</p>
+<p><strong>Linear regression:</strong> Campus café — predict wait time (Y) from staff (X₁), capacity (X₂), time of day (X₃):</p>
+<p><strong>Y = β₀ + β₁X₁ + β₂X₂ + β₃X₃ + ε</strong></p>
+<p>Y = wait time (minutes); ε = leftover noise.</p>
+</section>
+<hr />
+<section id="introduction-page-13" data-lecture="introduction" data-page="13"><h2>Page 13 · AI · get data</h2>
+<p><strong>Title:</strong> Step 1 — ask an assistant to download data.</p>
+<p>Use an AI coding assistant to fetch public data for <strong>practice</strong> (follow course AI policy for graded work).</p>
+<p><strong>You may try:</strong> paste the prompt into Microsoft Copilot (https://copilot.microsoft.com/), then run the Python in Google Colab (https://colab.research.google.com/) — download any files, and still read the code so you know what the assistant did.</p>
+<p><strong>Example prompt:</strong> Download Apple (AAPL) daily stock data for the past year using Python (yfinance or akshare). Save as <code>aapl_daily.csv</code>. Show first five rows and column names.</p>
+<p><strong>Check:</strong> CSV should have Date, Open, High, Low, Close, Volume.</p>
+</section>
+<hr />
+<section id="introduction-page-14" data-lecture="introduction" data-page="14"><h2>Page 14 · AI · plot data</h2>
+<p><strong>Title:</strong> Step 2 — ask for a chart, then read it like a statistician.</p>
+<p><strong>You may try:</strong> paste the prompt into Microsoft Copilot (https://copilot.microsoft.com/), then run the Python in Google Colab (https://colab.research.google.com/) — download any files, and still read the code so you know what the assistant did.</p>
+<p><strong>Example prompt:</strong> Read <code>aapl_daily.csv</code> and plot a candlestick chart for the past year. Label axes. Save as <code>aapl_candles.png</code>.</p>
+<p><strong>Ask yourself:</strong> Trend up or down? Wide candles (volatility)? Correct date range?</p>
+</section>
+<hr />
+<section id="introduction-page-15" data-lecture="introduction" data-page="15"><h2>Page 15 · Ethics game</h2>
+<p><strong>Title:</strong> Spot the shady statistics.</p>
+<table><thead><tr><th>Statement</th><th>Verdict</th></tr></thead><tbody><tr><td>Convenience sample dressed up as representative</td><td><strong>Problem</strong> — easy-to-reach people ≠ the population you claim</td></tr><tr><td>Chart axis starts at zero when comparing amounts</td><td><strong>Good</strong> — avoids exaggerating small differences</td></tr><tr><td>Report only the subgroup that supports the story</td><td><strong>Problem</strong> — cherry-picking hides the full study</td></tr><tr><td>Call correlation “proof of cause”</td><td><strong>Problem</strong> — two trends can move together for other reasons</td></tr><tr><td>Show sample size and how data were collected</td><td><strong>Good</strong> — context builds trust</td></tr></tbody></table>
+<p><strong>Axis example:</strong> Revenue $101M vs $102M — axis from 0 shows ~1% gap (honest); axis from 100 makes 102 look twice 101 (misleading).</p>
+</section>
+<hr />
+<section id="introduction-page-16" data-lecture="introduction" data-page="16"><h2>Page 16 · Takeaways</h2>
+<p><strong>Title:</strong> Data → picture → number → honest claim.</p>
+<ol><li><strong>Ask the type</strong> — Label or number? Sample or population?</li><li><strong>Describe first</strong> — Tables and charts before you quote an average.</li><li><strong>Infer carefully</strong> — Correlation ≠ cause. Show your sample. Report uncertainty.</li></ol>
+</section>
+<hr />
+<h1>DOTE2011G · Descriptive Statistics (interactive lecture)</h1>
+<p><strong>Live site:</strong> https://kwtsang101016.github.io/dote2011/descriptive-statistics/</p>
+<p><strong>Page numbers</strong> match the website slide counter and downloadable PDF (01/26 … 26/26).</p>
+<hr />
+<h2>Index</h2>
+<table><thead><tr><th>Page</th><th>Title</th></tr></thead><tbody><tr><td>01</td><td>Cover</td></tr><tr><td>02</td><td>Why summarise</td></tr><tr><td>03</td><td>Game · Name, or number?</td></tr><tr><td>04</td><td>Hyatt · categorical data</td></tr><tr><td>05</td><td>Pareto diagram</td></tr><tr><td>06</td><td>Game · Read the chart</td></tr><tr><td>07</td><td>Classes and histogram</td></tr><tr><td>08</td><td>Game · Skewness shape</td></tr><tr><td>09</td><td>Skewness formula</td></tr><tr><td>10</td><td>Stem-and-leaf</td></tr><tr><td>11</td><td>Cumulative / ogive</td></tr><tr><td>12</td><td>Crosstab</td></tr><tr><td>13</td><td>Game · Simpson's paradox</td></tr><tr><td>14</td><td>Scatter diagrams</td></tr><tr><td>15</td><td>Tool map</td></tr><tr><td>16</td><td>Mean / median / mode</td></tr><tr><td>17</td><td>Percentiles and quartiles</td></tr><tr><td>18</td><td>Game · Compute mean & median</td></tr><tr><td>19</td><td>Variability</td></tr><tr><td>20</td><td>Game · Two suppliers</td></tr><tr><td>21</td><td>z-scores, Chebyshev, empirical rule</td></tr><tr><td>22</td><td>Box plot</td></tr><tr><td>23</td><td>Correlation</td></tr><tr><td>24</td><td>Weighted mean / grouped data</td></tr><tr><td>25</td><td>Game · Cloud vs table</td></tr><tr><td>26</td><td>Prompts to try</td></tr><tr><td>27</td><td>Takeaways</td></tr></tbody></table>
+<hr />
+<section id="descriptive-statistics-page-01" data-lecture="descriptive-statistics" data-page="1"><h2>Page 01 · Cover</h2>
+<p><strong>Title:</strong> Descriptive Statistics</p>
+<p><strong>Lead:</strong> From a pile of numbers to a picture — and a decision you can defend.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-02" data-lecture="descriptive-statistics" data-page="2"><h2>Page 02 · Why summarise</h2>
+<p><strong>Title:</strong> Raw data is not a story.</p>
+<p>William Auto: 50 tune-up <strong>parts costs</strong> ($) — a long list of numbers (52, 57, 62, …). You cannot hold 50 numbers in your head. Descriptive statistics compresses them into a table, a picture, or a few honest numbers.</p>
+<table><thead><tr><th>Type</th><th>Meaning</th><th>Examples</th></tr></thead><tbody><tr><td><strong>Categorical</strong></td><td>Labels</td><td>Rating, home type, supplier name</td></tr><tr><td><strong>Quantitative</strong></td><td>Amounts</td><td>Cost, rate, shots, rent ($)</td></tr></tbody></table>
+</section>
+<hr />
+<section id="descriptive-statistics-page-03" data-lecture="descriptive-statistics" data-page="3"><h2>Page 03 · Game · Name, or number?</h2>
+<p><strong>Title:</strong> Name, or number?</p>
+<p><strong>Rule:</strong> Categorical = label/name/group. Quantitative = numeric amount or count.</p>
+<h3>All classify examples (complete deck)</h3>
+<table><thead><tr><th>Observation</th><th>Answer</th><th>Why</th></tr></thead><tbody><tr><td>Hyatt guest rating: Above Average</td><td><strong>Categorical</strong></td><td>Label/category</td></tr><tr><td>Tune-up parts cost: $91</td><td><strong>Quantitative</strong></td><td>Dollar amount</td></tr><tr><td>Shatin home type: Flat</td><td><strong>Categorical</strong></td><td>Label</td></tr><tr><td>Number of shots on goal</td><td><strong>Quantitative</strong></td><td>Count</td></tr><tr><td>Supplier name: FastGo</td><td><strong>Categorical</strong></td><td>Label</td></tr><tr><td>Daily studio rent in Tai Po</td><td><strong>Quantitative</strong></td><td>Dollar amount</td></tr></tbody></table>
+</section>
+<hr />
+<section id="descriptive-statistics-page-04" data-lecture="descriptive-statistics" data-page="4"><h2>Page 04 · Hyatt · categorical data</h2>
+<p><strong>Title:</strong> Twenty guests. One table. Two pictures.</p>
+<p>Frequency = count. Relative frequency = count ÷ n. Percent frequency = relative × 100. <strong>n = 20.</strong></p>
+<table><thead><tr><th>Rating</th><th>f</th><th>Relative</th><th>Percent</th></tr></thead><tbody><tr><td>Poor</td><td>2</td><td>0.10</td><td>10%</td></tr><tr><td>Below Average</td><td>3</td><td>0.15</td><td>15%</td></tr><tr><td>Average</td><td>5</td><td>0.25</td><td>25%</td></tr><tr><td>Above Average</td><td>9</td><td>0.45</td><td>45%</td></tr><tr><td>Excellent</td><td>1</td><td>0.05</td><td>5%</td></tr></tbody></table>
+<p>Tools: bar chart (frequency), pie chart (percent). Pie slice = relative frequency × 360°.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-05" data-lecture="descriptive-statistics" data-page="5"><h2>Page 05 · Pareto diagram</h2>
+<p><strong>Title:</strong> Sort the bars. The biggest problems come first.</p>
+<p>Bar chart of causes ordered <strong>most frequent → least</strong>, often with cumulative-% line (Vilfredo Pareto; quality/operations standard).</p>
+<p><strong>Hyatt complaints (n = 100):</strong></p>
+<table><thead><tr><th>Cause</th><th>Count</th><th>%</th><th>Cum. %</th></tr></thead><tbody><tr><td>Check-in</td><td>48</td><td>48%</td><td>48%</td></tr><tr><td>Cleanliness</td><td>24</td><td>24%</td><td>72%</td></tr><tr><td>Wi-Fi</td><td>12</td><td>12%</td><td>84%</td></tr><tr><td>Noise</td><td>9</td><td>9%</td><td>93%</td></tr><tr><td>Billing</td><td>7</td><td>7%</td><td>100%</td></tr></tbody></table>
+<p><strong>Key point:</strong> Check-in + Cleanliness = <strong>72%</strong> of complaints — fix those first (80/20 idea).</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-06" data-lecture="descriptive-statistics" data-page="6"><h2>Page 06 · Game · Read the chart</h2>
+<p><strong>Title:</strong> What percent said “Above Average”?</p>
+<p>Count the bar, divide by <strong>n = 20</strong>. Textbook: <strong>9/20 = 45%</strong>. Website redraws samples — learn the method, not one memorised answer.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-07" data-lecture="descriptive-statistics" data-page="7"><h2>Page 07 · Classes and histogram</h2>
+<p><strong>Title:</strong> Classes are a choice. Make them honest.</p>
+<p>William Auto: 50 parts costs ($). <strong>6 classes, width 10, start $50.</strong></p>
+<p>Approx. width = (max − min) / k. Guideline: <strong>5–20 classes</strong>. Each value in exactly one class.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-08" data-lecture="descriptive-statistics" data-page="8"><h2>Page 08 · Game · Skewness shape</h2>
+<p><strong>Title:</strong> Which way does the tail point?</p>
+<table><thead><tr><th>Shape</th><th>Tail</th><th>Examples</th></tr></thead><tbody><tr><td>Symmetric</td><td>Neither side longer</td><td>Heights, weights</td></tr><tr><td>Skewed left</td><td>Long left tail</td><td>Some exam score sets</td></tr><tr><td>Skewed right</td><td>Long right tail</td><td>Property prices, salaries</td></tr><tr><td>Highly skewed right</td><td>Very long right tail</td><td>Few huge values pull the mean</td></tr></tbody></table>
+<p>Skewness is named for the <strong>long tail</strong>, not the pile.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-09" data-lecture="descriptive-statistics" data-page="9"><h2>Page 09 · Skewness formula</h2>
+<p><strong>Title:</strong> Skewness turns the histogram into one number.</p>
+<p><strong>70 Shatin/Tai Po studio rates ($).</strong> Formula:</p>
+<p><strong>Skewness = [n / ((n − 1)(n − 2))] × Σ [(xᵢ − x̄) / s]³</strong></p>
+<table><thead><tr><th>Value</th><th>Meaning</th></tr></thead><tbody><tr><td>0</td><td>Symmetric</td></tr><tr><td>Negative</td><td>Left tail</td></tr><tr><td>Positive</td><td>Right tail (mean usually above median)</td></tr></tbody></table>
+<p>Textbook sample: skewness = <strong>0.92</strong> (moderate right skew).</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-10" data-lecture="descriptive-statistics" data-page="10"><h2>Page 10 · Stem-and-leaf</h2>
+<p><strong>Title:</strong> Stem-and-leaf is a histogram that still shows the data.</p>
+<p>Stem = leading digits; leaf = last digit. Can split stems (0–4 / 5–9). Companion: dot plot. Leaf unit = 1 here (if data were 8.6, 9.1, use leaf unit 0.1).</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-11" data-lecture="descriptive-statistics" data-page="11"><h2>Page 11 · Cumulative / ogive</h2>
+<p><strong>Title:</strong> How many costs fall at or below each limit?</p>
+<p>Histogram: count <strong>inside</strong> each class. Cumulative: count <strong>at most</strong> each upper limit. Read “at most,” not “exactly.”</p>
+<p><strong>Tune-up costs (textbook):</strong></p>
+<table><thead><tr><th>At most</th><th>Cum. f</th><th>Cum. %</th></tr></thead><tbody><tr><td>≤ $59</td><td>2</td><td>4%</td></tr><tr><td>≤ $69</td><td>15</td><td>30%</td></tr><tr><td>≤ $79</td><td>31</td><td>62%</td></tr><tr><td>≤ $89</td><td>38</td><td>76%</td></tr><tr><td>≤ $99</td><td>45</td><td>90%</td></tr><tr><td>≤ $109</td><td>50</td><td>100%</td></tr></tbody></table>
+<p>Example: <strong>15 of 50</strong> tune-ups cost ≤ <strong>$69</strong> = <strong>30%</strong>. Ogive uses class upper boundaries (59.5, 69.5, …).</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-12" data-lecture="descriptive-statistics" data-page="12"><h2>Page 12 · Crosstab</h2>
+<p><strong>Title:</strong> A crosstab is two frequency distributions sharing one table.</p>
+<p>100 Shatin homes: <strong>type</strong> (categorical) × <strong>price band</strong> (grouped quantitative).</p>
+<table><thead><tr><th>Price \ Type</th><th>HOS</th><th>House</th><th>Flat</th><th>HOS (G)</th><th>Total</th></tr></thead><tbody><tr><td>< $5M</td><td>18</td><td>6</td><td>19</td><td>12</td><td>55</td></tr><tr><td>≥ $5M</td><td>12</td><td>14</td><td>16</td><td>3</td><td>45</td></tr><tr><td><strong>Total</strong></td><td><strong>30</strong></td><td><strong>20</strong></td><td><strong>35</strong></td><td><strong>15</strong></td><td><strong>100</strong></td></tr></tbody></table>
+<ul><li><strong>HOS</strong> = Home Ownership Scheme flat</li><li><strong>HOS (G)</strong> = HOS under Green Form</li></ul>
+<p>Row % = given price band, what type? Column % = given type, what price? Different questions.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-13" data-lecture="descriptive-statistics" data-page="13"><h2>Page 13 · Game · Simpson's paradox</h2>
+<p><strong>Title:</strong> The total can reverse every subgroup.</p>
+<p>Two cafés — 5-star rates:</p>
+<table><thead><tr><th></th><th>5-star</th><th>Orders</th><th>Rate</th></tr></thead><tbody><tr><td>Shop A</td><td>273</td><td>350</td><td>78%</td></tr><tr><td>Shop B</td><td>289</td><td>350</td><td><strong>83%</strong></td></tr></tbody></table>
+<p><strong>Weekdays:</strong> A 93% vs B 87%. <strong>Weekends:</strong> A 73% vs B 69%. <strong>A wins both subgroups</strong> — B only wins overall because it takes more easy weekday orders. <strong>Simpson&#x27;s paradox:</strong> aggregating hid the lurking variable (day type).</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-14" data-lecture="descriptive-statistics" data-page="14"><h2>Page 14 · Scatter diagrams</h2>
+<p><strong>Title:</strong> The cloud is the relationship.</p>
+<p>Manchester United: <strong>goals vs shots</strong> (5 matches). <strong>r ≈ 0.90.</strong> Trendline sketches the cloud — not proof of cause.</p>
+<table><thead><tr><th>Goals</th><th>Shots</th></tr></thead><tbody><tr><td>1</td><td>14</td></tr><tr><td>3</td><td>24</td></tr><tr><td>2</td><td>18</td></tr><tr><td>1</td><td>17</td></tr><tr><td>3</td><td>30</td></tr></tbody></table>
+</section>
+<hr />
+<section id="descriptive-statistics-page-15" data-lecture="descriptive-statistics" data-page="15"><h2>Page 15 · Tool map</h2>
+<p><strong>Categorical tools:</strong> frequency / relative / percent tables; bar; pie; Pareto; crosstab.</p>
+<p><strong>Quantitative tools:</strong> frequency tables, histogram, dot plot, stem-and-leaf, ogive, scatter, crosstab.</p>
+<p>Next: center, spread, shape, association as numbers.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-16" data-lecture="descriptive-statistics" data-page="16"><h2>Page 16 · Mean / median / mode</h2>
+<p><strong>Mean</strong> x̄ = Σxᵢ / n — walks toward outliers.</p>
+<p><strong>Median</strong> — middle of ordered list — more stable.</p>
+<p><strong>Mode</strong> — most frequent value.</p>
+<p>Example: 12, 14, 18, 19, 26, 27, 27. “Star salary” demo: mean pulled up; median barely moves.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-17" data-lecture="descriptive-statistics" data-page="17"><h2>Page 17 · Percentiles and quartiles</h2>
+<p><strong>70 hotel studio rates</strong>, ordered. <strong>p-th percentile:</strong> at least p% of values are this much or less.</p>
+<ol><li>i = (p/100) × n</li><li><strong>Case A — i whole number:</strong> average xᵢ and xᵢ₊₁ (e.g. median i = 35 → avg #35 and #36)</li><li><strong>Case B — i decimal:</strong> round <strong>up</strong>; take that position (e.g. Q1 i = 17.5 → #18)</li></ol>
+<table><thead><tr><th>Measure</th><th>Value</th></tr></thead><tbody><tr><td>Q1</td><td>445</td></tr><tr><td>Q2 (median)</td><td>475</td></tr><tr><td>Q3</td><td>525</td></tr><tr><td>80th percentile</td><td><strong>542</strong></td></tr></tbody></table>
+</section>
+<hr />
+<section id="descriptive-statistics-page-18" data-lecture="descriptive-statistics" data-page="18"><h2>Page 18 · Game · Compute</h2>
+<p>Order 8 values first. Compute <strong>mean</strong> and <strong>median</strong>. Answers change when sample is redrawn.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-19" data-lecture="descriptive-statistics" data-page="19"><h2>Page 19 · Variability</h2>
+<p><strong>Range</strong> = max − min (sensitive to outliers).</p>
+<p><strong>IQR</strong> = Q3 − Q1 (middle 50%).</p>
+<p><strong>Sample s</strong> = √[Σ(xᵢ − x̄)² / (n − 1)].</p>
+<p><strong>CV</strong> = (s / x̄) × 100% (relative variability).</p>
+<p>Dataset: 70 hotel studio rates.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-20" data-lecture="descriptive-statistics" data-page="20"><h2>Page 20 · Game · Two suppliers</h2>
+<table><thead><tr><th></th><th>FastGo</th><th>Steady</th></tr></thead><tbody><tr><td>Delivery days</td><td>4,5,5,5,6,<strong>14</strong></td><td>6,7,7,8,8,9</td></tr><tr><td>Mean</td><td>6.5</td><td>7.5</td></tr><tr><td>s</td><td>3.73</td><td>1.05</td></tr></tbody></table>
+<p><strong>Choose Steady</strong> — similar average, much less scatter. One 14-day delay is the business risk.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-21" data-lecture="descriptive-statistics" data-page="21"><h2>Page 21 · z-scores and rules</h2>
+<p><strong>z = (x − x̄) / s</strong> — standardised value; |z| > 3 often flagged as outlier.</p>
+<p><strong>Chebyshev:</strong> for any data, fraction within z SD of mean ≥ 1 − 1/z².</p>
+<p><strong>Empirical rule (bell-shaped only):</strong> ~68% within ±1s, ~95% within ±2s, ~99.7% within ±3s.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-22" data-lecture="descriptive-statistics" data-page="22"><h2>Page 22 · Box plot</h2>
+<p>Five-number summary: min, Q1, median, Q3, max. Whiskers to last point within <strong>1.5 × IQR</strong> of quartiles; points beyond = outliers.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-23" data-lecture="descriptive-statistics" data-page="23"><h2>Page 23 · Correlation</h2>
+<p>Golf: driving distance vs score (6 rounds). <strong>r ≈ −0.96</strong> (longer drives, lower scores).</p>
+<p><strong>s_xy</strong> = Σ(xᵢ − x̄)(yᵢ − ȳ) / (n − 1)</p>
+<p><strong>r = s_xy / (s_x s_y)</strong> — always between −1 and +1.</p>
+<p><strong>Correlation measures linear association — not causation.</strong></p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-24" data-lecture="descriptive-statistics" data-page="24"><h2>Page 24 · Weighted mean / grouped data</h2>
+<p><strong>GPA:</strong> x̄_w = Σ wᵢxᵢ / Σ wᵢ. Example: <strong>3.53</strong> (not plain average 3.50) because credits weight courses.</p>
+<p><strong>Grouped data:</strong> use class midpoints Mᵢ and frequencies fᵢ:</p>
+<p>x̄ ≈ Σ fᵢMᵢ / n; s² ≈ Σ fᵢ(Mᵢ − x̄)² / (n − 1).</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-25" data-lecture="descriptive-statistics" data-page="25"><h2>Page 25 · Game · Cloud vs table</h2>
+<p>Plot before trusting <strong>r</strong>. Textbook trap table (A and B both climb): <strong>r ≈ 0.95</strong> — strong positive linear — but always <strong>plot first</strong>.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-26" data-lecture="descriptive-statistics" data-page="26"><h2>Page 26 · Prompts to try</h2>
+<p><strong>Title:</strong> Practice descriptive statistics on your own CSV.</p>
+<p>Use <code>aapl_daily.csv</code> (from Introduction) with an AI assistant.</p>
+<p><strong>You may try:</strong> paste the prompt into Microsoft Copilot (https://copilot.microsoft.com/), then run the Python in Google Colab (https://colab.research.google.com/) — download any files, and still read the code so you know what the assistant did.</p>
+<p>Example prompts:</p>
+<ul><li><strong>Histogram · daily returns</strong> — compute % return from Close; histogram with class count chosen from the data; state k and width; mean and s of returns</li><li><strong>Center &amp; spread</strong> — mean, median, s of Close</li><li><strong>Time series</strong> — line chart of Close + 20-day moving average</li><li><strong>Box plot · volatility</strong> — weekly range of Close; box plot</li><li><strong>Two variables</strong> — scatter Volume vs |daily % return|</li><li><strong>Compare two stocks</strong> — normalized Close for AAPL vs MSFT</li></ul>
+<p>For graded work, follow course AI policy.</p>
+</section>
+<hr />
+<section id="descriptive-statistics-page-27" data-lecture="descriptive-statistics" data-page="27"><h2>Page 27 · Takeaways</h2>
+<ol><li><strong>See the type</strong> — categorical vs quantitative picks the tool.</li><li><strong>Show the shape</strong> — before quoting a mean.</li><li><strong>Name the risk</strong> — outliers, lurking variables, correlation ≠ cause.</li></ol>
+<p>Descriptive statistics makes the sample legible; inference (later) asks how far the story travels.</p>
+</section>
+<hr />
+<h1>DOTE2011G · Probability (interactive lecture)</h1>
+<p><strong>Live site:</strong> https://kwtsang101016.github.io/dote2011/probability/</p>
+<p><strong>Page numbers</strong> match the website slide counter and downloadable PDF (01/24 … 24/24).</p>
+<hr />
+<h2>Index</h2>
+<table><thead><tr><th>Page</th><th>Title</th></tr></thead><tbody><tr><td>01</td><td>Cover</td></tr><tr><td>02</td><td>What is probability</td></tr><tr><td>03</td><td>Experiments & sample space</td></tr><tr><td>04</td><td>DSME sample space</td></tr><tr><td>05</td><td>Multiple-step counting</td></tr><tr><td>06</td><td>Combinations & permutations</td></tr><tr><td>07</td><td>Mark Six</td></tr><tr><td>08</td><td>Horse racing</td></tr><tr><td>09</td><td>Game · counting</td></tr><tr><td>10</td><td>Three methods of assigning probabilities</td></tr><tr><td>11</td><td>Relative frequency (William Mini-Library)</td></tr><tr><td>12</td><td>Subjective · DSME probabilities</td></tr><tr><td>13</td><td>Events as sets</td></tr><tr><td>14</td><td>Complement · union · intersection</td></tr><tr><td>15</td><td>Addition law</td></tr><tr><td>16</td><td>Distributive · De Morgan</td></tr><tr><td>17</td><td>Conditional probability</td></tr><tr><td>18</td><td>Joint probability table</td></tr><tr><td>19</td><td>Independence</td></tr><tr><td>20</td><td>Bayes story (Dennis Fashion)</td></tr><tr><td>21</td><td>Bayes table</td></tr><tr><td>22</td><td>Game · Bayes</td></tr><tr><td>23</td><td>Prompts to try</td></tr><tr><td>24</td><td>Takeaways</td></tr></tbody></table>
+<hr />
+<section id="probability-page-02" data-lecture="probability" data-page="2"><h2>Page 02 · What is probability</h2>
+<p>Probability = numerical measure of likelihood, always between <strong>0 and 1</strong>. Near 0 → unlikely; near 1 → almost certain.</p>
+</section>
+<hr />
+<h2>Page 03–04 · Experiments & DSME</h2>
+<p><strong>Experiment</strong> = process with well-defined outcomes. <strong>Sample space</strong> S = all outcomes.</p>
+<p><strong>DSME:</strong> ICBC ∈ {10, 5, 0, −20}, China Mobile ∈ {8, −2} → <strong>8</strong> sample points (net gains from +18 to −22, in $000).</p>
+<hr />
+<h2>Page 05–09 · Counting</h2>
+<ul><li>Multiple-step: n₁ × n₂ × … × nₖ (tree diagrams). DSME: 4 × 2 = 8.</li><li><strong>Factorial:</strong> n! = n × (n−1) × ⋯ × 1 (e.g. 3! = 6); 0! = 1 by definition.</li><li><strong>Combinations</strong> C(N,n) = N! / [n!(N−n)!] — order irrelevant.</li><li><strong>Permutations</strong> P(N,n) = N! / (N−n)! — order matters. P = C × n!.</li></ul>
+<h3>Mark Six (HK)</h3>
+<ul><li>Six Drawn Numbers from 1–49 (unordered) → <strong>C(49,6) = 13,983,816</strong> outcomes.</li><li>First prize (one single entry): <strong>P = 1 / C(49,6)</strong> ≈ 1 in 14 million.</li><li>Multiple entry of <strong>7 numbers</strong>: <strong>C(7,6) = 7</strong> single tickets → <strong>7 × HK$10 = HK$70</strong>.</li><li>General: k numbers → C(k,6) entries × HK$10.</li><li><strong>Buy-all discussion:</strong> cost of every combination = 13,983,816 × HK$10 ≈ <strong>HK$140M</strong>. A first-division fund of about <strong>HK$0.2B</strong> looks larger, so a <em>sole</em> first-prize winner would more than cover cost in simple arithmetic — but the prize is <strong>shared</strong> among all winning units, so two or more winners can wipe out the “profit.” Teaching point: counting + sharing, not a strategy tip.</li></ul>
+<h3>Horse racing (equal-chance teaching model)</h3>
+<p>With n runners (e.g. n = 14):</p>
+<table><thead><tr><th>Pool (EN / 中)</th><th>Meaning</th><th>Count</th></tr></thead><tbody><tr><td>Win / 獨贏</td><td>Who finishes 1st</td><td>n</td><td>1/n</td></tr><tr><td>Place / 位置</td><td>One named horse finishes in top 3</td><td>—</td><td><strong>3/n</strong> (not C(n,3))</td></tr><tr><td>Forecast / 二重彩</td><td>1st & 2nd correct <strong>order</strong></td><td>P(n,2)</td><td>1/P(n,2)</td></tr><tr><td>Quinella / 連贏</td><td>1st & 2nd <strong>any</strong> order</td><td>C(n,2)</td><td>1/C(n,2)</td></tr><tr><td>Tierce / 三重彩</td><td>Top 3 correct order</td><td>P(n,3)</td><td>1/P(n,3)</td></tr><tr><td>Trio / 單T</td><td>Top 3 any order</td><td><strong>C(n,3)</strong></td><td>1/C(n,3)</td></tr></tbody></table>
+<p>Identity: P(n,2) = 2 · C(n,2); P(n,3) = 3! · C(n,3).</p>
+<p><strong>Trap:</strong> C(n,3) is 單T (which three horses fill the places), not 位置 (one horse among the top three).</p>
+<hr />
+<h2>Page 10–12 · Assigning probabilities</h2>
+<p>Rules: 0 ≤ P(Eᵢ) ≤ 1 and Σ P(Eᵢ) = 1.</p>
+<table><thead><tr><th>Method</th><th>Idea</th></tr></thead><tbody><tr><td>Classical</td><td>Equally likely → 1/n</td></tr><tr><td>Relative frequency</td><td>frequency / trials (e.g. library books: P(2)=18/40=0.45)</td></tr><tr><td>Subjective</td><td>Judgment / degree of belief (DSME analyst table sums to 1)</td></tr></tbody></table>
+<hr />
+<h2>Page 13–16 · Events and relationships</h2>
+<p>Event = collection of sample points; P(event) = sum of those probabilities.</p>
+<p>DSME: <strong>P(I)=0.70</strong> (ICBC profitable), <strong>P(C)=0.48</strong> (Mobile profitable), <strong>P(I∩C)=0.36</strong>.</p>
+<ul><li>Complement: P(Aᶜ)=1−P(A)</li><li>Union A∪B; Intersection A∩B</li><li><strong>Addition law:</strong> P(A∪B)=P(A)+P(B)−P(A∩B). If mutually exclusive, drop the intersection term.</li></ul>
+<p><strong>Distributive laws:</strong></p>
+<p>A ∪ (B ∩ C) = (A ∪ B) ∩ (A ∪ C)</p>
+<p>A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C)</p>
+<p><strong>De Morgan’s laws:</strong></p>
+<p>(A ∪ B)ᶜ = Aᶜ ∩ Bᶜ</p>
+<p>(A ∩ B)ᶜ = Aᶜ ∪ Bᶜ</p>
+<p>DSME check: (I ∪ C)ᶜ = “neither profitable” = Iᶜ ∩ Cᶜ.</p>
+<hr />
+<h2>Page 17–19 · Conditioning & independence</h2>
+<p><strong>P(A|B)=P(A∩B)/P(B).</strong> Example: P(C|I)=0.36/0.70≈0.5143.</p>
+<p><strong>Multiplication:</strong> P(A∩B)=P(B)×P(A|B).</p>
+<p>Joint table: body = joints; margins = totals.</p>
+<p><strong>Independent</strong> iff P(A∩B)=P(A)P(B). DSME: 0.70×0.48=0.34 ≠ 0.36 → <strong>not independent</strong>.</p>
+<p>Do not confuse with mutually exclusive (cannot both occur).</p>
+<hr />
+<h2>Page 20–22 · Bayes’ theorem</h2>
+<p>Dennis Fashion / zoning: priors P(A₁)=0.70, P(A₂)=0.30; B = board recommends against; P(B|A₁)=0.20, P(B|A₂)=0.90.</p>
+<p>Joints: 0.14 and 0.27; P(B)=0.41; <strong>posteriors ≈ 0.34 and 0.66</strong>. Negative board news lowers P(approve) from 0.70 to ≈0.34.</p>
+<p>Formula: P(Aᵢ|B) = [P(B|Aᵢ)P(Aᵢ)] / Σⱼ P(B|Aⱼ)P(Aⱼ).</p>
+<hr />
+<h2>Page 23–24 · Practice & takeaways</h2>
+<p>Prompts: simulate a die; C/P; Mark Six; horse racing pools; joint conditionals; Bayes medical test.</p>
+<p><strong>You may try:</strong> paste the prompt into Microsoft Copilot (https://copilot.microsoft.com/), then run the Python in Google Colab (https://colab.research.google.com/) — download any files, and still read the code so you know what the assistant did.</p>
+<p>Takeaways: <strong>Count → assign → update</strong> (sample space, event laws, Bayes).</p>
+<hr />
+<h1>DOTE2011G · Discrete Probability Distributions</h1>
+<p><strong>Live lecture:</strong> https://kwtsang101016.github.io/dote2011/discrete-distributions/</p>
+<p>Interactive slides condensed from <em>5 Discrete Probability Distributions.pdf</em> (Broadway TVs, Café de Coral, Mercy Hospital, batteries).</p>
+<hr />
+<section id="discrete-distributions-page-01" data-lecture="discrete-distributions" data-page="1"><h2>Page 01 · Cover</h2>
+<p>Discrete Probability Distributions — random variables, expectation/variance, binomial, Poisson, hypergeometric.</p>
+</section>
+<section id="discrete-distributions-page-02" data-lecture="discrete-distributions" data-page="2"><h2>Page 02 · What is a random variable</h2>
+<p>A random variable is a numerical description of an experiment’s outcome. <strong>Discrete:</strong> finite list or infinite sequence 0,1,2,… <strong>Continuous:</strong> any value in an interval.</p>
+</section>
+<section id="discrete-distributions-page-03" data-lecture="discrete-distributions" data-page="3"><h2>Page 03 · Finite vs infinite</h2>
+<p>Broadway: x = TVs sold in a day ∈ {0,1,2,3,4} (finite). Customers arriving: x = 0,1,2,… (infinite sequence). Both are discrete because we count.</p>
+</section>
+<section id="discrete-distributions-page-04" data-lecture="discrete-distributions" data-page="4"><h2>Page 04 · Game · classify</h2>
+<p>Family size / dependents → discrete. Distance home→store (miles) → continuous. Pet ownership coded 1–4 → discrete.</p>
+</section>
+<section id="discrete-distributions-page-05" data-lecture="discrete-distributions" data-page="5"><h2>Page 05 · Probability distributions</h2>
+<p>A discrete probability distribution describes how probability is spread over values of x (table, graph, or formula). f(x)=P(X=x) with f(x)≥0 and Σf(x)=1.</p>
+</section>
+<section id="discrete-distributions-page-06" data-lecture="discrete-distributions" data-page="6"><h2>Page 06 · Broadway table</h2>
+<p>Broadway Electronics tracked 200 days of TV sales. Relative frequencies: f(0)=0.40, f(1)=0.25, f(2)=0.20, f(3)=0.05, f(4)=0.10.</p>
+</section>
+<section id="discrete-distributions-page-07" data-lecture="discrete-distributions" data-page="7"><h2>Page 07 · Broadway graph</h2>
+<p>Bar chart of Broadway f(x) vs x (TV sales).</p>
+</section>
+<section id="discrete-distributions-page-08" data-lecture="discrete-distributions" data-page="8"><h2>Page 08 · Distribution function</h2>
+<p>The distribution function is F(x)=P(X ≤ x), also called the CDF. For an integer-valued count, f(x)=F(x)-F(x-1) with F(-1)=0. F is a step function: a jump of size f(x) at each possible x. F never decreases, starts at 0, and ends at 1. Broadway: F(2)=0.85, so f(2)=F(2)-F(1)=0.20.</p>
+</section>
+<section id="discrete-distributions-page-09" data-lecture="discrete-distributions" data-page="9"><h2>Page 09 · Discrete uniform</h2>
+<p>f(x)=1/n when n values are equally likely (e.g. fair die n=6).</p>
+</section>
+<section id="discrete-distributions-page-10" data-lecture="discrete-distributions" data-page="10"><h2>Page 10 · Expected value</h2>
+<p>For discrete X: E(X)=μ=Σ x f(x). Interpretation: average value of X (need not be attainable). Broadway E(x)=1.20 TVs.</p>
+</section>
+<section id="discrete-distributions-page-11" data-lecture="discrete-distributions" data-page="11"><h2>Page 11 · Expectation properties</h2>
+<p>(a) E(c)=c. (b) E(c g(X))=c E(g(X)). (c) E[c₁g₁(X)+c₂g₂(X)]=c₁E[g₁(X)]+c₂E[g₂(X)]. Expectation is a linear operator. For any RVs: E(X+Y)=E(X)+E(Y) (independence not required).</p>
+</section>
+<section id="discrete-distributions-page-12" data-lecture="discrete-distributions" data-page="12"><h2>Page 12 · Variance & SD</h2>
+<p>Var(X)=E[(X−E(X))²]=Σ(x−μ)²f(x)=E(X²)−[E(X)]². σ=√Var(X). Broadway σ²≈1.660, σ≈1.288.</p>
+</section>
+<section id="discrete-distributions-page-13" data-lecture="discrete-distributions" data-page="13"><h2>Page 13 · Variance properties</h2>
+<p>Var(c)=0. Var(cX)=c² Var(X). For independent X,Y: Var(X+Y)=Var(X)+Var(Y).</p>
+</section>
+<section id="discrete-distributions-page-14" data-lecture="discrete-distributions" data-page="14"><h2>Page 14 · Broadway E and Var</h2>
+<p>Full computation table for Broadway moments (xf(x) and (x−μ)²f(x) columns).</p>
+</section>
+<section id="discrete-distributions-page-15" data-lecture="discrete-distributions" data-page="15"><h2>Page 15 · Binomial properties</h2>
+<p>(1) n identical trials (2) success/failure each trial (3) constant p (stationarity) (4) independent trials. x = number of successes.</p>
+</section>
+<section id="discrete-distributions-page-16" data-lecture="discrete-distributions" data-page="16"><h2>Page 16 · Binomial formula</h2>
+<p>f(x)=C(n,x) p^x (1−p)^(n−x). Running story: Café de Coral (大家樂) restaurant chain; try n=3, p=0.10, x=1 → f(1)=0.243.</p>
+</section>
+<section id="discrete-distributions-page-17" data-lecture="discrete-distributions" data-page="17"><h2>Page 17 · Café de Coral</h2>
+<p>Café de Coral is concerned about retention: ~10% annual turnover among hourly staff. Pick 3 hourly employees at random; P(exactly one leaves). Sequences (L,S,S), (S,L,S), (S,S,L) each 0.081; total 0.243. E(x)=np=0.3; Var=np(1−p)=0.27; σ≈0.52.</p>
+</section>
+<section id="discrete-distributions-page-18" data-lecture="discrete-distributions" data-page="18"><h2>Page 18 · Binomial mean & Var</h2>
+<p>E(x)=np; Var(x)=np(1−p); σ=√[np(1−p)]. Interactive: choose n and p to compute the three quantities. Café de Coral check: n=3, p=0.10 → 0.3, 0.27, ≈0.52.</p>
+</section>
+<section id="discrete-distributions-page-19" data-lecture="discrete-distributions" data-page="19"><h2>Page 19 · Game · is it binomial</h2>
+<p>Large shipment, 5 items, each independently defective with p=0.02 → binomial (p≈constant). If the lot is small and sampling is without replacement, each draw changes the remaining fraction defective → dependent trials, non-constant p → hypergeometric instead. Large N is why binomial often approximates.</p>
+</section>
+<section id="discrete-distributions-page-20" data-lecture="discrete-distributions" data-page="20"><h2>Page 20 · Poisson idea</h2>
+<p>Counts occurrences in an interval of time/space; x=0,1,2,… Equal-length intervals same rate; disjoint intervals independent. Examples: toll booths, phone calls, ER arrivals.</p>
+</section>
+<section id="discrete-distributions-page-21" data-lecture="discrete-distributions" data-page="21"><h2>Page 21 · Poisson formula</h2>
+<p>f(x)=e^(−μ) μ^x / x!. Mean = variance = μ. Mercy default μ=3 (30 min), x=4 → ≈0.168.</p>
+</section>
+<section id="discrete-distributions-page-22" data-lecture="discrete-distributions" data-page="22"><h2>Page 22 · Mercy Hospital</h2>
+<p>Weekend evenings at Mercy Hospital ER average 6 arrivals/hour. For staffing a 30-minute window, μ=3; P(X=4)≈0.168; σ²=μ=3.</p>
+</section>
+<section id="discrete-distributions-page-23" data-lecture="discrete-distributions" data-page="23"><h2>Page 23 · Hypergeometric idea</h2>
+<p>Finite population without replacement: trials not independent; success probability changes. N population size; r successes in population; n draws; x successes in sample.</p>
+</section>
+<section id="discrete-distributions-page-24" data-lecture="discrete-distributions" data-page="24"><h2>Page 24 · Hypergeometric formula</h2>
+<p>f(x)=[C(r,x) C(N−r,n−x)] / C(N,n). Zero if x>r or n−x>N−r. Story: Tom mixed 2 good + 2 dead batteries (N=4, r=2).</p>
+</section>
+<section id="discrete-distributions-page-25" data-lecture="discrete-distributions" data-page="25"><h2>Page 25 · Batteries example</h2>
+<p>Tom accidentally mingled 2 dead batteries with 2 good ones; draws 2 for the flashlight. P(both good)=C(2,2)C(2,0)/C(4,2)=1/6≈0.167. μ=n(r/N)=1; Var≈0.333.</p>
+</section>
+<section id="discrete-distributions-page-26" data-lecture="discrete-distributions" data-page="26"><h2>Page 26 · Large-N approximation</h2>
+<p>If N ≫ n, hypergeometric ≈ binomial with p=r/N; E≈np, Var≈np(1−p).</p>
+</section>
+<section id="discrete-distributions-page-27" data-lecture="discrete-distributions" data-page="27"><h2>Page 27 · Prompts to try</h2>
+<p>Two real-data prompts. Earthquakes: use Python to download daily counts in 2025 from https://earthquake.usgs.gov, save as CSV, histogram, mean, and variance. Typhoons: the yearly counts are an HTML table, not a CSV, at https://www.hko.gov.hk/en/publica/tc/tc2023/table45.html. The assistant must download and parse that page in Python and must not ask the student to paste the table. The table has three columns: Year, annual number in Hong Kong's area of responsibility, and annual number necessitating warning signals. Keep only Year and the area-of-responsibility count. Drop the third column before renaming. Years 1956–2023. Skip the mean row. Save as CSV, then histogram, mean, and variance. A Poisson count has mean equal to variance; students should compare the two numbers themselves. Do not give the sample mean or variance.</p>
+<p><strong>You may try:</strong> paste the prompt into Microsoft Copilot (https://copilot.microsoft.com/), then run the Python in Google Colab (https://colab.research.google.com/) — download any files, and still read the code so you know what the assistant did.</p>
+</section>
+<section id="discrete-distributions-page-28" data-lecture="discrete-distributions" data-page="28"><h2>Page 28 · Takeaways</h2>
+<p>(1) Distributions: f≥0, sum=1. F(x)=P(X≤x) jumps by f(x). (2) Moments: expectation & variance (with linearity / scale properties). (3) Families: binomial, Poisson, hypergeometric.</p>
+</section>
+<hr />
+<h1>DOTE2011G · Continuous Probability Distributions</h1>
+<p><strong>Live lecture:</strong> https://kwtsang101016.github.io/dote2011/continuous-distributions/</p>
+<p>Interactive slides condensed from <em>6 Continuous Probability Distributions.pdf</em> (Healthy Canteen, William Automobile, invoice errors, Al’s pump).</p>
+<hr />
+<section id="continuous-distributions-page-01" data-lecture="continuous-distributions" data-page="1"><h2>Page 01 · Cover</h2>
+<p>Continuous Probability Distributions — uniform, normal (including z and the central limit theorem), normal approximation to the binomial, and exponential.</p>
+</section>
+<section id="continuous-distributions-page-02" data-lecture="continuous-distributions" data-page="2"><h2>Page 02 · Intervals, not points</h2>
+<p>A continuous random variable can take any value in an interval. P(X = x) = 0. Ask for P(x1 < X < x2). Endpoints do not change the probability.</p>
+</section>
+<section id="continuous-distributions-page-03" data-lecture="continuous-distributions" data-page="3"><h2>Page 03 · Area under f(x)</h2>
+<p>P(x1 < X < x2) is the area under the density between x1 and x2. Total area is 1. Same idea for uniform, normal, and exponential. The slide shows a density curve with the interval (x1, x2) shaded.</p>
+</section>
+<section id="continuous-distributions-page-04" data-lecture="continuous-distributions" data-page="4"><h2>Page 04 · Distribution function</h2>
+<p>F(x)=P(X ≤ x). Side-by-side plots: continuous Unif(0,6) has F(x)=x/6 on (0,6) with no jumps; discrete uniform on {1,2,3,4,5,6} (fair die) jumps by 1/6 at each integer. Continuous: f=F' and P(a<X<b)=F(b)−F(a). Discrete: f(k)=F(k)−F(k−1). In both cases F is nondecreasing, from 0 to 1.</p>
+</section>
+<section id="continuous-distributions-page-05" data-lecture="continuous-distributions" data-page="5"><h2>Page 05 · Expected value</h2>
+<p>Same idea as the discrete lecture, with a sum replaced by an integral: E(X)=μ=∫ x f(x) dx. Properties are unchanged: E(c)=c, E(c g(X))=c E(g(X)), linearity, and E(X+Y)=E(X)+E(Y) without requiring independence.</p>
+</section>
+<section id="continuous-distributions-page-06" data-lecture="continuous-distributions" data-page="6"><h2>Page 06 · Variance</h2>
+<p>Var(X)=E[(X-μ)^2]=∫ (x-μ)^2 f(x) dx = E(X^2)-[E(X)]^2. σ is the positive square root. Same properties as the discrete case: Var(c)=0, Var(cX)=c^2 Var(X), and Var(X+Y)=Var(X)+Var(Y) only if X and Y are independent.</p>
+</section>
+<section id="continuous-distributions-page-07" data-lecture="continuous-distributions" data-page="7"><h2>Page 07 · Uniform density, mean, variance</h2>
+<p>f(x) = 1/(b − a) for a < x < b, else 0. E(X) = (a + b)/2. Var(X) = (b − a)^2 / 12. Students move a and b on a density plot: a wider interval lowers the bar so the area stays 1.</p>
+</section>
+<section id="continuous-distributions-page-08" data-lecture="continuous-distributions" data-page="8"><h2>Page 08 · Healthy Canteen</h2>
+<p>Salad weight uniform from 5 to 15 oz. f(x) = 1/10. Mean 10 oz. Variance 100/12 ≈ 8.33. P(12 < X < 15) = 0.30. Sliders recompute other intervals.</p>
+</section>
+<section id="continuous-distributions-page-09" data-lecture="continuous-distributions" data-page="9"><h2>Page 09 · Normal density</h2>
+<p>f(x) = (1/(σ√(2π))) exp(−½((x−μ)/σ)^2). Used for heights, rainfall, test scores, measurements. de Moivre, 1733. Central to inference.</p>
+</section>
+<section id="continuous-distributions-page-10" data-lecture="continuous-distributions" data-page="10"><h2>Page 10 · μ and σ</h2>
+<p>Symmetric (skewness 0). Peak = mean = median = mode. μ any real number. Larger σ → wider, flatter curve. Area 0.5 each side of the mean.</p>
+</section>
+<section id="continuous-distributions-page-11" data-lecture="continuous-distributions" data-page="11"><h2>Page 11 · Empirical rule</h2>
+<p>Within 1 SD: 68.26%. Within 2 SD: 95.44%. Within 3 SD: 99.72%. These are normal areas, not a rule for every data set.</p>
+</section>
+<section id="continuous-distributions-page-12" data-lecture="continuous-distributions" data-page="12"><h2>Page 12 · The z score</h2>
+<p>Standard normal: mean 0, SD 1, letter z. z = (x − μ)/σ = number of SDs from the mean.</p>
+</section>
+<section id="continuous-distributions-page-13" data-lecture="continuous-distributions" data-page="13"><h2>Page 13 · William stockout</h2>
+<p>Assume lead-time demand is normal with μ = 15 and σ = 6. Reorder at 20: z = (20−15)/6 = 0.83. Stockout probability is the area to the right of that z. The slider changes the reorder point and shows one probability.</p>
+</section>
+<section id="continuous-distributions-page-14" data-lecture="continuous-distributions" data-page="14"><h2>Page 14 · Reorder point</h2>
+<p>Want a small stockout probability. The standard normal plot shades that right-tail area in pink and marks the z that cuts it off. Convert with x = 15 + z×6. Raising the reorder point from 20 to about 25 gallons cuts the stockout chance from roughly 0.20 to 0.05.</p>
+</section>
+<section id="continuous-distributions-page-15" data-lecture="continuous-distributions" data-page="15"><h2>Page 15 · Central limit theorem</h2>
+<p>Assume X_1, …, X_n are i.i.d. with the same mean μ and the same finite variance σ². The population need not be normal. For large n, the sample mean is approximately normal with mean μ and standard deviation σ/√n. Related exact fact: if X and Y are independent and each is normal, then aX + bY is normal for any constants a and b.</p>
+</section>
+<section id="continuous-distributions-page-16" data-lecture="continuous-distributions" data-page="16"><h2>Page 16 · Bernoulli sum</h2>
+<p>A binomial count is the sum of n i.i.d. Bernoulli trials. Mean np, variance np(1−p). By the central limit theorem the count is approximately normal when n is large enough that np > 5 and n(1−p) > 5. Sliders show whether both products exceed 5.</p>
+</section>
+<section id="continuous-distributions-page-17" data-lecture="continuous-distributions" data-page="17"><h2>Page 17 · Half-unit correction</h2>
+<p>The normal curve is continuous, so an integer count is a bar of width 1. A height reading 1.75 m means [1.745, 1.755). A count of 12 means [11.5, 12.5). Rules: P(X ≤ x) uses cutoff x+0.5; P(X ≥ x) uses cutoff x−0.5; P(X = k) is the area from k−0.5 to k+0.5.</p>
+</section>
+<section id="continuous-distributions-page-18" data-lecture="continuous-distributions" data-page="18"><h2>Page 18 · Which approximation is closer?</h2>
+<p>Two comparisons, switched on the slide: P(X ≤ k) and P(X = k). Each shows normal without the half-unit, normal with the half-unit, and the exact binomial. Students pick which normal answer is closer. Default n = 100, p = 0.1, k = 12.</p>
+</section>
+<section id="continuous-distributions-page-19" data-lecture="continuous-distributions" data-page="19"><h2>Page 19 · Exponential waiting times</h2>
+<p>f(x) = (1/μ) e^(−x/μ) for x > 0. E(X) = μ, Var(X) = μ², so the standard deviation equals the mean. Skewness 2. CDF: P(X ≤ x0) = 1 − e^(−x0/μ). Al’s pump, mean 3 minutes: variance 9, P(X ≤ 2) = 1 − e^(−2/3) ≈ 0.4866.</p>
+</section>
+<section id="continuous-distributions-page-20" data-lecture="continuous-distributions" data-page="20"><h2>Page 20 · Poisson link</h2>
+<p>Poisson describes the number of events in an interval. Exponential describes the length of the gap between events. If the Poisson mean is λ events per unit time, the exponential mean wait is 1/λ.</p>
+</section>
+<section id="continuous-distributions-page-21" data-lecture="continuous-distributions" data-page="21"><h2>Page 21 · Which expression?</h2>
+<p>Multiple choice (no calculator): salad P(12<X<15)=3/10; z=(20−15)/6; reorder 15+1.645×6; continuity P(11.5<X<12.5); exponential mean equals SD.</p>
+</section>
+<section id="continuous-distributions-page-22" data-lecture="continuous-distributions" data-page="22"><h2>Page 22 · Prompts to try</h2>
+<p>Two download-and-plot prompts, each starting with “Use Python”. Apple daily returns (yfinance, ticker AAPL, last two years, percent return from adjusted close): histogram, boxplot, and a normal curve using the sample mean and sample standard deviation. Do not ask whether the histogram looks normal or whether the boxplot shows heavy tails. Earthquake waits: download the hours between successive earthquakes in 2025 from https://earthquake.usgs.gov, save as CSV, plot a histogram and a boxplot, and report the mean and standard deviation. You may try: paste into Microsoft Copilot (https://copilot.microsoft.com/), run Python in Google Colab (https://colab.research.google.com/).</p>
+</section>
+<section id="continuous-distributions-page-23" data-lecture="continuous-distributions" data-page="23"><h2>Page 23 · Takeaways</h2>
+<p>Distribution function F(x)=P(X≤x), with f=F' in the continuous case. Expectation and variance use integrals and the same properties as the discrete lecture. Uniform length rule; standardize and invert the normal; continuity correction for a large binomial; exponential CDF and Poisson pairing.</p>
+</section>
 </article>
 </body>
 </html>
