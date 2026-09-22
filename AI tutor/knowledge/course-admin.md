@@ -31,26 +31,38 @@
 
 ## Weekly schedule (tentative)
 
+From *Outline_2627* (Wed 10:30–12:15 · Fri 9:30–11:15). Weekday labels below match the calendar dates.
+
 | Week | Dates | Topics |
 |------|-------|--------|
 | 1 | 9 Sep (Wed) | Introduction |
 | 1 | 11 Sep (Fri) | Descriptive Statistics |
-| 2 | 16 Sep (Tue), 18 Sep (Thu) | Descriptive Statistics |
-| 3 | 23 Sep (Tue), 25 Sep (Thu) | Probability |
-| 4 | 30 Sep (Tue), 2 Oct (Thu) | Probability Distributions |
-| 5 | 7 Oct (Tue), 9 Oct (Thu) | Probability Distributions |
-| 6 | 14 Oct (Tue) | Sampling and Sampling Distribution |
-| 6 | 16 Oct (Thu) | Midterm review / voluntary Q&A |
-| **7** | **21 Oct (Tue)** | **Midterm exam** |
-| 7 | 23 Oct (Thu) | Interval Estimation |
-| 8 | 28 Oct (Tue), 30 Oct (Thu) | Interval Estimation / Hypothesis Tests |
-| 9 | 4 Nov (Tue), 6 Nov (Thu) | Hypothesis Tests |
-| 10 | 11 Nov (Tue), 13 Nov (Thu) | Hypothesis Tests / Regression Analysis |
-| 11–12 | 18 Nov – 27 Nov | Regression Analysis |
-| 12 | 27 Nov (Thu) | Comprehensive review / voluntary Q&A |
-| 13–14 | Dec | Study break · Final exam |
+| 2 | 16 Sep (Wed) | Descriptive Statistics |
+| 2 | 18 Sep (Fri) | Probability |
+| 3 | 23 Sep (Wed) | Probability |
+| 3 | 25 Sep (Fri) | Probability Distributions |
+| 4 | 30 Sep (Wed), 2 Oct (Fri) | Probability Distributions |
+| 5 | 7 Oct (Wed) | Sampling and Sampling Distribution · **HW1 out** |
+| 5 | 9 Oct (Fri) | Sampling and Sampling Distribution |
+| 6 | 14 Oct (Wed) | Midterm Review · **HW1 due** |
+| 6 | 16 Oct (Fri) | Voluntary Q&A Session |
+| **7** | **21 Oct (Wed)** | **Midterm exam** (10:30–12:15) |
+| 7 | 23 Oct (Fri) | Interval Estimation |
+| 8 | 28 Oct (Wed) | Interval Estimation |
+| 8 | 30 Oct (Fri) | Hypothesis Tests |
+| 9 | 4 Nov (Wed), 6 Nov (Fri) | Hypothesis Tests |
+| 10 | 11 Nov (Wed) | Hypothesis Tests |
+| 10 | 13 Nov (Fri) | Regression Analysis |
+| 11 | 18 Nov (Wed) | Regression Analysis · **HW2 out** |
+| 11 | 20 Nov (Fri) | Regression Analysis |
+| 12 | 25 Nov (Wed) | Comprehensive Review · **HW2 due** |
+| 12 | 27 Nov (Fri) | Voluntary Q&A Session |
+| 13 | Dec | Study break (in lieu of Week 14) |
+| 14 | Dec | Final exam (university schedule) |
 
-**Class times:** Wed 10:30–12:15 · Fri 9:30–11:15 (see Outline for exact room assignments on Blackboard).
+**Class times:** Wed 10:30–12:15 · Fri 9:30–11:15 (rooms on Blackboard).
+
+*Note:* The Outline table prints “HW1 out” on 18 Nov; that is treated as **HW2 out** here because HW1 is due 14 Oct and HW2 is due 25 Nov.
 
 ---
 
