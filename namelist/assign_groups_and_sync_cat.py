@@ -57,7 +57,7 @@ def main() -> None:
         fieldnames.append("Group")
 
     for index, row in enumerate(rows):
-        row["Group"] = str(group_of[index])
+        row["Group"] = f"G{group_of[index]:02d}"
 
     with NAMELIST.open("w", encoding="utf-8-sig", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=fieldnames)
@@ -106,7 +106,7 @@ def main() -> None:
                 "englishName": english,
                 "role": "student",
                 "college": college,
-                "plan": f"Group {row['Group']}",
+                "plan": row["Group"],
                 **({"country": country} if country else {}),
                 **({"hobbies": hobbies} if hobbies else {}),
                 **({"photo": photo} if photo else {}),
@@ -135,10 +135,13 @@ def main() -> None:
         print("Removed from roster (not on official list):")
         for person in removed:
             print(f"  {person['id']}  {person['name']}")
-    print("Group sizes:", {g: sum(1 for r in rows if r['Group'] == str(g)) for g in range(1, GROUPS + 1)})
+    print(
+        "Group sizes:",
+        {f"G{g:02d}": sum(1 for r in rows if r["Group"] == f"G{g:02d}") for g in range(1, GROUPS + 1)},
+    )
     print("Sample:")
     for row in rows[:3]:
-        print(f"  Group {row['Group']}: {display_name(row['First Name'], row['Last Name'])}")
+        print(f"  {row['Group']}: {display_name(row['First Name'], row['Last Name'])}")
 
 
 if __name__ == "__main__":
