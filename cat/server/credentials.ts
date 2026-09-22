@@ -120,13 +120,14 @@ async function saveHashesToFile(
   await writeFile(credentialsPath, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
 }
 
-/** Prefer Redis when configured; otherwise read credentials.json. */
+/** Prefer Redis when configured; fill any missing roster keys from credentials.json. */
 export async function loadCredentialHashes(credentialsPath: string): Promise<Record<string, string | null>> {
+  const fromFile = await loadHashesFromFile(credentialsPath);
   const fromRedis = await loadHashesFromRedis();
   if (fromRedis) {
-    return fromRedis;
+    return { ...fromFile, ...fromRedis };
   }
-  return loadHashesFromFile(credentialsPath);
+  return fromFile;
 }
 
 /** Write PIN hashes to local credentials.json and Upstash Redis. */

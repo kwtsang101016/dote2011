@@ -1,6 +1,6 @@
 {
   "course": "DOTE2011",
-  "section": "",
+  "section": "G",
   "classroom": "",
   "people": [
     {
@@ -18,7 +18,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 10"
     },
     {
       "id": "stu-nalinlada-charoenkul",
@@ -26,7 +26,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 1"
     },
     {
       "id": "stu-zhichen-chen",
@@ -34,7 +34,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 4"
     },
     {
       "id": "stu-ming-yan-chiang",
@@ -42,7 +42,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 8"
     },
     {
       "id": "stu-ka-yi-ching",
@@ -50,7 +50,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 10"
     },
     {
       "id": "stu-chi-ip-chiu",
@@ -58,7 +58,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 3"
     },
     {
       "id": "stu-yu-hing-deng",
@@ -66,7 +66,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 7"
     },
     {
       "id": "stu-yunsong-feng",
@@ -74,7 +74,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 5"
     },
     {
       "id": "stu-ka-him-fong",
@@ -82,7 +82,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 4"
     },
     {
       "id": "stu-chin-wing-fu",
@@ -90,7 +90,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 10"
     },
     {
       "id": "stu-lok-yiu-ho",
@@ -98,7 +98,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 6"
     },
     {
       "id": "stu-quang-duy-le",
@@ -106,7 +106,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 1"
     },
     {
       "id": "stu-ian-tong-lei",
@@ -114,7 +114,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 2"
     },
     {
       "id": "stu-yueyao-lei",
@@ -122,7 +122,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 10"
     },
     {
       "id": "stu-ching-hei-leung",
@@ -130,7 +130,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 3"
     },
     {
       "id": "stu-ching-kei-leung",
@@ -138,7 +138,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 5"
     },
     {
       "id": "stu-hong-tung-leung",
@@ -146,7 +146,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 6"
     },
     {
       "id": "stu-ho-yan-leung",
@@ -154,7 +154,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 3"
     },
     {
       "id": "stu-choi-yan-li",
@@ -162,7 +162,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 6"
     },
     {
       "id": "stu-hengyu-li",
@@ -170,7 +170,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 6"
     },
     {
       "id": "stu-shi-shing-li",
@@ -178,7 +178,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 4"
     },
     {
       "id": "stu-wai-man-li",
@@ -186,7 +186,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 3"
     },
     {
       "id": "stu-wai-shing-li",
@@ -194,7 +194,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 1"
     },
     {
       "id": "stu-youxian-li",
@@ -202,7 +202,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 5"
     },
     {
       "id": "stu-zixin-li",
@@ -210,7 +210,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 6"
     },
     {
       "id": "stu-yuzhe-liang",
@@ -218,7 +218,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 6"
     },
     {
       "id": "stu-yat-tung-lim",
@@ -226,7 +226,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 8"
     },
     {
       "id": "stu-peerachaya-limmahakhun",
@@ -234,7 +234,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 1"
     },
     {
       "id": "stu-cassidy-lin",
@@ -242,7 +242,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 1"
     },
     {
       "id": "stu-chun-ho-lin",
@@ -250,7 +250,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 9"
     },
     {
       "id": "stu-sin-yu-lin",
@@ -258,7 +258,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 2"
     },
     {
       "id": "stu-yin-kwan-lin",
@@ -266,7 +266,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 4"
     },
     {
       "id": "stu-yu-kam-lin",
@@ -274,7 +274,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 8"
     },
     {
       "id": "stu-yan-kwan-lu",
@@ -282,7 +282,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 7"
     },
     {
       "id": "stu-jonathan-mui",
@@ -290,7 +290,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 7"
     },
     {
       "id": "stu-arianna-williams-ng",
@@ -298,7 +298,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 2"
     },
     {
       "id": "stu-chung-ting-ng",
@@ -306,7 +306,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 4"
     },
     {
       "id": "stu-cho-fai-pei",
@@ -314,7 +314,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 3"
     },
     {
       "id": "stu-mathew-tsz-kin-poon",
@@ -322,7 +322,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 9"
     },
     {
       "id": "stu-shing-lam-poon",
@@ -330,7 +330,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 1"
     },
     {
       "id": "stu-yu-sum-vincent-shek",
@@ -338,7 +338,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 4"
     },
     {
       "id": "stu-siu-kit-shing",
@@ -346,7 +346,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 4"
     },
     {
       "id": "stu-tsz-nam-michelle-siu",
@@ -354,7 +354,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 9"
     },
     {
       "id": "stu-cho-yan-joanna-tam",
@@ -362,7 +362,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 9"
     },
     {
       "id": "stu-tsz-yiu-tang",
@@ -370,7 +370,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 8"
     },
     {
       "id": "stu-punnawish-thongngarm",
@@ -378,7 +378,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 6"
     },
     {
       "id": "stu-chun-tung-to",
@@ -386,7 +386,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 10"
     },
     {
       "id": "stu-ki-on-to",
@@ -394,7 +394,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 7"
     },
     {
       "id": "stu-chun-chin-esther-tong",
@@ -402,7 +402,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 5"
     },
     {
       "id": "stu-yuen-ping-tong",
@@ -410,7 +410,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 7"
     },
     {
       "id": "stu-on-ki-tsang",
@@ -418,7 +418,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 2"
     },
     {
       "id": "stu-tsz-lok-tsang",
@@ -426,7 +426,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 5"
     },
     {
       "id": "stu-tsz-ying-tsang",
@@ -434,7 +434,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 2"
     },
     {
       "id": "stu-choi-ying-tse",
@@ -442,7 +442,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 2"
     },
     {
       "id": "stu-yat-hoo-tse",
@@ -450,7 +450,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 8"
     },
     {
       "id": "stu-siu-yin-wan",
@@ -458,7 +458,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 1"
     },
     {
       "id": "stu-tsz-kiu-wan",
@@ -466,7 +466,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 7"
     },
     {
       "id": "stu-hao-wang",
@@ -474,7 +474,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 2"
     },
     {
       "id": "stu-ho-pui-keith-wang",
@@ -482,15 +482,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
-    },
-    {
-      "id": "stu-yifei-wang",
-      "name": "Yifei WANG",
-      "englishName": "",
-      "role": "student",
-      "college": "",
-      "plan": ""
+      "plan": "Group 8"
     },
     {
       "id": "stu-yuk-man-wang",
@@ -498,7 +490,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 5"
     },
     {
       "id": "stu-chuk-ling-wong",
@@ -506,7 +498,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 9"
     },
     {
       "id": "stu-hei-ching-marcus-wong",
@@ -514,7 +506,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 3"
     },
     {
       "id": "stu-yat-hang-wong",
@@ -522,7 +514,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 5"
     },
     {
       "id": "stu-wai-ching-wu",
@@ -530,7 +522,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 9"
     },
     {
       "id": "stu-nanniebei-xie",
@@ -538,15 +530,15 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 10"
     },
     {
-      "id": "stu-sum-yuet-yim",
-      "name": "Sum Yuet YIM",
+      "id": "stu-ping-tat-yeung",
+      "name": "Ping Tat YEUNG",
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 10"
     },
     {
       "id": "stu-heung-tung-yip",
@@ -554,7 +546,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 3"
     },
     {
       "id": "stu-po-ki-zhang",
@@ -562,7 +554,15 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 7"
+    },
+    {
+      "id": "stu-xinyue-zhang",
+      "name": "Xinyue ZHANG",
+      "englishName": "",
+      "role": "student",
+      "college": "",
+      "plan": "Group 8"
     },
     {
       "id": "stu-shuyao-zhou",
@@ -570,7 +570,7 @@
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": ""
+      "plan": "Group 9"
     }
   ]
 }
