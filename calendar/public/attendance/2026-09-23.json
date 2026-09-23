@@ -152,8 +152,12 @@
       "profileCollege": "",
       "profileCountry": "",
       "profileHobbies": "",
-      "present": false,
-      "placement": null
+      "present": true,
+      "placement": {
+        "zone": "student",
+        "row": 6,
+        "seat": 13
+      }
     },
     {
       "id": "stu-yunsong-feng",
@@ -1140,24 +1144,6 @@
       "placement": null
     },
     {
-      "id": "stu-yifei-wang",
-      "name": "Yifei WANG",
-      "englishName": "",
-      "role": "student",
-      "college": "",
-      "plan": "",
-      "country": "",
-      "hobbies": "",
-      "photo": "",
-      "photoDataUrl": "",
-      "nickname": "",
-      "profileCollege": "",
-      "profileCountry": "",
-      "profileHobbies": "",
-      "present": false,
-      "placement": null
-    },
-    {
       "id": "stu-yuk-man-wang",
       "name": "Yuk Man WANG",
       "englishName": "",
@@ -1266,12 +1252,12 @@
       "placement": null
     },
     {
-      "id": "stu-sum-yuet-yim",
-      "name": "Sum Yuet YIM",
+      "id": "stu-ping-tat-yeung",
+      "name": "Ping Tat YEUNG",
       "englishName": "",
       "role": "student",
       "college": "",
-      "plan": "",
+      "plan": "G10",
       "country": "",
       "hobbies": "",
       "photo": "",
@@ -1320,6 +1306,24 @@
       "placement": null
     },
     {
+      "id": "stu-xinyue-zhang",
+      "name": "Xinyue ZHANG",
+      "englishName": "",
+      "role": "student",
+      "college": "",
+      "plan": "G08",
+      "country": "",
+      "hobbies": "",
+      "photo": "",
+      "photoDataUrl": "",
+      "nickname": "",
+      "profileCollege": "",
+      "profileCountry": "",
+      "profileHobbies": "",
+      "present": false,
+      "placement": null
+    },
+    {
       "id": "stu-shuyao-zhou",
       "name": "Shuyao ZHOU",
       "englishName": "",
@@ -1336,46 +1340,6 @@
       "profileHobbies": "",
       "present": false,
       "placement": null
-    },
-    {
-      "id": "guest-3cc927dc-6b21-416d-8ab2-889e9a6f2fc7",
-      "name": "Wang,Hao",
-      "englishName": "Wayne",
-      "role": "guest",
-      "college": "",
-      "plan": "",
-      "country": "",
-      "hobbies": "",
-      "photo": "",
-      "photoDataUrl": "",
-      "nickname": "",
-      "profileCollege": "",
-      "profileCountry": "",
-      "profileHobbies": "",
-      "present": false,
-      "placement": null
-    },
-    {
-      "id": "guest-77b4983f-ba3e-4535-afed-0f8130411bf9",
-      "name": "Deng Yu Hing",
-      "englishName": "",
-      "role": "guest",
-      "college": "",
-      "plan": "",
-      "country": "",
-      "hobbies": "",
-      "photo": "",
-      "photoDataUrl": "",
-      "nickname": "",
-      "profileCollege": "",
-      "profileCountry": "",
-      "profileHobbies": "",
-      "present": true,
-      "placement": {
-        "zone": "student",
-        "row": 6,
-        "seat": 13
-      }
     }
   ]
 }

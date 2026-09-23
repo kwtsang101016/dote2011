@@ -25,6 +25,10 @@ def parse_row(row_label: str, zone: str) -> int | None:
     return int(match.group(1)) - 1
 
 
+def name_tokens(value: str) -> frozenset[str]:
+    return frozenset(re.findall(r"[a-z0-9]+", value.lower()))
+
+
 def load_profiles(state_path: Path) -> dict[str, dict]:
     if not state_path.is_file():
         return {}
@@ -33,11 +37,44 @@ def load_profiles(state_path: Path) -> dict[str, dict]:
     return profiles if isinstance(profiles, dict) else {}
 
 
-def load_roster_people(roster_path: Path) -> dict[str, dict]:
+def load_roster(roster_path: Path) -> list[dict]:
     if not roster_path.is_file():
-        return {}
+        raise SystemExit(f"Roster not found: {roster_path}")
     data = json.loads(roster_path.read_text(encoding="utf-8-sig"))
-    return {person["id"]: person for person in data.get("people", [])}
+    people = data.get("people") or []
+    if not people:
+        raise SystemExit(f"Roster has no people: {roster_path}")
+    return people
+
+
+def placement_from_row(row: dict) -> tuple[bool, dict | None]:
+    present = row.get("present", "").strip().lower() == "yes"
+    zone = row.get("zone", "").strip()
+    seat_raw = row.get("seat_index", "").strip()
+    row_label = row.get("row_label", "").strip()
+    if not (present and zone and seat_raw != ""):
+        return present, None
+    seat = int(seat_raw)
+    row_index = parse_row(row_label, zone)
+    if row_index is None:
+        raise SystemExit(f"Could not parse row_label {row_label!r} for {row.get('person_id')}")
+    return True, {"zone": zone, "row": row_index, "seat": seat}
+
+
+def find_roster_id_for_guest(name: str, roster_by_tokens: dict[frozenset[str], str]) -> str | None:
+    tokens = name_tokens(name)
+    if not tokens:
+        return None
+    if tokens in roster_by_tokens:
+        return roster_by_tokens[tokens]
+    # "Wang,Hao" style already covered by token set; also try ignoring short initials noise.
+    for roster_tokens, person_id in roster_by_tokens.items():
+        if tokens == roster_tokens:
+            return person_id
+        if tokens.issubset(roster_tokens) or roster_tokens.issubset(tokens):
+            if len(tokens & roster_tokens) >= 2:
+                return person_id
+    return None
 
 
 def convert(
@@ -53,45 +90,69 @@ def convert(
     if not rows:
         raise SystemExit(f"No rows in {csv_path}")
 
-    roster_people = load_roster_people(roster_path)
+    roster_list = load_roster(roster_path)
+    roster_by_id = {person["id"]: person for person in roster_list}
+    roster_by_tokens = {name_tokens(person["name"]): person["id"] for person in roster_list}
     profiles = load_profiles(state_path)
 
     first = rows[0]
     recorded_at = first["recorded_at"]
-    course = first["course"]
-    section = first.get("section") or ""
+    course = first["course"] or "DOTE2011"
+    section = (first.get("section") or "").strip()
     date = date_override or recorded_at[:10]
+
+    # person_id -> (present, placement)
+    attendance: dict[str, tuple[bool, dict | None]] = {
+        person["id"]: (False, None) for person in roster_list
+    }
+    guest_merges: list[str] = []
+    unmatched_guests: list[str] = []
+    skipped_old_ids: list[str] = []
+
+    for row in rows:
+        person_id = row["person_id"].strip()
+        present, placement = placement_from_row(row)
+        is_guest = person_id.startswith("guest-") or row.get("role", "").strip().lower() == "guest"
+
+        if is_guest:
+            matched_id = find_roster_id_for_guest(row.get("name", ""), roster_by_tokens)
+            if not matched_id:
+                unmatched_guests.append(f"{person_id} ({row.get('name', '')})")
+                continue
+            guest_merges.append(f"{row.get('name', '')} -> {matched_id}")
+            # Guest seating wins when the normal card was absent / unseated.
+            old_present, old_placement = attendance[matched_id]
+            if placement is not None and old_placement is None:
+                attendance[matched_id] = (True, placement)
+            elif present and not old_present:
+                attendance[matched_id] = (True, old_placement)
+            continue
+
+        if person_id not in attendance:
+            skipped_old_ids.append(f"{person_id} ({row.get('name', '')})")
+            continue
+
+        attendance[person_id] = (present, placement)
 
     people: list[dict] = []
     max_student_row = -1
     max_seat = -1
 
-    for row in rows:
-        person_id = row["person_id"]
-        roster = roster_people.get(person_id, {})
+    for roster in roster_list:
+        person_id = roster["id"]
+        present, placement = attendance[person_id]
         profile = profiles.get(person_id, {})
-        present = row["present"].strip().lower() == "yes"
-        zone = row.get("zone", "").strip()
-        seat_raw = row.get("seat_index", "").strip()
-        row_label = row.get("row_label", "").strip()
-
-        placement = None
-        if present and zone and seat_raw != "":
-            seat = int(seat_raw)
-            row_index = parse_row(row_label, zone)
-            if row_index is None:
-                raise SystemExit(f"Could not parse row_label {row_label!r} for {person_id}")
-            placement = {"zone": zone, "row": row_index, "seat": seat}
-            max_seat = max(max_seat, seat)
-            if zone == "student":
-                max_student_row = max(max_student_row, row_index)
+        if placement is not None:
+            max_seat = max(max_seat, placement["seat"])
+            if placement["zone"] == "student":
+                max_student_row = max(max_student_row, placement["row"])
 
         people.append(
             {
                 "id": person_id,
-                "name": row["name"] or roster.get("name", ""),
-                "englishName": row.get("english_name") or roster.get("englishName", ""),
-                "role": row["role"] or roster.get("role", "student"),
+                "name": roster.get("name", ""),
+                "englishName": roster.get("englishName", ""),
+                "role": roster.get("role", "student"),
                 "college": roster.get("college", ""),
                 "plan": roster.get("plan", ""),
                 "country": roster.get("country", ""),
@@ -107,7 +168,6 @@ def convert(
             }
         )
 
-    # Fit the board to the seats that day (defaults match CAT).
     student_row_count = max(8, max_student_row + 1 if max_student_row >= 0 else 0, 1)
     seats_per_row = max(12, max_seat + 1 if max_seat >= 0 else 0, 1)
 
@@ -126,6 +186,19 @@ def convert(
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / f"{date}.json"
     out_path.write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+    if guest_merges:
+        print("Merged guest cards into roster:")
+        for item in guest_merges:
+            print(f"  {item}")
+    if unmatched_guests:
+        print("Unmatched guests (dropped):")
+        for item in unmatched_guests:
+            print(f"  {item}")
+    if skipped_old_ids:
+        print("Skipped CSV ids not on current roster:")
+        for item in skipped_old_ids:
+            print(f"  {item}")
     return out_path
 
 
@@ -149,9 +222,10 @@ def main() -> None:
     )
     data = json.loads(out.read_text(encoding="utf-8"))
     present = sum(1 for person in data["people"] if person["present"])
+    seated = sum(1 for person in data["people"] if person["placement"])
     print(f"Wrote {out}")
     print(
-        f"people={len(data['people'])} present={present} "
+        f"people={len(data['people'])} present={present} seated={seated} "
         f"rows={data['studentRowCount']} seats={data['seatsPerRow']}"
     )
 
