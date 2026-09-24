@@ -1,0 +1,141 @@
+% DOTE2011G · In-Class Exercise 1
+% Mid-Autumn Festival lantern riddle (猜燈謎)
+% Full house counting with combinations
+%
+% Recommended: xelatex Ex1.tex
+% (ctexart needs XeLaTeX or LuaLaTeX for Chinese)
+
+\documentclass[11pt,a4paper,UTF8]{ctexart}
+
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\usepackage{fancyhdr}
+\usepackage{microtype}
+
+\definecolor{night}{HTML}{0B1C3A}
+\definecolor{lantern}{HTML}{C43C00}
+\definecolor{paper}{HTML}{FFF8E8}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small DOTE2011G · Statistical Analysis for Business Decisions}
+\fancyhead[R]{\small In-Class Exercise 1}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\setlist[enumerate]{itemsep=0.7em, topsep=0.4em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.2em}
+
+\newcommand{\answerbox}[1][2.2cm]{%
+  \par\vspace{0.35em}%
+  \noindent
+  \begin{tcolorbox}[
+    colback=white,
+    colframe=black!25,
+    boxrule=0.6pt,
+    arc=1mm,
+    left=4pt,right=4pt,top=4pt,bottom=4pt,
+    height=#1,
+    valign=top
+  ]
+  \vspace{0.2em}
+  \end{tcolorbox}%
+}
+
+\begin{document}
+
+\begin{center}
+  {\Large\bfseries\color{night} 中秋猜燈謎}\\[0.25em]
+  {\large\bfseries Mid-Autumn Lantern Riddle}\\[0.55em]
+  {\normalsize Counting a ``full house'' with combinations}\\[0.7em]
+  {\small Participation exercise · please show your working}
+\end{center}
+
+\vspace{0.4em}
+
+\begin{tcolorbox}[
+  enhanced,
+  colback=paper,
+  colframe=lantern,
+  boxrule=1.1pt,
+  arc=2mm,
+  left=10pt,right=10pt,top=8pt,bottom=8pt,
+  title={\bfseries 謎面 · The riddle},
+  fonttitle=\color{white}\bfseries,
+  coltitle=white,
+  colbacktitle=lantern
+]
+\begin{center}
+  {\large
+  三人同顏一對和，\\[0.15em]
+  五張牌裡月婆娑。\\[0.15em]
+  花燈若問幾許亮？\\[0.15em]
+  請君細數莫猜錯。
+  }
+\end{center}
+
+\vspace{0.55em}
+\textit{Three of one face, and a matching pair --- five cards under the Mid-Autumn moon.
+How many such lanterns can a full deck light?}
+\end{tcolorbox}
+
+\vspace{0.7em}
+
+\noindent\textbf{Decode the riddle first.}
+「三人同顏」means three cards of the \emph{same number}.
+「一對和」means one \emph{pair} (two cards of another number).
+Together this is a \textbf{full house}: three-of-a-kind $+$ one pair.
+
+\vspace{0.55em}
+
+\noindent\textbf{Deck rules (read carefully).}
+A standard deck has \textbf{52 cards}: \textbf{4 suits} (kinds), and in each suit the numbers run from \textbf{1 to 13}.
+So there are 13 ranks, and for each rank there are exactly 4 cards (one per suit).
+You form a hand of \textbf{5 cards}. Order does \emph{not} matter --- count with combinations $C(n,k)$, not permutations.
+
+\vspace{0.85em}
+\noindent{\large\bfseries\color{night} 解謎任務 · Your tasks}
+
+\begin{enumerate}[leftmargin=1.5em]
+  \item \textbf{Pattern check.}
+  In one sentence, state what hand the riddle is asking you to count
+  (three of one rank $+$ a pair of another rank).
+  \answerbox[1.6cm]
+
+  \item \textbf{Build the count with combinations.}
+  Write a product of combination symbols, then evaluate it, for the number of distinct full-house hands.
+
+  Suggested steps (you may rearrange, but show the reasoning):
+  \begin{itemize}
+    \item choose the rank for the three-of-a-kind;
+    \item choose which 3 of the 4 suits for that rank;
+    \item choose the rank for the pair (different from the first);
+    \item choose which 2 of the 4 suits for that pair.
+  \end{itemize}
+  \answerbox[4.2cm]
+
+  \item \textbf{(Optional bonus)}
+  There are $C(52,5)$ possible 5-card hands.
+  Write the probability of a full house as a fraction
+  (you need not fully simplify by hand if the numbers are large).
+  \answerbox[2.0cm]
+\end{enumerate}
+
+\vspace{0.6em}
+\noindent\rule{\textwidth}{0.4pt}\\[0.35em]
+{\small
+Name: \underline{\hspace{5.5cm}}
+\quad SID / Group: \underline{\hspace{3.2cm}}
+\quad Date: \underline{\hspace{2.8cm}}
+}\\[0.55em]
+{\small
+Submit as instructed on Blackboard. This counts toward \textbf{course participation} (in-class exercises).
+中秋快樂 · Happy Mid-Autumn Festival.
+}
+
+\end{document}

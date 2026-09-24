@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>DOTE2011G · In-Class Ex1 · 中秋猜燈謎</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700&family=Noto+Serif+SC:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css"
+      crossorigin="anonymous"
+    />
+    <style>
+      :root {
+        --night: #0b1c3a;
+        --night-2: #132a52;
+        --moon: #fff4c8;
+        --lantern: #e85d04;
+        --lantern-deep: #c43c00;
+        --gold: #f0c14a;
+        --paper: #fff8e8;
+        --ink: #1a2744;
+        --muted: #5a6785;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        font-family: "Source Sans 3", "Noto Sans SC", sans-serif;
+        background:
+          radial-gradient(circle at 82% 12%, rgba(255, 244, 200, 0.35), transparent 28%),
+          radial-gradient(circle at 18% 8%, rgba(232, 93, 4, 0.18), transparent 22%),
+          linear-gradient(180deg, var(--night) 0%, var(--night-2) 42%, #1e3a5f 100%);
+      }
+
+      .sky {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 28px 20px 56px;
+      }
+
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 16px;
+        justify-content: space-between;
+        color: rgba(255, 248, 232, 0.82);
+        font-size: 13px;
+        letter-spacing: 0.04em;
+        margin-bottom: 18px;
+      }
+
+      .lantern-wrap {
+        display: grid;
+        justify-items: center;
+        gap: 8px;
+        margin: 8px 0 22px;
+      }
+
+      .lantern {
+        width: 92px;
+        filter: drop-shadow(0 10px 18px rgba(232, 93, 4, 0.35));
+        animation: sway 4.5s ease-in-out infinite;
+        transform-origin: top center;
+      }
+
+      @keyframes sway {
+        0%,
+        100% {
+          transform: rotate(-2.5deg);
+        }
+        50% {
+          transform: rotate(2.5deg);
+        }
+      }
+
+      .moon-label {
+        color: var(--moon);
+        font-family: "Noto Serif SC", serif;
+        font-size: clamp(28px, 5vw, 40px);
+        letter-spacing: 0.12em;
+        margin: 0;
+        text-align: center;
+      }
+
+      .subtitle {
+        margin: 6px 0 0;
+        color: rgba(255, 244, 200, 0.85);
+        text-align: center;
+        font-size: 15px;
+      }
+
+      .sheet {
+        background: var(--paper);
+        border: 2px solid rgba(240, 193, 74, 0.55);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+        border-radius: 18px;
+        padding: 28px 26px 32px;
+      }
+
+      h2 {
+        margin: 22px 0 10px;
+        font-size: 18px;
+        color: var(--lantern-deep);
+        letter-spacing: 0.04em;
+      }
+
+      h2:first-child {
+        margin-top: 0;
+      }
+
+      h2 .en {
+        display: block;
+        margin-top: 2px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--muted);
+        letter-spacing: 0.02em;
+      }
+
+      .riddle-box {
+        margin: 12px 0 18px;
+        padding: 18px;
+        border-left: 5px solid var(--lantern);
+        background: linear-gradient(90deg, rgba(232, 93, 4, 0.08), transparent 70%);
+      }
+
+      .riddle-zh {
+        margin: 0;
+        font-family: "Noto Serif SC", serif;
+        font-size: clamp(20px, 3.4vw, 26px);
+        line-height: 1.55;
+      }
+
+      .riddle-en {
+        margin: 12px 0 0;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.5;
+      }
+
+      .hint,
+      .deck,
+      .footer-note,
+      li {
+        font-size: 15px;
+        line-height: 1.55;
+      }
+
+      .hint {
+        margin: 0 0 18px;
+        padding: 12px 14px;
+        border-radius: 10px;
+        background: rgba(11, 28, 58, 0.05);
+        color: var(--muted);
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 0 0 16px;
+      }
+
+      .chip {
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(232, 93, 4, 0.1);
+        color: var(--lantern-deep);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+      }
+
+      ol.tasks {
+        margin: 0;
+        padding-left: 1.25em;
+        display: grid;
+        gap: 16px;
+      }
+
+      ol.tasks ul {
+        margin: 8px 0 0;
+        padding-left: 1.2em;
+      }
+
+      .footer-note {
+        margin: 22px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .solutions {
+        margin-top: 28px;
+        padding-top: 22px;
+        border-top: 2px dashed rgba(196, 60, 0, 0.35);
+      }
+
+      .solutions h2 {
+        color: var(--night);
+      }
+
+      .formula {
+        margin: 12px 0;
+        padding: 14px 16px;
+        border-radius: 10px;
+        background: rgba(11, 28, 58, 0.05);
+        overflow-x: auto;
+      }
+
+      /* After class: remove class "solutions-hidden" from <body> to reveal answers. */
+      body.solutions-hidden .solutions {
+        display: none;
+      }
+
+      @media print {
+        body {
+          background: white;
+        }
+        .lantern {
+          display: none;
+        }
+        .moon-label,
+        .subtitle,
+        .meta {
+          color: black;
+        }
+        .sheet {
+          box-shadow: none;
+        }
+      }
+    </style>
+  </head>
+  <!--
+    AFTER CLASS: reveal solutions by deleting the class "solutions-hidden" below.
+  -->
+  <body class="solutions-hidden">
+    <div class="sky">
+      <div class="meta">
+        <span>DOTE2011G · Statistical Analysis for Business Decisions</span>
+        <span>In-Class Exercise 1 · Mid-Autumn 2026</span>
+      </div>
+
+      <div class="lantern-wrap">
+        <svg class="lantern" viewBox="0 0 100 140" aria-hidden="true">
+          <line x1="50" y1="0" x2="50" y2="14" stroke="#f0c14a" stroke-width="3"></line>
+          <rect x="28" y="14" width="44" height="10" rx="3" fill="#f0c14a"></rect>
+          <path
+            d="M22 28 C22 28, 18 70, 22 100 C30 112, 70 112, 78 100 C82 70, 78 28, 78 28 Z"
+            fill="#e85d04"
+          ></path>
+          <path
+            d="M30 40 H70 M30 55 H70 M30 70 H70 M30 85 H70"
+            stroke="#fff4c8"
+            stroke-width="2"
+            opacity="0.55"
+          ></path>
+          <ellipse cx="50" cy="28" rx="28" ry="8" fill="#c43c00"></ellipse>
+          <ellipse cx="50" cy="104" rx="20" ry="6" fill="#c43c00"></ellipse>
+          <path d="M50 110 Q46 124 50 132 Q54 124 50 110" fill="#f0c14a"></path>
+        </svg>
+        <h1 class="moon-label">中秋猜燈謎</h1>
+        <p class="subtitle">Lantern Riddle · Counting a “full house”</p>
+      </div>
+
+      <article class="sheet">
+        <div class="chips">
+          <span class="chip">Combinations</span>
+          <span class="chip">5-card hands</span>
+          <span class="chip">Participation exercise</span>
+        </div>
+
+        <h2>
+          謎面
+          <span class="en">The riddle</span>
+        </h2>
+        <div class="riddle-box">
+          <p class="riddle-zh">
+            三人同顏一對和，<br />
+            五張牌裡月婆娑。<br />
+            花燈若問幾許亮？<br />
+            請君細數莫猜錯。
+          </p>
+          <p class="riddle-en">
+            Three of one face, and a matching pair — five cards under the Mid-Autumn moon. How many
+            such lanterns can a full deck light?
+          </p>
+        </div>
+
+        <p class="hint">
+          <strong>Decode the riddle first.</strong> 「三人同顏」= three cards of the
+          <em>same number</em>. 「一對和」= one <em>pair</em> (two cards of another number). Together
+          that is a <strong>full house</strong>: three-of-a-kind + one pair.
+        </p>
+
+        <h2>
+          牌局設定
+          <span class="en">Deck rules (read carefully)</span>
+        </h2>
+        <p class="deck">
+          A standard deck has <strong>52 cards</strong>: <strong>4 suits</strong> (kinds), and in each
+          suit the numbers run from <strong>1 to 13</strong>. So there are 13 ranks, and for each rank
+          there are exactly 4 cards (one per suit). You form a hand of <strong>5 cards</strong>. Order
+          does not matter — count with combinations
+          <span class="math">\(C(n,k)\)</span>, not permutations.
+        </p>
+
+        <h2>
+          解謎任務
+          <span class="en">Your tasks</span>
+        </h2>
+        <ol class="tasks">
+          <li>
+            <strong>Pattern check.</strong> In one sentence, state what hand the riddle is asking you
+            to count (three of one rank + a pair of another rank).
+          </li>
+          <li>
+            <strong>Build the count with combinations.</strong> Write a product of combination
+            symbols, then evaluate it, for the number of distinct full-house hands.
+            <ul>
+              <li>choose the rank for the three-of-a-kind;</li>
+              <li>choose which 3 of the 4 suits for that rank;</li>
+              <li>choose the rank for the pair (different from the first);</li>
+              <li>choose which 2 of the 4 suits for that pair.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>(Optional bonus)</strong> There are
+            <span class="math">\(C(52,5)\)</span> possible 5-card hands. Write the probability of a
+            full house as a fraction (you need not fully simplify by hand if the numbers are large).
+          </li>
+        </ol>
+
+        <p class="footer-note">
+          Submit your working as instructed on Blackboard. This counts toward
+          <strong>course participation</strong> (in-class exercises). 中秋快樂 · Happy Mid-Autumn
+          Festival.
+        </p>
+
+        <section class="solutions" id="solutions" aria-label="Solutions">
+          <h2>
+            謎底 · Solutions
+            <span class="en">Posted after class</span>
+          </h2>
+          <p><strong>1.</strong> A full house: three cards of one rank and two cards of a different rank.</p>
+          <p><strong>2.</strong> Number of full-house hands:</p>
+          <div class="formula">
+            \[
+            \begin{aligned}
+            N
+            &= C(13,1)\,C(4,3)\,C(12,1)\,C(4,2) \\
+            &= 13 \times 4 \times 12 \times 6 \\
+            &= 3744.
+            \end{aligned}
+            \]
+          </div>
+          <ul>
+            <li>\(C(13,1)\): choose the rank for the three-of-a-kind.</li>
+            <li>\(C(4,3)\): choose 3 suits out of 4 for that rank.</li>
+            <li>\(C(12,1)\): choose a different rank for the pair.</li>
+            <li>\(C(4,2)\): choose 2 suits out of 4 for the pair.</li>
+          </ul>
+          <p>
+            Do not multiply by an extra “order of the two ranks” factor: choosing the triple rank
+            first and the pair rank second already counts each hand once.
+          </p>
+          <p><strong>3 (bonus).</strong></p>
+          <div class="formula">
+            \[
+            C(52,5)=2\,598\,960,
+            \qquad
+            P(\text{full house})=\frac{3744}{C(52,5)}=\frac{3744}{2\,598\,960}=\frac{6}{4165}.
+            \]
+          </div>
+        </section>
+      </article>
+    </div>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"
+      crossorigin="anonymous"
+      onload="renderMathInElement(document.body, {delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]});"
+    ></script>
+  </body>
+</html>

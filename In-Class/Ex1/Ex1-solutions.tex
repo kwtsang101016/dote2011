@@ -1,0 +1,66 @@
+% DOTE2011G · In-Class Exercise 1 · Instructor answer key
+% Do not distribute to students before the deadline.
+% Compile with: xelatex Ex1-solutions.tex
+
+\documentclass[11pt,a4paper,UTF8]{ctexart}
+
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+
+\definecolor{lantern}{HTML}{C43C00}
+\definecolor{night}{HTML}{0B1C3A}
+
+\begin{document}
+
+\begin{center}
+  {\Large\bfseries\color{night} In-Class Exercise 1 · Solutions}\\[0.3em]
+  {\normalsize Full house counting (instructor key --- not for students)}
+\end{center}
+
+\vspace{0.6em}
+
+\noindent\textbf{Riddle meaning.}
+A full house: three cards of one rank and two cards of a different rank.
+
+\vspace{0.5em}
+
+\noindent\textbf{Count.}
+\[
+\begin{aligned}
+N
+&= C(13,1)\,C(4,3)\,C(12,1)\,C(4,2) \\
+&= 13 \times 4 \times 12 \times 6 \\
+&= 3744.
+\end{aligned}
+\]
+
+\begin{itemize}[leftmargin=1.4em]
+  \item $C(13,1)$: choose the rank for the three-of-a-kind.
+  \item $C(4,3)$: choose 3 suits out of 4 for that rank.
+  \item $C(12,1)$: choose a different rank for the pair.
+  \item $C(4,2)$: choose 2 suits out of 4 for the pair.
+\end{itemize}
+
+\noindent\textit{Note.}
+Do not multiply by an extra factor for ``which block is the triple / which is the pair'':
+the two ranks are already chosen in order (triple rank first, pair rank second), so each full house is counted once.
+
+\vspace{0.55em}
+
+\noindent\textbf{Optional probability.}
+\[
+C(52,5)=2\,598\,960,
+\qquad
+P(\text{full house})=\frac{3744}{C(52,5)}=\frac{3744}{2\,598\,960}=\frac{6}{4165}.
+\]
+(The simplified fraction is optional for students.)
+
+\vspace{0.7em}
+\begin{tcolorbox}[colback=lantern!5,colframe=lantern,title=\textbf{Quick check}]
+Final answer for Task 2: $\mathbf{3744}$ full-house hands.
+\end{tcolorbox}
+
+\end{document}
