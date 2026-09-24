@@ -1231,7 +1231,7 @@ function PromptsToTryScene() {
   const prompts = [
     {
       topic: "Earthquake counts",
-      text: "Use Python to download the number of earthquakes each day in 2025 from https://earthquake.usgs.gov and save them as a CSV file. Plot a histogram of those daily counts. Report the mean and the variance.",
+      text: "Use Python to download the number of earthquakes each day in 2025 from the USGS FDSN event API (https://earthquake.usgs.gov/fdsnws/event/1/). Important: a single year-long query of all magnitudes exceeds the API’s 20,000-event limit and returns HTTP 400 Bad Request — so download month by month (or paginate with limit and offset), concatenate the rows, then count events per calendar day. Include days with zero earthquakes. Save the daily counts as a CSV file. Plot a histogram of those daily counts. Report the mean and the variance.",
     },
     {
       topic: "Typhoon counts",

@@ -1227,7 +1227,7 @@ function PromptsScene() {
         <article className={styles.promptItem}>
           <strong>EARTHQUAKE WAITS · 2025</strong>
           <p>
-            Use Python to download the hours between successive earthquakes in 2025 from https://earthquake.usgs.gov and save them as a CSV file. Plot a histogram and a boxplot of those waiting times. Report the mean and the standard deviation.
+            Use Python to download successive earthquake times in 2025 from the USGS FDSN event API (https://earthquake.usgs.gov/fdsnws/event/1/). Important: a single year-long query of all magnitudes exceeds the API’s 20,000-event limit and returns HTTP 400 Bad Request — so download month by month (or paginate with limit and offset), concatenate, then compute the hours between successive events. Save those waiting times as a CSV file. Plot a histogram and a boxplot. Report the mean and the standard deviation.
           </p>
         </article>
       </div>

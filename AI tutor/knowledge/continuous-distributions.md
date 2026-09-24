@@ -92,7 +92,7 @@ Multiple choice (no calculator): salad P(12<X<15)=3/10; z=(20−15)/6; reorder 1
 
 ## Page 22 · Prompts to try
 
-Two download-and-plot prompts, each starting with “Use Python”. Apple daily returns (yfinance, ticker AAPL, last two years, percent return from adjusted close): histogram, boxplot, and a normal curve using the sample mean and sample standard deviation. Do not ask whether the histogram looks normal or whether the boxplot shows heavy tails. Earthquake waits: download the hours between successive earthquakes in 2025 from https://earthquake.usgs.gov, save as CSV, plot a histogram and a boxplot, and report the mean and standard deviation. You may try: paste into Microsoft Copilot (https://copilot.microsoft.com/), run Python in Google Colab (https://colab.research.google.com/).
+Two download-and-plot prompts, each starting with “Use Python”. Apple daily returns (yfinance, ticker AAPL, last two years, percent return from adjusted close): histogram, boxplot, and a normal curve using the sample mean and sample standard deviation. Do not ask whether the histogram looks normal or whether the boxplot shows heavy tails. Earthquake waits: download successive earthquake times in 2025 from the USGS FDSN event API (https://earthquake.usgs.gov/fdsnws/event/1/); a year-long all-magnitude query exceeds the 20,000-event limit (HTTP 400), so download month by month or paginate, concatenate, compute hours between successive events, save as CSV, plot histogram and boxplot, report mean and standard deviation. You may try: paste into Microsoft Copilot (https://copilot.microsoft.com/), run Python in Google Colab (https://colab.research.google.com/).
 
 ## Page 23 · Takeaways
 
