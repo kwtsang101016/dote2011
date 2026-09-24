@@ -23,3 +23,11 @@ Thumbs.db
 
 # CAT local runtime state
 cat/data/state.json
+
+# LaTeX build leftovers
+*.aux
+*.synctex.gz
+*.log
+*.out
+*.toc
+
