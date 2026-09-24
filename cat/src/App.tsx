@@ -28,12 +28,21 @@ type PendingAction =
   | { type: "edit"; personId: string }
   | { type: "reset" }
   | { type: "saveAttendance" }
+  | { type: "pickRandomStudent" }
   | { type: "setLayout"; studentRowCount: number; seatsPerRow: number };
 
 function isInstructorAction(
   action: PendingAction,
-): action is Extract<PendingAction, { type: "reset" | "saveAttendance" | "setLayout" }> {
-  return action.type === "reset" || action.type === "setLayout" || action.type === "saveAttendance";
+): action is Extract<
+  PendingAction,
+  { type: "reset" | "saveAttendance" | "pickRandomStudent" | "setLayout" }
+> {
+  return (
+    action.type === "reset" ||
+    action.type === "setLayout" ||
+    action.type === "saveAttendance" ||
+    action.type === "pickRandomStudent"
+  );
 }
 
 function matchesQuery(person: DisplayPerson, query: string): boolean {
@@ -85,6 +94,7 @@ export default function App() {
   const zoomAnchorRef = useRef<{ contentX: number; contentY: number } | null>(null);
   const [tool, setTool] = useState<"seat" | "zoomIn" | "zoomOut">("seat");
   const [zoom, setZoom] = useState(1);
+  const [pickedId, setPickedId] = useState<string | null>(null);
 
   const peopleById = useMemo(() => {
     const map: Record<string, DisplayPerson> = {};
@@ -149,6 +159,19 @@ export default function App() {
           ...(sync.state.guests ?? []),
         ]);
         break;
+      case "pickRandomStudent": {
+        const students = roster.people.filter((person) => person.role === "student");
+        if (students.length === 0) {
+          break;
+        }
+        const index = Math.floor(Math.random() * students.length);
+        const picked = students[index];
+        const display = peopleById[picked.id];
+        setPickedId(picked.id);
+        setSelectedId(picked.id);
+        setQuery(display?.displayName || picked.name);
+        break;
+      }
       case "setLayout":
         sync.setLayout(action.studentRowCount, action.seatsPerRow);
         break;
@@ -264,6 +287,10 @@ export default function App() {
     ensureAndRun({ type: "saveAttendance" });
   };
 
+  const handlePickRandomStudent = () => {
+    ensureAndRun({ type: "pickRandomStudent" });
+  };
+
   const handleAddGuest = (name: string, englishName: string) => {
     sync.addGuest(name, englishName);
   };
@@ -361,6 +388,22 @@ export default function App() {
         </button>
       ) : null}
 
+      {pickedId && peopleById[pickedId] ? (
+        <div className="pick-banner" role="status">
+          <p>
+            Random pick: <strong>{peopleById[pickedId].displayName}</strong>
+            {peopleById[pickedId].displayName !== peopleById[pickedId].trueName
+              ? ` (${peopleById[pickedId].trueName})`
+              : ""}
+            {peopleById[pickedId].plan ? ` · ${peopleById[pickedId].plan}` : ""}
+            {seatedIds.has(pickedId) ? " · seated" : " · not seated"}
+          </p>
+          <button type="button" className="ghost-button" onClick={() => setPickedId(null)}>
+            Dismiss
+          </button>
+        </div>
+      ) : null}
+
       {selectedPerson ? (
         <div className="selection-bar">
           <p>
@@ -441,6 +484,14 @@ export default function App() {
         <button type="button" className="ghost-button" onClick={handleSaveAttendance}>
           Save attendance
         </button>
+        <button
+          type="button"
+          className="ghost-button"
+          onClick={handlePickRandomStudent}
+          title="Equal chance for every roster student, seated or not"
+        >
+          Pick random student
+        </button>
         <div className="tool-toggle" role="group" aria-label="Board tools">
           <button
             type="button"
@@ -518,7 +569,13 @@ export default function App() {
                   occupant={occupant}
                   selected={selectedId === occupantId}
                   targetable={tool === "seat" && Boolean(selectedId) && !occupant}
-                  highlighted={Boolean(occupant && query.trim() && matchesQuery(occupant, query))}
+                  highlighted={
+                    Boolean(
+                      occupant &&
+                        (occupant.id === pickedId ||
+                          (query.trim() && matchesQuery(occupant, query))),
+                    )
+                  }
                   onSelect={(point) => handleSeatTap(target, occupantId, point)}
                   onDoubleUnseat={() => {
                     if (!occupantId || tool !== "seat") {
@@ -552,7 +609,13 @@ export default function App() {
                     occupant={occupant}
                     selected={selectedId === occupantId}
                     targetable={tool === "seat" && Boolean(selectedId) && !occupant}
-                    highlighted={Boolean(occupant && query.trim() && matchesQuery(occupant, query))}
+                    highlighted={
+                    Boolean(
+                      occupant &&
+                        (occupant.id === pickedId ||
+                          (query.trim() && matchesQuery(occupant, query))),
+                    )
+                  }
                     onSelect={(point) => handleSeatTap(target, occupantId, point)}
                     onDoubleUnseat={() => {
                       if (!occupantId || tool !== "seat") {
@@ -575,6 +638,7 @@ export default function App() {
           seatedMatches={seatedMatches}
           query={query}
           selectedId={selectedId}
+          pickedId={pickedId}
           onQueryChange={setQuery}
           onSelect={selectPerson}
           onEdit={(personId) => ensureAndRun({ type: "edit", personId })}

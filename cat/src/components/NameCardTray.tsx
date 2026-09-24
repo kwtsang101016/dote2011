@@ -8,6 +8,7 @@ interface NameCardTrayProps {
   seatedMatches: DisplayPerson[];
   query: string;
   selectedId: string | null;
+  pickedId?: string | null;
   onQueryChange: (value: string) => void;
   onSelect: (personId: string) => void;
   onEdit: (personId: string) => void;
@@ -22,6 +23,7 @@ export function NameCardTray({
   seatedMatches,
   query,
   selectedId,
+  pickedId = null,
   onQueryChange,
   onSelect,
   onEdit,
@@ -65,6 +67,7 @@ export function NameCardTray({
         people={advisors}
         query={query}
         selectedId={selectedId}
+        pickedId={pickedId}
         matchKind="waiting"
         onSelect={onSelect}
         onEdit={onEdit}
@@ -74,6 +77,7 @@ export function NameCardTray({
         people={students}
         query={query}
         selectedId={selectedId}
+        pickedId={pickedId}
         matchKind="waiting"
         onSelect={onSelect}
         onEdit={onEdit}
@@ -83,6 +87,7 @@ export function NameCardTray({
         people={guestsWaiting}
         query={query}
         selectedId={selectedId}
+        pickedId={pickedId}
         matchKind="waiting"
         onSelect={onSelect}
         onEdit={onEdit}
@@ -94,6 +99,7 @@ export function NameCardTray({
           people={seatedMatches}
           query={query}
           selectedId={selectedId}
+          pickedId={pickedId}
           matchKind="seated"
           onSelect={onSelect}
           onEdit={onEdit}
@@ -146,6 +152,7 @@ function TrayGroup({
   people,
   query,
   selectedId,
+  pickedId = null,
   matchKind,
   onSelect,
   onEdit,
@@ -155,6 +162,7 @@ function TrayGroup({
   people: DisplayPerson[];
   query: string;
   selectedId: string | null;
+  pickedId?: string | null;
   matchKind: "waiting" | "seated";
   onSelect: (personId: string) => void;
   onEdit: (personId: string) => void;
@@ -196,8 +204,16 @@ function TrayGroup({
                 <NameCard
                   person={person}
                   selected={selected}
-                  highlighted={query.trim().length > 0}
-                  highlightKind={query.trim() ? matchKind : undefined}
+                  highlighted={person.id === pickedId || query.trim().length > 0}
+                  highlightKind={
+                    person.id === pickedId
+                      ? matchKind === "seated"
+                        ? "seated"
+                        : "waiting"
+                      : query.trim()
+                        ? matchKind
+                        : undefined
+                  }
                 />
               </button>
               <div className="tray-card__actions">

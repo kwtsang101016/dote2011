@@ -10,3 +10,4 @@ https://kwtsang101016.github.io/dote2011/inclass/ex1_seemoontonight/
 - Solutions are already in the HTML but hidden. After class, edit  
   `site/inclass/ex1_seemoontonight/index.html` and remove the class  
   `solutions-hidden` from `<body>`, then push.
+- No written submission; invite students to present (use CAT **Pick random student**).

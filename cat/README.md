@@ -20,7 +20,7 @@ Students find their name card on the side, tap it, then tap a seat. Empty seats 
 
 Set environment variable `INSTRUCTOR_PIN` (on Render: Environment 鈫?`INSTRUCTOR_PIN`).
 
-With that PIN you can manage any card, change row / seat counts, reset seats, **Save attendance** (CSV), and **reset a student PIN** (socket `resetPin`) so they can set a new one.
+With that PIN you can manage any card, change row / seat counts, reset seats, **Save attendance** (CSV), **Pick random student** (equal chance for every roster student, seated or not), and **reset a student PIN** (socket `resetPin`) so they can set a new one.
 
 Local default PIN if unset: `change-me-dote2011` 鈥?change it before class.
 

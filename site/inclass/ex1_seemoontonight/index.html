@@ -316,45 +316,20 @@
           <span class="math">\(C(n,k)\)</span>, not permutations.
         </p>
 
-        <h2>
-          解謎任務
-          <span class="en">Your tasks</span>
-        </h2>
-        <ol class="tasks">
-          <li>
-            <strong>Pattern check.</strong> In one sentence, state what hand the riddle is asking you
-            to count (three of one rank + a pair of another rank).
-          </li>
-          <li>
-            <strong>Build the count with combinations.</strong> Write a product of combination
-            symbols, then evaluate it, for the number of distinct full-house hands.
-            <ul>
-              <li>choose the rank for the three-of-a-kind;</li>
-              <li>choose which 3 of the 4 suits for that rank;</li>
-              <li>choose the rank for the pair (different from the first);</li>
-              <li>choose which 2 of the 4 suits for that pair.</li>
-            </ul>
-          </li>
-          <li>
-            <strong>(Optional bonus)</strong> There are
-            <span class="math">\(C(52,5)\)</span> possible 5-card hands. Write the probability of a
-            full house as a fraction (you need not fully simplify by hand if the numbers are large).
-          </li>
-        </ol>
-
         <p class="footer-note">
-          Submit your working as instructed on Blackboard. This counts toward
-          <strong>course participation</strong> (in-class exercises). 中秋快樂 · Happy Mid-Autumn
-          Festival.
+          Think about how to count the hands the riddle describes. No written submission — a few
+          students will be invited to present in class. 中秋快樂 · Happy Mid-Autumn Festival.
         </p>
 
         <section class="solutions" id="solutions" aria-label="Solutions">
           <h2>
-            謎底 · Solutions
+            謎底 · Solution
             <span class="en">Posted after class</span>
           </h2>
-          <p><strong>1.</strong> A full house: three cards of one rank and two cards of a different rank.</p>
-          <p><strong>2.</strong> Number of full-house hands:</p>
+          <p>
+            The riddle asks for the number of <strong>full-house</strong> hands (three of one rank +
+            a pair of another rank):
+          </p>
           <div class="formula">
             \[
             \begin{aligned}
@@ -372,17 +347,9 @@
             <li>\(C(4,2)\): choose 2 suits out of 4 for the pair.</li>
           </ul>
           <p>
-            Do not multiply by an extra “order of the two ranks” factor: choosing the triple rank
-            first and the pair rank second already counts each hand once.
+            Optional: among all \(C(52,5)=2\,598\,960\) five-card hands,
+            \(P=\dfrac{3744}{2\,598\,960}=\dfrac{6}{4165}\).
           </p>
-          <p><strong>3 (bonus).</strong></p>
-          <div class="formula">
-            \[
-            C(52,5)=2\,598\,960,
-            \qquad
-            P(\text{full house})=\frac{3744}{C(52,5)}=\frac{3744}{2\,598\,960}=\frac{6}{4165}.
-            \]
-          </div>
         </section>
       </article>
     </div>

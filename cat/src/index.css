@@ -175,6 +175,27 @@ h1 {
   gap: 8px;
 }
 
+.pick-banner {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border: 2px solid var(--plum);
+  background: #f3e8ff;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pick-banner p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.pick-banner strong {
+  font-size: 1.15em;
+}
+
 .controls {
   display: flex;
   flex-wrap: wrap;
