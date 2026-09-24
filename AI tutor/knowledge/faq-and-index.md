@@ -118,7 +118,7 @@ Live lecture URLs (always available to students):
 
 **Probability:** Page 07 counting game · Page 19 Bayes game  
 
-**Discrete Distributions:** Page 04 classify · Page 08 distribution function · Page 19 is it binomial?  
+**Discrete Distributions:** Page 04 classify · Page 12 compute E(X) · Page 15 variance quiz · Page 21 is it binomial?  
 
 **Continuous Distributions:** Page 04 distribution function · Page 18 which approximation is closer? · Page 21 which expression?  
 

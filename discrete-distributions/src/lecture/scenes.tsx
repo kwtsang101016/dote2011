@@ -441,6 +441,127 @@ function ExpectationPropertiesScene() {
   );
 }
 
+const EXPECT_ITEMS = [
+  {
+    pmf: tex`X \in \{0,1,2\},\; f(0)=0.2,\; f(1)=0.5,\; f(2)=0.3`,
+    answer: 1.1,
+    work: tex`E(X) = 0(0.2) + 1(0.5) + 2(0.3) = 1.1`,
+  },
+  {
+    pmf: tex`X \in \{1,3,5\},\; f(1)=0.25,\; f(3)=0.5,\; f(5)=0.25`,
+    answer: 3,
+    work: tex`E(X) = 1(0.25) + 3(0.5) + 5(0.25) = 3`,
+  },
+  {
+    pmf: tex`\text{Broadway TVs: } f(0)=0.40,\; f(1)=0.25,\; f(2)=0.20,\; f(3)=0.05,\; f(4)=0.10`,
+    answer: 1.2,
+    work: tex`E(X) = 0(0.40)+1(0.25)+2(0.20)+3(0.05)+4(0.10) = 1.20`,
+  },
+  {
+    pmf: tex`X \in \{0,2,4\},\; f(0)=0.1,\; f(2)=0.6,\; f(4)=0.3`,
+    answer: 2.4,
+    work: tex`E(X) = 0(0.1) + 2(0.6) + 4(0.3) = 2.4`,
+  },
+] as const;
+
+function ExpectationGame() {
+  const print = usePrintMode();
+  const [index, setIndex] = useState(0);
+  const [guess, setGuess] = useState("");
+  const [feedback, setFeedback] = useState<ReactNode>("");
+  const [awaitingNext, setAwaitingNext] = useState(false);
+  const item = EXPECT_ITEMS[index % EXPECT_ITEMS.length];
+
+  const goNext = () => {
+    setFeedback("");
+    setGuess("");
+    setAwaitingNext(false);
+    setIndex((v) => v + 1);
+  };
+
+  const check = () => {
+    if (awaitingNext) {
+      return;
+    }
+    const val = Number.parseFloat(guess);
+    if (Number.isNaN(val)) {
+      setFeedback("Enter a number.");
+      return;
+    }
+    const ok = Math.abs(val - item.answer) < 0.01;
+    setFeedback(
+      ok ? (
+        <>
+          Correct! <Formula tex={item.work} />
+        </>
+      ) : (
+        <>
+          Not quite. <Formula tex={item.work} />
+        </>
+      ),
+    );
+    if (ok) {
+      window.setTimeout(goNext, 1500);
+    } else {
+      setAwaitingNext(true);
+    }
+  };
+
+  if (print) {
+    return (
+      <SceneFrame kicker="Game" title="Compute E(X)" tone="gold">
+        <p className={styles.lead}>
+          <MathText text={tex`For discrete $X$: $E(X) = \sum x\, f(x)$.`} />
+        </p>
+        {EXPECT_ITEMS.map((q) => (
+          <div key={q.pmf} className={styles.note}>
+            <Formula tex={q.pmf} />
+            <Formula tex={q.work} />
+          </div>
+        ))}
+      </SceneFrame>
+    );
+  }
+
+  return (
+    <SceneFrame kicker="Game" title="Compute E(X)" tone="gold">
+      <p className={styles.lead}>
+        <MathText text={tex`For discrete $X$: $E(X) = \sum x\, f(x)$. Enter the mean, then CHECK.`} />
+      </p>
+      <Formula tex={item.pmf} />
+      <LiveOnly>
+        <div className={styles.sliderRow}>
+          <label htmlFor="exp-guess">
+            <MathText text={tex`$E(X) =$`} />
+          </label>
+          <input
+            id="exp-guess"
+            className={styles.numberInput}
+            type="number"
+            step="0.1"
+            value={guess}
+            onChange={(e) => setGuess(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                check();
+              }
+            }}
+          />
+          <button className={styles.toolBtn} type="button" disabled={awaitingNext} onClick={check}>
+            CHECK
+          </button>
+          {awaitingNext ? (
+            <button className={styles.toolBtn} type="button" onClick={goNext}>
+              NEXT
+            </button>
+          ) : null}
+        </div>
+      </LiveOnly>
+      {feedback ? <p className={styles.answer}>{feedback}</p> : null}
+    </SceneFrame>
+  );
+}
+
 function VarianceScene() {
   return (
     <SceneFrame kicker="Spread" title="Variance weights squared deviations by probability.">
@@ -486,6 +607,120 @@ function VariancePropertiesScene() {
       <p className={styles.small}>
         <MathText text={tex`Independence is required here. (By contrast, $E(X+Y)=E(X)+E(Y)$ always holds.)`} />
       </p>
+    </SceneFrame>
+  );
+}
+
+const VAR_ITEMS = [
+  {
+    q: tex`If $\mathrm{Var}(X) = 4$, what is $\mathrm{Var}(3X + 7)$?`,
+    choices: ["4", "12", "36", "49"],
+    answer: "36",
+    explain: tex`\mathrm{Var}(a + bX) = b^2 \mathrm{Var}(X) = 9 \times 4 = 36.`,
+  },
+  {
+    q: tex`$X$ and $Y$ are independent with $\mathrm{Var}(X)=2$, $\mathrm{Var}(Y)=5$. What is $\mathrm{Var}(X + Y)$?`,
+    choices: ["3", "7", "10", "√7"],
+    answer: "7",
+    explain: tex`\text{Independent } \Rightarrow \mathrm{Cov}(X,Y)=0, \text{ so } \mathrm{Var}(X+Y) = 2 + 5 = 7.`,
+  },
+  {
+    q: tex`$\mathrm{Var}(X) = E[(X - \mu)^2]$ equals which computational formula?`,
+    choices: ["E(X)²", "E(X²) − [E(X)]²", "E(X²) + [E(X)]²", "[E(X)]² − E(X²)"],
+    answer: "E(X²) − [E(X)]²",
+    explain: tex`\mathrm{Var}(X) = E[X^2] - \big(E[X]\big)^2.`,
+  },
+  {
+    q: tex`Broadway sales have $\mathrm{Var}(X) \approx 1.66$. What is $\mathrm{Var}(2X)$ (approx.)?`,
+    choices: ["1.66", "3.32", "6.64", "0.415"],
+    answer: "6.64",
+    explain: tex`\mathrm{Var}(2X) = 2^2 \mathrm{Var}(X) \approx 4 \times 1.66 = 6.64.`,
+  },
+] as const;
+
+function VarianceGame() {
+  const print = usePrintMode();
+  const [index, setIndex] = useState(0);
+  const [feedback, setFeedback] = useState<ReactNode>("");
+  const [awaitingNext, setAwaitingNext] = useState(false);
+  const item = VAR_ITEMS[index % VAR_ITEMS.length];
+
+  const goNext = () => {
+    setFeedback("");
+    setAwaitingNext(false);
+    setIndex((v) => v + 1);
+  };
+
+  const choose = (choice: string) => {
+    if (feedback) {
+      return;
+    }
+    const ok = choice === item.answer;
+    setFeedback(
+      ok ? (
+        <>
+          Correct! <Formula tex={item.explain} />
+        </>
+      ) : (
+        <>
+          Answer: <strong>{item.answer}</strong>. <Formula tex={item.explain} />
+        </>
+      ),
+    );
+    if (ok) {
+      window.setTimeout(goNext, 1400);
+    } else {
+      setAwaitingNext(true);
+    }
+  };
+
+  if (print) {
+    return (
+      <SceneFrame kicker="Game" title="Variance properties" tone="gold">
+        {VAR_ITEMS.map((q) => (
+          <div key={q.q} className={styles.note}>
+            <p>
+              <MathText text={q.q} />
+            </p>
+            <p className={styles.small}>
+              Answer: {q.answer}. <Formula tex={q.explain} />
+            </p>
+          </div>
+        ))}
+      </SceneFrame>
+    );
+  }
+
+  return (
+    <SceneFrame kicker="Game" title="Variance properties" tone="gold">
+      <p className={styles.lead}>
+        <MathText text={item.q} />
+      </p>
+      <LiveOnly>
+        <div className={styles.choices}>
+          {item.choices.map((c) => (
+            <button
+              key={c}
+              className={`${styles.choice}${feedback && c === item.answer ? ` ${styles.choiceCorrect}` : ""}`}
+              type="button"
+              disabled={Boolean(feedback)}
+              onClick={() => choose(c)}
+            >
+              {c}
+            </button>
+          ))}
+        </div>
+      </LiveOnly>
+      {feedback ? <p className={styles.answer}>{feedback}</p> : null}
+      {awaitingNext ? (
+        <LiveOnly>
+          <div className={styles.tools}>
+            <button className={styles.toolBtn} type="button" onClick={goNext}>
+              NEXT
+            </button>
+          </div>
+        </LiveOnly>
+      ) : null}
     </SceneFrame>
   );
 }
@@ -1072,8 +1307,10 @@ export const SCENES: SceneDef[] = [
   { id: "uniform", chapter: "Distributions", label: "Discrete uniform", Scene: UniformScene },
   { id: "expectation", chapter: "Moments", label: "Expected value", Scene: ExpectationScene },
   { id: "expectation-props", chapter: "Moments", label: "Expectation properties", Scene: ExpectationPropertiesScene },
+  { id: "exp-game", chapter: "Moments", label: "Game · compute E(X)", Scene: ExpectationGame },
   { id: "variance", chapter: "Moments", label: "Variance & SD", Scene: VarianceScene },
   { id: "variance-props", chapter: "Moments", label: "Variance properties", Scene: VariancePropertiesScene },
+  { id: "var-game", chapter: "Moments", label: "Game · variance quiz", Scene: VarianceGame },
   { id: "broadway-moments", chapter: "Moments", label: "Broadway E and Var", Scene: BroadwayMomentsScene },
   { id: "binom-props", chapter: "Binomial", label: "Binomial properties", Scene: BinomialPropsScene },
   { id: "binom-formula", chapter: "Binomial", label: "Binomial formula", Scene: BinomialFormulaScene },
