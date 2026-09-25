@@ -102,28 +102,36 @@ f(x)=e^(−μ) μ^x / x!. Mean = variance = μ. Mercy default μ=3 (30 min), x=4
 
 Weekend evenings at Mercy Hospital ER average 6 arrivals/hour. For staffing a 30-minute window, μ=3; P(X=4)≈0.168; σ²=μ=3.
 
-## Page 25 · Hypergeometric idea
+## Page 25 · Poisson mean & Var
+
+E(x)=μ; Var(x)=μ; σ=√μ. Interactive: choose μ. Mercy check: μ=3 → mean=variance=3, σ≈1.73.
+
+## Page 26 · Hypergeometric idea
 
 Finite population without replacement: trials not independent; success probability changes. N population size; r successes in population; n draws; x successes in sample.
 
-## Page 26 · Hypergeometric formula
+## Page 27 · Hypergeometric formula
 
 f(x)=[C(r,x) C(N−r,n−x)] / C(N,n). Zero if x>r or n−x>N−r. Story: Tom mixed 2 good + 2 dead batteries (N=4, r=2).
 
-## Page 27 · Batteries example
+## Page 28 · Batteries example
 
 Tom accidentally mingled 2 dead batteries with 2 good ones; draws 2 for the flashlight. P(both good)=C(2,2)C(2,0)/C(4,2)=1/6≈0.167. μ=n(r/N)=1; Var≈0.333.
 
-## Page 28 · Large-N approximation
+## Page 29 · Hypergeometric mean & Var
+
+With p=r/N: E(x)=np; Var(x)=np(1−p)(N−n)/(N−1); σ=√Var(x). The factor (N−n)/(N−1) is the finite-population correction. Interactive: choose N, r, n. Batteries check: N=4, r=2, n=2 → E=1, Var=1/3≈0.333.
+
+## Page 30 · Large-N approximation
 
 If N ≫ n, hypergeometric ≈ binomial with p=r/N; E≈np, Var≈np(1−p).
 
-## Page 29 · Prompts to try
+## Page 31 · Prompts to try
 
 Two real-data prompts. Earthquakes: use Python to download daily counts in 2025 from the USGS FDSN event API (https://earthquake.usgs.gov/fdsnws/event/1/). A single year-long all-magnitude query exceeds the 20,000-event limit and returns HTTP 400 — download month by month (or paginate with limit/offset), concatenate, count per calendar day (include zero-count days), save as CSV, then histogram, mean, and variance. Typhoons: the yearly counts are an HTML table, not a CSV, at https://www.hko.gov.hk/en/publica/tc/tc2023/table45.html. The assistant must download and parse that page in Python and must not ask the student to paste the table. The table has three columns: Year, annual number in Hong Kong's area of responsibility, and annual number necessitating warning signals. Keep only Year and the area-of-responsibility count. Drop the third column before renaming. Years 1956–2023. Skip the mean row. Save as CSV, then histogram, mean, and variance. A Poisson count has mean equal to variance; students should compare the two numbers themselves. Do not give the sample mean or variance.
 
 **You may try:** paste the prompt into Microsoft Copilot (https://copilot.microsoft.com/), then run the Python in Google Colab (https://colab.research.google.com/) — download any files, and still read the code so you know what the assistant did.
 
-## Page 30 · Takeaways
+## Page 32 · Takeaways
 
 (1) Distributions: f≥0, sum=1. F(x)=P(X≤x) jumps by f(x). (2) Moments: expectation & variance (with linearity / scale properties). (3) Families: binomial, Poisson, hypergeometric.

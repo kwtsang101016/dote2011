@@ -1118,6 +1118,51 @@ function MercyScene() {
   );
 }
 
+function PoissonMomentsScene() {
+  const print = usePrintMode();
+  const [muLive, setMu] = useState(3);
+  const mu = print ? 3 : muLive;
+  return (
+    <SceneFrame kicker="Poisson" title="Mean and variance are the same number.">
+      <p className={styles.lead}>
+        <MathText text={tex`For a Poisson random variable with mean rate $\mu$ in the interval:`} />
+      </p>
+      <Formula tex={tex`\begin{aligned}
+E(x) &= \mu \\
+\mathrm{Var}(x) &= \mu \\
+\sigma &= \sqrt{\mu}
+\end{aligned}`}
+      />
+      <LiveOnly>
+        <div className={styles.tools}>
+          <span className={styles.small} style={{ alignSelf: "center" }}>
+            μ
+          </span>
+          {[1, 2, 3, 4, 6, 10].map((v) => (
+            <button
+              key={v}
+              className={`${styles.toolBtn} ${mu === v ? styles.toolBtnActive : ""}`}
+              type="button"
+              onClick={() => setMu(v)}
+            >
+              {v}
+            </button>
+          ))}
+        </div>
+      </LiveOnly>
+      <Formula tex={tex`\begin{aligned}
+E(x) &= ${mu} \\
+\mathrm{Var}(x) &= ${mu} \\
+\sigma &= ${formatProb(Math.sqrt(mu), 4)}
+\end{aligned}`}
+      />
+      <p className={styles.small}>
+        <MathText text={tex`Mercy check: $\mu=3$ $\Rightarrow$ $E(x)=3$, $\mathrm{Var}(x)=3$, $\sigma=\sqrt{3}\approx 1.73$.`} />
+      </p>
+    </SceneFrame>
+  );
+}
+
 function HyperIntroScene() {
   return (
     <SceneFrame kicker="Hypergeometric" title="Sampling without replacement changes p.">
@@ -1204,6 +1249,97 @@ function BatteriesScene() {
       <p className={styles.small}>
         <MathText text={tex`Only about a 17% chance both are good. Mean number of good batteries drawn: $\mu = n(r/N) = ${formatProb(mu, 2)}$. Variance $\approx ${formatProb(variance, 3)}$.`}
         />
+      </p>
+    </SceneFrame>
+  );
+}
+
+function HyperMomentsScene() {
+  const print = usePrintMode();
+  const [NLive, setNPop] = useState(4);
+  const [rLive, setR] = useState(2);
+  const [nLive, setNDraw] = useState(2);
+  const N = print ? 4 : NLive;
+  const r = print ? 2 : Math.min(rLive, N);
+  const n = print ? 2 : Math.min(nLive, N);
+  const p = r / N;
+  const mean = n * p;
+  const finiteCorrection = N > 1 ? (N - n) / (N - 1) : 1;
+  const variance = n * p * (1 - p) * finiteCorrection;
+  const sd = Math.sqrt(Math.max(variance, 0));
+  return (
+    <SceneFrame kicker="Hypergeometric" title="Mean and variance have closed forms.">
+      <p className={styles.lead}>
+        <MathText text={tex`Population size $N$, $r$ successes in the population, sample size $n$. Let $p = r/N$.`} />
+      </p>
+      <Formula tex={tex`\begin{aligned}
+E(x) &= n\,\dfrac{r}{N} = np \\
+\mathrm{Var}(x) &= np(1-p)\,\dfrac{N-n}{N-1} \\
+\sigma &= \sqrt{\mathrm{Var}(x)}
+\end{aligned}`}
+      />
+      <p className={styles.small}>
+        <MathText text={tex`The factor $(N-n)/(N-1)$ is the finite-population correction (smaller than 1 when $n>1$).`} />
+      </p>
+      <LiveOnly>
+        <div className={styles.tools}>
+          <span className={styles.small} style={{ alignSelf: "center" }}>
+            N
+          </span>
+          {[4, 10, 20, 50].map((v) => (
+            <button
+              key={v}
+              className={`${styles.toolBtn} ${N === v ? styles.toolBtnActive : ""}`}
+              type="button"
+              onClick={() => {
+                setNPop(v);
+                setR((cur) => Math.min(cur, v));
+                setNDraw((cur) => Math.min(cur, v));
+              }}
+            >
+              {v}
+            </button>
+          ))}
+        </div>
+        <div className={styles.tools}>
+          <span className={styles.small} style={{ alignSelf: "center" }}>
+            r good
+          </span>
+          {[1, 2, 3, 5, 10].filter((v) => v <= N).map((v) => (
+            <button
+              key={v}
+              className={`${styles.toolBtn} ${r === v ? styles.toolBtnActive : ""}`}
+              type="button"
+              onClick={() => setR(v)}
+            >
+              {v}
+            </button>
+          ))}
+        </div>
+        <div className={styles.tools}>
+          <span className={styles.small} style={{ alignSelf: "center" }}>
+            n drawn
+          </span>
+          {[1, 2, 3, 5, 10].filter((v) => v <= N).map((v) => (
+            <button
+              key={v}
+              className={`${styles.toolBtn} ${n === v ? styles.toolBtnActive : ""}`}
+              type="button"
+              onClick={() => setNDraw(v)}
+            >
+              {v}
+            </button>
+          ))}
+        </div>
+      </LiveOnly>
+      <Formula tex={tex`\begin{aligned}
+E(x) &= ${n} \times ${formatProb(p, 4)} = ${formatProb(mean, 4)} \\
+\mathrm{Var}(x) &= ${formatProb(variance, 4)} \\
+\sigma &= ${formatProb(sd, 4)}
+\end{aligned}`}
+      />
+      <p className={styles.small}>
+        <MathText text={tex`Batteries check: $N=4$, $r=2$, $n=2$ $\Rightarrow$ $E(x)=1$, $\mathrm{Var}(x)=\tfrac{1}{3}\approx 0.333$.`} />
       </p>
     </SceneFrame>
   );
@@ -1320,9 +1456,11 @@ export const SCENES: SceneDef[] = [
   { id: "poisson-intro", chapter: "Poisson", label: "Poisson idea", Scene: PoissonIntroScene },
   { id: "poisson-formula", chapter: "Poisson", label: "Poisson formula", Scene: PoissonFormulaScene },
   { id: "mercy", chapter: "Poisson", label: "Mercy Hospital", Scene: MercyScene },
+  { id: "poisson-moments", chapter: "Poisson", label: "Poisson mean & Var", Scene: PoissonMomentsScene },
   { id: "hyper-intro", chapter: "Hypergeometric", label: "Hypergeometric idea", Scene: HyperIntroScene },
   { id: "hyper-formula", chapter: "Hypergeometric", label: "Hypergeometric formula", Scene: HyperFormulaScene },
   { id: "batteries", chapter: "Hypergeometric", label: "Batteries example", Scene: BatteriesScene },
+  { id: "hyper-moments", chapter: "Hypergeometric", label: "Hypergeometric mean & Var", Scene: HyperMomentsScene },
   { id: "hyper-approx", chapter: "Hypergeometric", label: "Large-N approximation", Scene: HyperApproxScene },
   { id: "prompts", chapter: "Practice", label: "Prompts to try", Scene: PromptsToTryScene },
   { id: "close", chapter: "Wrap-up", label: "Takeaways", Scene: CloseScene },
