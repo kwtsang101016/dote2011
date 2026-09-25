@@ -98,6 +98,14 @@ export default function App() {
           </a>
           <a
             className="title-link"
+            href="https://kwtsang101016.github.io/dote2011/inclass/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            In-class
+          </a>
+          <a
+            className="title-link"
             href="https://dote2011-cat.onrender.com/"
             target="_blank"
             rel="noreferrer"

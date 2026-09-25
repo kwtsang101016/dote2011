@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DOTE2011G · Interactive Lectures</title>
+    <title>DOTE2011G · In-Class Exercises</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
@@ -11,7 +11,6 @@
       :root {
         --ink: #16213c;
         --cream: #fff4d2;
-        --paper: #f5cf6b;
         --red: #df4a3e;
         --white: #fffaf0;
       }
@@ -94,6 +93,11 @@
         font-size: 14px;
         line-height: 1.45;
       }
+      .card--soon {
+        opacity: 0.55;
+        pointer-events: none;
+        box-shadow: none;
+      }
       footer {
         margin-top: 36px;
         font-size: 13px;
@@ -103,38 +107,36 @@
   </head>
   <body>
     <div class="top">
-      <a href="./inclass/">In-class</a>
-      <a href="./calendar/">Calendar</a>
+      <a href="../">Lectures</a>
+      <a href="../calendar/">Calendar</a>
       <a href="https://dote2011-cat.onrender.com/" target="_blank" rel="noreferrer">CAT</a>
       <a href="https://dote2011g.sayo.ai/" target="_blank" rel="noreferrer">AI tutor</a>
     </div>
     <main>
       <p class="kicker">CUHK · DOTE2011G</p>
-      <h1>Interactive Lectures</h1>
-      <p class="lead">Statistical Analysis for Business Decisions — choose a topic below.</p>
+      <h1>In-Class Exercises</h1>
+      <p class="lead">
+        Short participation worksheets used in class. Solutions are posted after the session.
+      </p>
       <div class="grid">
-        <a class="card" href="./introduction/">
-          <strong>Introduction</strong>
-          <span>Data types, population vs sample, inference preview, and ethics.</span>
+        <a class="card" href="./ex1_seemoontonight/">
+          <strong>Ex1 · 中秋猜燈謎</strong>
+          <span>Mid-Autumn lantern riddle — counting full-house hands with combinations. Solution posted.</span>
         </a>
-        <a class="card" href="./descriptive-statistics/">
-          <strong>Descriptive Statistics</strong>
-          <span>Tables, charts, center, spread, association, and grouped data.</span>
-        </a>
-        <a class="card" href="./probability/">
-          <strong>Probability</strong>
-          <span>Sample spaces, counting rules, events, conditioning, and Bayes’ theorem.</span>
-        </a>
-        <a class="card" href="./discrete-distributions/">
-          <strong>Discrete Probability Distributions</strong>
-          <span>Random variables, expectation, binomial, Poisson, and hypergeometric models.</span>
-        </a>
-        <a class="card" href="./continuous-distributions/">
-          <strong>Continuous Probability Distributions</strong>
-          <span>Uniform, normal, z-scores, binomial approximation, and exponential waiting times.</span>
-        </a>
+        <div class="card card--soon" aria-disabled="true">
+          <strong>Ex2</strong>
+          <span>Coming later this term.</span>
+        </div>
+        <div class="card card--soon" aria-disabled="true">
+          <strong>Ex3</strong>
+          <span>Coming later this term.</span>
+        </div>
+        <div class="card card--soon" aria-disabled="true">
+          <strong>Ex4</strong>
+          <span>Coming later this term.</span>
+        </div>
       </div>
-      <footer>More topics will be added to this site during the semester.</footer>
+      <footer>DOTE2011G · Statistical Analysis for Business Decisions</footer>
     </main>
   </body>
 </html>

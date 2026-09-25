@@ -73,7 +73,7 @@ jobs:
           cp -r discrete-distributions/dist/* _site/discrete-distributions/
           cp -r continuous-distributions/dist/* _site/continuous-distributions/
           cp -r calendar/dist/* _site/calendar/
-          cp -r site/inclass/* _site/inclass/
+          cp -a site/inclass/. _site/inclass/
           cp site/index.html _site/index.html
           touch _site/.nojekyll
 

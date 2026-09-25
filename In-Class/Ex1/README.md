@@ -3,11 +3,12 @@
 Student worksheet (LaTeX): [`Ex1.tex`](Ex1.tex)  
 Instructor key (LaTeX): [`Ex1-solutions.tex`](Ex1-solutions.tex)
 
-**Live (unlisted) webpage:**  
+**Live webpage:**  
 https://kwtsang101016.github.io/dote2011/inclass/ex1_seemoontonight/
 
-- Not linked from the lecture hub or calendar.
-- Solutions are already in the HTML but hidden. After class, edit  
-  `site/inclass/ex1_seemoontonight/index.html` and remove the class  
-  `solutions-hidden` from `<body>`, then push.
+**In-class hub:**  
+https://kwtsang101016.github.io/dote2011/inclass/
+
+- Linked from the lecture hub top nav (**In-class**).
+- Solution is visible on the webpage (class is done).
 - No written submission; invite students to present (use CAT **Pick random student**).
