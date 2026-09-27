@@ -1,5 +1,9 @@
 # Anonymous lecture usage logging (DOTE2011)
 
+## Implementation note
+
+Each lecture app keeps its own copy under `src/lib/` (`usageLog.ts`, `useLectureUsageLog.ts`) so `tsc` resolves `react` from that app’s `node_modules`. The files under `shared/` are the editable templates — copy into each app after changes.
+
 ## What is collected
 
 From interactive lecture sites only (when `VITE_USAGE_LOG_URL` is set at build time):

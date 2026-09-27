@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useLectureUsageLog } from "@shared/useLectureUsageLog.ts";
+import { useLectureUsageLog } from "../lib/useLectureUsageLog.ts";
 import styles from "./Lecture.module.css";
 import { SCENES } from "./scenes";
 import { HandoutDocument } from "./HandoutDocument";
