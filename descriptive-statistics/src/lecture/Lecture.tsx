@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useLectureUsageLog } from "@shared/useLectureUsageLog.ts";
 import styles from "./Lecture.module.css";
 import { SCENES } from "./scenes";
 import { HandoutDocument } from "./HandoutDocument";
@@ -27,10 +28,19 @@ export function Lecture() {
   const [downloading, setDownloading] = useState(false);
   const [handoutMessage, setHandoutMessage] = useState("");
   const [textScaleIndex, setTextScaleIndex] = useState(readStoredScaleIndex);
+  const [stageElement, setStageElement] = useState<HTMLElement | null>(null);
   const handoutRef = useRef<HTMLDivElement>(null);
   const scene = SCENES[index];
   const progress = useMemo(() => ((index + 1) / SCENES.length) * 100, [index]);
   const textScale = TEXT_SCALES[textScaleIndex];
+
+  useLectureUsageLog({
+    course: "DOTE2011",
+    lecture: "descriptive-statistics",
+    index,
+    scene: { id: scene.id, chapter: scene.chapter, label: scene.label },
+    stageElement,
+  });
 
   const cycleTextScale = () => {
     setTextScaleIndex((current) => {
@@ -141,7 +151,7 @@ export function Lecture() {
       <div className={styles.track} aria-hidden="true">
         <i style={{ width: `${progress}%` }} />
       </div>
-      <div className={styles.stage}>
+      <div className={styles.stage} ref={setStageElement}>
         <Scene />
       </div>
       {handoutMessage ? <p className={styles.handoutToast}>{handoutMessage}</p> : null}

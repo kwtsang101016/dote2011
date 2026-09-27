@@ -35,26 +35,36 @@ jobs:
             calendar/package-lock.json
 
       - name: Install and build introduction
+        env:
+          VITE_USAGE_LOG_URL: ${{ secrets.VITE_USAGE_LOG_URL }}
         run: |
           npm ci --prefix introduction
           npm run build --prefix introduction
 
       - name: Install and build descriptive-statistics
+        env:
+          VITE_USAGE_LOG_URL: ${{ secrets.VITE_USAGE_LOG_URL }}
         run: |
           npm ci --prefix descriptive-statistics
           npm run build --prefix descriptive-statistics
 
       - name: Install and build probability
+        env:
+          VITE_USAGE_LOG_URL: ${{ secrets.VITE_USAGE_LOG_URL }}
         run: |
           npm ci --prefix probability
           npm run build --prefix probability
 
       - name: Install and build discrete-distributions
+        env:
+          VITE_USAGE_LOG_URL: ${{ secrets.VITE_USAGE_LOG_URL }}
         run: |
           npm ci --prefix discrete-distributions
           npm run build --prefix discrete-distributions
 
       - name: Install and build continuous-distributions
+        env:
+          VITE_USAGE_LOG_URL: ${{ secrets.VITE_USAGE_LOG_URL }}
         run: |
           npm ci --prefix continuous-distributions
           npm run build --prefix continuous-distributions

@@ -1,4 +1,4 @@
-logs
+﻿logs
 *.log
 npm-debug.log*
 node_modules
@@ -10,3 +10,4 @@ dist-ssr
 .idea
 .DS_Store
 .env*
+!.env.example
