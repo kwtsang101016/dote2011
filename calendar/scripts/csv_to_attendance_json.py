@@ -10,7 +10,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_ROSTER = ROOT / "cat" / "src" / "data" / "roster.json"
-DEFAULT_STATE = ROOT / "cat" / "data" / "state.json"
+LIVE_PROFILES = ROOT / "cat" / "data" / "profiles.json"  # written by `npm run fetch-profiles` in cat/
+DEFAULT_STATE = LIVE_PROFILES if LIVE_PROFILES.is_file() else ROOT / "cat" / "data" / "state.json"
 DEFAULT_OUT_DIR = ROOT / "calendar" / "public" / "attendance"
 
 ROW_RE = re.compile(r"^Row\s+(\d+)$", re.I)
@@ -105,6 +106,12 @@ def convert(
     attendance: dict[str, tuple[bool, dict | None]] = {
         person["id"]: (False, None) for person in roster_list
     }
+    # Newer CAT exports carry a nickname column; it wins over the profile snapshot.
+    csv_nicknames: dict[str, str] = {
+        row["person_id"].strip(): (row.get("nickname") or "").strip()
+        for row in rows
+        if (row.get("nickname") or "").strip()
+    }
     guest_merges: list[str] = []
     unmatched_guests: list[str] = []
     skipped_old_ids: list[str] = []
@@ -159,7 +166,7 @@ def convert(
                 "hobbies": roster.get("hobbies", ""),
                 "photo": roster.get("photo", ""),
                 "photoDataUrl": profile.get("photoDataUrl", ""),
-                "nickname": profile.get("nickname", ""),
+                "nickname": csv_nicknames.get(person_id) or (profile.get("nickname") or "").strip(),
                 "profileCollege": profile.get("college", ""),
                 "profileCountry": profile.get("country", ""),
                 "profileHobbies": profile.get("hobbies", ""),
@@ -221,6 +228,8 @@ def main() -> None:
         date_override=args.date,
     )
     data = json.loads(out.read_text(encoding="utf-8"))
+    nicknamed = sum(1 for person in data["people"] if person["nickname"])
+    print(f"nicknames={nicknamed}")
     present = sum(1 for person in data["people"] if person["present"])
     seated = sum(1 for person in data["people"] if person["placement"])
     print(f"Wrote {out}")

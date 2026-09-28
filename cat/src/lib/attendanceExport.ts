@@ -7,6 +7,8 @@ export interface AttendanceRow {
   personId: string;
   name: string;
   englishName: string;
+  /** Nickname from the CAT profile; empty when the student has not set one. */
+  nickname: string;
   role: string;
   present: "yes" | "no";
   zone: string;
@@ -40,6 +42,7 @@ export function buildAttendanceRows(
   const iso = recordedAt.toISOString();
   return people.map((person: Person) => {
     const placement = state.placements[person.id];
+    const nickname = state.profiles[person.id]?.nickname?.trim() ?? "";
     if (!placement) {
       return {
         recordedAt: iso,
@@ -48,6 +51,7 @@ export function buildAttendanceRows(
         personId: person.id,
         name: person.name,
         englishName: person.englishName,
+        nickname,
         role: person.role,
         present: "no",
         zone: "",
@@ -63,6 +67,7 @@ export function buildAttendanceRows(
       personId: person.id,
       name: person.name,
       englishName: person.englishName,
+      nickname,
       role: person.role,
       present: "yes",
       zone: placement.zone,
@@ -81,6 +86,7 @@ export function attendanceRowsToCsv(rows: AttendanceRow[]): string {
     "person_id",
     "name",
     "english_name",
+    "nickname",
     "role",
     "present",
     "zone",
@@ -98,6 +104,7 @@ export function attendanceRowsToCsv(rows: AttendanceRow[]): string {
         row.personId,
         row.name,
         row.englishName,
+        row.nickname,
         row.role,
         row.present,
         row.zone,

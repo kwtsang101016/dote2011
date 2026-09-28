@@ -9,6 +9,7 @@
     "dev:server": "tsx watch server/index.ts",
     "build": "tsc -p tsconfig.json && vite build",
     "start": "tsx server/index.ts",
+    "fetch-profiles": "tsx scripts/fetchProfiles.ts",
     "preview": "npm run build && npm start"
   },
   "engines": {
