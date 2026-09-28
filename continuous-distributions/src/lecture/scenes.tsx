@@ -637,10 +637,11 @@ function NormalIntroScene() {
       <Formula
         tex={tex`f(x) = \dfrac{1}{\sigma\sqrt{2\pi}}\, e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}`}
       />
-      <p className={styles.small}>
+      <p className={styles.lead}>
         <MathText text={tex`$\mu$`} /> is the mean, <MathText text={tex`$\sigma$`} /> the standard deviation, <MathText text={tex`$\pi \approx 3.14159$`} />, and{" "}
-        <MathText text={tex`$e \approx 2.71828$`} />. Abraham de Moivre derived the curve in 1733.
+        <MathText text={tex`$e \approx 2.71828$`} />.
       </p>
+      <p className={styles.small}>Abraham de Moivre derived the curve in 1733.</p>
     </SceneFrame>
   );
 }
