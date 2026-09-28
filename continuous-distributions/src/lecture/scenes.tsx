@@ -713,10 +713,10 @@ function StandardNormalScene() {
       <p className={styles.lead}>
         A normal random variable with mean 0 and standard deviation 1 is standard normal. We write it as <MathText text={tex`$z$`} />.
       </p>
-      <Formula tex={tex`z = \dfrac{x - \mu}{\sigma}`} />
-      <p className={styles.small}>
-        Any normal probability becomes a standard-normal area. Tables (and the calculator on the next slides) give <MathText text={tex`$P(Z \le z)$`} />.
+      <p className={styles.lead}>
+        Any <MathText text={tex`$x$`} /> with normal probability can be transformed to a standard-normal <MathText text={tex`$z$`} />.
       </p>
+      <Formula tex={tex`z = \dfrac{x - \mu}{\sigma}`} />
     </SceneFrame>
   );
 }
