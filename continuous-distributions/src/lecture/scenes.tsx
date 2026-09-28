@@ -690,15 +690,15 @@ function EmpiricalScene() {
     <SceneFrame kicker="Empirical rule" title="Almost all of a normal curve sits within 3 SDs of the mean.">
       <div className={styles.three}>
         <article className={styles.card}>
-          <p className={styles.kicker}>±1σ</p>
+          <p className={`${styles.kicker} ${styles.kickerNoCaps}`}>±1σ</p>
           <p>68.26% of values</p>
         </article>
         <article className={styles.card}>
-          <p className={styles.kicker}>±2σ</p>
+          <p className={`${styles.kicker} ${styles.kickerNoCaps}`}>±2σ</p>
           <p>95.44% of values</p>
         </article>
         <article className={styles.card}>
-          <p className={styles.kicker}>±3σ</p>
+          <p className={`${styles.kicker} ${styles.kickerNoCaps}`}>±3σ</p>
           <p>99.72% of values</p>
         </article>
       </div>

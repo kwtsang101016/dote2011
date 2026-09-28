@@ -176,6 +176,9 @@
 
 .cover .kicker { color: var(--paper); }
 
+/* Greek letters must keep their case (σ, not Σ). */
+.kickerNoCaps { text-transform: none; }
+
 .scene h1,
 .coverTitle {
   margin: 0;
