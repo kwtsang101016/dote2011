@@ -703,9 +703,6 @@ function EmpiricalScene() {
         </article>
       </div>
       <Formula tex={tex`P(\mu - k\sigma < X < \mu + k\sigma)`} />
-      <p className={styles.small}>
-        These percentages are the basis of the empirical rule you met with descriptive statistics. Here they are exact areas under a normal density, not a rough sketch of any data set.
-      </p>
     </SceneFrame>
   );
 }
