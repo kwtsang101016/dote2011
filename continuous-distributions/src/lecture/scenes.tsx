@@ -390,7 +390,7 @@ function DistributionFunctionScene() {
         The distribution function is <MathText text={tex`$F(x) = P(X \le x)$`} />. Compare continuous Unif(0, 6) with a fair die: discrete uniform on <MathText text={tex`$\{1,2,3,4,5,6\}$`} />.
       </p>
       <CdfComparePlots />
-      <Formula tex={tex`F(x) = \int_{-\infty}^{x} f(t)\,dt, \qquad f(x) = F'(x) \text{ when } F \text{ is continuous}`} />
+      <Formula tex={tex`F(x) = \int_{-\infty}^{x} f(t)\,dt, \qquad f(x) = F'(x) \text{ where the derivative exists}`} />
       <div className={styles.two}>
         <article className={styles.card}>
           <p className={styles.kicker}>Continuous Unif(0, 6)</p>
