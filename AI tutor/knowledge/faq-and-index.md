@@ -7,7 +7,7 @@
 ## How page numbers work
 
 - **Page N** = the N-th slide in the interactive lecture (same order as the PDF handout).
-- **Introduction** = 16 pages · **Descriptive Statistics** = 27 pages · **Probability** = 22 pages · **Discrete Distributions** = 28 pages · **Continuous Distributions** = 23 pages.
+- **Introduction** = 16 pages · **Descriptive Statistics** = 27 pages · **Probability** = 22 pages · **Discrete Distributions** = 28 pages · **Continuous Distributions** = 23 pages · **Sampling Distributions** = 22 pages.
 - If a student says “Page 3” without naming the lecture, ask which topic.
 
 | Lecture | Page 3 title |
@@ -17,6 +17,7 @@
 | Probability | Experiments & sample space |
 | Discrete Distributions | Finite vs infinite |
 | Continuous Distributions | Area under f(x) |
+| Sampling Distributions | Why we sample |
 
 ---
 
@@ -29,6 +30,7 @@
 | Probability | https://kwtsang101016.github.io/dote2011/probability/ |
 | Discrete Probability Distributions | https://kwtsang101016.github.io/dote2011/discrete-distributions/ |
 | Continuous Probability Distributions | https://kwtsang101016.github.io/dote2011/continuous-distributions/ |
+| Sampling and Sampling Distributions | https://kwtsang101016.github.io/dote2011/sampling-distributions/ |
 
 ---
 
@@ -71,6 +73,15 @@ Ask: **Is this a name/label, or a number with meaning?**
 - Exponential: f(x)=(1/μ)e^(−x/μ); E(X)=μ; Var(X)=μ² so SD = μ; P(X≤x0)=1−e^(−x0/μ)  
 - Poisson counts ↔ exponential gaps (mean wait 1/λ)
 
+## Quick sampling-distribution facts
+
+- SRS of size n from N: every sample of size n equally likely  
+- Point estimators: x̄ → μ, s → σ, p̂ → p  
+- E(x̄)=μ (unbiased); σ_x̄=σ/√n; FPC √((N−n)/(N−1)) if n/N ≥ 0.05  
+- CLT / n ≥ 30: sampling distribution of x̄ approximately normal  
+- E(p̂)=p; σ_p̂=√(p(1−p)/n); normal approx when np>5 and n(1−p)>5  
+- St. Stephen’s: N=900, n=30, μ=1090, σ=80, p=0.72; σ_x̄≈14.6; σ_p̂≈0.082  
+
 ---
 
 ## Population vs sample
@@ -100,7 +111,7 @@ The platform allows **5 uploads**. Prof. Tsang chooses **two** lecture HTML file
 | Question type | Primary HTML file |
 |---------------|-------------------|
 | Midterm, grading, schedule, policies | course-admin.html |
-| A lecture that was uploaded | That lecture’s HTML (introduction / descriptive-statistics / probability / discrete-distributions / continuous-distributions) |
+| A lecture that was uploaded | That lecture’s HTML (introduction / descriptive-statistics / probability / discrete-distributions / continuous-distributions / sampling-distributions) |
 | Any lecture, including one not in the two lecture uploads | older-lectures.html |
 | “Which page?” / routing | faq-and-index.html |
 
@@ -111,6 +122,7 @@ Live lecture URLs (always available to students):
 - Probability — https://kwtsang101016.github.io/dote2011/probability/
 - Discrete Probability Distributions — https://kwtsang101016.github.io/dote2011/discrete-distributions/
 - Continuous Probability Distributions — https://kwtsang101016.github.io/dote2011/continuous-distributions/
+- Sampling and Sampling Distributions — https://kwtsang101016.github.io/dote2011/sampling-distributions/
 
 ---
 
@@ -121,5 +133,7 @@ Live lecture URLs (always available to students):
 **Discrete Distributions:** Page 04 classify · Page 12 compute E(X) · Page 15 variance quiz · Page 21 is it binomial?  
 
 **Continuous Distributions:** Page 04 distribution function · Page 18 which approximation is closer? · Page 21 which expression?  
+
+**Sampling Distributions:** Page 13 CLT histogram · Page 15 / 20 probability sliders · Page 21 which statement?  
 
 **Descriptive Statistics:** Pages 3, 6, 8, 13, 18, 20, 21, 25 (see descriptive-statistics.html)

@@ -32,6 +32,7 @@ jobs:
             probability/package-lock.json
             discrete-distributions/package-lock.json
             continuous-distributions/package-lock.json
+            sampling-distributions/package-lock.json
             calendar/package-lock.json
 
       - name: Install and build introduction
@@ -69,6 +70,13 @@ jobs:
           npm ci --prefix continuous-distributions
           npm run build --prefix continuous-distributions
 
+      - name: Install and build sampling-distributions
+        env:
+          VITE_USAGE_LOG_URL: ${{ secrets.VITE_USAGE_LOG_URL }}
+        run: |
+          npm ci --prefix sampling-distributions
+          npm run build --prefix sampling-distributions
+
       - name: Install and build calendar
         run: |
           npm ci --prefix calendar
@@ -76,12 +84,13 @@ jobs:
 
       - name: Assemble site
         run: |
-          mkdir -p _site/introduction _site/descriptive-statistics _site/probability _site/discrete-distributions _site/continuous-distributions _site/calendar _site/inclass
+          mkdir -p _site/introduction _site/descriptive-statistics _site/probability _site/discrete-distributions _site/continuous-distributions _site/sampling-distributions _site/calendar _site/inclass
           cp -r introduction/dist/* _site/introduction/
           cp -r descriptive-statistics/dist/* _site/descriptive-statistics/
           cp -r probability/dist/* _site/probability/
           cp -r discrete-distributions/dist/* _site/discrete-distributions/
           cp -r continuous-distributions/dist/* _site/continuous-distributions/
+          cp -r sampling-distributions/dist/* _site/sampling-distributions/
           cp -r calendar/dist/* _site/calendar/
           cp -a site/inclass/. _site/inclass/
           cp site/index.html _site/index.html

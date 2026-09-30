@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DOTE2011G · Sampling and Sampling Distributions</title>
+</head>
+<body>
+<article class="dote2011-knowledge">
+<h1>DOTE2011G · Sampling and Sampling Distributions</h1>
+<p><strong>Live lecture:</strong> https://kwtsang101016.github.io/dote2011/sampling-distributions/</p>
+<p>Interactive slides condensed from <em>7 Sampling and Sampling Distribution.pdf</em>. Running example: St. Stephen’s College (N = 900 applicants, n = 30, SAT μ = 1090, σ = 80, on-campus housing p = 0.72).</p>
+<hr />
+<section id="sampling-distributions-page-01" data-lecture="sampling-distributions" data-page="1"><h2>Page 01 · Cover</h2>
+<p>Sampling and Sampling Distributions — selecting a sample, point estimation, sampling distributions of x̄ and p̂, and the central limit theorem.</p>
+</section>
+<section id="sampling-distributions-page-02" data-lecture="sampling-distributions" data-page="2"><h2>Page 02 · Population and sample</h2>
+<p>Population = all elements of interest. Sample = subset. Element = entity on which data are collected. Frame = list of elements available for selection. Sampled population = population the sample is drawn from.</p>
+</section>
+<section id="sampling-distributions-page-03" data-lecture="sampling-distributions" data-page="3"><h2>Page 03 · Why we sample</h2>
+<p>We sample to answer a research question about a population. Sample results estimate population characteristics. They are still only estimates because the sample is a portion of the population. A census is often too costly or impossible (ongoing processes).</p>
+</section>
+<section id="sampling-distributions-page-04" data-lecture="sampling-distributions" data-page="4"><h2>Page 04 · Simple random sample</h2>
+<p>Finite populations often come from lists (rosters, accounts, inventory). A simple random sample (SRS) of size n from N gives every possible sample of size n the same probability. Sampling without replacement is usual; with replacement puts each selected element back before the next draw.</p>
+</section>
+<section id="sampling-distributions-page-05" data-lecture="sampling-distributions" data-page="5"><h2>Page 05 · St. Stephen's selection</h2>
+<p>N = 900 applicants numbered 1–900; want n = 30. Assign each a random number (Excel RAND, uniform on 0–1), then take the 30 with the smallest random numbers (or sort and take the first 30).</p>
+</section>
+<section id="sampling-distributions-page-06" data-lecture="sampling-distributions" data-page="6"><h2>Page 06 · Infinite population</h2>
+<p>Ongoing processes (production line, bank transactions, help desk, store customers) have no complete frame. A random sample from an infinite population: each element comes from the population of interest, and selections are independent.</p>
+</section>
+<section id="sampling-distributions-page-07" data-lecture="sampling-distributions" data-page="7"><h2>Page 07 · Estimators</h2>
+<p>Point estimation: use a sample statistic to estimate a population parameter. x̄ estimates μ; s estimates σ; p̂ estimates p. This is statistical inference.</p>
+</section>
+<section id="sampling-distributions-page-08" data-lecture="sampling-distributions" data-page="8"><h2>Page 08 · St. Stephen's estimates</h2>
+<p>Sample of 30 before the full database was ready. Later population values: μ = 1090 (SAT), σ = 80, p = 0.72 (housing). Sample: x̄ = 1097, s = 75.2, p̂ = 0.67. Different random samples give different estimates. Formulas: x̄ = (Σ x_i)/n, p̂ = x/n.</p>
+</section>
+<section id="sampling-distributions-page-09" data-lecture="sampling-distributions" data-page="9"><h2>Page 09 · Inference pipeline</h2>
+<p>(1) Select an SRS of size n from a population with mean μ. (2) Compute x̄. (3) Use x̄ to make inferences about μ.</p>
+</section>
+<section id="sampling-distributions-page-10" data-lecture="sampling-distributions" data-page="10"><h2>Page 10 · Definition and expected value</h2>
+<p>The sampling distribution of x̄ is the probability distribution of all possible sample means of size n. E(x̄) = μ. An estimator is unbiased when its expected value equals the parameter. Sample mean and sample variance are unbiased for μ and σ².</p>
+</section>
+<section id="sampling-distributions-page-11" data-lecture="sampling-distributions" data-page="11"><h2>Page 11 · Standard error</h2>
+<p>σ_x̄ is the standard error of the mean. Infinite population: σ_x̄ = σ/√n. Finite: multiply by √((N−n)/(N−1)). Treat a finite population as infinite when n/N < 0.05 (omit the correction).</p>
+</section>
+<section id="sampling-distributions-page-12" data-lecture="sampling-distributions" data-page="12"><h2>Page 12 · Form / normality</h2>
+<p>Central limit theorem (CLT): for large n, x̄ is approximately N(μ, σ/√n) — same mean as the population, standard deviation equal to the standard error σ_x̄ = σ/√n (apply the finite-population correction when n/N ≥ 0.05). If the population is already normal, the sampling distribution is exactly that normal for any n. In most applications the CLT approximation is usable when n ≥ 30; highly skewed populations or outliers may need n near 50. The next slide shows how different populations need different n before the histogram looks like that normal curve.</p>
+</section>
+<section id="sampling-distributions-page-13" data-lecture="sampling-distributions" data-page="13"><h2>Page 13 · Central limit theorem</h2>
+<p>Whatever the population, for large n the sampling distribution of x̄ is approximately N(μ, σ/√n). Live demo: choose a population students already know — fair die (discrete uniform 1–6), Binomial(10, 0.5), Binomial(10, 0.1), Poisson(μ = 1), or exponential(μ = 1) — then raise n. The histogram of simulated sample means spans their own (min, max), with the CLT normal curve overlaid. Symmetric populations (die, Binomial p = 0.5) look normal by about n = 5; skewed ones (Poisson, Binomial p = 0.1, exponential with skewness 2) need a larger n, roughly n ≥ 30 for the exponential.</p>
+</section>
+<section id="sampling-distributions-page-14" data-lecture="sampling-distributions" data-page="14"><h2>Page 14 · SE for n = 30</h2>
+<p>St. Stephen’s: μ = 1090, σ = 80, n = 30. n/N = 0.033 < 0.05, so σ_x̄ = 80/√30 ≈ 14.61. E(x̄) = 1090.</p>
+</section>
+<section id="sampling-distributions-page-15" data-lecture="sampling-distributions" data-page="15"><h2>Page 15 · P within ±10</h2>
+<p>P(1080 < x̄ < 1100). z = (1100 − 1090)/14.6 ≈ 0.68. P(−0.68 < Z < 0.68) ≈ 0.5034. Interactive slider changes the margin around μ.</p>
+</section>
+<section id="sampling-distributions-page-16" data-lecture="sampling-distributions" data-page="16"><h2>Page 16 · n = 30 vs 100</h2>
+<p>E(x̄) stays 1090. For n = 100, σ_x̄ = 80/√100 = 8. P(1080 < x̄ < 1100) rises to about 0.7888. Larger n shrinks the SE, so x̄ tends to lie closer to μ.</p>
+</section>
+<section id="sampling-distributions-page-17" data-lecture="sampling-distributions" data-page="17"><h2>Page 17 · Definition and expected value</h2>
+<p>Inference for a proportion: sample → p̂ = x/n → statements about p. Sampling distribution of p̂ = distribution of all possible sample proportions. E(p̂) = p (unbiased).</p>
+</section>
+<section id="sampling-distributions-page-18" data-lecture="sampling-distributions" data-page="18"><h2>Page 18 · SE and normal rule</h2>
+<p>Infinite: σ_p̂ = √(p(1−p)/n). Finite: times √((N−n)/(N−1)). Approximate normality of p̂ when np > 5 and n(1−p) > 5.</p>
+</section>
+<section id="sampling-distributions-page-19" data-lecture="sampling-distributions" data-page="19"><h2>Page 19 · np checks</h2>
+<p>St. Stephen’s housing: p = 0.72, n = 30. np = 21.6 > 5 and n(1−p) = 8.4 > 5 → normal OK. E(p̂) = 0.72, σ_p̂ ≈ 0.082.</p>
+</section>
+<section id="sampling-distributions-page-20" data-lecture="sampling-distributions" data-page="20"><h2>Page 20 · P within ±0.05</h2>
+<p>P(0.67 < p̂ < 0.77). z = 0.05/0.082 ≈ 0.61. Probability ≈ 0.4582. Interactive margin slider.</p>
+</section>
+<section id="sampling-distributions-page-21" data-lecture="sampling-distributions" data-page="21"><h2>Page 21 · Which statement?</h2>
+<p>Practice quiz: E(x̄)=μ; skip FPC when n/N < 0.05; normal for p̂ needs np and n(1−p) > 5; larger n shrinks σ_x̄.</p>
+</section>
+<section id="sampling-distributions-page-22" data-lecture="sampling-distributions" data-page="22"><h2>Page 22 · Takeaways</h2>
+<p>SRS (finite equal chance / infinite independent from population of interest). Point estimators x̄, s, p̂. Mean: E(x̄)=μ, σ_x̄=σ/√n (+ FPC). Proportion: E(p̂)=p, σ_p̂=√(p(1−p)/n), normal if np and n(1−p) > 5. CLT / n ≥ 30 for the shape of x̄.</p>
+</section>
+</article>
+</body>
+</html>

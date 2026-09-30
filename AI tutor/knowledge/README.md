@@ -9,6 +9,7 @@
 - `probability.html`
 - `discrete-distributions.html`
 - `continuous-distributions.html`
+- `sampling-distributions.html`
 - (and any future lecture HTML)
 
 Reasons:
@@ -18,7 +19,7 @@ Reasons:
 
 ### When to update `older-lectures`
 
-`older-lectures.html` is rebuilt from every lecture in `FILES` (the entries with a slug) each time the build script runs. It already contains Introduction, Descriptive Statistics, Probability, Discrete Probability Distributions, and Continuous Probability Distributions.
+`older-lectures.html` is rebuilt from every lecture in `FILES` (the entries with a slug) each time the build script runs. It already contains Introduction, Descriptive Statistics, Probability, Discrete Probability Distributions, Continuous Probability Distributions, and Sampling and Sampling Distributions.
 
 When a **new** lecture HTML is created:
 
