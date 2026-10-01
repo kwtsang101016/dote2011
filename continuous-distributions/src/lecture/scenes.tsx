@@ -574,6 +574,7 @@ function UniformFormulaScene() {
       </PrintOnly>
       <UniformPlot a={a} b={b} />
       <Formula tex={tex`f(x) = \dfrac{1}{${width}} \quad \text{for } ${a} < x < ${b}, \quad f(x) = 0 \text{ elsewhere}`} />
+      <Formula tex={tex`P(X < x) = F(x) = \dfrac{x-a}{b-a} \quad \text{for } a < x < b`} />
       <div className={styles.two}>
         <article className={styles.card}>
           <p className={styles.kicker}>Mean</p>
@@ -711,12 +712,16 @@ function StandardNormalScene() {
   return (
     <SceneFrame kicker="Standard normal" title="z counts how many standard deviations x is from μ.">
       <p className={styles.lead}>
-        A normal random variable with mean 0 and standard deviation 1 is standard normal. We write it as <MathText text={tex`$z$`} />.
+        A normal random variable with mean 0 and standard deviation 1 is standard normal. We write it as <MathText text={tex`$Z$`} /> (or{" "}
+        <MathText text={tex`$z$`} /> for a particular value). Its density and distribution function have special names:{" "}
+        <MathText text={tex`$\phi$`} /> (phi) and <MathText text={tex`$\Phi$`} /> (Phi).
       </p>
+      <Formula tex={tex`\phi(z) = \dfrac{1}{\sqrt{2\pi}}\, e^{-z^{2}/2},\qquad \Phi(z) = P(Z \le z) = \int_{-\infty}^{z} \phi(t)\,dt`} />
       <p className={styles.lead}>
-        Any <MathText text={tex`$x$`} /> with normal probability can be transformed to a standard-normal <MathText text={tex`$z$`} />.
+        Any <MathText text={tex`$x$`} /> from a normal population can be transformed to a standard-normal{" "}
+        <MathText text={tex`$z$`} />. Then <MathText text={tex`$P(X \le x) = \Phi(z)$`} />.
       </p>
-      <Formula tex={tex`z = \dfrac{x - \mu}{\sigma}`} />
+      <Formula tex={tex`z = \dfrac{x - \mu}{\sigma},\qquad P(X < x) = P(Z < z) = \Phi(z)`} />
     </SceneFrame>
   );
 }
@@ -1251,13 +1256,17 @@ function TakeawaysScene() {
         <article className={styles.card}>
           <p className={styles.kicker}>Uniform</p>
           <p>
-            <MathText text={tex`$f(x)=1/(b-a)$`} />, mean <MathText text={tex`$(a+b)/2$`} />, variance <MathText text={tex`$(b-a)^2/12$`} />.
+            <MathText text={tex`$f(x)=1/(b-a)$`} />, <MathText text={tex`$F(x)=(x-a)/(b-a)$`} /> on{" "}
+            <MathText text={tex`$(a,b)$`} />, mean <MathText text={tex`$(a+b)/2$`} />, variance{" "}
+            <MathText text={tex`$(b-a)^2/12$`} />.
           </p>
         </article>
         <article className={styles.card}>
           <p className={styles.kicker}>Normal</p>
           <p>
-            Standardize with <MathText text={tex`$z=(x-\mu)/\sigma$`} />. Invert <MathText text={tex`$z$`} /> when the probability is given and <MathText text={tex`$x$`} /> is not.
+            Standardize with <MathText text={tex`$z=(x-\mu)/\sigma$`} />. Then{" "}
+            <MathText text={tex`$P(X < x)=\Phi(z)$`} />. Invert <MathText text={tex`$z$`} /> when the probability is given and{" "}
+            <MathText text={tex`$x$`} /> is not.
           </p>
         </article>
         <article className={styles.card}>

@@ -495,7 +495,7 @@
 <p>Var(X)=E[(X-μ)^2]=∫ (x-μ)^2 f(x) dx = E(X^2)-[E(X)]^2. σ is the positive square root. Same properties as the discrete case: Var(c)=0, Var(cX)=c^2 Var(X), and Var(X+Y)=Var(X)+Var(Y) only if X and Y are independent.</p>
 </section>
 <section id="continuous-distributions-page-07" data-lecture="continuous-distributions" data-page="7"><h2>Page 07 · Uniform density, mean, variance</h2>
-<p>f(x) = 1/(b − a) for a < x < b, else 0. E(X) = (a + b)/2. Var(X) = (b − a)^2 / 12. Students move a and b on a density plot: a wider interval lowers the bar so the area stays 1.</p>
+<p>f(x) = 1/(b − a) for a < x < b, else 0. Distribution function: P(X < x) = F(x) = (x − a)/(b − a) for a < x < b. E(X) = (a + b)/2. Var(X) = (b − a)^2 / 12. Students move a and b on a density plot: a wider interval lowers the bar so the area stays 1.</p>
 </section>
 <section id="continuous-distributions-page-08" data-lecture="continuous-distributions" data-page="8"><h2>Page 08 · Healthy Canteen</h2>
 <p>Salad weight uniform from 5 to 15 oz. f(x) = 1/10. Mean 10 oz. Variance 100/12 ≈ 8.33. P(12 < X < 15) = 0.30. Sliders recompute other intervals.</p>
@@ -510,7 +510,7 @@
 <p>Within 1 SD: 68.26%. Within 2 SD: 95.44%. Within 3 SD: 99.72%. These are normal areas, not a rule for every data set.</p>
 </section>
 <section id="continuous-distributions-page-12" data-lecture="continuous-distributions" data-page="12"><h2>Page 12 · The z score</h2>
-<p>Standard normal: mean 0, SD 1, letter z. z = (x − μ)/σ = number of SDs from the mean.</p>
+<p>Standard normal Z: mean 0, SD 1. Density φ(z) = (1/√(2π)) e^(−z²/2). Distribution function Φ(z) = P(Z ≤ z) = ∫ φ from −∞ to z. Any normal x standardizes by z = (x − μ)/σ, and then P(X < x) = P(Z < z) = Φ(z).</p>
 </section>
 <section id="continuous-distributions-page-13" data-lecture="continuous-distributions" data-page="13"><h2>Page 13 · William stockout</h2>
 <p>Assume lead-time demand is normal with μ = 15 and σ = 6. Reorder at 20: z = (20−15)/6 = 0.83. Stockout probability is the area to the right of that z. The slider changes the reorder point and shows one probability.</p>

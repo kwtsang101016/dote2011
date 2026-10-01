@@ -32,7 +32,7 @@ Var(X)=E[(X-μ)^2]=∫ (x-μ)^2 f(x) dx = E(X^2)-[E(X)]^2. σ is the positive sq
 
 ## Page 07 · Uniform density, mean, variance
 
-f(x) = 1/(b − a) for a < x < b, else 0. E(X) = (a + b)/2. Var(X) = (b − a)^2 / 12. Students move a and b on a density plot: a wider interval lowers the bar so the area stays 1.
+f(x) = 1/(b − a) for a < x < b, else 0. Distribution function: P(X < x) = F(x) = (x − a)/(b − a) for a < x < b. E(X) = (a + b)/2. Var(X) = (b − a)^2 / 12. Students move a and b on a density plot: a wider interval lowers the bar so the area stays 1.
 
 ## Page 08 · Healthy Canteen
 
@@ -52,7 +52,7 @@ Within 1 SD: 68.26%. Within 2 SD: 95.44%. Within 3 SD: 99.72%. These are normal 
 
 ## Page 12 · The z score
 
-Standard normal: mean 0, SD 1, letter z. z = (x − μ)/σ = number of SDs from the mean.
+Standard normal Z: mean 0, SD 1. Density φ(z) = (1/√(2π)) e^(−z²/2). Distribution function Φ(z) = P(Z ≤ z) = ∫ φ from −∞ to z. Any normal x standardizes by z = (x − μ)/σ, and then P(X < x) = P(Z < z) = Φ(z).
 
 ## Page 13 · William stockout
 

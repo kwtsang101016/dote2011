@@ -66,8 +66,8 @@ Ask: **Is this a name/label, or a number with meaning?**
 
 - Continuous: probability is area; P(X = x) = 0  
 - F(x)=P(X≤x)=∫_{-∞}^{x} f; f=F'. E and Var use integrals, with the same properties as the discrete case  
-- Uniform on (a, b): f(x)=1/(b−a); E=(a+b)/2; Var=(b−a)²/12  
-- Normal: z=(x−μ)/σ; within 1/2/3 SD: 68.26% / 95.44% / 99.72%  
+- Uniform on (a, b): f(x)=1/(b−a); F(x)=(x−a)/(b−a) for a<x<b; E=(a+b)/2; Var=(b−a)²/12  
+- Normal: z=(x−μ)/σ; Φ(z)=P(Z≤z); within 1/2/3 SD: 68.26% / 95.44% / 99.72%  
 - Inverse: x = μ + zσ (oil reorder: 15 + 1.645×6 ≈ 24.87)  
 - Binomial approx when np>5 and n(1−p)>5; continuity ±0.5  
 - Exponential: f(x)=(1/μ)e^(−x/μ); E(X)=μ; Var(X)=μ² so SD = μ; P(X≤x0)=1−e^(−x0/μ)  
