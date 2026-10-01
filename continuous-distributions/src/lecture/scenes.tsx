@@ -897,7 +897,7 @@ function BinomialApproxScene() {
         Write <MathText text={tex`$X = X_1 + \cdots + X_n$`} />, where the <MathText text={tex`$X_i$`} /> are i.i.d. Bernoulli: each is 1 with probability <MathText text={tex`$p$`} /> and 0 otherwise.
       </p>
       <Formula tex={tex`E(X_i)=p, \quad \operatorname{Var}(X_i)=p(1-p), \quad E(X)=np, \quad \operatorname{Var}(X)=np(1-p)`} />
-      <p className={styles.small}>
+      <p className={styles.lead}>
         The central limit theorem applies to this sum. When <MathText text={tex`$n$`} /> is large enough that <MathText text={tex`$np > 5$`} /> and <MathText text={tex`$n(1-p) > 5$`} />, <MathText text={tex`$X$`} /> is approximately normal with mean <MathText text={tex`$np$`} /> and standard deviation <MathText text={tex`$\sqrt{np(1-p)}$`} />.
       </p>
       <LiveOnly>
