@@ -506,7 +506,7 @@ function CltScene() {
     <SceneFrame kicker="Central limit theorem" title={tex`Sample means look normal when $n$ is large.`}>
       <p className={styles.lead}>
         Whatever the population, for large <MathText text={tex`$n$`} /> the sampling distribution of <MathText text={tex`$\bar{x}$`} /> is approximately{" "}
-        <MathText text={tex`$N(\mu,\ \sigma/\sqrt{n})$`} />. How large depends on the population: symmetric ones need a small{" "}
+        <MathText text={tex`$N(\mu,\ \sigma^{2}/n)$`} />. How large depends on the population: symmetric ones need a small{" "}
         <MathText text={tex`$n$`} />, skewed ones need more.
       </p>
       <LiveOnly>
