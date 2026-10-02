@@ -703,9 +703,11 @@ function StephenPCheckScene() {
   const nq = STEPHEN.n * (1 - STEPHEN.p);
   const se = seProportion(STEPHEN.p, STEPHEN.n);
   return (
-    <SceneFrame kicker="St. Stephen's College" title="Is the normal approximation OK for housing demand?">
+    <SceneFrame kicker="St. Stephen's College" title={tex`With $p$ known, study how close $\hat{p}$ tends to be.`}>
       <p className={styles.lead}>
-        Population proportion wanting on-campus housing: <MathText text={tex`$p=0.72$`} />, <MathText text={tex`$n=30$`} />.
+        After all 900 records are in, the true share wanting on-campus housing is <MathText text={tex`$p=0.72$`} />. We are{" "}
+        <strong>not</strong> estimating <MathText text={tex`$p$`} /> here. We use the known <MathText text={tex`$p$`} /> to describe the sampling distribution of{" "}
+        <MathText text={tex`$\hat{p}$`} /> from an SRS of size <MathText text={tex`$n=30$`} /> — and to check that a normal curve is a fair stand-in.
       </p>
       <div className={styles.two}>
         <article className={styles.card}>
@@ -720,7 +722,8 @@ function StephenPCheckScene() {
         </article>
       </div>
       <p className={styles.small}>
-        Computed: np = {formatNum(np, 1)}, n(1−p) = {formatNum(nq, 1)}, SE ≈ {formatNum(se, 3)}.
+        Computed: np = {formatNum(np, 1)}, n(1−p) = {formatNum(nq, 1)}, SE ≈ {formatNum(se, 3)}. Next: how likely is{" "}
+        <MathText text={tex`$\hat{p}$`} /> to fall within 0.05 of 0.72?
       </p>
     </SceneFrame>
   );
@@ -737,7 +740,8 @@ function StephenPProbScene() {
   return (
     <SceneFrame kicker="St. Stephen's College" title={tex`How likely is $\hat{p}$ within $\pm 0.05$ of $p$?`}>
       <p className={styles.lead}>
-        Find <MathText text={tex`$P(0.67 < \hat{p} < 0.77)$`} /> — within 0.05 of <MathText text={tex`$p=0.72$`} />.
+        Still using the known <MathText text={tex`$p=0.72$`} />: if Admissions draws an SRS of size 30, what is the chance that the sample proportion lands within 0.05 of the truth? That is{" "}
+        <MathText text={tex`$P(0.67 < \hat{p} < 0.77)$`} />.
       </p>
       <LiveOnly>
         <label className={styles.slider}>
@@ -886,7 +890,7 @@ export const SCENES: SceneDef[] = [
   { id: "n-effect", chapter: "St. Stephen's · mean", label: "n = 30 vs 100", Scene: SampleSizeEffectScene },
   { id: "sd-p", chapter: "Sampling distribution of the proportion", label: "Definition and expected value", Scene: SamplingDistPScene },
   { id: "se-p", chapter: "Sampling distribution of the proportion", label: "SE and normal rule", Scene: SePScene },
-  { id: "stephen-p-check", chapter: "St. Stephen's · proportion", label: "np checks", Scene: StephenPCheckScene },
+  { id: "stephen-p-check", chapter: "St. Stephen's · proportion", label: "Known p · normal OK?", Scene: StephenPCheckScene },
   { id: "stephen-p-prob", chapter: "St. Stephen's · proportion", label: "P within ±0.05", Scene: StephenPProbScene },
   { id: "quiz", chapter: "Practice", label: "Which statement?", Scene: QuizScene },
   { id: "takeaways", chapter: "Close", label: "Takeaways", Scene: TakeawaysScene },

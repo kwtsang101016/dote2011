@@ -78,13 +78,13 @@ Inference for a proportion: sample → p̂ = x/n → statements about p. Samplin
 
 Infinite: σ_p̂ = √(p(1−p)/n). Finite: times √((N−n)/(N−1)). Approximate normality of p̂ when np > 5 and n(1−p) > 5.
 
-## Page 19 · np checks
+## Page 19 · Known p · normal OK?
 
-St. Stephen’s housing: p = 0.72, n = 30. np = 21.6 > 5 and n(1−p) = 8.4 > 5 → normal OK. E(p̂) = 0.72, σ_p̂ ≈ 0.082.
+After all 900 records are in, the true share wanting on-campus housing is p = 0.72. We are not estimating p here. We use the known p to describe the sampling distribution of p̂ from an SRS of size n = 30, and to check np = 21.6 > 5 and n(1−p) = 8.4 > 5 so a normal curve is acceptable. E(p̂) = 0.72, σ_p̂ ≈ 0.082. Next: how likely is p̂ within 0.05 of 0.72?
 
 ## Page 20 · P within ±0.05
 
-P(0.67 < p̂ < 0.77). z = 0.05/0.082 ≈ 0.61. Probability ≈ 0.4582. Interactive margin slider.
+Still using known p = 0.72: if Admissions draws an SRS of size 30, P(0.67 < p̂ < 0.77). z = 0.05/0.082 ≈ 0.61. Probability ≈ 0.4582. Interactive margin slider.
 
 ## Page 21 · Which statement?
 
