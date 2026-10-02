@@ -1,3 +1,6 @@
+/* Compact handout layout. Target structural slide shells (CSS-module hashes
+   like .scene / .lead never match :global(.scene) in the DOM). */
+
 .slides {
   width: 100%;
   background: #fff4d2;
@@ -31,61 +34,22 @@
   text-transform: uppercase;
 }
 
-/* Compact slide content so each scene fits one printed page */
-.slides :global(.scene) {
+/* Compact each mirrored live slide into one printable page */
+.slidePage > section {
   min-height: 0 !important;
   padding: 28px 32px 24px !important;
 }
 
-.slides :global(.scene h1),
-.slides :global(.coverTitle) {
-  font-size: clamp(28px, 4vw, 44px) !important;
-}
-
-.slides :global(.lead) {
-  margin-top: 14px !important;
-  font-size: 16px !important;
-}
-
-.slides :global(.cover) {
+.slidePage > section#cover {
   min-height: 620px !important;
 }
 
-.slides :global(.coverInner) {
-  padding: 48px 28px !important;
+.slidePage h1 {
+  font-size: clamp(28px, 4vw, 44px) !important;
 }
 
-.slides :global(.choices) {
-  gap: 10px !important;
-}
-
-.slides :global(.choice) {
-  min-height: 64px !important;
-  padding: 14px 16px !important;
-  cursor: default !important;
-  box-shadow: 4px 4px 0 #16213c !important;
-}
-
-.slides :global(.chartCard) {
-  box-shadow: 4px 4px 0 #16213c !important;
-}
-
-.slides :global(.split),
-.slides :global(.splitWide),
-.slides :global(.three) {
-  gap: 16px !important;
-}
-
-.slides :global(.statPair article) {
-  min-height: 140px !important;
-}
-
-.slides :global(.statPair strong) {
-  font-size: 28px !important;
-}
-
-.slides :global(.card h1) {
-  font-size: 32px !important;
+.slidePage > section > p {
+  font-size: 16px !important;
 }
 
 .slides :global(.printNote) {
@@ -120,6 +84,6 @@
   line-height: 1.45;
 }
 
-.slides :global(table) {
+.slidePage :global(table) {
   font-size: 13px;
 }

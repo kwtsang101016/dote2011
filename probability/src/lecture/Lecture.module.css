@@ -76,7 +76,8 @@
   top: 0;
   width: 1120px;
   pointer-events: none;
-  visibility: hidden;
+  /* Keep visible: html2canvas skips or blanks visibility:hidden subtrees. */
+  visibility: visible;
 }
 .handoutToast {
   position: fixed;
