@@ -414,18 +414,19 @@ function FormOfXbarScene() {
   return (
     <SceneFrame kicker="Form of the sampling distribution" title={tex`When is the sampling distribution of $\bar{x}$ approximately normal?`}>
       <Formula
-        tex={tex`\text{CLT: for large } n,\ \bar{x}\ \text{ is approximately } N\!\left(\mu,\ \dfrac{\sigma}{\sqrt{n}}\right)`}
+        tex={tex`\text{CLT: for large } n,\ \bar{x}\ \text{ is approximately } N\!\left(\mu,\ \dfrac{\sigma^{2}}{n}\right)`}
       />
       <p className={styles.lead}>
-        Same mean as the population; the standard deviation is the standard error <MathText text={tex`$\sigma_{\bar{x}}=\sigma/\sqrt{n}$`} /> (use the finite-population correction when{" "}
-        <MathText text={tex`$n/N \ge 0.05$`} />).
+        Same mean as the population; the second argument is the variance of <MathText text={tex`$\bar{x}$`} />, equal to{" "}
+        <MathText text={tex`$\sigma_{\bar{x}}^{2}=\sigma^{2}/n$`} /> (so the standard error is <MathText text={tex`$\sigma_{\bar{x}}=\sigma/\sqrt{n}$`} />). Use the finite-population correction when{" "}
+        <MathText text={tex`$n/N \ge 0.05$`} />.
       </p>
       <div className={styles.two}>
         <article className={styles.card}>
           <p className={styles.kicker}>Normal population</p>
           <p>
             If the population is already normal, the sampling distribution of <MathText text={tex`$\bar{x}$`} /> is exactly{" "}
-            <MathText text={tex`$N(\mu,\ \sigma/\sqrt{n})$`} /> for any sample size.
+            <MathText text={tex`$N(\mu,\ \sigma^{2}/n)$`} /> for any sample size.
           </p>
         </article>
         <article className={styles.card}>

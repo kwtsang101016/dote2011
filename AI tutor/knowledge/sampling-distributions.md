@@ -52,11 +52,11 @@ The sampling distribution of x̄ is the probability distribution of all possible
 
 ## Page 12 · Form / normality
 
-Central limit theorem (CLT): for large n, x̄ is approximately N(μ, σ/√n) — same mean as the population, standard deviation equal to the standard error σ_x̄ = σ/√n (apply the finite-population correction when n/N ≥ 0.05). If the population is already normal, the sampling distribution is exactly that normal for any n. In most applications the CLT approximation is usable when n ≥ 30; highly skewed populations or outliers may need n near 50. The next slide shows how different populations need different n before the histogram looks like that normal curve.
+Central limit theorem (CLT): for large n, x̄ is approximately N(μ, σ²/n) — mean μ and variance σ²/n (standard error σ_x̄ = σ/√n; apply the finite-population correction when n/N ≥ 0.05). If the population is already normal, the sampling distribution is exactly that normal for any n. In most applications the CLT approximation is usable when n ≥ 30; highly skewed populations or outliers may need n near 50. The next slide shows how different populations need different n before the histogram looks like that normal curve.
 
 ## Page 13 · Central limit theorem
 
-Whatever the population, for large n the sampling distribution of x̄ is approximately N(μ, σ/√n). Live demo: choose a population students already know — fair die (discrete uniform 1–6), Binomial(10, 0.5), Binomial(10, 0.1), Poisson(μ = 1), or exponential(μ = 1) — then raise n. The histogram of simulated sample means spans their own (min, max), with the CLT normal curve overlaid. Symmetric populations (die, Binomial p = 0.5) look normal by about n = 5; skewed ones (Poisson, Binomial p = 0.1, exponential with skewness 2) need a larger n, roughly n ≥ 30 for the exponential.
+Whatever the population, for large n the sampling distribution of x̄ is approximately N(μ, σ²/n). Live demo: choose a population students already know — fair die (discrete uniform 1–6), Binomial(10, 0.5), Binomial(10, 0.1), Poisson(μ = 1), or exponential(μ = 1) — then raise n. The histogram of simulated sample means spans their own (min, max), with the CLT normal curve overlaid. Symmetric populations (die, Binomial p = 0.5) look normal by about n = 5; skewed ones (Poisson, Binomial p = 0.1, exponential with skewness 2) need a larger n, roughly n ≥ 30 for the exponential.
 
 ## Page 14 · SE for n = 30
 
