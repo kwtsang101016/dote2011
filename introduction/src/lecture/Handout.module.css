@@ -85,8 +85,11 @@
   white-space: nowrap !important;
 }
 
-.slidePage :global(.katex),
-.slidePage :global(.katex-display) {
+/* Keep display formulas intact; do not force all inline KaTeX nowrap
+   (that widens captions and can push SVGs past the capture edge). */
+.slidePage :global(.formula .katex),
+.slidePage :global(.formula .katex-display),
+.slidePage :global(.mathDisplay .katex) {
   white-space: nowrap !important;
 }
 
@@ -107,12 +110,35 @@
   padding: 3px 5px !important;
 }
 
-.slidePage :global(.tableWrap) {
+.slidePage :global(.tableWrap),
+.slidePage :global(.treeBox),
+.slidePage :global(.chartCard),
+.slidePage :global(.chipsScroll),
+.slidePage :global(.vennFigure),
+.slidePage :global(.mathDisplay) {
+  overflow: visible !important;
+  overflow-x: visible !important;
+  overflow-y: visible !important;
+}
+
+.slidePage :global(.treeSvg),
+.slidePage :global(.vennSvg),
+.slidePage :global(svg) {
+  max-width: 100% !important;
+  width: 100% !important;
+  height: auto !important;
   overflow: visible !important;
 }
 
+.slidePage :global(.treeSvg) {
+  max-width: 100% !important;
+}
+
+.slidePage :global(.vennSvg) {
+  max-width: 100% !important;
+}
+
 .slidePage :global(.katex-display),
-.slidePage :global(.katex),
 .slidePage :global(.formula),
 .slidePage :global(.mathDisplay),
 .slidePage :global(table),

@@ -7,9 +7,12 @@ type MountStyleSnapshot = {
   zIndex: string;
   opacity: string;
   pointerEvents: string;
+  width: string;
+  maxWidth: string;
 };
 
 const PAGE_MARGIN_MM = 8;
+const HANDOUT_DESIGN_WIDTH = 1120;
 
 function findHandoutMount(source: HTMLElement): HTMLElement | null {
   let node: HTMLElement | null = source;
@@ -68,9 +71,41 @@ function revealHandoutInClone(element: HTMLElement): void {
       node.style.left = "auto";
       node.style.top = "auto";
       node.style.zIndex = "auto";
+      node.style.width = "100%";
+      node.style.maxWidth = "none";
+      node.style.transform = "none";
       node.removeAttribute("aria-hidden");
     }
     node = node.parentElement;
+  }
+}
+
+function unclipOverflowInClone(element: HTMLElement): void {
+  element.style.setProperty("overflow", "visible", "important");
+  element.style.setProperty("overflow-x", "visible", "important");
+  element.style.setProperty("overflow-y", "visible", "important");
+
+  for (const node of element.querySelectorAll<HTMLElement>(
+    ".mathDisplay, .formula, .tableWrap, .treeBox, .chartCard, .chipsScroll, .vennFigure, table, svg, img, figure",
+  )) {
+    node.style.setProperty("overflow", "visible", "important");
+    node.style.setProperty("overflow-x", "visible", "important");
+    node.style.setProperty("overflow-y", "visible", "important");
+  }
+
+  for (const svg of element.querySelectorAll("svg")) {
+    svg.setAttribute("overflow", "visible");
+    svg.style.setProperty("overflow", "visible", "important");
+    svg.style.setProperty("max-width", "100%", "important");
+    svg.style.setProperty("width", "100%", "important");
+    svg.style.setProperty("height", "auto", "important");
+  }
+
+  // Display formulas only — avoid nowrap on every inline KaTeX span.
+  for (const node of element.querySelectorAll<HTMLElement>(
+    ".mathDisplay, .formula .katex, .formula .katex-display, .mathDisplay .katex",
+  )) {
+    node.style.setProperty("white-space", "nowrap", "important");
   }
 }
 
@@ -78,6 +113,12 @@ async function nextFrame(): Promise<void> {
   await new Promise<void>((resolve) => {
     requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
   });
+}
+
+function captureMountWidth(): number {
+  // Shrink to the viewport so html2canvas does not crop content past the
+  // right edge of the browser window (common with tree / Venn SVGs).
+  return Math.min(HANDOUT_DESIGN_WIDTH, Math.max(720, window.innerWidth - 16));
 }
 
 function prepareMountForCapture(mount: HTMLElement): MountStyleSnapshot {
@@ -88,7 +129,10 @@ function prepareMountForCapture(mount: HTMLElement): MountStyleSnapshot {
     zIndex: mount.style.zIndex,
     opacity: mount.style.opacity,
     pointerEvents: mount.style.pointerEvents,
+    width: mount.style.width,
+    maxWidth: mount.style.maxWidth,
   };
+  const width = captureMountWidth();
   mount.style.position = "fixed";
   mount.style.left = "0";
   mount.style.top = "0";
@@ -96,6 +140,8 @@ function prepareMountForCapture(mount: HTMLElement): MountStyleSnapshot {
   mount.style.opacity = "1";
   mount.style.pointerEvents = "none";
   mount.style.visibility = "visible";
+  mount.style.width = `${width}px`;
+  mount.style.maxWidth = "none";
   mount.removeAttribute("aria-hidden");
   return previous;
 }
@@ -107,6 +153,8 @@ function restoreMount(mount: HTMLElement, previous: MountStyleSnapshot): void {
   mount.style.zIndex = previous.zIndex;
   mount.style.opacity = previous.opacity;
   mount.style.pointerEvents = previous.pointerEvents;
+  mount.style.width = previous.width;
+  mount.style.maxWidth = previous.maxWidth;
   mount.setAttribute("aria-hidden", "true");
 }
 
@@ -132,6 +180,7 @@ export async function downloadHandoutPdf(source: HTMLElement): Promise<void> {
 
   const mount = findHandoutMount(source);
   const previous = mount ? prepareMountForCapture(mount) : null;
+  const mountWidth = mount ? captureMountWidth() : HANDOUT_DESIGN_WIDTH;
   await nextFrame();
 
   try {
@@ -148,21 +197,14 @@ export async function downloadHandoutPdf(source: HTMLElement): Promise<void> {
         useCORS: true,
         logging: false,
         scrollX: 0,
-        scrollY: 0,
+        scrollY: -window.scrollY,
         backgroundColor: "#fff4d2",
-        windowWidth: Math.max(page.scrollWidth, 1120),
+        width: Math.max(page.scrollWidth, mountWidth),
+        windowWidth: Math.max(page.scrollWidth, mountWidth),
+        windowHeight: Math.max(page.scrollHeight, page.clientHeight),
         onclone: (_document: Document, element: HTMLElement) => {
           revealHandoutInClone(element);
-          for (const node of element.querySelectorAll<HTMLElement>(
-            ".mathDisplay, .formula, .tableWrap, table, svg, img, figure",
-          )) {
-            node.style.setProperty("overflow", "visible", "important");
-            node.style.setProperty("overflow-x", "visible", "important");
-            node.style.setProperty("overflow-y", "visible", "important");
-          }
-          for (const node of element.querySelectorAll<HTMLElement>(".katex, .katex-display, .mathDisplay")) {
-            node.style.setProperty("white-space", "nowrap", "important");
-          }
+          unclipOverflowInClone(element);
         },
       });
 
@@ -218,9 +260,12 @@ export async function printHandout(source: HTMLElement): Promise<void> {
       break-after: auto;
       page-break-after: auto;
     }
-    .katex-display, .katex, table, tr, img, svg {
+    .katex-display, .katex, table, tr, img, svg, .treeBox, .vennFigure, .chartCard {
       break-inside: avoid;
       page-break-inside: avoid;
+    }
+    .treeBox, .vennFigure, .chartCard, .tableWrap, svg {
+      overflow: visible !important;
     }
   </style>
 </head>
