@@ -140,7 +140,7 @@ export function Lecture() {
             {downloading ? "GENERATING…" : "DOWNLOAD PDF"}
           </button>
         </div>
-        <select className={styles.jump} value={scene.id} onChange={(event) => setIndex(SCENES.findIndex((item) => item.id === event.target.value))}>
+        <select className={styles.jump} aria-label="Jump to slide" value={scene.id} onChange={(event) => setIndex(SCENES.findIndex((item) => item.id === event.target.value))}>
           {SCENES.map((item) => (
             <option key={item.id} value={item.id}>
               {item.chapter} · {item.label}

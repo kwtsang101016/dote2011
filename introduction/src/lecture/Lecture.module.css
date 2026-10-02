@@ -768,8 +768,30 @@ input[type="range"] { width: 100%; }
 }
 
 @media (max-width: 900px) {
-  .nav { grid-template-columns: 1fr auto; }
-  .jump { display: none; }
+  .nav {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "brand center"
+      "jump jump";
+    padding: 10px clamp(12px, 3vw, 24px);
+    gap: 10px 12px;
+    min-height: 0;
+  }
+  .brand { grid-area: brand; align-self: center; }
+  .navCenter {
+    grid-area: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+  .jump {
+    grid-area: jump;
+    display: block;
+    width: 100%;
+    max-width: none;
+    justify-self: stretch;
+    min-height: 44px;
+  }
   .split, .splitWide, .three, .choices, .statPair, .ethicsDemoGrid { grid-template-columns: 1fr; }
   .rulePair { grid-template-columns: 1fr; }
   .pailGrid { grid-template-columns: 1fr; }
