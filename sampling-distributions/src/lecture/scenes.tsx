@@ -329,6 +329,11 @@ function StephenEstimatesScene() {
         <article className={styles.card}>
           <p className={styles.kicker}>Sample formulas</p>
           <MathText text={tex`$\bar{x}=\dfrac{\sum x_i}{n},\quad \hat{p}=\dfrac{x}{n}$`} />
+          <p className={styles.small}>
+            Here <MathText text={tex`$x_i$`} /> is applicant <MathText text={tex`$i$`} />&apos;s SAT score, and{" "}
+            <MathText text={tex`$x$`} /> is the number in the sample who want on-campus housing (so{" "}
+            <MathText text={tex`$x=0.67\times 30\approx 20$`} />).
+          </p>
         </article>
       </div>
       <p className={styles.small}>A different random sample would have given different estimates.</p>
@@ -650,7 +655,7 @@ function SamplingDistPScene() {
         <article className={styles.card}>
           <p className={styles.kicker}>2 · Statistic</p>
           <p>
-            Sample proportion <MathText text={tex`$\hat{p}=x/n$`} />.
+            Sample proportion <MathText text={tex`$\hat{p}=x/n$`} />, where <MathText text={tex`$x$`} /> is the number of successes in the sample.
           </p>
         </article>
         <article className={styles.card}>

@@ -36,7 +36,7 @@ Point estimation: use a sample statistic to estimate a population parameter. x̄
 
 ## Page 08 · St. Stephen's estimates
 
-Sample of 30 before the full database was ready. Later population values: μ = 1090 (SAT), σ = 80, p = 0.72 (housing). Sample: x̄ = 1097, s = 75.2, p̂ = 0.67. Different random samples give different estimates. Formulas: x̄ = (Σ x_i)/n, p̂ = x/n.
+Sample of 30 before the full database was ready. Later population values: μ = 1090 (SAT), σ = 80, p = 0.72 (housing). Sample: x̄ = 1097, s = 75.2, p̂ = 0.67. Formulas: x̄ = (Σ x_i)/n with x_i = SAT of applicant i; p̂ = x/n with x = number in the sample wanting on-campus housing (here x ≈ 20). Different random samples give different estimates.
 
 ## Page 09 · Inference pipeline
 
