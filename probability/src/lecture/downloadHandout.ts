@@ -9,6 +9,8 @@ type MountStyleSnapshot = {
   pointerEvents: string;
 };
 
+const PAGE_MARGIN_MM = 8;
+
 function findHandoutMount(source: HTMLElement): HTMLElement | null {
   let node: HTMLElement | null = source;
   while (node) {
@@ -21,7 +23,6 @@ function findHandoutMount(source: HTMLElement): HTMLElement | null {
   return null;
 }
 
-/** Inline every same-origin stylesheet rule so the print window does not depend on async <link> loads. */
 function collectInlineCssText(): string {
   const chunks: string[] = [];
   for (const sheet of Array.from(document.styleSheets)) {
@@ -32,7 +33,7 @@ function collectInlineCssText(): string {
         chunks.push(rule.cssText);
       }
     } catch {
-      // Cross-origin sheets cannot be read; those are added as <link> tags instead.
+      // Cross-origin sheets cannot be read.
     }
   }
   return chunks.join("\n");
@@ -46,7 +47,7 @@ function collectCrossOriginStyleLinks(): string {
         const sheet = [...document.styleSheets].find((candidate) => candidate.href === link.href);
         if (!sheet) return true;
         void sheet.cssRules;
-        return false; // already covered by collectInlineCssText
+        return false;
       } catch {
         return true;
       }
@@ -79,10 +80,6 @@ async function nextFrame(): Promise<void> {
   });
 }
 
-/**
- * html2canvas often paints blank pages for nodes parked at left:-200vw.
- * Park the handout behind the live deck (still in the viewport) for the capture.
- */
 function prepareMountForCapture(mount: HTMLElement): MountStyleSnapshot {
   const previous: MountStyleSnapshot = {
     left: mount.style.left,
@@ -113,36 +110,77 @@ function restoreMount(mount: HTMLElement, previous: MountStyleSnapshot): void {
   mount.setAttribute("aria-hidden", "true");
 }
 
+function handoutPages(source: HTMLElement): HTMLElement[] {
+  return [...source.querySelectorAll<HTMLElement>("[data-handout-page]")];
+}
+
+/**
+ * One slide → one PDF page. Each slide is captured as a single image and scaled
+ * to fit inside the A4 printable area, so content is never clipped mid-equation
+ * and tall slides shrink as a whole instead of overflowing.
+ */
 export async function downloadHandoutPdf(source: HTMLElement): Promise<void> {
-  const { default: html2pdf } = await import("html2pdf.js");
+  const [{ default: html2canvas }, { jsPDF }] = await Promise.all([
+    import("html2canvas"),
+    import("jspdf"),
+  ]);
+
+  const pages = handoutPages(source);
+  if (pages.length === 0) {
+    throw new Error("No handout pages found to export.");
+  }
+
   const mount = findHandoutMount(source);
   const previous = mount ? prepareMountForCapture(mount) : null;
   await nextFrame();
 
   try {
-    await html2pdf()
-      .set({
-        margin: [8, 8, 10, 8],
-        filename: FILENAME,
-        image: { type: "jpeg", quality: 0.92 },
-        html2canvas: {
-          // 1.5 is safer than 2 for long decks (discrete has 30+ slides).
-          scale: 1.5,
-          useCORS: true,
-          logging: false,
-          scrollX: 0,
-          scrollY: 0,
-          backgroundColor: "#fff4d2",
-          windowWidth: Math.max(source.scrollWidth, 1120),
-          onclone: (_document: Document, element: HTMLElement) => {
-            revealHandoutInClone(element);
-          },
+    const pdf = new jsPDF({ unit: "mm", format: "a4", orientation: "portrait" });
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const usableWidth = pageWidth - 2 * PAGE_MARGIN_MM;
+    const usableHeight = pageHeight - 2 * PAGE_MARGIN_MM;
+
+    for (let index = 0; index < pages.length; index += 1) {
+      const page = pages[index];
+      const canvas = await html2canvas(page, {
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        scrollX: 0,
+        scrollY: 0,
+        backgroundColor: "#fff4d2",
+        windowWidth: Math.max(page.scrollWidth, 1120),
+        onclone: (_document: Document, element: HTMLElement) => {
+          revealHandoutInClone(element);
+          for (const node of element.querySelectorAll<HTMLElement>(
+            ".mathDisplay, .formula, .tableWrap, table, svg, img, figure",
+          )) {
+            node.style.setProperty("overflow", "visible", "important");
+            node.style.setProperty("overflow-x", "visible", "important");
+            node.style.setProperty("overflow-y", "visible", "important");
+          }
+          for (const node of element.querySelectorAll<HTMLElement>(".katex, .katex-display, .mathDisplay")) {
+            node.style.setProperty("white-space", "nowrap", "important");
+          }
         },
-        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-        pagebreak: { mode: ["css", "legacy"] },
-      } as Record<string, unknown>)
-      .from(source)
-      .save();
+      });
+
+      const imgData = canvas.toDataURL("image/jpeg", 0.93);
+      const unscaledHeight = (canvas.height * usableWidth) / canvas.width;
+      const fit = Math.min(1, usableHeight / unscaledHeight);
+      const drawWidth = usableWidth * fit;
+      const drawHeight = unscaledHeight * fit;
+      const offsetX = PAGE_MARGIN_MM + (usableWidth - drawWidth) / 2;
+      const offsetY = PAGE_MARGIN_MM + (usableHeight - drawHeight) / 2;
+
+      if (index > 0) {
+        pdf.addPage();
+      }
+      pdf.addImage(imgData, "JPEG", offsetX, offsetY, drawWidth, drawHeight, undefined, "FAST");
+    }
+
+    pdf.save(FILENAME);
   } finally {
     if (mount && previous) {
       restoreMount(mount, previous);
@@ -168,8 +206,22 @@ export async function printHandout(source: HTMLElement): Promise<void> {
   ${crossOriginLinks}
   <style>
     ${inlineCss}
-    @page { size: A4; margin: 12mm; }
+    @page { size: A4; margin: 10mm; }
     body { margin: 0; font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: #16213c; background: #fff4d2; }
+    [data-handout-page] {
+      break-after: page;
+      page-break-after: always;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    [data-handout-page]:last-child {
+      break-after: auto;
+      page-break-after: auto;
+    }
+    .katex-display, .katex, table, tr, img, svg {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
   </style>
 </head>
 <body>${source.outerHTML}</body>

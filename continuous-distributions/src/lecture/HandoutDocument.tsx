@@ -9,7 +9,7 @@ export function HandoutDocument() {
         {SCENES.map((scene, index) => {
           const Slide = scene.Scene;
           return (
-            <div key={scene.id} className={handoutStyles.slidePage}>
+            <div key={scene.id} className={handoutStyles.slidePage} data-handout-page={String(index + 1)}>
               <header className={handoutStyles.slideHeader}>
                 <span>
                   {String(index + 1).padStart(2, "0")} / {String(SCENES.length).padStart(2, "0")}
