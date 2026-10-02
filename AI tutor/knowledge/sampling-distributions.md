@@ -24,7 +24,7 @@ Finite populations often come from lists (rosters, accounts, inventory). A simpl
 
 ## Page 05 · St. Stephen's selection
 
-N = 900 applicants numbered 1–900; want n = 30. Assign each a random number (Excel RAND, uniform on 0–1), then take the 30 with the smallest random numbers (or sort and take the first 30).
+N = 900 applicants numbered 1–900; want n = 30. Assign each a random number, then take the 30 with the smallest random numbers (or sort and take the first 30).
 
 ## Page 06 · Infinite population
 

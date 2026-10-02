@@ -240,7 +240,7 @@ function StephenSelectScene() {
       <div className={styles.two}>
         <article className={styles.card}>
           <p className={styles.kicker}>Step 1</p>
-          <p>Assign each applicant a random number (Excel RAND: uniform on 0 to 1).</p>
+          <p>Assign each applicant a random number.</p>
         </article>
         <article className={styles.card}>
           <p className={styles.kicker}>Step 2</p>
