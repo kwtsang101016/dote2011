@@ -74,7 +74,7 @@ function SceneFrame({
 function CoverScene() {
   const print = usePrintMode();
   return (
-    <section className={`${styles.scene} ${styles.cover}`} id="cover">
+    <section className={`${styles.scene} ${styles.cover}`} id={print ? undefined : "cover"}>
       <div className={styles.coverInner}>
         <p className={styles.kicker}>DOTE2011G · Statistical Analysis for Business Decisions</p>
         <h1 className={styles.coverTitle}>Probability</h1>

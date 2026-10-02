@@ -9,6 +9,9 @@ type MountStyleSnapshot = {
   pointerEvents: string;
   width: string;
   maxWidth: string;
+  height: string;
+  overflow: string;
+  clipPath: string;
 };
 
 const PAGE_MARGIN_MM = 8;
@@ -131,6 +134,9 @@ function prepareMountForCapture(mount: HTMLElement): MountStyleSnapshot {
     pointerEvents: mount.style.pointerEvents,
     width: mount.style.width,
     maxWidth: mount.style.maxWidth,
+    height: mount.style.height,
+    overflow: mount.style.overflow,
+    clipPath: mount.style.clipPath,
   };
   const width = captureMountWidth();
   mount.style.position = "fixed";
@@ -142,6 +148,9 @@ function prepareMountForCapture(mount: HTMLElement): MountStyleSnapshot {
   mount.style.visibility = "visible";
   mount.style.width = `${width}px`;
   mount.style.maxWidth = "none";
+  mount.style.height = "auto";
+  mount.style.overflow = "visible";
+  mount.style.clipPath = "none";
   mount.removeAttribute("aria-hidden");
   return previous;
 }
@@ -155,6 +164,9 @@ function restoreMount(mount: HTMLElement, previous: MountStyleSnapshot): void {
   mount.style.pointerEvents = previous.pointerEvents;
   mount.style.width = previous.width;
   mount.style.maxWidth = previous.maxWidth;
+  mount.style.height = previous.height;
+  mount.style.overflow = previous.overflow;
+  mount.style.clipPath = previous.clipPath;
   mount.setAttribute("aria-hidden", "true");
 }
 

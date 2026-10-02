@@ -63,7 +63,7 @@ const COVER_HINT_PRINT = "Printed handout · interactive examples on the website
 function CoverScene() {
   const print = usePrintMode();
   return (
-    <section className={`${styles.scene} ${styles.cover}`} id="cover">
+    <section className={`${styles.scene} ${styles.cover}`} id={print ? undefined : "cover"}>
       <div className={styles.coverInner}>
         <p className={styles.kicker}>DOTE2011G · Statistical Analysis for Business Decisions</p>
         <h1 className={styles.coverTitle}>Introduction</h1>
