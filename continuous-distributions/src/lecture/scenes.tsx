@@ -805,9 +805,9 @@ function CltScene() {
       </p>
       <Formula tex={tex`E(X_i)=\mu, \qquad \operatorname{Var}(X_i)=\sigma^2 < \infty`} />
       <p className={styles.small}>
-        The population itself need not be normal. For large <MathText text={tex`$n$`} />, the sample mean <MathText text={tex`$\bar{X}$`} /> is still approximately normal, with mean <MathText text={tex`$\mu$`} /> and standard deviation <MathText text={tex`$\sigma/\sqrt{n}$`} />.
+        The population itself need not be normal. For large <MathText text={tex`$n$`} />, the sample mean <MathText text={tex`$\bar{X}$`} /> is still approximately normal, with mean <MathText text={tex`$\mu$`} /> and variance <MathText text={tex`$\sigma^2/n$`} /> (so the standard deviation is <MathText text={tex`$\sigma/\sqrt{n}$`} />).
       </p>
-      <Formula tex={tex`\bar{X} \text{ is approximately } N\!\left(\mu,\; \dfrac{\sigma}{\sqrt{n}}\right) \text{ for large } n`} />
+      <Formula tex={tex`\bar{X} \text{ is approximately } N\!\left(\mu,\; \dfrac{\sigma^{2}}{n}\right) \text{ for large } n`} />
       <article className={styles.card}>
         <p className={styles.kicker}>A related fact, and it is exact</p>
         <p className={styles.lead}>
@@ -1145,32 +1145,32 @@ function PoissonLinkScene() {
 const QUIZ = [
   {
     q: "Healthy Canteen: salad is uniform on (5, 15). What is P(12 < X < 15)?",
-    options: ["1/10", "3/10", "1/2", "(15−5)/12"],
-    answer: 1,
+    options: ["3/10", "1/10", "1/2", "(15−5)/12"],
+    answer: 0,
     why: tex`Length 3 over width 10: $(1/10)\times 3 = 3/10$.`,
   },
   {
     q: "William oil: μ = 15, σ = 6, reorder at 20. Which z matches x = 20?",
-    options: ["(15−20)/6", "(20−15)/6", "20/6", "15×6"],
-    answer: 1,
+    options: ["(15−20)/6", "20/6", "(20−15)/6", "15×6"],
+    answer: 2,
     why: tex`$z = (x-\mu)/\sigma = (20-15)/6 = 0.83$.`,
   },
   {
     q: "Same oil example. A 0.05 right-tail uses z ≈ 1.645. The reorder point is",
-    options: ["15 + 1.645", "15 + 1.645×6", "20 + 0.05×6", "6/1.645"],
-    answer: 1,
+    options: ["15 + 1.645", "20 + 0.05×6", "6/1.645", "15 + 1.645×6"],
+    answer: 3,
     why: tex`$x = \mu + z\sigma = 15 + 1.645(6) \approx 24.87$, about 25 gallons.`,
   },
   {
     q: "Binomial n = 100, p = 0.1. The continuity correction for P(X = 12) is",
-    options: ["P(X > 12)", "P(11.5 < X < 12.5)", "P(X < 12)", "P(X = 12.5)"],
-    answer: 1,
+    options: ["P(X > 12)", "P(X < 12)", "P(11.5 < X < 12.5)", "P(X = 12.5)"],
+    answer: 2,
     why: tex`A point mass at 12 becomes the unit interval centred at 12.`,
   },
   {
     q: "For an exponential random variable, which statement is true?",
-    options: ["Mean is twice the SD", "Mean equals the SD", "Skewness is 0", "f(x) is constant"],
-    answer: 1,
+    options: ["Mean is twice the SD", "Skewness is 0", "f(x) is constant", "Mean equals the SD"],
+    answer: 3,
     why: tex`Both the mean and the standard deviation equal $\mu$. Skewness is 2, not 0.`,
   },
 ] as const;
@@ -1217,34 +1217,68 @@ function QuizScene() {
   );
 }
 
-function PromptsScene() {
+function CopilotNote() {
   return (
-    <SceneFrame kicker="Prompts to try" title="Download real data, then look at the shape." tone="gold">
+    <p className={styles.note}>
+      You may try: paste a prompt into{" "}
+      <a href="https://copilot.microsoft.com/" target="_blank" rel="noreferrer">
+        Microsoft Copilot
+      </a>
+      , then run the Python in{" "}
+      <a href="https://colab.research.google.com/" target="_blank" rel="noreferrer">
+        Google Colab
+      </a>
+      . Read the code and open the CSV before you trust any plot or number.
+    </p>
+  );
+}
+
+function ApplePromptsScene() {
+  return (
+    <SceneFrame kicker="Prompts to try · Apple" title="Download first, then look at the shape." tone="gold">
+      <p className={styles.lead}>
+        Work in two steps. Prompt 1 only builds a CSV you can open and check. Prompt 2 analyses that file.
+      </p>
       <div className={styles.promptList}>
         <article className={styles.promptItem}>
-          <strong>APPLE RETURNS · DOES IT LOOK NORMAL?</strong>
+          <strong>1 · DOWNLOAD · AAPL DAILY PRICES → CSV</strong>
           <p>
-            Use Python to download Apple’s daily prices for the last two years with yfinance (ticker AAPL). Compute the daily percent return from the adjusted close. Plot a histogram and a boxplot. Overlay a normal curve that uses the sample mean and sample standard deviation.
+            Use Python and yfinance (ticker AAPL) to download Apple’s daily adjusted closes for the last two years. Save a CSV with at least the date and adjusted close. Print the first few rows, the column names, and the number of rows. Do not compute returns or make plots yet — stop after you have checked that the CSV looks correct.
           </p>
         </article>
         <article className={styles.promptItem}>
-          <strong>EARTHQUAKE WAITS · 2025</strong>
+          <strong>2 · ANALYSE · DAILY RETURNS FROM THAT CSV</strong>
           <p>
-            Use Python to download successive earthquake times in 2025 from the USGS FDSN event API (https://earthquake.usgs.gov/fdsnws/event/1/). Important: a single year-long query of all magnitudes exceeds the API’s 20,000-event limit and returns HTTP 400 Bad Request — so download month by month (or paginate with limit and offset), concatenate, then compute the hours between successive events. Save those waiting times as a CSV file. Plot a histogram and a boxplot. Report the mean and the standard deviation.
+            Load the CSV from Prompt 1. Compute the daily percent return from the adjusted close. Plot a histogram and a boxplot. Overlay a normal curve that uses the sample mean and sample standard deviation of those returns.
           </p>
         </article>
       </div>
-      <p className={styles.note}>
-        You may try: paste a prompt into{" "}
-        <a href="https://copilot.microsoft.com/" target="_blank" rel="noreferrer">
-          Microsoft Copilot
-        </a>
-        , then run the Python in{" "}
-        <a href="https://colab.research.google.com/" target="_blank" rel="noreferrer">
-          Google Colab
-        </a>
-        . Read the code before you trust the number.
+      <CopilotNote />
+    </SceneFrame>
+  );
+}
+
+function QuakePromptsScene() {
+  return (
+    <SceneFrame kicker="Prompts to try · Earthquakes" title="Download first, then look at the waits." tone="gold">
+      <p className={styles.lead}>
+        Again two steps: build a CSV you can inspect, then analyse it. The USGS API rejects oversized queries, so Prompt 1 must download carefully.
       </p>
+      <div className={styles.promptList}>
+        <article className={styles.promptItem}>
+          <strong>1 · DOWNLOAD · 2025 EARTHQUAKE TIMES → CSV</strong>
+          <p>
+            Use Python to download successive earthquake event times in 2025 from the USGS FDSN event API (https://earthquake.usgs.gov/fdsnws/event/1/). Important: a single year-long query of all magnitudes exceeds the API’s 20,000-event limit and returns HTTP 400 Bad Request — so download month by month (or paginate with limit and offset), concatenate, and save a CSV of event times (and any useful IDs). Print the first few rows, the column names, and the number of rows. Do not compute waiting times or make plots yet — stop after you have checked that the CSV looks correct.
+          </p>
+        </article>
+        <article className={styles.promptItem}>
+          <strong>2 · ANALYSE · WAITING TIMES FROM THAT CSV</strong>
+          <p>
+            Load the CSV from Prompt 1. Sort the times, compute the hours between successive events, and save those waiting times as a second CSV if you like. Plot a histogram and a boxplot of the waiting times. Report the mean and the standard deviation.
+          </p>
+        </article>
+      </div>
+      <CopilotNote />
     </SceneFrame>
   );
 }
@@ -1309,6 +1343,7 @@ export const SCENES: SceneDef[] = [
   { id: "exp", chapter: "Exponential", label: "Waiting times", Scene: ExponentialScene },
   { id: "poisson", chapter: "Exponential", label: "Poisson link", Scene: PoissonLinkScene },
   { id: "quiz", chapter: "Practice", label: "Which expression?", Scene: QuizScene },
-  { id: "prompts", chapter: "Practice", label: "Prompts to try", Scene: PromptsScene },
+  { id: "prompts-apple", chapter: "Practice", label: "Prompts · Apple", Scene: ApplePromptsScene },
+  { id: "prompts-quake", chapter: "Practice", label: "Prompts · Earthquakes", Scene: QuakePromptsScene },
   { id: "takeaways", chapter: "Close", label: "Takeaways", Scene: TakeawaysScene },
 ];

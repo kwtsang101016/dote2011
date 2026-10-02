@@ -519,7 +519,7 @@
 <p>Want a small stockout probability. The standard normal plot shades that right-tail area in pink and marks the z that cuts it off. Convert with x = 15 + z×6. Raising the reorder point from 20 to about 25 gallons cuts the stockout chance from roughly 0.20 to 0.05.</p>
 </section>
 <section id="continuous-distributions-page-15" data-lecture="continuous-distributions" data-page="15"><h2>Page 15 · Central limit theorem</h2>
-<p>Assume X_1, …, X_n are i.i.d. with the same mean μ and the same finite variance σ². The population need not be normal. For large n, the sample mean is approximately normal with mean μ and standard deviation σ/√n. Related exact fact: if X and Y are independent and each is normal, then aX + bY is normal for any constants a and b.</p>
+<p>Assume X_1, …, X_n are i.i.d. with the same mean μ and the same finite variance σ². The population need not be normal. For large n, the sample mean is approximately N(μ, σ²/n) — mean μ and variance σ²/n (standard deviation σ/√n). Related exact fact: if X and Y are independent and each is normal, then aX + bY is normal for any constants a and b.</p>
 </section>
 <section id="continuous-distributions-page-16" data-lecture="continuous-distributions" data-page="16"><h2>Page 16 · Bernoulli sum</h2>
 <p>A binomial count is the sum of n i.i.d. Bernoulli trials. Mean np, variance np(1−p). By the central limit theorem the count is approximately normal when n is large enough that np > 5 and n(1−p) > 5. Sliders show whether both products exceed 5.</p>
@@ -539,10 +539,13 @@
 <section id="continuous-distributions-page-21" data-lecture="continuous-distributions" data-page="21"><h2>Page 21 · Which expression?</h2>
 <p>Multiple choice (no calculator): salad P(12<X<15)=3/10; z=(20−15)/6; reorder 15+1.645×6; continuity P(11.5<X<12.5); exponential mean equals SD.</p>
 </section>
-<section id="continuous-distributions-page-22" data-lecture="continuous-distributions" data-page="22"><h2>Page 22 · Prompts to try</h2>
-<p>Two download-and-plot prompts, each starting with “Use Python”. Apple daily returns (yfinance, ticker AAPL, last two years, percent return from adjusted close): histogram, boxplot, and a normal curve using the sample mean and sample standard deviation. Do not ask whether the histogram looks normal or whether the boxplot shows heavy tails. Earthquake waits: download successive earthquake times in 2025 from the USGS FDSN event API (https://earthquake.usgs.gov/fdsnws/event/1/); a year-long all-magnitude query exceeds the 20,000-event limit (HTTP 400), so download month by month or paginate, concatenate, compute hours between successive events, save as CSV, plot histogram and boxplot, report mean and standard deviation. You may try: paste into Microsoft Copilot (https://copilot.microsoft.com/), run Python in Google Colab (https://colab.research.google.com/).</p>
+<section id="continuous-distributions-page-22" data-lecture="continuous-distributions" data-page="22"><h2>Page 22 · Prompts · Apple</h2>
+<p>Two-step workflow. Prompt 1: use Python and yfinance (ticker AAPL) to download the last two years of daily adjusted closes; save a CSV; print the first rows, column names, and row count; stop — do not analyse yet. Prompt 2: load that CSV, compute daily percent returns, plot histogram and boxplot, overlay a normal curve using the sample mean and SD. Paste into Microsoft Copilot (https://copilot.microsoft.com/) if useful; run in Google Colab (https://colab.research.google.com/). Open the CSV before trusting plots.</p>
 </section>
-<section id="continuous-distributions-page-23" data-lecture="continuous-distributions" data-page="23"><h2>Page 23 · Takeaways</h2>
+<section id="continuous-distributions-page-23" data-lecture="continuous-distributions" data-page="23"><h2>Page 23 · Prompts · Earthquakes</h2>
+<p>Two-step workflow. Prompt 1: download 2025 earthquake event times from the USGS FDSN API (https://earthquake.usgs.gov/fdsnws/event/1/) month by month or with pagination (a full-year all-magnitude query hits the 20,000-event limit and returns HTTP 400); save a CSV of times; print first rows, columns, and count; stop. Prompt 2: load that CSV, compute hours between successive events, plot histogram and boxplot, report mean and SD. Check the CSV before analysing.</p>
+</section>
+<section id="continuous-distributions-page-24" data-lecture="continuous-distributions" data-page="24"><h2>Page 24 · Takeaways</h2>
 <p>Distribution function F(x)=P(X≤x), with f=F' in the continuous case. Expectation and variance use integrals and the same properties as the discrete lecture. Uniform length rule; standardize and invert the normal; continuity correction for a large binomial; exponential CDF and Poisson pairing.</p>
 </section>
 <hr />

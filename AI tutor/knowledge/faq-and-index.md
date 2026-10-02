@@ -7,7 +7,7 @@
 ## How page numbers work
 
 - **Page N** = the N-th slide in the interactive lecture (same order as the PDF handout).
-- **Introduction** = 16 pages · **Descriptive Statistics** = 27 pages · **Probability** = 22 pages · **Discrete Distributions** = 28 pages · **Continuous Distributions** = 23 pages · **Sampling Distributions** = 22 pages.
+- **Introduction** = 16 pages · **Descriptive Statistics** = 27 pages · **Probability** = 22 pages · **Discrete Distributions** = 28 pages · **Continuous Distributions** = 24 pages · **Sampling Distributions** = 22 pages.
 - If a student says “Page 3” without naming the lecture, ask which topic.
 
 | Lecture | Page 3 title |
@@ -132,7 +132,7 @@ Live lecture URLs (always available to students):
 
 **Discrete Distributions:** Page 04 classify · Page 12 compute E(X) · Page 15 variance quiz · Page 21 is it binomial?  
 
-**Continuous Distributions:** Page 04 distribution function · Page 18 which approximation is closer? · Page 21 which expression?  
+**Continuous Distributions:** Page 04 distribution function · Page 18 which approximation is closer? · Page 21 which expression? · Pages 22–23 download-then-analyse prompts  
 
 **Sampling Distributions:** Page 13 CLT histogram · Page 15 / 20 probability sliders · Page 21 which statement?  
 

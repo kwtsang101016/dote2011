@@ -64,7 +64,7 @@ Want a small stockout probability. The standard normal plot shades that right-ta
 
 ## Page 15 · Central limit theorem
 
-Assume X_1, …, X_n are i.i.d. with the same mean μ and the same finite variance σ². The population need not be normal. For large n, the sample mean is approximately normal with mean μ and standard deviation σ/√n. Related exact fact: if X and Y are independent and each is normal, then aX + bY is normal for any constants a and b.
+Assume X_1, …, X_n are i.i.d. with the same mean μ and the same finite variance σ². The population need not be normal. For large n, the sample mean is approximately N(μ, σ²/n) — mean μ and variance σ²/n (standard deviation σ/√n). Related exact fact: if X and Y are independent and each is normal, then aX + bY is normal for any constants a and b.
 
 ## Page 16 · Bernoulli sum
 
@@ -90,10 +90,14 @@ Poisson describes the number of events in an interval. Exponential describes the
 
 Multiple choice (no calculator): salad P(12<X<15)=3/10; z=(20−15)/6; reorder 15+1.645×6; continuity P(11.5<X<12.5); exponential mean equals SD.
 
-## Page 22 · Prompts to try
+## Page 22 · Prompts · Apple
 
-Two download-and-plot prompts, each starting with “Use Python”. Apple daily returns (yfinance, ticker AAPL, last two years, percent return from adjusted close): histogram, boxplot, and a normal curve using the sample mean and sample standard deviation. Do not ask whether the histogram looks normal or whether the boxplot shows heavy tails. Earthquake waits: download successive earthquake times in 2025 from the USGS FDSN event API (https://earthquake.usgs.gov/fdsnws/event/1/); a year-long all-magnitude query exceeds the 20,000-event limit (HTTP 400), so download month by month or paginate, concatenate, compute hours between successive events, save as CSV, plot histogram and boxplot, report mean and standard deviation. You may try: paste into Microsoft Copilot (https://copilot.microsoft.com/), run Python in Google Colab (https://colab.research.google.com/).
+Two-step workflow. Prompt 1: use Python and yfinance (ticker AAPL) to download the last two years of daily adjusted closes; save a CSV; print the first rows, column names, and row count; stop — do not analyse yet. Prompt 2: load that CSV, compute daily percent returns, plot histogram and boxplot, overlay a normal curve using the sample mean and SD. Paste into Microsoft Copilot (https://copilot.microsoft.com/) if useful; run in Google Colab (https://colab.research.google.com/). Open the CSV before trusting plots.
 
-## Page 23 · Takeaways
+## Page 23 · Prompts · Earthquakes
+
+Two-step workflow. Prompt 1: download 2025 earthquake event times from the USGS FDSN API (https://earthquake.usgs.gov/fdsnws/event/1/) month by month or with pagination (a full-year all-magnitude query hits the 20,000-event limit and returns HTTP 400); save a CSV of times; print first rows, columns, and count; stop. Prompt 2: load that CSV, compute hours between successive events, plot histogram and boxplot, report mean and SD. Check the CSV before analysing.
+
+## Page 24 · Takeaways
 
 Distribution function F(x)=P(X≤x), with f=F' in the continuous case. Expectation and variance use integrals and the same properties as the discrete lecture. Uniform length rule; standardize and invert the normal; continuity correction for a large binomial; exponential CDF and Poisson pairing.
