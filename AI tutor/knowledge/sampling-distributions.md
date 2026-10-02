@@ -12,7 +12,7 @@ Sampling and Sampling Distributions — selecting a sample, point estimation, sa
 
 ## Page 02 · Population and sample
 
-Population = all elements of interest. Sample = subset. Element = entity on which data are collected. Frame = list of elements available for selection. Sampled population = population the sample is drawn from.
+Running example: St. Stephen’s College, N = 900 applicants; later a sample of n = 30. Population = all 900 applicants. Sample = the 30 chosen for detailed review. Element = one applicant (SAT, housing preference, …). Frame = the numbered list of applicants 1–900; that list is the sampled population.
 
 ## Page 03 · Why we sample
 

@@ -159,22 +159,35 @@ function CoverScene() {
 function PopulationSampleScene() {
   return (
     <SceneFrame kicker="Introduction" title="A sample is a subset of the population.">
+      <p className={styles.lead}>
+        Running example for this lecture: <strong>St. Stephen&apos;s College</strong> received{" "}
+        <MathText text={tex`$N = 900$`} /> applications. Admissions will later draw a sample of{" "}
+        <MathText text={tex`$n = 30$`} /> to estimate average SAT score and the share wanting on-campus housing.
+      </p>
       <div className={styles.two}>
         <article className={styles.card}>
           <p className={styles.kicker}>Population</p>
-          <p>The collection of all elements of interest.</p>
+          <p>
+            The collection of all elements of interest. Here: all <MathText text={tex`$900$`} /> applicants for the upcoming year.
+          </p>
         </article>
         <article className={styles.card}>
           <p className={styles.kicker}>Sample</p>
-          <p>A subset of the population from which we collect data.</p>
+          <p>
+            A subset of the population from which we collect data. Here: the <MathText text={tex`$30$`} /> applicants chosen for detailed review.
+          </p>
         </article>
         <article className={styles.card}>
           <p className={styles.kicker}>Element</p>
-          <p>The entity on which data are collected (a student, an account, a part).</p>
+          <p>
+            The entity on which data are collected. Here: one applicant (with SAT score, housing preference, and so on).
+          </p>
         </article>
         <article className={styles.card}>
           <p className={styles.kicker}>Frame</p>
-          <p>A list of the elements that the sample will be selected from. The sampled population is the population the sample is drawn from.</p>
+          <p>
+            A list of the elements the sample will be selected from. Here: the numbered list of applicants 1 through 900 as applications arrive. The sampled population is that list of 900.
+          </p>
         </article>
       </div>
     </SceneFrame>
