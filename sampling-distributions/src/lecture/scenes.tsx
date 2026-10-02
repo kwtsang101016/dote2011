@@ -771,26 +771,26 @@ function StephenPProbScene() {
 const QUIZ = [
   {
     q: tex`$E(\bar{x})$ equals …`,
-    options: [tex`$\sigma/\sqrt{n}$`, tex`$\mu$`, tex`$\bar{x}$`, tex`$s$`],
-    answer: 1,
+    options: [tex`$\mu$`, tex`$\sigma/\sqrt{n}$`, tex`$\bar{x}$`, tex`$s$`],
+    answer: 0,
     why: tex`Unbiasedness: $E(\bar{x})=\mu$ for any sample size.`,
   },
   {
     q: "When may we skip the finite population correction?",
-    options: [tex`$n \ge 30$`, tex`$n/N < 0.05$`, tex`$np > 5$`, tex`$\sigma$ known`],
-    answer: 1,
+    options: [tex`$n \ge 30$`, tex`$np > 5$`, tex`$n/N < 0.05$`, tex`$\sigma$ known`],
+    answer: 2,
     why: tex`Treat a finite population as infinite when $n/N < 0.05$.`,
   },
   {
     q: tex`Normal approximation for $\hat{p}$ needs …`,
-    options: [tex`$n \ge 30$ only`, tex`$np > 5$ and $n(1-p) > 5$`, "population normal", tex`$N$ known`],
-    answer: 1,
+    options: [tex`$n \ge 30$ only`, "population normal", tex`$N$ known`, tex`$np > 5$ and $n(1-p) > 5$`],
+    answer: 3,
     why: tex`Require $np>5$ and $n(1-p)>5$.`,
   },
   {
     q: tex`Larger $n$ mainly …`,
-    options: [tex`changes $E(\bar{x})$`, tex`shrinks $\sigma_{\bar{x}}$`, tex`changes $\mu$`, tex`removes bias of $\bar{x}$`],
-    answer: 1,
+    options: [tex`shrinks $\sigma_{\bar{x}}$`, tex`changes $E(\bar{x})$`, tex`changes $\mu$`, tex`removes bias of $\bar{x}$`],
+    answer: 0,
     why: tex`$E(\bar{x})$ stays $\mu$; $\sigma_{\bar{x}}=\sigma/\sqrt{n}$ falls as $n$ rises.`,
   },
 ];
