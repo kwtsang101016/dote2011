@@ -23,7 +23,7 @@ export const COURSE_EVENTS: CourseEvent[] = [
   { date: "2026-09-25", title: "In-class Ex.1", kind: "assignment", special: true },
   { date: "2026-09-30", title: "Probability Distributions", kind: "lecture", attendanceFile: "2026-09-30.json" },
   { date: "2026-10-02", title: "Probability Distributions", kind: "lecture", attendanceFile: "2026-10-02.json" },
-  { date: "2026-10-07", title: "Sampling and Sampling Distribution", kind: "lecture" },
+  { date: "2026-10-07", title: "Sampling and Sampling Distribution", kind: "lecture", attendanceFile: "2026-10-07.json" },
   { date: "2026-10-07", title: "HW1 out", kind: "assignment", special: true },
   { date: "2026-10-09", title: "Sampling and Sampling Distribution", kind: "lecture" },
   { date: "2026-10-14", title: "Midterm Review", kind: "review" },
