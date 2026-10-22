@@ -93,7 +93,7 @@ function ConfidencePicker({ value, onChange }: { value: Confidence; onChange: (n
 
 type Curve = { pdf: (x: number) => number; color: string; width?: number; dash?: string; label?: string };
 type Shade = { from: number; to: number; color?: string };
-type Mark = { x: number; text: string };
+type Mark = { x: number; text: string; /** Rendered as a smaller, lowered subscript after `text` (SVG text has no math typesetting). */ sub?: string };
 type Note = { x: number; y: number; text: string };
 
 /** Density curves on a shared axis with shaded areas under the first curve. */
@@ -161,6 +161,11 @@ function DensityPlot({
           <line x1={xOf(mark.x)} y1={yOf(0)} x2={xOf(mark.x)} y2={yOf(0) + 6} stroke="#16213c" strokeWidth="1.5" />
           <text x={xOf(mark.x)} y={H - 10} textAnchor="middle" fontSize="12" fill="#16213c">
             {mark.text}
+            {mark.sub ? (
+              <tspan dy="3" fontSize="9">
+                {mark.sub}
+              </tspan>
+            ) : null}
           </text>
         </g>
       ))}
@@ -509,9 +514,9 @@ function SamplingPictureScene() {
           xMax={4}
           shades={[{ from: -z, to: z, color: "rgba(46, 113, 144, 0.3)" }, { from: -4, to: -z }, { from: z, to: 4 }]}
           marks={[
-            { x: -z, text: `μ − ${formatNum(z, 3)}σx̄` },
+            { x: -z, text: `μ − ${formatNum(z, 3)}σ`, sub: "x̄" },
             { x: 0, text: "μ" },
-            { x: z, text: `μ + ${formatNum(z, 3)}σx̄` },
+            { x: z, text: `μ + ${formatNum(z, 3)}σ`, sub: "x̄" },
           ]}
           notes={[
             { x: 0, y: 0.35, text: `${Math.round(confidence * 100)}% of all x̄ values` },
@@ -1656,9 +1661,9 @@ function PropSamplingScene() {
           xMax={4}
           shades={[{ from: -z, to: z, color: "rgba(46, 113, 144, 0.3)" }, { from: -4, to: -z }, { from: z, to: 4 }]}
           marks={[
-            { x: -z, text: "p − z(α/2)σp̂" },
+            { x: -z, text: "p − z(α/2)σ", sub: "p̂" },
             { x: 0, text: "p" },
-            { x: z, text: "p + z(α/2)σp̂" },
+            { x: z, text: "p + z(α/2)σ", sub: "p̂" },
           ]}
           notes={[
             { x: 0, y: 0.35, text: "1 − α of all p̂ values" },
