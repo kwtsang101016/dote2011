@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { LivePoll, PollChoice } from "../../shared/types.ts";
 
 const CHOICES: PollChoice[] = ["A", "B", "C", "D"];
+const DEFAULT_QUESTION = "Vote now — see the question on the slide";
 
 type PollPanelProps = {
   poll: LivePoll | null;
@@ -25,6 +26,7 @@ export function PollPanel({
   onVote,
 }: PollPanelProps) {
   const [question, setQuestion] = useState("");
+  const [showDetails, setShowDetails] = useState(false);
   const [labels, setLabels] = useState<Record<PollChoice, string>>({
     A: "",
     B: "",
@@ -37,6 +39,11 @@ export function PollPanel({
   }
 
   const maxCount = poll ? Math.max(1, ...CHOICES.map((key) => poll.counts[key])) : 1;
+  const startQuick = () => {
+    onStart(DEFAULT_QUESTION, {});
+    setQuestion("");
+    setShowDetails(false);
+  };
 
   return (
     <section className="poll-panel" aria-label="Live poll">
@@ -48,51 +55,66 @@ export function PollPanel({
       </div>
 
       {isInstructor && !poll ? (
-        <form
-          className="poll-compose"
-          onSubmit={(event) => {
-            event.preventDefault();
-            const trimmed = question.trim();
-            if (!trimmed) {
-              return;
-            }
-            onStart(trimmed, labels);
-            setQuestion("");
-          }}
-        >
-          <label>
-            Question
-            <input
-              value={question}
-              onChange={(event) => setQuestion(event.target.value)}
-              placeholder="e.g. Which step uses the CLT?"
-              maxLength={240}
-            />
-          </label>
-          <div className="poll-compose__options">
-            {CHOICES.map((key) => (
-              <label key={key}>
-                {key} (optional label)
+        <div className="poll-compose">
+          <p className="poll-panel__hint">
+            If the question is already on your slides, start a plain A–D count — no typing needed.
+          </p>
+          <button type="button" className="primary-button" onClick={startQuick}>
+            Start A–D poll
+          </button>
+          <button
+            type="button"
+            className="ghost-button"
+            onClick={() => setShowDetails((current) => !current)}
+          >
+            {showDetails ? "Hide optional text" : "Optional: add question / labels"}
+          </button>
+          {showDetails ? (
+            <form
+              className="poll-compose"
+              onSubmit={(event) => {
+                event.preventDefault();
+                const trimmed = question.trim();
+                onStart(trimmed || DEFAULT_QUESTION, labels);
+                setQuestion("");
+                setShowDetails(false);
+              }}
+            >
+              <label>
+                Question (optional — leave blank if it is on the slide)
                 <input
-                  value={labels[key]}
-                  onChange={(event) =>
-                    setLabels((current) => ({ ...current, [key]: event.target.value }))
-                  }
-                  placeholder={`Option ${key}`}
-                  maxLength={80}
+                  value={question}
+                  onChange={(event) => setQuestion(event.target.value)}
+                  placeholder="Optional caption for the CAT page"
+                  maxLength={240}
                 />
               </label>
-            ))}
-          </div>
-          <button type="submit" className="primary-button" disabled={!question.trim()}>
-            Start poll
-          </button>
-        </form>
+              <div className="poll-compose__options">
+                {CHOICES.map((key) => (
+                  <label key={key}>
+                    {key} (optional label)
+                    <input
+                      value={labels[key]}
+                      onChange={(event) =>
+                        setLabels((current) => ({ ...current, [key]: event.target.value }))
+                      }
+                      placeholder={`Option ${key}`}
+                      maxLength={80}
+                    />
+                  </label>
+                ))}
+              </div>
+              <button type="submit" className="primary-button">
+                Start poll
+              </button>
+            </form>
+          ) : null}
+        </div>
       ) : null}
 
       {poll ? (
         <div className="poll-live">
-          <p className="poll-live__question">{poll.question}</p>
+          <p className="poll-live__question">{poll.question || DEFAULT_QUESTION}</p>
           <p className="poll-live__meta">
             {poll.status === "open" ? "Voting open" : "Voting locked"} · {poll.totalVotes} vote
             {poll.totalVotes === 1 ? "" : "s"}

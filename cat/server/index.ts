@@ -496,9 +496,11 @@ async function main(): Promise<void> {
           question?: unknown;
           optionLabels?: unknown;
         };
-        if (typeof question !== "string" || !question.trim()) {
-          throw new Error("Enter a poll question.");
-        }
+        // Question text is optional — often the stem is already on the lecture slides.
+        const questionText =
+          typeof question === "string" && question.trim()
+            ? question.trim().slice(0, 240)
+            : "Vote now — see the question on the slide";
         const labels: Record<PollChoice, string> = { A: "", B: "", C: "", D: "" };
         if (optionLabels && typeof optionLabels === "object") {
           for (const key of POLL_CHOICES) {
@@ -510,7 +512,7 @@ async function main(): Promise<void> {
         }
         livePoll = {
           id: `poll-${Date.now().toString(36)}`,
-          question: question.trim().slice(0, 240),
+          question: questionText,
           optionLabels: labels,
           status: "open",
           counts: emptyCounts(),
