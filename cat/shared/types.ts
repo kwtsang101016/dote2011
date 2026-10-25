@@ -52,9 +52,23 @@ export interface Roster {
   people: Person[];
 }
 
+export type PollChoice = "A" | "B" | "C" | "D";
+
+export interface LivePoll {
+  id: string;
+  question: string;
+  /** Short labels under A–D; empty string means just the letter. */
+  optionLabels: Record<PollChoice, string>;
+  /** Collecting votes vs locked (bars stay visible; voting stops). */
+  status: "open" | "locked";
+  counts: Record<PollChoice, number>;
+  totalVotes: number;
+}
+
 export interface ServerSnapshot {
   state: ClassroomState;
   connectedCount: number;
+  poll: LivePoll | null;
 }
 
 export const MAX_PHOTO_DATA_URL_LENGTH = 180_000;

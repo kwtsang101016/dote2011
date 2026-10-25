@@ -22,7 +22,23 @@ Set environment variable `INSTRUCTOR_PIN` (on Render: Environment 鈫?`INSTRUCTO
 
 With that PIN you can manage any card, change row / seat counts, reset seats, **Save attendance** (CSV), **Pick random student** (equal chance for every roster student, seated or not), and **reset a student PIN** (socket `resetPin`) so they can set a new one.
 
-Local default PIN if unset: `change-me-dote2011` 鈥?change it before class.
+Local default PIN if unset: `change-me-dote2011` — change it before class.
+
+### Open / Close session (Render free hours)
+
+The classroom starts **closed** after every cold start. Students cannot use seating until you open a session.
+
+1. Tap **Join classroom**
+2. Tap **Instructor PIN** (or use a saved PIN) and enter `INSTRUCTOR_PIN`
+3. Tap **Open session** — students can then Join and sit
+4. After class, tap **Close session** (disconnects everyone)
+
+If no instructor stays connected for **3 hours** while the session is open, the server **auto-closes** the session. Prefer **Suspend** `dote2011-cat` on Render between teaching weeks.
+
+### Live poll (A–D)
+
+While the session is open, the instructor can start an anonymous multiple-choice poll. Anyone connected may vote; live bars are visible to everyone. Lock voting to discuss, then clear for the next question. Auto-close after **3 hours** with no instructor is only a safety net — tap **Close session** after class. Prefer **Suspend** `dote2011-cat` on Render between teaching weeks.
+
 
 ## Layout
 

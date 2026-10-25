@@ -2,6 +2,7 @@ import { useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "reac
 import rosterData from "./data/roster.json" with { type: "json" };
 import { AuthModal, type AuthModalMode } from "./components/AuthModal.tsx";
 import { NameCardTray } from "./components/NameCardTray.tsx";
+import { PollPanel } from "./components/PollPanel.tsx";
 import { ProfileEditor } from "./components/ProfileEditor.tsx";
 import { Seat } from "./components/Seat.tsx";
 import { rememberInstructorSecret, rememberPersonSecret } from "./lib/authSession.ts";
@@ -29,19 +30,21 @@ type PendingAction =
   | { type: "reset" }
   | { type: "saveAttendance" }
   | { type: "pickRandomStudent" }
-  | { type: "setLayout"; studentRowCount: number; seatsPerRow: number };
+  | { type: "setLayout"; studentRowCount: number; seatsPerRow: number }
+  | { type: "becomeInstructor" };
 
 function isInstructorAction(
   action: PendingAction,
 ): action is Extract<
   PendingAction,
-  { type: "reset" | "saveAttendance" | "pickRandomStudent" | "setLayout" }
+  { type: "reset" | "saveAttendance" | "pickRandomStudent" | "setLayout" | "becomeInstructor" }
 > {
   return (
     action.type === "reset" ||
     action.type === "setLayout" ||
     action.type === "saveAttendance" ||
-    action.type === "pickRandomStudent"
+    action.type === "pickRandomStudent" ||
+    action.type === "becomeInstructor"
   );
 }
 
@@ -174,6 +177,8 @@ export default function App() {
       }
       case "setLayout":
         sync.setLayout(action.studentRowCount, action.seatsPerRow);
+        break;
+      case "becomeInstructor":
         break;
     }
   };
@@ -374,13 +379,92 @@ export default function App() {
           </p>
         </div>
         <div className="topbar__meta">
-          <StatusPill status={sync.status} connectedCount={sync.connectedCount} />
+          <StatusPill
+            status={sync.status}
+            connectedCount={sync.connectedCount}
+            sessionOpen={sync.sessionOpen}
+          />
           <p className="seated-count">
             {seatedCount} / {rosterCount} seated
             {sync.isInstructor ? " · instructor" : ""}
+            {sync.sessionOpen ? " · session open" : " · session closed"}
           </p>
         </div>
       </header>
+
+      {sync.status === "idle" || sync.status === "closed" || sync.status === "offline" ? (
+        <section className="session-gate" aria-label="Classroom session">
+          <h2>{sync.sessionOpen ? "Reconnect to the classroom" : "Classroom session is closed"}</h2>
+          <p>
+            {sync.sessionOpen
+              ? "You are not connected. Tap Join to sync seats with the live board."
+              : "The instructor opens the session at the start of class. Students: wait, then tap Join. Instructors: Join, enter the PIN when asked, then tap Open session."}
+          </p>
+          <div className="session-gate__actions">
+            <button type="button" className="primary-button" onClick={() => sync.join()}>
+              Join classroom
+            </button>
+          </div>
+        </section>
+      ) : null}
+
+      {sync.status === "connecting" || sync.status === "reconnecting" ? (
+        <p className="howto">Connecting to the classroom…</p>
+      ) : null}
+
+      {sync.status === "live" || sync.status === "reconnecting" ? (
+        <div className="session-controls" role="group" aria-label="Session controls">
+          {sync.isInstructor ? (
+            sync.sessionOpen ? (
+              <button
+                type="button"
+                className="ghost-button"
+                onClick={() => {
+                  const confirmed = window.confirm(
+                    "Close the session? Everyone will be disconnected until you open it again.",
+                  );
+                  if (confirmed) {
+                    sync.closeSession();
+                  }
+                }}
+              >
+                Close session
+              </button>
+            ) : (
+              <button type="button" className="primary-button" onClick={() => sync.openSession()}>
+                Open session
+              </button>
+            )
+          ) : !sync.sessionOpen ? (
+            <button
+              type="button"
+              className="ghost-button"
+              onClick={() => {
+                setAuthError(null);
+                window.setTimeout(() => setPending({ type: "becomeInstructor" }), 0);
+              }}
+            >
+              Instructor PIN
+            </button>
+          ) : null}
+          <button type="button" className="ghost-button" onClick={() => sync.leave()}>
+            Leave (disconnect)
+          </button>
+        </div>
+      ) : null}
+
+      {sync.status === "live" && sync.sessionOpen ? (
+        <PollPanel
+          poll={sync.poll}
+          myChoice={sync.myPollChoice}
+          isInstructor={sync.isInstructor}
+          sessionOpen={sync.sessionOpen}
+          onStart={sync.startPoll}
+          onLock={sync.lockPoll}
+          onClear={sync.clearPoll}
+          onVote={sync.votePoll}
+        />
+      ) : null}
 
       {sync.errorMessage ? (
         <button type="button" className="banner banner--error" onClick={sync.clearError}>
@@ -404,7 +488,7 @@ export default function App() {
         </div>
       ) : null}
 
-      {selectedPerson ? (
+      {sync.status === "live" && selectedPerson ? (
         <div className="selection-bar">
           <p>
             Selected: <strong>{selectedPerson.displayName}</strong>
@@ -437,14 +521,16 @@ export default function App() {
             </button>
           </div>
         </div>
-      ) : (
+      ) : sync.status === "live" ? (
         <p className="howto">
           Tap a name card, then a seat. A PIN is required to sit, move, stand up, or edit — PINs are
           not shown on the page. First visit: set your PIN when prompted. Press and hold a seat for
           details. Double-tap to stand up.
         </p>
-      )}
+      ) : null}
 
+      {sync.status === "live" && sync.sessionOpen ? (
+      <>
       <section className="controls" aria-label="Table layout">
         <label>
           Student rows
@@ -646,6 +732,8 @@ export default function App() {
           onRemoveGuest={handleRemoveGuest}
         />
       </div>
+      </>
+      ) : null}
 
       {editingPerson ? (
         <ProfileEditor
@@ -761,23 +849,32 @@ function ClassroomRow({
 function StatusPill({
   status,
   connectedCount,
+  sessionOpen,
 }: {
-  status: "connecting" | "live" | "reconnecting" | "offline";
+  status: "idle" | "connecting" | "live" | "reconnecting" | "closed" | "offline";
   connectedCount: number;
+  sessionOpen: boolean;
 }) {
   const label =
     status === "live"
-      ? "Live"
+      ? sessionOpen
+        ? "Live"
+        : "Connected"
       : status === "reconnecting"
         ? "Reconnecting"
         : status === "offline"
           ? "Offline"
-          : "Connecting";
+          : status === "closed"
+            ? "Closed"
+            : status === "idle"
+              ? "Idle"
+              : "Connecting";
 
   return (
-    <p className={`status status--${status}`}>
+    <p className={`status status--${status === "closed" || status === "idle" ? "offline" : status}`}>
       <span className="status__dot" />
-      {label} · {connectedCount} online
+      {label}
+      {status === "live" || status === "reconnecting" ? ` · ${connectedCount} online` : ""}
     </p>
   );
 }

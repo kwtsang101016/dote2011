@@ -28,7 +28,14 @@ import {
   unseatPerson,
   updateProfile,
 } from "../shared/seating.ts";
-import type { ClassroomState, Person, Roster, ServerSnapshot } from "../shared/types.ts";
+import type {
+  ClassroomState,
+  LivePoll,
+  Person,
+  PollChoice,
+  Roster,
+  ServerSnapshot,
+} from "../shared/types.ts";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, "..");
@@ -125,8 +132,18 @@ async function persistState(next: ClassroomState, durable = false): Promise<void
   }
 }
 
-function snapshot(connectedCount: number): ServerSnapshot {
-  return { state, connectedCount };
+const POLL_CHOICES: PollChoice[] = ["A", "B", "C", "D"];
+
+function emptyCounts(): Record<PollChoice, number> {
+  return { A: 0, B: 0, C: 0, D: 0 };
+}
+
+function isPollChoice(value: unknown): value is PollChoice {
+  return value === "A" || value === "B" || value === "C" || value === "D";
+}
+
+function snapshot(connectedCount: number, poll: LivePoll | null): ServerSnapshot {
+  return { state, connectedCount, poll };
 }
 
 async function main(): Promise<void> {
@@ -200,15 +217,128 @@ async function main(): Promise<void> {
     maxHttpBufferSize: 3e5,
   });
 
+
+  /** In-memory only: cold start / redeploy always begins closed. */
+  let sessionOpen = false;
+  /** Long enough for a full lecture if the instructor tab briefly disconnects. */
+  const IDLE_CLOSE_MS = 3 * 60 * 60 * 1000;
+  let idleCloseTimer: ReturnType<typeof setTimeout> | null = null;
+
+  let livePoll: LivePoll | null = null;
+  /** Anonymous voter id (client session) → choice. */
+  const pollVotes = new Map<string, PollChoice>();
+
+  const buildPollPublic = (): LivePoll | null => {
+    if (!livePoll) {
+      return null;
+    }
+    const counts = emptyCounts();
+    for (const choice of pollVotes.values()) {
+      counts[choice] += 1;
+    }
+    return {
+      ...livePoll,
+      counts,
+      totalVotes: pollVotes.size,
+    };
+  };
+
   const emitState = (): void => {
-    io.emit("snapshot", snapshot(io.engine.clientsCount));
+    io.emit("snapshot", snapshot(io.engine.clientsCount, buildPollPublic()));
+  };
+
+  const emitPoll = (): void => {
+    io.emit("poll-state", buildPollPublic());
+  };
+
+  const clearPoll = (): void => {
+    livePoll = null;
+    pollVotes.clear();
+    emitPoll();
+  };
+
+  const emitSessionStatus = (reason?: string): void => {
+    io.emit("session-status", { open: sessionOpen, reason });
+  };
+
+  const countInstructors = (): number => {
+    let count = 0;
+    for (const socket of io.sockets.sockets.values()) {
+      if (getAuth(socket).isInstructor) {
+        count += 1;
+      }
+    }
+    return count;
+  };
+
+  const clearIdleCloseTimer = (): void => {
+    if (idleCloseTimer) {
+      clearTimeout(idleCloseTimer);
+      idleCloseTimer = null;
+    }
+  };
+
+  const closeSession = (reason: "closed" | "idle"): void => {
+    clearIdleCloseTimer();
+    sessionOpen = false;
+    livePoll = null;
+    pollVotes.clear();
+    emitSessionStatus(reason);
+    for (const socket of io.sockets.sockets.values()) {
+      socket.emit("session-closed", { reason });
+      socket.disconnect(true);
+    }
+  };
+
+  const scheduleIdleClose = (): void => {
+    clearIdleCloseTimer();
+    if (!sessionOpen) {
+      return;
+    }
+    idleCloseTimer = setTimeout(() => {
+      if (sessionOpen && countInstructors() === 0) {
+        console.log("Closing classroom session after idle timeout (no instructor).");
+        closeSession("idle");
+      }
+    }, IDLE_CLOSE_MS);
+  };
+
+  const refreshInstructorPresence = (): void => {
+    if (!sessionOpen) {
+      clearIdleCloseTimer();
+      return;
+    }
+    if (countInstructors() > 0) {
+      clearIdleCloseTimer();
+    } else {
+      scheduleIdleClose();
+    }
+  };
+
+  const requireOpenSession = (socket: Socket): void => {
+    if (sessionOpen || getAuth(socket).isInstructor) {
+      return;
+    }
+    throw new Error("Classroom session is closed. Wait for the instructor to open it.");
   };
 
   io.on("connection", (socket) => {
     getAuth(socket);
     emitAuthState(socket);
-    socket.emit("snapshot", snapshot(io.engine.clientsCount));
+    socket.emit("session-status", { open: sessionOpen });
+    socket.emit("snapshot", snapshot(io.engine.clientsCount, buildPollPublic()));
+    socket.emit("poll-state", buildPollPublic());
     socket.broadcast.emit("presence", { connectedCount: io.engine.clientsCount });
+
+    if (!sessionOpen) {
+      const grace = setTimeout(() => {
+        if (!sessionOpen && !getAuth(socket).isInstructor && socket.connected) {
+          socket.emit("session-closed", { reason: "closed" });
+          socket.disconnect(true);
+        }
+      }, 90_000);
+      socket.once("disconnect", () => clearTimeout(grace));
+    }
 
     type AuthorizeAck = {
       ok: boolean;
@@ -238,8 +368,13 @@ async function main(): Promise<void> {
           }
           auth.isInstructor = true;
           emitAuthState(socket);
+          refreshInstructorPresence();
           ack?.({ ok: true });
           return;
+        }
+
+        if (!sessionOpen) {
+          throw new Error("Classroom session is closed. Wait for the instructor to open it.");
         }
 
         if (typeof personId !== "string" || !personIds.has(personId)) {
@@ -272,6 +407,7 @@ async function main(): Promise<void> {
 
     socket.on("setPin", async (payload: unknown, ack?: (response: AuthorizeAck) => void) => {
       try {
+        requireOpenSession(socket);
         if (typeof payload !== "object" || payload === null) {
           throw new Error("Invalid PIN setup payload.");
         }
@@ -324,8 +460,123 @@ async function main(): Promise<void> {
       }
     });
 
+    socket.on("openSession", () => {
+      try {
+        requireInstructor(socket);
+        sessionOpen = true;
+        clearIdleCloseTimer();
+        emitSessionStatus("opened");
+        emitState();
+      } catch (error) {
+        const message = error instanceof Error ? error.message : "Could not open the session.";
+        socket.emit("error-message", message);
+      }
+    });
+
+    socket.on("closeSession", () => {
+      try {
+        requireInstructor(socket);
+        closeSession("closed");
+      } catch (error) {
+        const message = error instanceof Error ? error.message : "Could not close the session.";
+        socket.emit("error-message", message);
+      }
+    });
+
+    socket.on("pollStart", (payload: unknown) => {
+      try {
+        requireInstructor(socket);
+        if (!sessionOpen) {
+          throw new Error("Open the classroom session before starting a poll.");
+        }
+        if (typeof payload !== "object" || payload === null) {
+          throw new Error("Invalid poll payload.");
+        }
+        const { question, optionLabels } = payload as {
+          question?: unknown;
+          optionLabels?: unknown;
+        };
+        if (typeof question !== "string" || !question.trim()) {
+          throw new Error("Enter a poll question.");
+        }
+        const labels: Record<PollChoice, string> = { A: "", B: "", C: "", D: "" };
+        if (optionLabels && typeof optionLabels === "object") {
+          for (const key of POLL_CHOICES) {
+            const raw = (optionLabels as Record<string, unknown>)[key];
+            if (typeof raw === "string") {
+              labels[key] = raw.trim().slice(0, 80);
+            }
+          }
+        }
+        livePoll = {
+          id: `poll-${Date.now().toString(36)}`,
+          question: question.trim().slice(0, 240),
+          optionLabels: labels,
+          status: "open",
+          counts: emptyCounts(),
+          totalVotes: 0,
+        };
+        pollVotes.clear();
+        emitPoll();
+      } catch (error) {
+        const message = error instanceof Error ? error.message : "Could not start the poll.";
+        socket.emit("error-message", message);
+      }
+    });
+
+    socket.on("pollLock", () => {
+      try {
+        requireInstructor(socket);
+        if (!livePoll) {
+          throw new Error("No active poll.");
+        }
+        livePoll = { ...livePoll, status: "locked" };
+        emitPoll();
+      } catch (error) {
+        const message = error instanceof Error ? error.message : "Could not lock the poll.";
+        socket.emit("error-message", message);
+      }
+    });
+
+    socket.on("pollClear", () => {
+      try {
+        requireInstructor(socket);
+        clearPoll();
+      } catch (error) {
+        const message = error instanceof Error ? error.message : "Could not clear the poll.";
+        socket.emit("error-message", message);
+      }
+    });
+
+    socket.on("pollVote", (payload: unknown) => {
+      try {
+        if (!sessionOpen) {
+          throw new Error("Classroom session is closed.");
+        }
+        if (!livePoll || livePoll.status !== "open") {
+          throw new Error("Voting is closed for this poll.");
+        }
+        if (typeof payload !== "object" || payload === null) {
+          throw new Error("Invalid vote.");
+        }
+        const { choice, voterId } = payload as { choice?: unknown; voterId?: unknown };
+        if (!isPollChoice(choice)) {
+          throw new Error("Choose A, B, C, or D.");
+        }
+        if (typeof voterId !== "string" || voterId.trim().length < 8 || voterId.trim().length > 80) {
+          throw new Error("Could not record an anonymous vote. Refresh and try again.");
+        }
+        pollVotes.set(voterId.trim(), choice);
+        emitPoll();
+      } catch (error) {
+        const message = error instanceof Error ? error.message : "Could not record your vote.";
+        socket.emit("error-message", message);
+      }
+    });
+
     socket.on("place", async (payload: unknown) => {
       try {
+        requireOpenSession(socket);
         if (typeof payload !== "object" || payload === null) {
           throw new Error("Invalid place payload.");
         }
@@ -348,6 +599,7 @@ async function main(): Promise<void> {
 
     socket.on("unseat", async (payload: unknown) => {
       try {
+        requireOpenSession(socket);
         if (typeof payload !== "object" || payload === null) {
           throw new Error("Invalid unseat payload.");
         }
@@ -368,6 +620,7 @@ async function main(): Promise<void> {
     socket.on("setLayout", async (payload: unknown) => {
       try {
         requireInstructor(socket);
+        requireOpenSession(socket);
         if (typeof payload !== "object" || payload === null) {
           throw new Error("Invalid layout payload.");
         }
@@ -389,6 +642,7 @@ async function main(): Promise<void> {
 
     socket.on("updateProfile", async (payload: unknown) => {
       try {
+        requireOpenSession(socket);
         if (typeof payload !== "object" || payload === null) {
           throw new Error("Invalid profile payload.");
         }
@@ -410,6 +664,7 @@ async function main(): Promise<void> {
 
     socket.on("addGuest", async (payload: unknown) => {
       try {
+        requireOpenSession(socket);
         if (typeof payload !== "object" || payload === null) {
           throw new Error("Invalid temporary card payload.");
         }
@@ -432,6 +687,7 @@ async function main(): Promise<void> {
 
     socket.on("removeGuest", async (payload: unknown) => {
       try {
+        requireOpenSession(socket);
         if (typeof payload !== "object" || payload === null) {
           throw new Error("Invalid temporary card payload.");
         }
@@ -451,6 +707,7 @@ async function main(): Promise<void> {
     socket.on("reset", async () => {
       try {
         requireInstructor(socket);
+        requireOpenSession(socket);
         state = resetSeating(state);
         await persistState(state, false);
         emitState();
@@ -462,6 +719,7 @@ async function main(): Promise<void> {
 
     socket.on("disconnect", () => {
       socket.broadcast.emit("presence", { connectedCount: Math.max(0, io.engine.clientsCount) });
+      refreshInstructorPresence();
     });
   });
 
@@ -488,7 +746,7 @@ async function main(): Promise<void> {
   });
 
   httpServer.listen(PORT, () => {
-    console.log(`DOTE2011 CAT listening on http://localhost:${PORT}`);
+    console.log(`DOTE2011 CAT listening on http://localhost:${PORT} (session starts closed)`);
   });
 }
 
