@@ -26,6 +26,7 @@ function readStoredScaleIndex(): number {
 export function Lecture() {
   const [index, setIndex] = useState(0);
   const [downloading, setDownloading] = useState(false);
+  const [downloadProgress, setDownloadProgress] = useState("");
   const [handoutMessage, setHandoutMessage] = useState("");
   const [textScaleIndex, setTextScaleIndex] = useState(readStoredScaleIndex);
   const [stageElement, setStageElement] = useState<HTMLElement | null>(null);
@@ -61,9 +62,13 @@ export function Lecture() {
       return;
     }
     setDownloading(true);
-    setHandoutMessage("");
+    setDownloadProgress("");
+    setHandoutMessage("Building PDF — one slide at a time…");
     try {
-      await downloadHandoutPdf(source);
+      await downloadHandoutPdf(source, (done, total) => {
+        setDownloadProgress(`${done} / ${total}`);
+        setHandoutMessage(`Generating slide ${done} of ${total}…`);
+      });
       setHandoutMessage("PDF saved. Check your Downloads folder.");
     } catch (error) {
       const message = error instanceof Error ? error.message : "PDF export failed.";
@@ -76,6 +81,7 @@ export function Lecture() {
       }
     } finally {
       setDownloading(false);
+      setDownloadProgress("");
     }
   };
 
@@ -137,7 +143,7 @@ export function Lecture() {
             onClick={() => void handleDownloadPdf()}
             title="Download a printable PDF handout"
           >
-            {downloading ? "GENERATING…" : "DOWNLOAD PDF"}
+            {downloading ? (downloadProgress ? `PDF ${downloadProgress}` : "GENERATING…") : "DOWNLOAD PDF"}
           </button>
         </div>
         <select className={styles.jump} aria-label="Jump to slide" value={scene.id} onChange={(event) => setIndex(SCENES.findIndex((item) => item.id === event.target.value))}>

@@ -16,6 +16,8 @@ type MountStyleSnapshot = {
 
 const PAGE_MARGIN_MM = 8;
 const HANDOUT_DESIGN_WIDTH = 1120;
+/** Scale 2 × 50+ KaTeX slides is too slow in-browser; 1.5 is sharp enough for A4. */
+const CAPTURE_SCALE = 1.5;
 
 function findHandoutMount(source: HTMLElement): HTMLElement | null {
   let node: HTMLElement | null = source;
@@ -118,6 +120,14 @@ async function nextFrame(): Promise<void> {
   });
 }
 
+/** Let the browser paint progress UI between heavy html2canvas calls. */
+async function yieldToUi(): Promise<void> {
+  await nextFrame();
+  await new Promise<void>((resolve) => {
+    window.setTimeout(resolve, 0);
+  });
+}
+
 function captureMountWidth(): number {
   // Shrink to the viewport so html2canvas does not crop content past the
   // right edge of the browser window (common with tree / Venn SVGs).
@@ -175,11 +185,29 @@ function handoutPages(source: HTMLElement): HTMLElement[] {
 }
 
 /**
+ * Hide every other handout page so html2canvas does not clone/rasterize ~50
+ * KaTeX slides on every iteration (that was hanging DOWNLOAD PDF).
+ */
+function showOnlyPage(pages: HTMLElement[], activeIndex: number): void {
+  pages.forEach((page, index) => {
+    page.style.display = index === activeIndex ? "" : "none";
+  });
+}
+
+function restoreAllPages(pages: HTMLElement[]): void {
+  for (const page of pages) {
+    page.style.display = "";
+  }
+}
+
+export type HandoutProgress = (done: number, total: number) => void;
+
+/**
  * One slide → one PDF page. Each slide is captured as a single image and scaled
  * to fit inside the A4 printable area, so content is never clipped mid-equation
  * and tall slides shrink as a whole instead of overflowing.
  */
-export async function downloadHandoutPdf(source: HTMLElement): Promise<void> {
+export async function downloadHandoutPdf(source: HTMLElement, onProgress?: HandoutProgress): Promise<void> {
   const [{ default: html2canvas }, { jsPDF }] = await Promise.all([
     import("html2canvas"),
     import("jspdf"),
@@ -204,23 +232,34 @@ export async function downloadHandoutPdf(source: HTMLElement): Promise<void> {
 
     for (let index = 0; index < pages.length; index += 1) {
       const page = pages[index];
+      showOnlyPage(pages, index);
+      onProgress?.(index + 1, pages.length);
+      await yieldToUi();
+
       const canvas = await html2canvas(page, {
-        scale: 2,
+        scale: CAPTURE_SCALE,
         useCORS: true,
         logging: false,
         scrollX: 0,
-        scrollY: -window.scrollY,
+        scrollY: 0,
         backgroundColor: "#fff4d2",
         width: Math.max(page.scrollWidth, mountWidth),
         windowWidth: Math.max(page.scrollWidth, mountWidth),
-        windowHeight: Math.max(page.scrollHeight, page.clientHeight),
+        windowHeight: Math.max(page.scrollHeight, page.clientHeight, 1),
+        ignoreElements: (element) => {
+          if (!(element instanceof HTMLElement)) return false;
+          if (element.hasAttribute("data-handout-page") && element !== page) return true;
+          // Skip the live lecture stage / nav while the handout is parked under it.
+          const className = typeof element.className === "string" ? element.className : "";
+          return className.includes("nav") || className.includes("stage");
+        },
         onclone: (_document: Document, element: HTMLElement) => {
           revealHandoutInClone(element);
           unclipOverflowInClone(element);
         },
       });
 
-      const imgData = canvas.toDataURL("image/jpeg", 0.93);
+      const imgData = canvas.toDataURL("image/jpeg", 0.88);
       const unscaledHeight = (canvas.height * usableWidth) / canvas.width;
       const fit = Math.min(1, usableHeight / unscaledHeight);
       const drawWidth = usableWidth * fit;
@@ -234,8 +273,10 @@ export async function downloadHandoutPdf(source: HTMLElement): Promise<void> {
       pdf.addImage(imgData, "JPEG", offsetX, offsetY, drawWidth, drawHeight, undefined, "FAST");
     }
 
+    onProgress?.(pages.length, pages.length);
     pdf.save(FILENAME);
   } finally {
+    restoreAllPages(pages);
     if (mount && previous) {
       restoreMount(mount, previous);
     }
