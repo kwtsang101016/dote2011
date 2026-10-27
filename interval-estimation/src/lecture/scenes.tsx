@@ -382,16 +382,16 @@ function RoadmapScene() {
           <p>How large must n be for a chosen margin of error?</p>
         </article>
         <article className={styles.card}>
-          <p className={styles.kicker}>5 · Proportions</p>
+          <p className={styles.kicker}>5 · Proportion</p>
           <p>
-            One proportion and the difference <MathText text={tex`$p_1-p_2$`} />, plus sample size.
+            <MathText text={tex`$\hat{p} \pm z_{\alpha/2}\sqrt{\hat{p}(1-\hat{p})/n}$`} /> and its sample size.
           </p>
         </article>
         <article className={styles.card}>
-          <p className={styles.kicker}>6 · Two means</p>
+          <p className={styles.kicker}>6 · Two means &amp; proportions</p>
           <p>
-            Known <MathText text={tex`$\sigma$`} />, pooled <MathText text={tex`$t$`} />, Welch <MathText text={tex`$t$`} />, and paired{" "}
-            <MathText text={tex`$t$`} /> for <MathText text={tex`$\mu_X-\mu_Y$`} />.
+            Known <MathText text={tex`$\sigma$`} />, pooled / Welch / paired <MathText text={tex`$t$`} />, then{" "}
+            <MathText text={tex`$p_1-p_2$`} /> as a special case.
           </p>
         </article>
       </div>
@@ -2200,7 +2200,10 @@ function DiffCompareScene() {
 function PropDiffScene() {
   return (
     <SceneFrame kicker="Two proportions" title={tex`Large-sample CI for $p_1-p_2$.`}>
-      <p className={styles.lead}>Independent samples from two populations:</p>
+      <p className={styles.lead}>
+        A proportion is a mean of 0–1 data, so <MathText text={tex`$p_1-p_2$`} /> is a special case of{" "}
+        <MathText text={tex`$\mu_X-\mu_Y$`} />. Independent samples from two populations:
+      </p>
       <Formula
         tex={tex`E(\hat{p}_1-\hat{p}_2)=p_1-p_2,\qquad \mathrm{Var}(\hat{p}_1-\hat{p}_2)=\dfrac{p_1(1-p_1)}{n_1}+\dfrac{p_2(1-p_2)}{n_2}`}
       />
@@ -2453,8 +2456,6 @@ export const SCENES: SceneDef[] = [
   { id: "psi", chapter: "Proportion", label: "PSI poll", Scene: PsiScene },
   { id: "n-prop", chapter: "Sample size", label: "Formula for a proportion", Scene: PropSampleSizeScene },
   { id: "n-psi", chapter: "Sample size", label: "PSI: n = 1817", Scene: PsiSampleSizeScene },
-  { id: "prop-diff", chapter: "Proportion", label: "Difference p1 − p2", Scene: PropDiffScene },
-  { id: "prop-diff-ex", chapter: "Proportion", label: "Gaming example", Scene: PropDiffExampleScene },
   { id: "two-means", chapter: "Two means", label: "Two-sided, known variances", Scene: TwoMeansScene },
   { id: "machines", chapter: "Two means", label: "Filling machines", Scene: MachinesScene },
   { id: "two-means-one-sided", chapter: "Two means", label: "One-sided bounds", Scene: TwoMeansOneSidedScene },
@@ -2467,6 +2468,8 @@ export const SCENES: SceneDef[] = [
   { id: "paired", chapter: "Paired t", label: "Paired CI", Scene: PairedCiScene },
   { id: "paired-ex", chapter: "Paired t", label: "Reaction times", Scene: PairedExampleScene },
   { id: "diff-compare", chapter: "Two means", label: "Width comparison", Scene: DiffCompareScene },
+  { id: "prop-diff", chapter: "Two proportions", label: "Difference p1 − p2", Scene: PropDiffScene },
+  { id: "prop-diff-ex", chapter: "Two proportions", label: "Gaming example", Scene: PropDiffExampleScene },
   { id: "quiz", chapter: "Practice", label: "Which answer?", Scene: QuizScene },
   { id: "takeaways", chapter: "Close", label: "Takeaways", Scene: TakeawaysScene },
 ];
