@@ -1124,12 +1124,14 @@ function OneSidedKnownScene() {
           <StandardNormalTails crit={1.645} side="upper" label="Upper tail alpha shaded" />
           <Formula tex={tex`P\left\{\dfrac{\bar{X}-\mu}{\sigma/\sqrt{n}}\le z_{\alpha}\right\}=1-\alpha`} />
           <Formula tex={tex`\mu\ \ge\ \bar{x}-z_{\alpha}\dfrac{\sigma}{\sqrt{n}}`} />
+          <Formula tex={tex`\Bigl(\bar{x}-z_{\alpha}\dfrac{\sigma}{\sqrt{n}},\ \infty\Bigr)`} />
         </article>
         <article className={styles.card}>
           <p className={styles.kicker}>Upper bound</p>
           <StandardNormalTails crit={1.645} side="lower" label="Lower tail alpha shaded" />
           <Formula tex={tex`P\left\{-z_{\alpha}\le\dfrac{\bar{X}-\mu}{\sigma/\sqrt{n}}\right\}=1-\alpha`} />
           <Formula tex={tex`\mu\ \le\ \bar{x}+z_{\alpha}\dfrac{\sigma}{\sqrt{n}}`} />
+          <Formula tex={tex`\Bigl(-\infty,\ \bar{x}+z_{\alpha}\dfrac{\sigma}{\sqrt{n}}\Bigr)`} />
         </article>
       </div>
       <p className={styles.small}>
@@ -1152,7 +1154,10 @@ function SummaryFlowScene() {
             <p className={styles.flowBranch}>YES → σ KNOWN CASE</p>
             <Formula tex={tex`\bar{x}\pm z_{\alpha/2}\dfrac{\sigma}{\sqrt{n}}`} />
             <p className={styles.small}>
-              One-sided: <MathText text={tex`$\bar{x}\mp z_{\alpha}\,\sigma/\sqrt{n}$`} />.
+              Lower: <MathText text={tex`$\bigl(\bar{x}-z_{\alpha}\dfrac{\sigma}{\sqrt{n}},\ \infty\bigr)$`} />
+            </p>
+            <p className={styles.small}>
+              Upper: <MathText text={tex`$\bigl(-\infty,\ \bar{x}+z_{\alpha}\dfrac{\sigma}{\sqrt{n}}\bigr)$`} />
             </p>
           </article>
           <article className={styles.card}>
@@ -1162,7 +1167,10 @@ function SummaryFlowScene() {
             </p>
             <Formula tex={tex`\bar{x}\pm t_{\alpha/2}\dfrac{s}{\sqrt{n}}`} />
             <p className={styles.small}>
-              One-sided: <MathText text={tex`$\bar{x}\mp t_{\alpha}(n-1)\,s/\sqrt{n}$`} />.
+              Lower: <MathText text={tex`$\bigl(\bar{x}-t_{\alpha}(n-1)\dfrac{s}{\sqrt{n}},\ \infty\bigr)$`} />
+            </p>
+            <p className={styles.small}>
+              Upper: <MathText text={tex`$\bigl(-\infty,\ \bar{x}+t_{\alpha}(n-1)\dfrac{s}{\sqrt{n}}\bigr)$`} />
             </p>
           </article>
         </div>
@@ -1186,14 +1194,14 @@ function ContainerScene() {
           <p className={styles.kicker}>Lower bound (asked)</p>
           <Formula tex={tex`\mu\ge 246-1.645\times\dfrac{15}{\sqrt{20}}=240.48`} />
           <p>
-            Interval <MathText text={tex`$[240.48,\ +\infty)$`} />.
+            Interval <MathText text={tex`$(240.48,\ \infty)$`} />.
           </p>
         </article>
         <article className={styles.card}>
           <p className={styles.kicker}>Upper bound (for comparison)</p>
           <Formula tex={tex`\mu\le 246+1.645\times\dfrac{15}{\sqrt{20}}=251.52`} />
           <p>
-            Interval <MathText text={tex`$(-\infty,\ 251.52]$`} />.
+            Interval <MathText text={tex`$(-\infty,\ 251.52)$`} />.
           </p>
         </article>
       </div>
@@ -1211,10 +1219,12 @@ function OneSidedUnknownScene() {
         <article className={styles.card}>
           <p className={styles.kicker}>Upper confidence bound</p>
           <Formula tex={tex`\mu\ \le\ \bar{x}+t_{\alpha}(n-1)\,\dfrac{s}{\sqrt{n}}`} />
+          <Formula tex={tex`\Bigl(-\infty,\ \bar{x}+t_{\alpha}(n-1)\,\dfrac{s}{\sqrt{n}}\Bigr)`} />
         </article>
         <article className={styles.card}>
           <p className={styles.kicker}>Lower confidence bound</p>
           <Formula tex={tex`\mu\ \ge\ \bar{x}-t_{\alpha}(n-1)\,\dfrac{s}{\sqrt{n}}`} />
+          <Formula tex={tex`\Bigl(\bar{x}-t_{\alpha}(n-1)\,\dfrac{s}{\sqrt{n}},\ \infty\Bigr)`} />
         </article>
       </div>
       <p className={styles.small}>
@@ -1249,14 +1259,14 @@ function AlloyScene() {
           <p className={styles.kicker}>Lower bound (asked)</p>
           <Formula tex={tex`\mu\ge 13.71-1.72\times\dfrac{3.55}{\sqrt{22}}=12.41`} />
           <p>
-            Interval <MathText text={tex`$[12.41,\ +\infty)$`} />.
+            Interval <MathText text={tex`$(12.41,\ \infty)$`} />.
           </p>
         </article>
         <article className={styles.card}>
           <p className={styles.kicker}>Upper bound (for comparison)</p>
           <Formula tex={tex`\mu\le 13.71+1.72\times\dfrac{3.55}{\sqrt{22}}=15.01`} />
           <p>
-            Interval <MathText text={tex`$(-\infty,\ 15.01]$`} />.
+            Interval <MathText text={tex`$(-\infty,\ 15.01)$`} />.
           </p>
         </article>
       </div>
@@ -1377,50 +1387,74 @@ function CaseLabScene() {
   );
 }
 
-type IntervalKind = "sigmaKnown" | "sigmaUnknown" | "lower" | "upper" | "twoSided";
+type McSituation = { title: string; story: string; options: string[]; answer: number; why: string };
 
-const INTERVAL_LABEL: Record<IntervalKind, string> = {
-  sigmaKnown: "σ known",
-  sigmaUnknown: "σ unknown",
-  lower: "One-sided lower",
-  upper: "One-sided upper",
-  twoSided: "Two-sided",
-};
+const letter = (j: number) => String.fromCharCode(65 + j);
 
-const SITUATIONS: { title: string; story: string; answer: IntervalKind; why: string }[] = [
+const SITUATIONS: McSituation[] = [
   {
     title: "Mall foot traffic",
     story:
-      "A mall manager has five years of daily visitor counts and trusts their population standard deviation. She samples 40 recent days. The key modelling choice is whether σ is treated as known or estimated from this sample.",
-    answer: "sigmaKnown",
-    why: "A reliable historical σ ⇒ use the z-interval with that σ (σ known case).",
+      "A mall manager has five years of daily visitor counts and trusts their population standard deviation. She samples 40 recent days and wants an interval for the mean daily traffic.",
+    options: [
+      "Two-sided z-interval (σ known)",
+      "Two-sided t-interval (σ unknown)",
+      "One-sided lower bound only",
+      "One-sided upper bound only",
+    ],
+    answer: 0,
+    why: "A reliable historical σ ⇒ two-sided z-interval with that σ (σ known case).",
   },
   {
     title: "New café receipts",
     story:
       "A café opened last month. The owner has 18 roughly bell-shaped receipts and no earlier data on spending variability. She wants an interval for the mean spend.",
-    answer: "sigmaUnknown",
+    options: [
+      "Two-sided z-interval (σ known)",
+      "Two-sided t-interval (σ unknown)",
+      "CI for a proportion",
+      "One-sided upper bound only",
+    ],
+    answer: 1,
     why: "No prior σ ⇒ estimate it with s and use the t-interval with n − 1 = 17 df (σ unknown case).",
   },
   {
     title: "Cable breaking strength",
     story:
       "A buyer only needs assurance that the mean breaking strength is high enough (“at least …”). The supplier’s σ is known. What kind of bound should you report?",
-    answer: "lower",
-    why: "Only a floor on μ matters ⇒ one-sided lower bound x̄ − z_α σ/√n (or t if σ were unknown).",
+    options: [
+      "Two-sided CI for μ",
+      "One-sided lower bound for μ",
+      "One-sided upper bound for μ",
+      "CI for a proportion p",
+    ],
+    answer: 1,
+    why: "Only a floor on μ matters ⇒ one-sided lower bound x̄ − z_α σ/√n.",
   },
   {
     title: "Hospital waiting times",
     story:
       "A clinic wants to advertise that average wait is not too long. Management only cares about an upper limit on the mean wait; a lower limit is irrelevant.",
-    answer: "upper",
+    options: [
+      "Two-sided CI for μ",
+      "One-sided lower bound for μ",
+      "One-sided upper bound for μ",
+      "Sample-size formula for E only",
+    ],
+    answer: 2,
     why: "Only “no larger than” matters ⇒ one-sided upper bound x̄ + z_α σ/√n (or t if σ is estimated).",
   },
   {
     title: "Entrance-exam mean",
     story:
       "Admissions wants a 90% interval that both under- and over-states the mean score with equal error budget — a symmetric range around x̄, not a one-sided warranty.",
-    answer: "twoSided",
+    options: [
+      "One-sided lower bound",
+      "One-sided upper bound",
+      "Two-sided CI for μ",
+      "CI for the difference of two means",
+    ],
+    answer: 2,
     why: "Both sides matter equally ⇒ two-sided CI x̄ ± (critical value) × (SE).",
   },
 ];
@@ -1428,7 +1462,7 @@ const SITUATIONS: { title: string; story: string; answer: IntervalKind; why: str
 function WhichIntervalScene() {
   const print = usePrintMode();
   const [index, setIndex] = useState(0);
-  const [picked, setPicked] = useState<IntervalKind | null>(null);
+  const [picked, setPicked] = useState<number | null>(null);
   const situation = SITUATIONS[index];
 
   if (print) {
@@ -1439,11 +1473,16 @@ function WhichIntervalScene() {
             <article key={item.title} className={styles.promptItem}>
               <strong>{item.title}</strong>
               <p>{item.story}</p>
+              <p>
+                {item.options.map((opt, j) => (
+                  <span key={opt}>
+                    {letter(j)}. <MathText text={opt} />
+                    {"   "}
+                  </span>
+                ))}
+              </p>
               <p className={styles.small}>
-                <strong>
-                  <MathText text={INTERVAL_LABEL[item.answer]} />.
-                </strong>{" "}
-                {item.why}
+                <strong>Answer {letter(item.answer)}.</strong> {item.why}
               </p>
             </article>
           ))}
@@ -1460,28 +1499,28 @@ function WhichIntervalScene() {
   return (
     <SceneFrame kicker="Game" title="Which interval fits the story?" tone="gold">
       <p className={styles.muted}>
-        Situation {index + 1} of {SITUATIONS.length}
+        Situation {index + 1} of {SITUATIONS.length} · Live Poll A–D
       </p>
       <article className={styles.card}>
         <p className={styles.kicker}>{situation.title}</p>
         <p>{situation.story}</p>
       </article>
       <div className={styles.tools}>
-        {(Object.keys(INTERVAL_LABEL) as IntervalKind[]).map((kind) => (
-          <button key={kind} type="button" className={picked === kind ? styles.toolBtnActive : styles.toolBtn} onClick={() => setPicked(kind)}>
-            <MathText text={INTERVAL_LABEL[kind]} />
+        {situation.options.map((opt, j) => (
+          <button key={opt} type="button" className={picked === j ? styles.toolBtnActive : styles.toolBtn} onClick={() => setPicked(j)}>
+            {letter(j)}. <MathText text={opt} />
           </button>
         ))}
       </div>
       {picked != null ? (
         <p>
           {picked === situation.answer ? (
-            <>Right. {situation.why}</>
+            <>
+              Right — {letter(situation.answer)}. {situation.why}
+            </>
           ) : (
             <>
-              Not quite: this is “
-              <MathText text={INTERVAL_LABEL[situation.answer]} />
-              ”. {situation.why}
+              Not quite: answer is {letter(situation.answer)}. {situation.why}
             </>
           )}
         </p>
@@ -1919,11 +1958,17 @@ function TwoMeansOneSidedScene() {
           <p className={styles.kicker}>Lower bound</p>
           <StandardNormalTails crit={1.645} side="upper" label="Upper tail alpha shaded" />
           <Formula tex={tex`\bar{x}-\bar{y}-z_{\alpha}\sqrt{\dfrac{\sigma_X^2}{n}+\dfrac{\sigma_Y^2}{m}}\ \le\ \mu_X-\mu_Y`} />
+          <Formula
+            tex={tex`\Bigl(\bar{x}-\bar{y}-z_{\alpha}\sqrt{\dfrac{\sigma_X^2}{n}+\dfrac{\sigma_Y^2}{m}},\ \infty\Bigr)`}
+          />
         </article>
         <article className={styles.card}>
           <p className={styles.kicker}>Upper bound</p>
           <StandardNormalTails crit={1.645} side="lower" label="Lower tail alpha shaded" />
           <Formula tex={tex`\mu_X-\mu_Y\ \le\ \bar{x}-\bar{y}+z_{\alpha}\sqrt{\dfrac{\sigma_X^2}{n}+\dfrac{\sigma_Y^2}{m}}`} />
+          <Formula
+            tex={tex`\Bigl(-\infty,\ \bar{x}-\bar{y}+z_{\alpha}\sqrt{\dfrac{\sigma_X^2}{n}+\dfrac{\sigma_Y^2}{m}}\Bigr)`}
+          />
         </article>
       </div>
       <p className={styles.small}>
@@ -1989,6 +2034,7 @@ function QuizScene() {
 
   return (
     <SceneFrame kicker="Practice" title="Which answer is right?" tone="gold">
+      <p className={styles.muted}>Live Poll A–D</p>
       <div className={styles.promptList}>
         {QUIZ.map((item, i) => (
           <article key={item.q} className={styles.promptItem}>
@@ -2003,13 +2049,13 @@ function QuizScene() {
                   className={picked[i] === j ? styles.toolBtnActive : styles.toolBtn}
                   onClick={() => setPicked((m) => ({ ...m, [i]: j }))}
                 >
-                  <MathText text={opt} />
+                  {letter(j)}. <MathText text={opt} />
                 </button>
               ))}
             </div>
             {picked[i] != null ? (
               <p className={styles.small}>
-                {picked[i] === item.answer ? "Correct. " : "Not that one. "}
+                {picked[i] === item.answer ? `Correct (${letter(item.answer)}). ` : `Not that one — answer is ${letter(item.answer)}. `}
                 <MathText text={item.why} />
               </p>
             ) : null}
@@ -2047,7 +2093,9 @@ function TakeawaysScene() {
         <article className={styles.card}>
           <p className={styles.kicker}>One-sided</p>
           <p>
-            Use <MathText text={tex`$z_{\alpha}$`} /> or <MathText text={tex`$t_{\alpha}(n-1)$`} />; the other side is <MathText text={tex`$\pm\infty$`} />.
+            Lower <MathText text={tex`$(\bar{x}-z_{\alpha}\sigma/\sqrt{n},\ \infty)$`} />; upper{" "}
+            <MathText text={tex`$(-\infty,\ \bar{x}+z_{\alpha}\sigma/\sqrt{n})$`} /> (use <MathText text={tex`$t_{\alpha}$`} /> if{" "}
+            <MathText text={tex`$\sigma$`} /> unknown).
           </p>
         </article>
         <article className={styles.card}>
