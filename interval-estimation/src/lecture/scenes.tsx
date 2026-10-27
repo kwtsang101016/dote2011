@@ -343,8 +343,8 @@ function CoverScene() {
         <p className={styles.kicker}>DOTE2011G · Statistical Analysis for Business Decisions</p>
         <h1 className={styles.coverTitle}>Interval Estimation</h1>
         <p className={styles.lead}>
-          From a point estimate to a range we can trust: confidence intervals for a population mean (<MathText text={tex`$\sigma$`} /> known and
-          unknown), one-sided bounds, sample size, population proportions, and the difference of two means.
+          From a point estimate to a range we can trust: means (<MathText text={tex`$\sigma$`} /> known and unknown), one-sided bounds, sample size,
+          proportions, and differences of two means or two proportions (pooled, Welch, and paired designs).
         </p>
         <p className={styles.hint}>{print ? COVER_HINT_PRINT : COVER_HINT_LIVE}</p>
       </div>
@@ -382,15 +382,16 @@ function RoadmapScene() {
           <p>How large must n be for a chosen margin of error?</p>
         </article>
         <article className={styles.card}>
-          <p className={styles.kicker}>5 · Proportion</p>
+          <p className={styles.kicker}>5 · Proportions</p>
           <p>
-            <MathText text={tex`$\hat{p} \pm z_{\alpha/2}\sqrt{\hat{p}(1-\hat{p})/n}$`} /> and its sample size.
+            One proportion and the difference <MathText text={tex`$p_1-p_2$`} />, plus sample size.
           </p>
         </article>
         <article className={styles.card}>
           <p className={styles.kicker}>6 · Two means</p>
           <p>
-            Interval for <MathText text={tex`$\mu_X-\mu_Y$`} /> when both variances are known.
+            Known <MathText text={tex`$\sigma$`} />, pooled <MathText text={tex`$t$`} />, Welch <MathText text={tex`$t$`} />, and paired{" "}
+            <MathText text={tex`$t$`} /> for <MathText text={tex`$\mu_X-\mu_Y$`} />.
           </p>
         </article>
       </div>
@@ -1124,14 +1125,14 @@ function OneSidedKnownScene() {
           <StandardNormalTails crit={1.645} side="upper" label="Upper tail alpha shaded" />
           <Formula tex={tex`P\left\{\dfrac{\bar{X}-\mu}{\sigma/\sqrt{n}}\le z_{\alpha}\right\}=1-\alpha`} />
           <Formula tex={tex`\mu\ \ge\ \bar{x}-z_{\alpha}\dfrac{\sigma}{\sqrt{n}}`} />
-          <Formula tex={tex`\Bigl(\bar{x}-z_{\alpha}\dfrac{\sigma}{\sqrt{n}},\ \infty\Bigr)`} />
+          <Formula tex={tex`\Bigl[\bar{x}-z_{\alpha}\dfrac{\sigma}{\sqrt{n}},\ \infty\Bigr)`} />
         </article>
         <article className={styles.card}>
           <p className={styles.kicker}>Upper bound</p>
           <StandardNormalTails crit={1.645} side="lower" label="Lower tail alpha shaded" />
           <Formula tex={tex`P\left\{-z_{\alpha}\le\dfrac{\bar{X}-\mu}{\sigma/\sqrt{n}}\right\}=1-\alpha`} />
           <Formula tex={tex`\mu\ \le\ \bar{x}+z_{\alpha}\dfrac{\sigma}{\sqrt{n}}`} />
-          <Formula tex={tex`\Bigl(-\infty,\ \bar{x}+z_{\alpha}\dfrac{\sigma}{\sqrt{n}}\Bigr)`} />
+          <Formula tex={tex`\Bigl(-\infty,\ \bar{x}+z_{\alpha}\dfrac{\sigma}{\sqrt{n}}\Bigr]`} />
         </article>
       </div>
       <p className={styles.small}>
@@ -1154,10 +1155,10 @@ function SummaryFlowScene() {
             <p className={styles.flowBranch}>YES → σ KNOWN CASE</p>
             <Formula tex={tex`\bar{x}\pm z_{\alpha/2}\dfrac{\sigma}{\sqrt{n}}`} />
             <p className={styles.small}>
-              Lower: <MathText text={tex`$\bigl(\bar{x}-z_{\alpha}\dfrac{\sigma}{\sqrt{n}},\ \infty\bigr)$`} />
+              Lower: <MathText text={tex`$\bigl[\bar{x}-z_{\alpha}\dfrac{\sigma}{\sqrt{n}},\ \infty\bigr)$`} />
             </p>
             <p className={styles.small}>
-              Upper: <MathText text={tex`$\bigl(-\infty,\ \bar{x}+z_{\alpha}\dfrac{\sigma}{\sqrt{n}}\bigr)$`} />
+              Upper: <MathText text={tex`$\bigl(-\infty,\ \bar{x}+z_{\alpha}\dfrac{\sigma}{\sqrt{n}}\bigr]$`} />
             </p>
           </article>
           <article className={styles.card}>
@@ -1167,10 +1168,10 @@ function SummaryFlowScene() {
             </p>
             <Formula tex={tex`\bar{x}\pm t_{\alpha/2}\dfrac{s}{\sqrt{n}}`} />
             <p className={styles.small}>
-              Lower: <MathText text={tex`$\bigl(\bar{x}-t_{\alpha}(n-1)\dfrac{s}{\sqrt{n}},\ \infty\bigr)$`} />
+              Lower: <MathText text={tex`$\bigl[\bar{x}-t_{\alpha}(n-1)\dfrac{s}{\sqrt{n}},\ \infty\bigr)$`} />
             </p>
             <p className={styles.small}>
-              Upper: <MathText text={tex`$\bigl(-\infty,\ \bar{x}+t_{\alpha}(n-1)\dfrac{s}{\sqrt{n}}\bigr)$`} />
+              Upper: <MathText text={tex`$\bigl(-\infty,\ \bar{x}+t_{\alpha}(n-1)\dfrac{s}{\sqrt{n}}\bigr]$`} />
             </p>
           </article>
         </div>
@@ -1194,14 +1195,14 @@ function ContainerScene() {
           <p className={styles.kicker}>Lower bound (asked)</p>
           <Formula tex={tex`\mu\ge 246-1.645\times\dfrac{15}{\sqrt{20}}=240.48`} />
           <p>
-            Interval <MathText text={tex`$(240.48,\ \infty)$`} />.
+            Interval <MathText text={tex`$[240.48,\ \infty)$`} />.
           </p>
         </article>
         <article className={styles.card}>
           <p className={styles.kicker}>Upper bound (for comparison)</p>
           <Formula tex={tex`\mu\le 246+1.645\times\dfrac{15}{\sqrt{20}}=251.52`} />
           <p>
-            Interval <MathText text={tex`$(-\infty,\ 251.52)$`} />.
+            Interval <MathText text={tex`$(-\infty,\ 251.52]$`} />.
           </p>
         </article>
       </div>
@@ -1219,12 +1220,12 @@ function OneSidedUnknownScene() {
         <article className={styles.card}>
           <p className={styles.kicker}>Upper confidence bound</p>
           <Formula tex={tex`\mu\ \le\ \bar{x}+t_{\alpha}(n-1)\,\dfrac{s}{\sqrt{n}}`} />
-          <Formula tex={tex`\Bigl(-\infty,\ \bar{x}+t_{\alpha}(n-1)\,\dfrac{s}{\sqrt{n}}\Bigr)`} />
+          <Formula tex={tex`\Bigl(-\infty,\ \bar{x}+t_{\alpha}(n-1)\,\dfrac{s}{\sqrt{n}}\Bigr]`} />
         </article>
         <article className={styles.card}>
           <p className={styles.kicker}>Lower confidence bound</p>
           <Formula tex={tex`\mu\ \ge\ \bar{x}-t_{\alpha}(n-1)\,\dfrac{s}{\sqrt{n}}`} />
-          <Formula tex={tex`\Bigl(\bar{x}-t_{\alpha}(n-1)\,\dfrac{s}{\sqrt{n}},\ \infty\Bigr)`} />
+          <Formula tex={tex`\Bigl[\bar{x}-t_{\alpha}(n-1)\,\dfrac{s}{\sqrt{n}},\ \infty\Bigr)`} />
         </article>
       </div>
       <p className={styles.small}>
@@ -1259,14 +1260,14 @@ function AlloyScene() {
           <p className={styles.kicker}>Lower bound (asked)</p>
           <Formula tex={tex`\mu\ge 13.71-1.72\times\dfrac{3.55}{\sqrt{22}}=12.41`} />
           <p>
-            Interval <MathText text={tex`$(12.41,\ \infty)$`} />.
+            Interval <MathText text={tex`$[12.41,\ \infty)$`} />.
           </p>
         </article>
         <article className={styles.card}>
           <p className={styles.kicker}>Upper bound (for comparison)</p>
           <Formula tex={tex`\mu\le 13.71+1.72\times\dfrac{3.55}{\sqrt{22}}=15.01`} />
           <p>
-            Interval <MathText text={tex`$(-\infty,\ 15.01)$`} />.
+            Interval <MathText text={tex`$(-\infty,\ 15.01]$`} />.
           </p>
         </article>
       </div>
@@ -1447,7 +1448,7 @@ const SITUATIONS: McSituation[] = [
   {
     title: "Entrance-exam mean",
     story:
-      "Admissions wants a 90% interval that both under- and over-states the mean score with equal error budget — a symmetric range around x̄, not a one-sided warranty.",
+      "Admissions wants a 90% interval that both under- and over-states the mean score with equal error budget.",
     options: [
       "One-sided lower bound",
       "One-sided upper bound",
@@ -1959,7 +1960,7 @@ function TwoMeansOneSidedScene() {
           <StandardNormalTails crit={1.645} side="upper" label="Upper tail alpha shaded" />
           <Formula tex={tex`\bar{x}-\bar{y}-z_{\alpha}\sqrt{\dfrac{\sigma_X^2}{n}+\dfrac{\sigma_Y^2}{m}}\ \le\ \mu_X-\mu_Y`} />
           <Formula
-            tex={tex`\Bigl(\bar{x}-\bar{y}-z_{\alpha}\sqrt{\dfrac{\sigma_X^2}{n}+\dfrac{\sigma_Y^2}{m}},\ \infty\Bigr)`}
+            tex={tex`\Bigl[\bar{x}-\bar{y}-z_{\alpha}\sqrt{\dfrac{\sigma_X^2}{n}+\dfrac{\sigma_Y^2}{m}},\ \infty\Bigr)`}
           />
         </article>
         <article className={styles.card}>
@@ -1967,13 +1968,276 @@ function TwoMeansOneSidedScene() {
           <StandardNormalTails crit={1.645} side="lower" label="Lower tail alpha shaded" />
           <Formula tex={tex`\mu_X-\mu_Y\ \le\ \bar{x}-\bar{y}+z_{\alpha}\sqrt{\dfrac{\sigma_X^2}{n}+\dfrac{\sigma_Y^2}{m}}`} />
           <Formula
-            tex={tex`\Bigl(-\infty,\ \bar{x}-\bar{y}+z_{\alpha}\sqrt{\dfrac{\sigma_X^2}{n}+\dfrac{\sigma_Y^2}{m}}\Bigr)`}
+            tex={tex`\Bigl(-\infty,\ \bar{x}-\bar{y}+z_{\alpha}\sqrt{\dfrac{\sigma_X^2}{n}+\dfrac{\sigma_Y^2}{m}}\Bigr]`}
           />
         </article>
       </div>
       <p className={styles.small}>
         Same recipe as for one mean: one-sided bounds use <MathText text={tex`$z_{\alpha}$`} />. Valid for non-normal distributions when{" "}
         <MathText text={tex`$n,m>30$`} />.
+      </p>
+    </SceneFrame>
+  );
+}
+
+function DiffMeansSetupScene() {
+  return (
+    <SceneFrame kicker="Two means · σ unknown" title={tex`Three designs for $\mu_X-\mu_Y$.`}>
+      <p className={styles.lead}>
+        When the variances are unknown, the right interval depends on the sampling design — not only on the research question.
+      </p>
+      <div className={styles.three}>
+        <article className={styles.card}>
+          <p className={styles.kicker}>Pooled t</p>
+          <p>
+            Independent samples, common unknown variance <MathText text={tex`$\sigma_X^2=\sigma_Y^2=\sigma^2$`} />.
+          </p>
+        </article>
+        <article className={styles.card}>
+          <p className={styles.kicker}>Welch t</p>
+          <p>Independent samples, unequal unknown variances (safer default if equality is doubtful).</p>
+        </article>
+        <article className={styles.card}>
+          <p className={styles.kicker}>Paired t</p>
+          <p>
+            Within-pair dependence; work with differences <MathText text={tex`$D_i=X_i-Y_i$`} />.
+          </p>
+        </article>
+      </div>
+    </SceneFrame>
+  );
+}
+
+function PooledCiScene() {
+  return (
+    <SceneFrame kicker="Pooled t-interval" title={tex`Equal unknown variances for $\mu_X-\mu_Y$.`}>
+      <p className={styles.lead}>
+        Independent <MathText text={tex`$N(\mu_X,\sigma^2)$`} /> and <MathText text={tex`$N(\mu_Y,\sigma^2)$`} /> samples. A{" "}
+        <MathText text={tex`$100(1-\alpha)\%$`} /> CI is
+      </p>
+      <Formula tex={tex`\bar{x}-\bar{y}\pm t_{\alpha/2}(n+m-2)\,s_p\sqrt{\dfrac{1}{n}+\dfrac{1}{m}}`} />
+      <p>with pooled variance estimator</p>
+      <Formula tex={tex`s_p^2=\dfrac{(n-1)s_X^2+(m-1)s_Y^2}{n+m-2}`} />
+      <p className={styles.small}>
+        <MathText text={tex`$s_p^2$`} /> is unbiased for the common <MathText text={tex`$\sigma^2$`} />. Degrees of freedom:{" "}
+        <MathText text={tex`$n+m-2$`} />.
+      </p>
+    </SceneFrame>
+  );
+}
+
+function PooledExampleScene() {
+  const n = 9;
+  const m = 15;
+  const xBar = 81.31;
+  const yBar = 78.61;
+  const sx2 = 60.76;
+  const sy2 = 48.24;
+  const sp2 = ((n - 1) * sx2 + (m - 1) * sy2) / (n + m - 2);
+  const sp = Math.sqrt(sp2);
+  const se = sp * Math.sqrt(1 / n + 1 / m);
+  const t = tUpper(0.025, n + m - 2);
+  const half = t * se;
+  const diff = xBar - yBar;
+  return (
+    <SceneFrame kicker="Example · pooled t" title="Mean test scores at two schools.">
+      <p className={styles.lead}>
+        Large school <MathText text={tex`$X$`} />: <MathText text={tex`$n=9$`} />, <MathText text={tex`$\bar{x}=81.31$`} />,{" "}
+        <MathText text={tex`$s_X^2=60.76$`} />. Small school <MathText text={tex`$Y$`} />: <MathText text={tex`$m=15$`} />,{" "}
+        <MathText text={tex`$\bar{y}=78.61$`} />, <MathText text={tex`$s_Y^2=48.24$`} />. Assume a common unknown variance and form a 95% CI for{" "}
+        <MathText text={tex`$\mu_X-\mu_Y$`} />.
+      </p>
+      <Formula
+        tex={tex`s_p=\sqrt{\dfrac{8\cdot 60.76+14\cdot 48.24}{22}}=${formatNum(sp, 3)},\quad t_{0.025}(22)=${formatNum(t, 3)}`}
+      />
+      <Formula
+        tex={tex`81.31-78.61\pm ${formatNum(t, 3)}\,s_p\sqrt{\tfrac{1}{9}+\tfrac{1}{15}}=[${formatNum(diff - half, 2)},\ ${formatNum(diff + half, 2)}]`}
+      />
+      <CiBar lo={diff - half} hi={diff + half} point={diff} domain={[-6, 12]} truth={0} digits={2} />
+      <p className={styles.small}>The interval covers 0, so these data do not show a clear mean gap under the pooled model.</p>
+    </SceneFrame>
+  );
+}
+
+function WelchCiScene() {
+  return (
+    <SceneFrame kicker="Welch t-interval" title={tex`Unequal unknown variances for $\mu_X-\mu_Y$.`}>
+      <p className={styles.lead}>Approximate CI (do not pool the sample variances):</p>
+      <Formula tex={tex`\bar{x}-\bar{y}\pm t_{\alpha/2}(r)\sqrt{\dfrac{s_X^2}{n}+\dfrac{s_Y^2}{m}}`} />
+      <p>with (floored) Welch–Satterthwaite degrees of freedom</p>
+      <Formula
+        tex={tex`r=\left\lfloor\dfrac{\bigl(s_X^2/n+s_Y^2/m\bigr)^2}{\frac{1}{n-1}(s_X^2/n)^2+\frac{1}{m-1}(s_Y^2/m)^2}\right\rfloor`}
+      />
+      <p className={styles.small}>
+        Use Welch when equal variances are doubtful. Same center as the pooled interval; usually a slightly different critical value and SE.
+      </p>
+    </SceneFrame>
+  );
+}
+
+function WelchExampleScene() {
+  const n = 9;
+  const m = 15;
+  const xBar = 81.31;
+  const yBar = 78.61;
+  const sx2 = 60.76;
+  const sy2 = 48.24;
+  const se = Math.sqrt(sx2 / n + sy2 / m);
+  const rRaw = se ** 4 / ((1 / (n - 1)) * (sx2 / n) ** 2 + (1 / (m - 1)) * (sy2 / m) ** 2);
+  const r = Math.max(1, Math.floor(rRaw));
+  const t = tUpper(0.025, r);
+  const half = t * se;
+  const diff = xBar - yBar;
+  return (
+    <SceneFrame kicker="Example · Welch t" title="Same schools, without pooling variances.">
+      <p className={styles.lead}>
+        Same summaries as the pooled example, but now we refuse to assume equal score variances (different class sizes, tutoring access).
+      </p>
+      <Formula
+        tex={tex`\mathrm{SE}=\sqrt{\dfrac{60.76}{9}+\dfrac{48.24}{15}}=${formatNum(se, 3)},\quad r=${r},\quad t_{0.025}(${r})=${formatNum(t, 3)}`}
+      />
+      <Formula
+        tex={tex`81.31-78.61\pm ${formatNum(t, 3)}\times ${formatNum(se, 3)}=[${formatNum(diff - half, 2)},\ ${formatNum(diff + half, 2)}]`}
+      />
+      <CiBar lo={diff - half} hi={diff + half} point={diff} domain={[-6, 12]} truth={0} digits={2} />
+      <p className={styles.small}>
+        Still covers 0. Same center as pooled <MathText text={tex`$[-3.65,\ 9.05]$`} />; slightly wider when we drop the equal-variance assumption.
+      </p>
+    </SceneFrame>
+  );
+}
+
+function PairedDefScene() {
+  return (
+    <SceneFrame kicker="Paired samples" title="When each X is matched to a unique Y.">
+      <p className={styles.lead}>
+        Samples are <strong>paired</strong> when each observation in the first sample is matched to a unique observation in the second — before/after on the
+        same person, twin studies, or the same subject under two conditions.
+      </p>
+      <div className={styles.two}>
+        <article className={styles.card}>
+          <p className={styles.kicker}>Independent samples</p>
+          <p>Separate groups → pooled or Welch for <MathText text={tex`$\mu_X-\mu_Y$`} />.</p>
+        </article>
+        <article className={styles.card}>
+          <p className={styles.kicker}>Paired samples</p>
+          <p>
+            Same units under two treatments → analyse <MathText text={tex`$D_i=X_i-Y_i$`} />.
+          </p>
+        </article>
+      </div>
+    </SceneFrame>
+  );
+}
+
+function PairedCiScene() {
+  return (
+    <SceneFrame kicker="Paired t-interval" title={tex`Reduce to a one-sample $t$ on the differences.`}>
+      <p className={styles.lead}>
+        Let <MathText text={tex`$D_i=X_i-Y_i$`} /> with <MathText text={tex`$D_i\stackrel{\mathrm{i.i.d.}}{\sim}N(\mu_D,\sigma_D^2)$`} /> and{" "}
+        <MathText text={tex`$\mu_D=\mu_X-\mu_Y$`} />. Then
+      </p>
+      <Formula tex={tex`\bar{d}\pm t_{\alpha/2}(n-1)\,\dfrac{s_D}{\sqrt{n}}`} />
+      <Formula tex={tex`\bar{d}=\dfrac{1}{n}\sum D_i,\qquad s_D^2=\dfrac{1}{n-1}\sum(D_i-\bar{d})^2`} />
+      <p className={styles.small}>
+        Same formula as a one-mean <MathText text={tex`$t$`} /> interval for <MathText text={tex`$\mu_D$`} />, with{" "}
+        <MathText text={tex`$n-1$`} /> df.
+      </p>
+    </SceneFrame>
+  );
+}
+
+function PairedExampleScene() {
+  const n = 8;
+  const dBar = -0.0625;
+  const sd = 0.0765;
+  const t = tUpper(0.025, n - 1);
+  const half = (t * sd) / Math.sqrt(n);
+  return (
+    <SceneFrame kicker="Example · paired t" title="Red vs green reaction times.">
+      <p className={styles.lead}>
+        Each of <MathText text={tex`$n=8$`} /> subjects hits a switch for a red light and for a green light. Analyse within-person differences{" "}
+        <MathText text={tex`$D_i=X_i-Y_i$`} /> (red minus green, seconds): <MathText text={tex`$\bar{d}=-0.0625$`} />,{" "}
+        <MathText text={tex`$s_D=0.0765$`} />. A 95% paired CI for <MathText text={tex`$\mu_X-\mu_Y$`} />:
+      </p>
+      <Formula
+        tex={tex`-0.0625\pm t_{0.025}(7)\,\dfrac{0.0765}{\sqrt{8}}=[${formatNum(dBar - half, 4)},\ ${formatNum(dBar + half, 4)}]`}
+      />
+      <CiBar lo={dBar - half} hi={dBar + half} point={dBar} domain={[-0.2, 0.05]} truth={0} digits={3} />
+      <p className={styles.small}>
+        Barely covers 0. Pairing matters: ignoring it and treating red/green as independent samples gives a wider pooled interval roughly{" "}
+        <MathText text={tex`$[-0.19,\ 0.06]$`} />.
+      </p>
+    </SceneFrame>
+  );
+}
+
+function DiffCompareScene() {
+  return (
+    <SceneFrame kicker="Two means · summary" title="Which CI is narrower?">
+      <div className={styles.two}>
+        <article className={styles.card}>
+          <p className={styles.kicker}>Shared center</p>
+          <Formula tex={tex`\bar{d}=\bar{x}-\bar{y}`} />
+          <p className={styles.small}>All three methods share this point estimate when the data are the same pairs or the same two samples.</p>
+        </article>
+        <article className={styles.card}>
+          <p className={styles.kicker}>Typical width order</p>
+          <p>
+            When pairing is valid and <MathText text={tex`$\rho=\mathrm{Corr}(X,Y)>0$`} />: <strong>paired &lt; pooled &lt; Welch</strong>.
+          </p>
+          <p className={styles.small}>
+            If <MathText text={tex`$\rho\approx 0$`} />, pairing helps little; if <MathText text={tex`$\rho<0$`} />, a paired CI can be wider than unpaired
+            ones. If <MathText text={tex`$s_X^2\approx s_Y^2$`} />, pooled and Welch are similar.
+          </p>
+        </article>
+      </div>
+      <Formula tex={tex`\mathrm{Var}(X-Y)=\sigma_X^2+\sigma_Y^2-2\rho\sigma_X\sigma_Y`} />
+    </SceneFrame>
+  );
+}
+
+function PropDiffScene() {
+  return (
+    <SceneFrame kicker="Two proportions" title={tex`Large-sample CI for $p_1-p_2$.`}>
+      <p className={styles.lead}>Independent samples from two populations:</p>
+      <Formula
+        tex={tex`E(\hat{p}_1-\hat{p}_2)=p_1-p_2,\qquad \mathrm{Var}(\hat{p}_1-\hat{p}_2)=\dfrac{p_1(1-p_1)}{n_1}+\dfrac{p_2(1-p_2)}{n_2}`}
+      />
+      <p>Plug in the sample proportions for a large-sample CI:</p>
+      <Formula
+        tex={tex`\hat{p}_1-\hat{p}_2\pm z_{\alpha/2}\sqrt{\dfrac{\hat{p}_1(1-\hat{p}_1)}{n_1}+\dfrac{\hat{p}_2(1-\hat{p}_2)}{n_2}}`}
+      />
+      <p className={styles.small}>
+        Unlike the hypothesis test under <MathText text={tex`$H_0:p_1=p_2$`} />, the CI does not pool the proportions — each group keeps its own{" "}
+        <MathText text={tex`$\hat{p}_i$`} /> in the standard error.
+      </p>
+    </SceneFrame>
+  );
+}
+
+function PropDiffExampleScene() {
+  const p1 = 0.6;
+  const p2 = 0.4;
+  const n1 = 2000;
+  const n2 = 2200;
+  const se = Math.sqrt((p1 * (1 - p1)) / n1 + (p2 * (1 - p2)) / n2);
+  const z = 1.96;
+  const half = z * se;
+  const diff = p1 - p2;
+  return (
+    <SceneFrame kicker="Example · two proportions" title="Gaming interest by gender.">
+      <p className={styles.lead}>
+        Independent campus surveys: males <MathText text={tex`$\hat{p}_1=0.6$`} /> (<MathText text={tex`$n_1=2000$`} />), females{" "}
+        <MathText text={tex`$\hat{p}_2=0.4$`} /> (<MathText text={tex`$n_2=2200$`} />). Approximate 95% CI for{" "}
+        <MathText text={tex`$p_1-p_2$`} />:
+      </p>
+      <Formula
+        tex={tex`0.6-0.4\pm 1.96\sqrt{\dfrac{0.6\cdot 0.4}{2000}+\dfrac{0.4\cdot 0.6}{2200}}=[${formatNum(diff - half, 2)},\ ${formatNum(diff + half, 2)}]`}
+      />
+      <CiBar lo={diff - half} hi={diff + half} point={diff} domain={[0, 0.35]} truth={0} digits={2} />
+      <p className={styles.small}>
+        The entire interval is positive and away from 0, so these data support a real gap in reported gaming rates (under the survey’s sampling assumptions).
       </p>
     </SceneFrame>
   );
@@ -2024,6 +2288,29 @@ const QUIZ = [
     options: [tex`$z_{.025}=1.960$`, tex`$z_{.05}=1.645$`, tex`$z_{.10}=1.282$`, tex`$z_{.005}=2.576$`],
     answer: 1,
     why: tex`All of $\alpha=.05$ goes into one tail, so the critical value is $z_{\alpha}=z_{.05}$.`,
+  },
+  {
+    q: "Independent samples, unknown but equal variances. CI for μX − μY uses …",
+    options: ["pooled t (n+m−2 df)", "Welch t", "paired t (n−1 df)", "z with known σ only"],
+    answer: 0,
+    why: tex`Pool $s_X^2$ and $s_Y^2$ into $s_p^2$ and use $t_{\alpha/2}(n+m-2)$.`,
+  },
+  {
+    q: "Before/after weights on the same 20 people. The CI for the mean change uses …",
+    options: ["pooled t on the two lists", "Welch t", "paired t on the differences", "two-proportion z"],
+    answer: 2,
+    why: tex`Matched units ⇒ analyse $D_i=X_i-Y_i$ with a one-sample $t(n-1)$ interval.`,
+  },
+  {
+    q: tex`Large-sample CI for $p_1-p_2$ plugs which variances into the SE?`,
+    options: [
+      tex`pooled $\hat{p}(1-\hat{p})$ only`,
+      tex`each group's $\hat{p}_i(1-\hat{p}_i)$`,
+      tex`only $\hat{p}_1(1-\hat{p}_1)$`,
+      tex`$\sigma_X^2$ and $\sigma_Y^2$`,
+    ],
+    answer: 1,
+    why: tex`The CI SE uses $\hat{p}_1(1-\hat{p}_1)/n_1+\hat{p}_2(1-\hat{p}_2)/n_2$ (no pooling).`,
   },
 ];
 
@@ -2093,8 +2380,8 @@ function TakeawaysScene() {
         <article className={styles.card}>
           <p className={styles.kicker}>One-sided</p>
           <p>
-            Lower <MathText text={tex`$(\bar{x}-z_{\alpha}\sigma/\sqrt{n},\ \infty)$`} />; upper{" "}
-            <MathText text={tex`$(-\infty,\ \bar{x}+z_{\alpha}\sigma/\sqrt{n})$`} /> (use <MathText text={tex`$t_{\alpha}$`} /> if{" "}
+            Lower <MathText text={tex`$[\bar{x}-z_{\alpha}\sigma/\sqrt{n},\ \infty)$`} />; upper{" "}
+            <MathText text={tex`$(-\infty,\ \bar{x}+z_{\alpha}\sigma/\sqrt{n}]$`} /> (use <MathText text={tex`$t_{\alpha}$`} /> if{" "}
             <MathText text={tex`$\sigma$`} /> unknown).
           </p>
         </article>
@@ -2105,16 +2392,18 @@ function TakeawaysScene() {
           </p>
         </article>
         <article className={styles.card}>
-          <p className={styles.kicker}>Proportion</p>
+          <p className={styles.kicker}>Proportions</p>
           <p>
-            <MathText text={tex`$\hat{p}\pm z_{\alpha/2}\sqrt{\hat{p}(1-\hat{p})/n}$`} /> when <MathText text={tex`$np>5$`} /> and{" "}
-            <MathText text={tex`$n(1-p)>5$`} />.
+            <MathText text={tex`$\hat{p}\pm z_{\alpha/2}\sqrt{\hat{p}(1-\hat{p})/n}$`} />; difference{" "}
+            <MathText text={tex`$\hat{p}_1-\hat{p}_2\pm z_{\alpha/2}\sqrt{\hat{p}_1(1-\hat{p}_1)/n_1+\hat{p}_2(1-\hat{p}_2)/n_2}$`} />.
           </p>
         </article>
         <article className={styles.card}>
           <p className={styles.kicker}>Two means</p>
           <p>
-            <MathText text={tex`$\bar{x}-\bar{y}\pm z_{\alpha/2}\sqrt{\sigma_X^2/n+\sigma_Y^2/m}$`} />.
+            Known <MathText text={tex`$\sigma$`} />: z. Unknown equal: pooled{" "}
+            <MathText text={tex`$t(n+m-2)$`} />. Unequal: Welch. Matched units: paired{" "}
+            <MathText text={tex`$t(n-1)$`} /> on <MathText text={tex`$D_i$`} />.
           </p>
         </article>
       </div>
@@ -2164,9 +2453,20 @@ export const SCENES: SceneDef[] = [
   { id: "psi", chapter: "Proportion", label: "PSI poll", Scene: PsiScene },
   { id: "n-prop", chapter: "Sample size", label: "Formula for a proportion", Scene: PropSampleSizeScene },
   { id: "n-psi", chapter: "Sample size", label: "PSI: n = 1817", Scene: PsiSampleSizeScene },
+  { id: "prop-diff", chapter: "Proportion", label: "Difference p1 − p2", Scene: PropDiffScene },
+  { id: "prop-diff-ex", chapter: "Proportion", label: "Gaming example", Scene: PropDiffExampleScene },
   { id: "two-means", chapter: "Two means", label: "Two-sided, known variances", Scene: TwoMeansScene },
   { id: "machines", chapter: "Two means", label: "Filling machines", Scene: MachinesScene },
   { id: "two-means-one-sided", chapter: "Two means", label: "One-sided bounds", Scene: TwoMeansOneSidedScene },
+  { id: "diff-setup", chapter: "Two means", label: "Three designs (σ unknown)", Scene: DiffMeansSetupScene },
+  { id: "pooled", chapter: "Pooled t", label: "Equal variances", Scene: PooledCiScene },
+  { id: "pooled-ex", chapter: "Pooled t", label: "Two schools", Scene: PooledExampleScene },
+  { id: "welch", chapter: "Welch t", label: "Unequal variances", Scene: WelchCiScene },
+  { id: "welch-ex", chapter: "Welch t", label: "Schools, no pooling", Scene: WelchExampleScene },
+  { id: "paired-def", chapter: "Paired t", label: "Paired samples", Scene: PairedDefScene },
+  { id: "paired", chapter: "Paired t", label: "Paired CI", Scene: PairedCiScene },
+  { id: "paired-ex", chapter: "Paired t", label: "Reaction times", Scene: PairedExampleScene },
+  { id: "diff-compare", chapter: "Two means", label: "Width comparison", Scene: DiffCompareScene },
   { id: "quiz", chapter: "Practice", label: "Which answer?", Scene: QuizScene },
   { id: "takeaways", chapter: "Close", label: "Takeaways", Scene: TakeawaysScene },
 ];
