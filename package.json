@@ -10,6 +10,7 @@
     "dev:cont": "npm run dev --prefix continuous-distributions",
     "dev:samp": "npm run dev --prefix sampling-distributions",
     "dev:ie": "npm run dev --prefix interval-estimation",
+    "dev:ht": "npm run dev --prefix hypothesis-tests",
     "dev:cal": "npm run dev --prefix calendar",
     "build:intro": "npm run build --prefix introduction",
     "build:desc": "npm run build --prefix descriptive-statistics",
@@ -18,7 +19,8 @@
     "build:cont": "npm run build --prefix continuous-distributions",
     "build:samp": "npm run build --prefix sampling-distributions",
     "build:ie": "npm run build --prefix interval-estimation",
+    "build:ht": "npm run build --prefix hypothesis-tests",
     "build:cal": "npm run build --prefix calendar",
-    "build:all": "npm run build:intro && npm run build:desc && npm run build:prob && npm run build:disc && npm run build:cont && npm run build:samp && npm run build:ie && npm run build:cal"
+    "build:all": "npm run build:intro && npm run build:desc && npm run build:prob && npm run build:disc && npm run build:cont && npm run build:samp && npm run build:ie && npm run build:ht && npm run build:cal"
   }
 }

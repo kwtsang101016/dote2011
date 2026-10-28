@@ -13,6 +13,7 @@ Interactive HTML lecture apps for **DOTE2011G Statistical Analysis for Business 
 | Continuous Probability Distributions | [`continuous-distributions/`](continuous-distributions/) | [Open lecture](https://kwtsang101016.github.io/dote2011/continuous-distributions/) | `npm run dev` → http://127.0.0.1:5177 |
 | Sampling and Sampling Distributions | [`sampling-distributions/`](sampling-distributions/) | [Open lecture](https://kwtsang101016.github.io/dote2011/sampling-distributions/) | `npm run dev` → http://127.0.0.1:5178 |
 | Interval Estimation | [`interval-estimation/`](interval-estimation/) | [Open lecture](https://kwtsang101016.github.io/dote2011/interval-estimation/) | `npm run dev` → http://127.0.0.1:5179 |
+| Hypothesis Tests | [`hypothesis-tests/`](hypothesis-tests/) | [Open lecture](https://kwtsang101016.github.io/dote2011/hypothesis-tests/) | `npm run dev` → http://127.0.0.1:5180 |
 
 **Class Attending Table (CAT):** [`cat/`](cat/) — realtime seating board (Render + Redis). See [`cat/README.md`](cat/README.md).
 

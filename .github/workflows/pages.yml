@@ -34,6 +34,7 @@ jobs:
             continuous-distributions/package-lock.json
             sampling-distributions/package-lock.json
             interval-estimation/package-lock.json
+            hypothesis-tests/package-lock.json
             calendar/package-lock.json
 
       - name: Install and build introduction
@@ -85,6 +86,13 @@ jobs:
           npm ci --prefix interval-estimation
           npm run build --prefix interval-estimation
 
+      - name: Install and build hypothesis-tests
+        env:
+          VITE_USAGE_LOG_URL: ${{ secrets.VITE_USAGE_LOG_URL }}
+        run: |
+          npm ci --prefix hypothesis-tests
+          npm run build --prefix hypothesis-tests
+
       - name: Install and build calendar
         run: |
           npm ci --prefix calendar
@@ -92,7 +100,7 @@ jobs:
 
       - name: Assemble site
         run: |
-          mkdir -p _site/introduction _site/descriptive-statistics _site/probability _site/discrete-distributions _site/continuous-distributions _site/sampling-distributions _site/interval-estimation _site/calendar _site/inclass
+          mkdir -p _site/introduction _site/descriptive-statistics _site/probability _site/discrete-distributions _site/continuous-distributions _site/sampling-distributions _site/interval-estimation _site/hypothesis-tests _site/calendar _site/inclass
           cp -r introduction/dist/* _site/introduction/
           cp -r descriptive-statistics/dist/* _site/descriptive-statistics/
           cp -r probability/dist/* _site/probability/
@@ -100,6 +108,7 @@ jobs:
           cp -r continuous-distributions/dist/* _site/continuous-distributions/
           cp -r sampling-distributions/dist/* _site/sampling-distributions/
           cp -r interval-estimation/dist/* _site/interval-estimation/
+          cp -r hypothesis-tests/dist/* _site/hypothesis-tests/
           cp -r calendar/dist/* _site/calendar/
           cp -a site/inclass/. _site/inclass/
           cp site/index.html _site/index.html
