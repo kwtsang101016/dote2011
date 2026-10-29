@@ -88,7 +88,6 @@
       }
       button.play:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 #2a1212; }
       button.play:disabled { opacity: 0.55; cursor: wait; }
-      .voice-note { font-size: 13px; color: var(--muted); }
       .quote {
         margin: 0;
         font-size: 16px;
@@ -136,7 +135,6 @@
         <h2>Jigsaw’s message</h2>
         <div class="voice-row">
           <button type="button" class="play" id="play-jigsaw">▶ Play Jigsaw</button>
-          <span class="voice-note" id="voice-status">Uses your browser’s built-in speech (no audio file).</span>
         </div>
         <p class="quote" id="jigsaw-script">
           You advertised that the latches in your company have mean breaking strength at least 50.
@@ -208,23 +206,18 @@
       tex(document.getElementById("sol-trap"), "t_{0.025}(9)=2.262");
 
       const playBtn = document.getElementById("play-jigsaw");
-      const status = document.getElementById("voice-status");
       const script = document.getElementById("jigsaw-script").textContent.replace(/\s+/g, " ").trim();
 
       function pickVoice(voices) {
-        const prefer = [/English.*UK/i, /en-GB/i, /Daniel/i, /Male/i, /English/i, /en-/i];
-        for (const re of prefer) {
-          const hit = voices.find((v) => re.test(`${v.name} ${v.lang}`));
-          if (hit) return hit;
-        }
-        return voices[0] || null;
+        const english = voices.filter((v) => /^en\b/i.test(v.lang) || /english/i.test(v.name));
+        const pool = english.length ? english : voices;
+        const male = pool.filter((v) => /male|daniel|david|mark|george|thomas|fred|rishi/i.test(v.name));
+        const notFemale = pool.filter((v) => !/female|woman|zira|samantha|karen|moira|tessa|veena|fiona/i.test(v.name));
+        return male[0] || notFemale[0] || pool[0] || null;
       }
 
       function speakJigsaw() {
-        if (!("speechSynthesis" in window)) {
-          status.textContent = "Speech synthesis is not available in this browser.";
-          return;
-        }
+        if (!("speechSynthesis" in window)) return;
         window.speechSynthesis.cancel();
         const utter = new SpeechSynthesisUtterance(script);
         utter.rate = 0.88;
@@ -235,7 +228,6 @@
         utter.onstart = () => {
           playBtn.disabled = true;
           playBtn.textContent = "Speaking…";
-          status.textContent = voice ? `Voice: ${voice.name}` : "Speaking…";
         };
         utter.onend = utter.onerror = () => {
           playBtn.disabled = false;
