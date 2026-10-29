@@ -101,14 +101,6 @@
         letter-spacing: 0.02em;
       }
       .task { margin: 0; line-height: 1.55; }
-      .hint {
-        margin: 12px 0 0;
-        padding: 10px 12px;
-        background: rgba(139, 10, 10, 0.08);
-        border-left: 4px solid var(--blood);
-        font-size: 14px;
-        line-height: 1.45;
-      }
       details.solution {
         background: #1a1014;
         color: #f3ebe0;
@@ -180,12 +172,6 @@
           <span id="claim"></span>
           at the 95% level?
         </p>
-        <p class="hint">
-          Hint: one-sided lower bound with unknown σ uses
-          <span id="hint-t"></span>
-          with α = 0.05 (not α/2). From the t table:
-          <span id="hint-val"></span>.
-        </p>
       </section>
 
       <details class="solution">
@@ -213,8 +199,6 @@
       tex(document.getElementById("mu"), "\\mu");
       tex(document.getElementById("interval-form"), "[L,\\,\\infty)");
       tex(document.getElementById("claim"), "\\mu\\ge 50");
-      tex(document.getElementById("hint-t"), "t_{\\alpha}(n-1)");
-      tex(document.getElementById("hint-val"), "t_{0.05}(9)=1.833");
       tex(document.getElementById("sol-sum"), "n=10,\\ \\bar{x}=52.5,\\ s\\approx 3.028,\\ t_{0.05}(9)=1.833");
       tex(
         document.getElementById("sol-L"),
