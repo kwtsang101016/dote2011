@@ -1,0 +1,91 @@
+% DOTE2011G · In-Class Exercise 2
+% Halloween · Jigsaw latch game · one-sided CI
+%
+% Recommended: xelatex Ex2.tex
+
+\documentclass[11pt,a4paper,UTF8]{ctexart}
+
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\usepackage{fancyhdr}
+\usepackage{microtype}
+
+\definecolor{blood}{HTML}{7A0C0C}
+\definecolor{night}{HTML}{120C14}
+\definecolor{paper}{HTML}{F4EFE6}
+\definecolor{amber}{HTML}{C9A227}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small DOTE2011G · Statistical Analysis for Business Decisions}
+\fancyhead[R]{\small In-Class Exercise 2}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+\begin{center}
+  {\Large\bfseries\color{blood} I Want to Play a Game}\\[0.25em]
+  {\large\bfseries Halloween · One-sided confidence interval}\\[0.55em]
+  {\normalsize A lower bound for mean latch strength}\\[0.7em]
+  {\small Participation exercise · please show your working}
+\end{center}
+
+\vspace{0.35em}
+
+\begin{tcolorbox}[
+  enhanced,
+  colback=paper,
+  colframe=blood,
+  boxrule=1.1pt,
+  arc=2mm,
+  left=10pt,right=10pt,top=8pt,bottom=8pt,
+  title={\bfseries Jigsaw's message},
+  fonttitle=\color{white}\bfseries,
+  coltitle=white,
+  colbacktitle=blood
+]
+\textit{``You advertised that the latches in your company have mean breaking strength at least 50.
+Many people have bought your products because of your claim.
+I brought one, which was WEAK!
+Now, let's play a game.
+Go pick up 10 latches on the shelf behind you --- they are all your products.
+Then you can measure their strengths using the machine in front of you.
+If you can show that your claim is true with a 95\% confidence level, I will forgive you for selling me a weak latch and let you go.
+Otherwise, you are a liar --- and now you have to pay for it!''}
+\end{tcolorbox}
+
+\vspace{0.75em}
+
+\noindent\textbf{Your data.}
+You randomly pick 10 latches and measure breaking strengths (kg):
+\[
+51,\ 55,\ 48,\ 53,\ 57,\ 50,\ 54,\ 49,\ 56,\ 52.
+\]
+The population standard deviation is \emph{unknown}. Treat the strengths as a random sample from a normal population with mean $\mu$.
+
+\vspace{0.65em}
+
+\noindent\textbf{Task.}
+Give a \textbf{95\% lower confidence bound} for $\mu$ (write the interval in the form $[L,\ \infty)$).
+Then decide: does this interval support the advertising claim $\mu\ge 50$ at the 95\% level?
+
+\vspace{0.55em}
+
+\noindent\textit{Hint.}
+For a one-sided lower bound with unknown $\sigma$, use
+$t_{\alpha}(n-1)$ with $\alpha=0.05$ (not $t_{\alpha/2}$).
+From the $t$ table: $t_{0.05}(9)=1.833$.
+
+\vspace{0.85em}
+\noindent\rule{\textwidth}{0.4pt}\\[0.55em]
+{\small
+No written submission --- a few students will be invited to present in class.
+Happy Halloween.
+}
+
+\end{document}

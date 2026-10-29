@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOTE2011G · In-Class Ex2 · I Want to Play a Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Creepster&family=Source+Sans+3:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css"
+      crossorigin="anonymous"
+    />
+    <style>
+      :root {
+        --blood: #8b0a0a;
+        --blood-deep: #4a0505;
+        --night: #0d0a0f;
+        --paper: #f3ebe0;
+        --ink: #1c1418;
+        --amber: #d4a017;
+        --muted: #6e5f66;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        font-family: "Source Sans 3", sans-serif;
+        background:
+          radial-gradient(circle at 20% 0%, rgba(139, 10, 10, 0.35), transparent 35%),
+          radial-gradient(circle at 90% 10%, rgba(212, 160, 23, 0.12), transparent 28%),
+          linear-gradient(180deg, #12090c 0%, #1a0f14 45%, #241018 100%);
+      }
+      .wrap { max-width: 760px; margin: 0 auto; padding: 28px 20px 64px; }
+      .meta {
+        display: flex; flex-wrap: wrap; gap: 8px 16px; justify-content: space-between;
+        color: rgba(243, 235, 224, 0.78); font-size: 13px; margin-bottom: 18px;
+      }
+      .meta a { color: var(--amber); text-decoration: none; font-weight: 700; }
+      .title {
+        margin: 0;
+        font-family: Creepster, cursive;
+        font-size: clamp(36px, 8vw, 56px);
+        letter-spacing: 0.04em;
+        color: #f2d7d0;
+        text-align: center;
+        text-shadow: 0 0 24px rgba(139, 10, 10, 0.55);
+      }
+      .subtitle {
+        margin: 8px 0 22px;
+        text-align: center;
+        color: rgba(243, 235, 224, 0.78);
+        font-size: 15px;
+      }
+      .card {
+        background: var(--paper);
+        border: 3px solid #2a1212;
+        box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.45);
+        padding: 22px 22px 20px;
+        margin-bottom: 18px;
+      }
+      .card h2 {
+        margin: 0 0 12px;
+        font-size: 15px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--blood);
+      }
+      .voice-row {
+        display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 12px;
+      }
+      button.play {
+        appearance: none;
+        border: 3px solid #2a1212;
+        background: var(--blood);
+        color: #fff;
+        font: 800 13px/1 "Source Sans 3", sans-serif;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding: 12px 16px;
+        cursor: pointer;
+        box-shadow: 4px 4px 0 #2a1212;
+      }
+      button.play:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 #2a1212; }
+      button.play:disabled { opacity: 0.55; cursor: wait; }
+      .voice-note { font-size: 13px; color: var(--muted); }
+      .quote {
+        margin: 0;
+        font-size: 16px;
+        line-height: 1.55;
+        font-style: italic;
+      }
+      .data {
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 15px;
+        letter-spacing: 0.02em;
+      }
+      .task { margin: 0; line-height: 1.55; }
+      .hint {
+        margin: 12px 0 0;
+        padding: 10px 12px;
+        background: rgba(139, 10, 10, 0.08);
+        border-left: 4px solid var(--blood);
+        font-size: 14px;
+        line-height: 1.45;
+      }
+      details.solution {
+        background: #1a1014;
+        color: #f3ebe0;
+        border: 2px dashed rgba(212, 160, 23, 0.45);
+        padding: 14px 16px;
+      }
+      details.solution summary {
+        cursor: pointer;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        color: var(--amber);
+      }
+      details.solution[open] summary { margin-bottom: 10px; }
+      .footer {
+        margin-top: 22px;
+        text-align: center;
+        color: rgba(243, 235, 224, 0.55);
+        font-size: 13px;
+      }
+      .katex { font-size: 1.05em; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="meta">
+        <span>DOTE2011G · In-Class Exercise 2</span>
+        <a href="../">← All in-class exercises</a>
+      </div>
+      <h1 class="title">I Want to Play a Game</h1>
+      <p class="subtitle">Halloween · 95% lower confidence bound for mean latch strength</p>
+
+      <section class="card">
+        <h2>Jigsaw’s message</h2>
+        <div class="voice-row">
+          <button type="button" class="play" id="play-jigsaw">▶ Play Jigsaw</button>
+          <span class="voice-note" id="voice-status">Uses your browser’s built-in speech (no audio file).</span>
+        </div>
+        <p class="quote" id="jigsaw-script">
+          You advertised that the latches in your company have mean breaking strength at least 50.
+          Many people have bought your products because of your claim.
+          I brought one, which was WEAK!
+          Now, let’s play a game.
+          Go pick up 10 latches on the shelf behind you — they are all your products.
+          Then you can measure their strengths using the machine in front of you.
+          If you can show that your claim is true with a 95 percent confidence level,
+          I will forgive you for selling me a weak latch and let you go.
+          Otherwise, you are a liar — and now you have to pay for it!
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Your data</h2>
+        <p class="task">
+          You randomly pick 10 latches and measure breaking strengths (kg). The population SD
+          <span class="katex-inline">σ</span> is unknown; treat the sample as from a normal population with mean
+          <span class="katex-inline">μ</span>.
+        </p>
+        <p class="data">51, 55, 48, 53, 57, 50, 54, 49, 56, 52</p>
+      </section>
+
+      <section class="card">
+        <h2>Task</h2>
+        <p class="task">
+          Give a <strong>95% lower confidence bound</strong> for
+          <span id="mu"></span>
+          (write the interval as
+          <span id="interval-form"></span>).
+          Then decide: does this support the claim
+          <span id="claim"></span>
+          at the 95% level?
+        </p>
+        <p class="hint">
+          Hint: one-sided lower bound with unknown σ uses
+          <span id="hint-t"></span>
+          with α = 0.05 (not α/2). From the t table:
+          <span id="hint-val"></span>.
+        </p>
+      </section>
+
+      <details class="solution">
+        <summary>Solution (reveal after class)</summary>
+        <p>
+          <span id="sol-sum"></span>
+        </p>
+        <p>
+          <span id="sol-L"></span>
+        </p>
+        <p>
+          Since <span id="sol-decide"></span>, the claim is supported — Jigsaw lets you go.
+          Trap: do not use <span id="sol-trap"></span> (that is for two-sided intervals).
+        </p>
+      </details>
+
+      <p class="footer">No written submission · present in class · Happy Halloween</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script>
+      function tex(el, s, display) {
+        katex.render(s, el, { throwOnError: false, displayMode: !!display });
+      }
+      tex(document.getElementById("mu"), "\\mu");
+      tex(document.getElementById("interval-form"), "[L,\\,\\infty)");
+      tex(document.getElementById("claim"), "\\mu\\ge 50");
+      tex(document.getElementById("hint-t"), "t_{\\alpha}(n-1)");
+      tex(document.getElementById("hint-val"), "t_{0.05}(9)=1.833");
+      tex(document.getElementById("sol-sum"), "n=10,\\ \\bar{x}=52.5,\\ s\\approx 3.028,\\ t_{0.05}(9)=1.833");
+      tex(
+        document.getElementById("sol-L"),
+        "L=\\bar{x}-t_{0.05}(9)\\,s/\\sqrt{n}\\approx 50.745\\quad\\Rightarrow\\quad [50.745,\\,\\infty)",
+      );
+      tex(document.getElementById("sol-decide"), "L>50");
+      tex(document.getElementById("sol-trap"), "t_{0.025}(9)=2.262");
+
+      const playBtn = document.getElementById("play-jigsaw");
+      const status = document.getElementById("voice-status");
+      const script = document.getElementById("jigsaw-script").textContent.replace(/\s+/g, " ").trim();
+
+      function pickVoice(voices) {
+        const prefer = [/English.*UK/i, /en-GB/i, /Daniel/i, /Male/i, /English/i, /en-/i];
+        for (const re of prefer) {
+          const hit = voices.find((v) => re.test(`${v.name} ${v.lang}`));
+          if (hit) return hit;
+        }
+        return voices[0] || null;
+      }
+
+      function speakJigsaw() {
+        if (!("speechSynthesis" in window)) {
+          status.textContent = "Speech synthesis is not available in this browser.";
+          return;
+        }
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(script);
+        utter.rate = 0.88;
+        utter.pitch = 0.55;
+        utter.volume = 1;
+        const voice = pickVoice(window.speechSynthesis.getVoices());
+        if (voice) utter.voice = voice;
+        utter.onstart = () => {
+          playBtn.disabled = true;
+          playBtn.textContent = "Speaking…";
+          status.textContent = voice ? `Voice: ${voice.name}` : "Speaking…";
+        };
+        utter.onend = utter.onerror = () => {
+          playBtn.disabled = false;
+          playBtn.textContent = "▶ Play Jigsaw";
+        };
+        window.speechSynthesis.speak(utter);
+      }
+
+      playBtn.addEventListener("click", () => {
+        // Chrome loads voices asynchronously.
+        const voices = window.speechSynthesis?.getVoices?.() || [];
+        if (!voices.length && window.speechSynthesis) {
+          window.speechSynthesis.onvoiceschanged = () => speakJigsaw();
+          window.speechSynthesis.getVoices();
+          speakJigsaw();
+          return;
+        }
+        speakJigsaw();
+      });
+    </script>
+  </body>
+</html>

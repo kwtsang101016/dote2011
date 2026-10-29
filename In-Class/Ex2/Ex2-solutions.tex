@@ -1,0 +1,63 @@
+% DOTE2011G · In-Class Exercise 2 · Instructor answer key
+% Compile with: xelatex Ex2-solutions.tex
+
+\documentclass[11pt,a4paper,UTF8]{ctexart}
+
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+
+\definecolor{blood}{HTML}{7A0C0C}
+\definecolor{night}{HTML}{120C14}
+
+\begin{document}
+
+\begin{center}
+  {\Large\bfseries\color{night} In-Class Exercise 2 · Solutions}\\[0.3em]
+  {\normalsize Jigsaw latch · 95\% lower CI (instructor key)}
+\end{center}
+
+\vspace{0.6em}
+
+\noindent\textbf{Summaries.}
+\[
+n=10,\quad
+\bar{x}=52.5,\quad
+s=\sqrt{\dfrac{1}{9}\sum(x_i-\bar{x})^2}\approx 3.028.
+\]
+
+\noindent\textbf{Critical value.}
+One-sided 95\% lower bound $\Rightarrow$ $\alpha=0.05$, df $=n-1=9$:
+\[
+t_{0.05}(9)=1.833.
+\]
+
+\noindent\textbf{Lower bound.}
+\[
+L
+=\bar{x}-t_{0.05}(9)\,\dfrac{s}{\sqrt{n}}
+=52.5-1.833\times\dfrac{3.028}{\sqrt{10}}
+\approx 52.5-1.755
+\approx 50.745.
+\]
+Interval:
+\[
+[\,50.745,\ \infty\,).
+\]
+
+\noindent\textbf{Claim $\mu\ge 50$.}
+The entire lower CI lies above 50 ($L>50$), so at the 95\% level the data support the advertising claim.
+(Equivalently: a level-$\alpha=0.05$ test of $H_0:\mu\le 50$ vs $H_1:\mu>50$ rejects $H_0$.)
+
+\vspace{0.45em}
+\noindent\textit{Common trap.}
+Using $t_{0.025}(9)=2.262$ (two-sided) gives a lower $L$ and the wrong critical value for a one-sided bound.
+
+\vspace{0.7em}
+\begin{tcolorbox}[colback=blood!5,colframe=blood,title=\textbf{Quick check}]
+$L\approx\mathbf{50.75}$ · interval $[50.75,\infty)$ · claim supported · Jigsaw lets you go.
+\end{tcolorbox}
+
+\end{document}
