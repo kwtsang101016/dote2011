@@ -57,6 +57,46 @@
         color: rgba(243, 235, 224, 0.78);
         font-size: 15px;
       }
+      .mask-wrap {
+        display: grid;
+        justify-items: center;
+        margin: 4px 0 18px;
+      }
+      .mask {
+        width: min(168px, 42vw);
+        filter: drop-shadow(0 12px 22px rgba(139, 10, 10, 0.45));
+        transform-origin: 50% 18%;
+        animation: mask-idle 5s ease-in-out infinite;
+      }
+      .mask.speaking {
+        animation: mask-talk 0.22s ease-in-out infinite;
+      }
+      .mouth-closed {
+        opacity: 1;
+      }
+      .mouth-open {
+        opacity: 0;
+        transform-origin: 80px 124px;
+      }
+      .mask.speaking .mouth-closed {
+        opacity: 0;
+      }
+      .mask.speaking .mouth-open {
+        opacity: 1;
+        animation: jaw 0.22s ease-in-out infinite;
+      }
+      @keyframes mask-idle {
+        0%, 100% { transform: rotate(-2deg) translateY(0); }
+        50% { transform: rotate(2deg) translateY(3px); }
+      }
+      @keyframes mask-talk {
+        0%, 100% { transform: rotate(-1deg) scale(1); }
+        50% { transform: rotate(1deg) scale(1.03); }
+      }
+      @keyframes jaw {
+        0%, 100% { transform: scaleY(0.35); }
+        50% { transform: scaleY(1); }
+      }
       .card {
         background: var(--paper);
         border: 3px solid #2a1212;
@@ -130,6 +170,63 @@
       </div>
       <h1 class="title">I Want to Play a Game</h1>
       <p class="subtitle">Halloween · 95% lower confidence bound for mean latch strength</p>
+
+      <div class="mask-wrap" aria-hidden="true">
+        <svg class="mask" id="jigsaw-mask" viewBox="0 0 160 170" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="faceGrad" cx="50%" cy="40%" r="65%">
+              <stop offset="0%" stop-color="#fff7ef" />
+              <stop offset="70%" stop-color="#e8d5c4" />
+              <stop offset="100%" stop-color="#cbb3a0" />
+            </radialGradient>
+          </defs>
+          <!-- hair -->
+          <path d="M42 48 C48 18, 112 18, 118 48 L108 52 C100 34, 60 34, 52 52 Z" fill="#111" />
+          <path d="M70 28 C78 8, 98 10, 102 30 L94 34 C90 20, 78 18, 74 32 Z" fill="#0a0a0a" />
+          <!-- face -->
+          <ellipse cx="80" cy="92" rx="52" ry="58" fill="url(#faceGrad)" stroke="#2a1212" stroke-width="3" />
+          <!-- eyes -->
+          <ellipse cx="58" cy="82" rx="11" ry="13" fill="#12080a" />
+          <ellipse cx="102" cy="82" rx="11" ry="13" fill="#12080a" />
+          <ellipse cx="61" cy="78" rx="3" ry="3.5" fill="#5a1a1a" opacity="0.55" />
+          <ellipse cx="105" cy="78" rx="3" ry="3.5" fill="#5a1a1a" opacity="0.55" />
+          <!-- red spiral (cheek) -->
+          <path
+            d="M118 96
+               c-2-10,-12-14,-18-8
+               c-6 6,0 14,8 12
+               c6-2,8-10,2-14
+               c-5-3,-12 0,-12 7"
+            fill="none"
+            stroke="#b01010"
+            stroke-width="3.2"
+            stroke-linecap="round"
+          />
+          <!-- nose -->
+          <ellipse cx="80" cy="100" rx="7" ry="5" fill="#d2b09a" stroke="#2a1212" stroke-width="1.5" />
+          <!-- mouth closed (idle) -->
+          <path
+            class="mouth-closed"
+            d="M62 120 Q80 132 98 120"
+            fill="none"
+            stroke="#2a1212"
+            stroke-width="3"
+            stroke-linecap="round"
+          />
+          <!-- mouth open (talking) -->
+          <ellipse
+            class="mouth-open"
+            cx="80"
+            cy="124"
+            rx="16"
+            ry="14"
+            fill="#2a0a0a"
+            stroke="#2a1212"
+            stroke-width="2.5"
+          />
+          <path class="mouth-open" d="M68 118 Q80 112 92 118" fill="#7a2030" opacity="0.85" />
+        </svg>
+      </div>
 
       <section class="card">
         <h2>Jigsaw’s message</h2>
@@ -206,6 +303,7 @@
       tex(document.getElementById("sol-trap"), "t_{0.025}(9)=2.262");
 
       const playBtn = document.getElementById("play-jigsaw");
+      const mask = document.getElementById("jigsaw-mask");
       const script = document.getElementById("jigsaw-script").textContent.replace(/\s+/g, " ").trim();
 
       function pickVoice(voices) {
@@ -216,23 +314,24 @@
         return male[0] || notFemale[0] || pool[0] || null;
       }
 
+      function setSpeaking(on) {
+        mask.classList.toggle("speaking", on);
+        playBtn.disabled = on;
+        playBtn.textContent = on ? "Speaking…" : "▶ Play Jigsaw";
+      }
+
       function speakJigsaw() {
         if (!("speechSynthesis" in window)) return;
         window.speechSynthesis.cancel();
+        setSpeaking(false);
         const utter = new SpeechSynthesisUtterance(script);
         utter.rate = 0.88;
         utter.pitch = 0.55;
         utter.volume = 1;
         const voice = pickVoice(window.speechSynthesis.getVoices());
         if (voice) utter.voice = voice;
-        utter.onstart = () => {
-          playBtn.disabled = true;
-          playBtn.textContent = "Speaking…";
-        };
-        utter.onend = utter.onerror = () => {
-          playBtn.disabled = false;
-          playBtn.textContent = "▶ Play Jigsaw";
-        };
+        utter.onstart = () => setSpeaking(true);
+        utter.onend = utter.onerror = () => setSpeaking(false);
         window.speechSynthesis.speak(utter);
       }
 
