@@ -1535,9 +1535,33 @@ function PValueDefScene() {
         A decision at a fixed <MathText text={tex`$\alpha$`} /> says only “reject” or “fail to reject”. The <strong>p-value</strong> reports how strong the
         evidence is, so readers can apply their own <MathText text={tex`$\alpha$`} />.
       </p>
+      <div className={styles.two}>
+        <article className={styles.card}>
+          <p className={styles.kicker}>
+            Test statistic <MathText text={tex`$Z$`} />
+          </p>
+          <p>
+            For a mean with <MathText text={tex`$\sigma$`} /> known, under <MathText text={tex`$H_0:\mu=\mu_0$`} />
+          </p>
+          <Formula tex={tex`Z=\dfrac{\bar{X}-\mu_0}{\sigma/\sqrt{n}}\ \sim\ N(0,1)`} />
+          <p className={styles.small}>
+            <MathText text={tex`$Z$`} /> is random (before / conceptually under repeated sampling).
+          </p>
+        </article>
+        <article className={styles.card}>
+          <p className={styles.kicker}>
+            Observed value <MathText text={tex`$Z_0$`} />
+          </p>
+          <p>Plug in the sample mean you actually got:</p>
+          <Formula tex={tex`Z_0=\dfrac{\bar{x}-\mu_0}{\sigma/\sqrt{n}}`} />
+          <p className={styles.small}>
+            <MathText text={tex`$Z_0$`} /> is a number computed from the data (e.g. <MathText text={tex`$Z_0=${formatNum(z0, 3)}$`} /> in the figure).
+          </p>
+        </article>
+      </div>
       <div className={styles.note}>
-        <strong>Definition.</strong> The p-value is the probability that the test statistic will take a value <em>at least as extreme</em> as the observed
-        value when the null hypothesis <MathText text={tex`$H_0$`} /> is true.
+        <strong>Definition.</strong> The p-value is the probability that <MathText text={tex`$Z$`} /> is <em>at least as extreme</em> as the observed{" "}
+        <MathText text={tex`$Z_0$`} /> when <MathText text={tex`$H_0$`} /> is true.
       </div>
       <Formula tex={tex`\text{two-sided: }2P(Z>|Z_0|)\qquad\text{upper: }P(Z>Z_0)\qquad\text{lower: }P(Z<Z_0)`} />
       <figure className={styles.figure}>
@@ -1547,19 +1571,18 @@ function PValueDefScene() {
           xMax={4.5}
           shades={pValueShades("two", z0, 6, BLUE_FILL)}
           vlines={[
-            { x: -z0, label: "−|z₀|", color: "#2e7190" },
-            { x: z0, label: "|z₀|", color: "#2e7190" },
+            { x: -z0, label: "−|Z₀|", color: "#2e7190" },
+            { x: z0, label: "|Z₀|", color: "#2e7190" },
           ]}
           marks={[{ x: 0, text: "0" }]}
-          notes={[{ x: 0, y: 0.35, text: "Distribution under H0" }]}
+          notes={[{ x: 0, y: 0.35, text: "Law of Z under H0" }]}
           label="Two-sided p-value as the tail area beyond the observed statistic"
         />
-        <figcaption className={styles.small}>Blue area = p-value (both tails for a two-sided test).</figcaption>
+        <figcaption className={styles.small}>
+          Blue area = p-value <MathText text={tex`$2P(Z>|Z_0|)$`} />. Reject <MathText text={tex`$H_0$`} /> when p-value &lt;{" "}
+          <MathText text={tex`$\alpha$`} />.
+        </figcaption>
       </figure>
-      <p className={styles.small}>
-        Decision rule: <MathText text={tex`$H_0$`} /> is rejected when p-value &lt; <MathText text={tex`$\alpha$`} />. A small p-value means the data would be
-        very unusual if <MathText text={tex`$H_0$`} /> were true.
-      </p>
     </SceneFrame>
   );
 }
@@ -1796,10 +1819,10 @@ const PVALUE_QUIZ: QuizItem[] = [
     why: tex`$0.03\ge0.01$. The p-value depends on the data, not on $\alpha$; only the decision changes.`,
   },
   {
-    q: tex`Two-sided z-test with $Z_0=2.00$. The p-value is about …`,
-    options: [tex`$0.0228$`, tex`$0.0455$`, tex`$0.9772$`, tex`$0.05$`],
+    q: tex`Two-sided z-test with $Z_0=2$. The p-value equals …`,
+    options: [tex`$P(Z>2)$`, tex`$2P(Z>2)$`, tex`$2P(Z<2)$`, tex`$P(|Z|<2)$`],
     answer: 1,
-    why: tex`$2P(Z>2)=2(0.0228)=0.0455$.`,
+    why: tex`Two-sided p-value $=2P(Z>|Z_0|)=2P(Z>2)$.`,
   },
   {
     q: tex`A smaller p-value means …`,
@@ -1813,10 +1836,10 @@ const PVALUE_QUIZ: QuizItem[] = [
     why: tex`A tiny p-value says the data would be very surprising if $H_0$ were true.`,
   },
   {
-    q: tex`Upper-tail test $H_1:\mu>\mu_0$ with $Z_0=-1.2$. The p-value $P(Z>Z_0)$ is …`,
-    options: [tex`$0.1151$`, tex`$0.8849$`, tex`$0.2302$`, tex`$0.05$`],
+    q: tex`Upper-tail $H_1:\mu>\mu_0$ with $Z_0=-1.2$. The p-value equals …`,
+    options: [tex`$P(Z<-1.2)$`, tex`$P(Z>-1.2)$`, tex`$2P(Z>1.2)$`, tex`$P(Z>1.2)$`],
     answer: 1,
-    why: tex`$P(Z>-1.2)=0.8849$: the sample mean is below $\mu_0$, which gives no evidence for $H_1:\mu>\mu_0$.`,
+    why: tex`Upper-tail p-value $=P(Z>Z_0)=P(Z>-1.2)$ (large): $\bar{x}$ below $\mu_0$ is not evidence for $H_1:\mu>\mu_0$.`,
   },
 ];
 

@@ -80,7 +80,7 @@ Game: when H0 is true, about α of repeated tests reject H0.
 
 ## Page 19 · Definition (p-value)
 
-p-value = P(statistic at least as extreme as observed | H0 true). Not P(H0 true | data).
+Z=(X̄−μ0)/(σ/√n)~N(0,1) under H0; observed Z0=(x̄−μ0)/(σ/√n). p-value = P(Z at least as extreme as Z0|H0): two-sided 2P(Z>|Z0|), upper P(Z>Z0), lower P(Z<Z0).
 
 ## Page 20 · Power supply: region
 
@@ -100,7 +100,7 @@ A–D quiz: Type I/II language, α–β trade-off, what “fail to reject” mea
 
 ## Page 24 · Concept check: p-value
 
-A–D quiz: definition, decide with p vs α, two-sided p from Z0, upper-tail p when Z0 is negative.
+A–D quiz: definition; decide with p vs α; two-sided p-value = 2P(Z>2) when Z0=2; upper-tail with Z0=−1.2 equals P(Z>−1.2). Options are expressions, not table lookups.
 
 ## Page 25 · Eight steps
 
