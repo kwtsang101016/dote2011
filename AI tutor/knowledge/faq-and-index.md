@@ -7,7 +7,7 @@
 ## How page numbers work
 
 - **Page N** = the N-th slide in the interactive lecture (same order as the PDF handout).
-- **Introduction** = 16 pages · **Descriptive Statistics** = 27 pages · **Probability** = 22 pages · **Discrete Distributions** = 28 pages · **Continuous Distributions** = 24 pages · **Sampling Distributions** = 22 pages.
+- **Introduction** = 16 pages · **Descriptive Statistics** = 27 pages · **Probability** = 22 pages · **Discrete Distributions** = 28 pages · **Continuous Distributions** = 24 pages · **Sampling Distributions** = 22 pages · **Interval Estimation** = 56 pages · **Hypothesis Tests** = 50 pages.
 - If a student says “Page 3” without naming the lecture, ask which topic.
 
 | Lecture | Page 3 title |
@@ -18,6 +18,8 @@
 | Discrete Distributions | Finite vs infinite |
 | Continuous Distributions | Area under f(x) |
 | Sampling Distributions | Why we sample |
+| Interval Estimation | Warm-up: CUHK heights |
+| Hypothesis Tests | Aircrew escape system |
 
 ---
 
@@ -31,6 +33,8 @@
 | Discrete Probability Distributions | https://kwtsang101016.github.io/dote2011/discrete-distributions/ |
 | Continuous Probability Distributions | https://kwtsang101016.github.io/dote2011/continuous-distributions/ |
 | Sampling and Sampling Distributions | https://kwtsang101016.github.io/dote2011/sampling-distributions/ |
+| Interval Estimation | https://kwtsang101016.github.io/dote2011/interval-estimation/ |
+| Hypothesis Tests | https://kwtsang101016.github.io/dote2011/hypothesis-tests/ |
 
 ---
 
@@ -82,6 +86,22 @@ Ask: **Is this a name/label, or a number with meaning?**
 - E(p̂)=p; σ_p̂=√(p(1−p)/n); normal approx when np>5 and n(1−p)>5  
 - St. Stephen’s: N=900, n=30, μ=1090, σ=80, p=0.72; σ_x̄≈14.6; σ_p̂≈0.082  
 
+## Quick interval-estimation facts
+
+- σ known: x̄ ± z_{α/2} σ/√n; σ unknown: x̄ ± t_{α/2}(n−1) s/√n  
+- One-sided (equality on the finite end): [L, ∞) or (−∞, U]; use z_α or t_α  
+- Sample size mean: n = z²σ²/E²; proportion: n = z² p*(1−p*)/E² (p*=0.5 if unknown)  
+- Two means: known σ → z; equal unknown → pooled t; unequal → Welch; matched → paired t on D_i  
+- p1−p2 is a special case of two means for 0–1 data; CI SE does not pool p̂  
+
+## Quick hypothesis-test facts
+
+- H0 contains “=”; H1 is what we want evidence for  
+- Type I = reject true H0 (α); Type II = miss a false H0 (β); power = 1−β  
+- p-value = P(data this extreme | H0); reject if p < α  
+- Critical region, p-value, and CI agree at the same α  
+- Menu: one-mean z/t; two-mean z / pooled / Welch / paired; one- and two-proportion z  
+
 ---
 
 ## Population vs sample
@@ -101,6 +121,8 @@ Ask: **Is this a name/label, or a number with meaning?**
 | Correlation proves cause | Association ≠ causation |
 | Mutually exclusive = independent | Mutually exclusive events with P&gt;0 cannot be independent |
 | Prior probabilities never change | Bayes updates priors with new information |
+| Fail to reject H0 means H0 is proven | Absence of evidence is not proof of H0 |
+| “95% confident” means P(μ in this interval)=0.95 | Confidence describes the method’s long-run hit rate |
 
 ---
 
@@ -110,8 +132,8 @@ The platform allows **5 uploads**. Prof. Tsang chooses **two** lecture HTML file
 
 | Question type | Primary HTML file |
 |---------------|-------------------|
-| Midterm, grading, schedule, policies | course-admin.html |
-| A lecture that was uploaded | That lecture’s HTML (introduction / descriptive-statistics / probability / discrete-distributions / continuous-distributions / sampling-distributions) |
+| Midterm (time, venue LKC LT1, coverage, format, allowed A4 sheet / calculator), grading, schedule, policies, **HW1** (questions / in-class grading rule / Blackboard submission / official solutions) | course-admin.html |
+| A lecture that was uploaded | That lecture’s HTML (introduction / descriptive-statistics / probability / discrete-distributions / continuous-distributions / sampling-distributions / interval-estimation / hypothesis-tests) |
 | Any lecture, including one not in the two lecture uploads | older-lectures.html |
 | “Which page?” / routing | faq-and-index.html |
 
@@ -123,6 +145,8 @@ Live lecture URLs (always available to students):
 - Discrete Probability Distributions — https://kwtsang101016.github.io/dote2011/discrete-distributions/
 - Continuous Probability Distributions — https://kwtsang101016.github.io/dote2011/continuous-distributions/
 - Sampling and Sampling Distributions — https://kwtsang101016.github.io/dote2011/sampling-distributions/
+- Interval Estimation — https://kwtsang101016.github.io/dote2011/interval-estimation/
+- Hypothesis Tests — https://kwtsang101016.github.io/dote2011/hypothesis-tests/
 
 ---
 
@@ -137,3 +161,7 @@ Live lecture URLs (always available to students):
 **Sampling Distributions:** Page 13 CLT histogram · Page 15 / 20 probability sliders · Page 21 which statement?  
 
 **Descriptive Statistics:** Pages 3, 6, 8, 13, 18, 20, 21, 25 (see descriptive-statistics.html)
+
+**Interval Estimation:** Page 11 coverage · Page 20 z vs t · Page 30 lab · Page 31 which interval? · Page 55 which answer?
+
+**Hypothesis Tests:** Page 05 which hypotheses? · Page 11 α–β explorer · Page 13 simulate α · Page 17 p-value explorer · Page 22 which tail? · Page 37 proportion calculator · Page 42 which test? · Pages 18–19 / 44 quizzes

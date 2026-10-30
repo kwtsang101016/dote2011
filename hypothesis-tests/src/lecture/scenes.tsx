@@ -358,16 +358,43 @@ function CiBar({
 }
 
 /** Sampling distribution of x̄ for the propellant example, with optional H1 curve. */
-function PropellantPlot({ mode, label }: { mode: "regions" | "alpha" | "beta"; label: string }) {
+function PropellantPlot({
+  mode,
+  side = "two",
+  label,
+  muAlt = PROP.muAlt,
+}: {
+  mode: "regions" | "alpha" | "beta";
+  side?: Side;
+  label: string;
+  muAlt?: number;
+}) {
   const se = PROP.sigma / Math.sqrt(PROP.n);
   const h0: Curve = { pdf: normalCurve(PROP.mu0, se), color: "#16213c", label: mode === "beta" ? "H0: μ = 50" : undefined };
   const curves: Curve[] = [h0];
-  if (mode === "beta") curves.push({ pdf: normalCurve(PROP.muAlt, se), color: "#df4a3e", label: "H1: μ = 52" });
-  const tails: Shade[] = [
-    { from: 40, to: PROP.lo },
-    { from: PROP.hi, to: 60 },
-  ];
-  const shades: Shade[] = mode === "beta" ? [...tails, { from: PROP.lo, to: PROP.hi, curve: 1, color: BLUE_FILL }] : tails;
+  if (mode === "beta") curves.push({ pdf: normalCurve(muAlt, se), color: "#df4a3e", label: `H1: μ = ${muAlt}` });
+
+  const tails: Shade[] =
+    side === "two"
+      ? [
+          { from: 40, to: PROP.lo },
+          { from: PROP.hi, to: 60 },
+        ]
+      : side === "upper"
+        ? [{ from: PROP.hi, to: 60 }]
+        : [{ from: 40, to: PROP.lo }];
+
+  const acceptance: Shade | null =
+    mode !== "beta"
+      ? null
+      : side === "two"
+        ? { from: PROP.lo, to: PROP.hi, curve: 1, color: BLUE_FILL }
+        : side === "upper"
+          ? { from: 40, to: PROP.hi, curve: 1, color: BLUE_FILL }
+          : { from: PROP.lo, to: 60, curve: 1, color: BLUE_FILL };
+
+  const shades: Shade[] = acceptance ? [...tails, acceptance] : tails;
+
   const notes: Note[] =
     mode === "regions"
       ? [
@@ -376,18 +403,36 @@ function PropellantPlot({ mode, label }: { mode: "regions" | "alpha" | "beta"; l
           { x: 53.4, y: 0.18, text: "Reject H0" },
         ]
       : mode === "alpha"
-        ? [
-            { x: 47.4, y: 0.12, text: "α/2 = 0.0287" },
-            { x: 52.6, y: 0.12, text: "α/2 = 0.0287" },
-          ]
-        : [{ x: 50.2, y: 0.07, text: "β" }];
+        ? side === "two"
+          ? [
+              { x: 47.4, y: 0.12, text: "α/2 = 0.0287" },
+              { x: 52.6, y: 0.12, text: "α/2 = 0.0287" },
+            ]
+          : side === "upper"
+            ? [{ x: 53.2, y: 0.12, text: "α = 0.0287" }]
+            : [{ x: 46.8, y: 0.12, text: "α = 0.0287" }]
+        : [
+            {
+              x: side === "lower" ? 51.2 : side === "upper" ? 49.6 : 50.2,
+              y: 0.07,
+              text: "β",
+            },
+          ];
+
+  const markXs =
+    side === "two"
+      ? [PROP.lo, 50, PROP.hi, ...(mode === "beta" ? [muAlt] : [])]
+      : side === "upper"
+        ? [50, PROP.hi, ...(mode === "beta" ? [muAlt] : [])]
+        : [PROP.lo, 50, ...(mode === "beta" ? [muAlt] : [])];
+
   return (
     <DensityPlot
       curves={curves}
       xMin={44}
       xMax={56}
       shades={shades}
-      marks={[PROP.lo, 50, PROP.hi, ...(mode === "beta" ? [52] : [])].map((x) => ({ x, text: String(x) }))}
+      marks={markXs.map((x) => ({ x, text: String(x) }))}
       notes={notes}
       label={label}
     />
@@ -1016,17 +1061,18 @@ function TypeIScene() {
   const se = PROP.sigma / Math.sqrt(PROP.n);
   const exact = 2 * stdNormalUpper((PROP.hi - PROP.mu0) / se);
   return (
-    <SceneFrame kicker="Example · Propellant · Type I error" title={tex`Probability of rejecting a true $H_0$.`}>
+    <SceneFrame kicker="Example · Propellant · two-sided · Type I" title={tex`Probability of rejecting a true $H_0$.`}>
       <p className={styles.lead}>
-        Reject <MathText text={tex`$H_0:\mu=50$`} /> if <MathText text={tex`$\bar{x}<48.5$`} /> or <MathText text={tex`$\bar{x}>51.5$`} />. Suppose{" "}
-        <MathText text={tex`$\sigma=2.5$`} /> cm/s and <MathText text={tex`$n=10$`} />, so <MathText text={tex`$\sigma/\sqrt{n}=2.5/\sqrt{10}=0.79$`} />.
+        Two-sided rule: reject <MathText text={tex`$H_0:\mu=50$`} /> if <MathText text={tex`$\bar{x}<48.5$`} /> or{" "}
+        <MathText text={tex`$\bar{x}>51.5$`} />. Suppose <MathText text={tex`$\sigma=2.5$`} /> cm/s and <MathText text={tex`$n=10$`} />, so{" "}
+        <MathText text={tex`$\sigma/\sqrt{n}=2.5/\sqrt{10}=0.79$`} />.
       </p>
       <Formula tex={tex`\alpha=P(\bar{X}<48.5\mid\mu=50)+P(\bar{X}>51.5\mid\mu=50)`} />
       <Formula
         tex={tex`z_1=\dfrac{48.5-50}{0.79}=-1.90,\quad z_2=\dfrac{51.5-50}{0.79}=1.90\ \Rightarrow\ \alpha=P(Z<-1.90)+P(Z>1.90)=0.0287+0.0287=0.0574`}
       />
       <figure className={styles.figure}>
-        <PropellantPlot mode="alpha" label="Two shaded tails of the null sampling distribution give alpha" />
+        <PropellantPlot mode="alpha" side="two" label="Two shaded tails of the null sampling distribution give alpha" />
         <figcaption className={styles.small}>
           About 5.7% of the time a perfectly good propellant (<MathText text={tex`$\mu=50$`} />) would be rejected. (Without rounding{" "}
           <MathText text={tex`$\sigma/\sqrt{n}$`} /> to 0.79, <MathText text={tex`$\alpha=${formatNum(exact, 4)}$`} />.)
@@ -1040,17 +1086,17 @@ function TypeIIScene() {
   const se = PROP.sigma / Math.sqrt(PROP.n);
   const exact = stdNormalCdf((PROP.hi - PROP.muAlt) / se) - stdNormalCdf((PROP.lo - PROP.muAlt) / se);
   return (
-    <SceneFrame kicker="Example · Propellant · Type II error" title={tex`Probability of missing a false $H_0$.`}>
+    <SceneFrame kicker="Example · Propellant · two-sided · Type II" title={tex`Probability of missing a false $H_0$.`}>
       <p className={styles.lead}>
-        Now suppose the truth is <MathText text={tex`$H_1:\mu=52$`} />. A Type II error occurs if <MathText text={tex`$\bar{x}$`} /> still lands in the
-        acceptance region <MathText text={tex`$[48.5,\,51.5]$`} />.
+        Same two-sided rule. Now suppose the truth is <MathText text={tex`$H_1:\mu=52$`} />. A Type II error occurs if{" "}
+        <MathText text={tex`$\bar{x}$`} /> still lands in the acceptance region <MathText text={tex`$[48.5,\,51.5]$`} />.
       </p>
       <Formula tex={tex`\beta=P(48.5\le\bar{X}\le 51.5\mid\mu=52)`} />
       <Formula
         tex={tex`z_1=\dfrac{48.5-52}{0.79}=-4.43,\quad z_2=\dfrac{51.5-52}{0.79}=-0.63\ \Rightarrow\ \beta=P(-4.43\le Z\le-0.63)=0.2643-0.0000=0.2643`}
       />
       <figure className={styles.figure}>
-        <PropellantPlot mode="beta" label="Null and alternative sampling distributions with beta shaded" />
+        <PropellantPlot mode="beta" side="two" label="Null and alternative sampling distributions with beta shaded" />
         <figcaption className={styles.small}>
           Blue = <MathText text={tex`$\beta$`} /> (under <MathText text={tex`$\mu=52$`} />), red = <MathText text={tex`$\alpha$`} /> (under{" "}
           <MathText text={tex`$\mu=50$`} />). Unrounded: <MathText text={tex`$\beta=${formatNum(exact, 4)}$`} />. If the true mean is 52, we would still
@@ -1061,23 +1107,192 @@ function TypeIIScene() {
   );
 }
 
+function TypeIUpperScene() {
+  const se = PROP.sigma / Math.sqrt(PROP.n);
+  const exact = stdNormalUpper((PROP.hi - PROP.mu0) / se);
+  return (
+    <SceneFrame kicker="Example · Propellant · upper-tail · Type I" title={tex`One-sided $H_1:\mu>50$ — computing $\alpha$.`}>
+      <p className={styles.lead}>
+        Upper-tail rule: reject <MathText text={tex`$H_0:\mu=50$`} /> only when <MathText text={tex`$\bar{x}>51.5$`} /> (same{" "}
+        <MathText text={tex`$\sigma=2.5$`} />, <MathText text={tex`$n=10$`} />, <MathText text={tex`$\sigma/\sqrt{n}=0.79$`} />).
+      </p>
+      <Formula tex={tex`\alpha=P(\bar{X}>51.5\mid\mu=50)`} />
+      <Formula tex={tex`z=\dfrac{51.5-50}{0.79}=1.90\ \Rightarrow\ \alpha=P(Z>1.90)=0.0287`} />
+      <figure className={styles.figure}>
+        <PropellantPlot mode="alpha" side="upper" label="Upper tail of the null sampling distribution gives alpha" />
+        <figcaption className={styles.small}>
+          Only the right rejection region contributes. Unrounded: <MathText text={tex`$\alpha=${formatNum(exact, 4)}$`} /> — half of the two-sided{" "}
+          <MathText text={tex`$\alpha$`} /> when the cutoffs are the same distance from 50.
+        </figcaption>
+      </figure>
+    </SceneFrame>
+  );
+}
+
+function TypeIIUpperScene() {
+  const se = PROP.sigma / Math.sqrt(PROP.n);
+  const exact = stdNormalCdf((PROP.hi - PROP.muAlt) / se);
+  return (
+    <SceneFrame kicker="Example · Propellant · upper-tail · Type II" title={tex`One-sided $H_1:\mu>50$ — computing $\beta$.`}>
+      <p className={styles.lead}>
+        Keep the upper cutoff <MathText text={tex`$51.5$`} />. If the truth is <MathText text={tex`$\mu=52$`} />, a Type II error is failing to reject:{" "}
+        <MathText text={tex`$\bar{x}\le 51.5$`} />.
+      </p>
+      <Formula tex={tex`\beta=P(\bar{X}\le 51.5\mid\mu=52)`} />
+      <Formula tex={tex`z=\dfrac{51.5-52}{0.79}=-0.63\ \Rightarrow\ \beta=P(Z\le-0.63)=0.2643`} />
+      <figure className={styles.figure}>
+        <PropellantPlot mode="beta" side="upper" muAlt={52} label="Upper-tail test: beta is the area left of the cutoff under H1" />
+        <figcaption className={styles.small}>
+          Blue = <MathText text={tex`$\beta$`} />, red = <MathText text={tex`$\alpha$`} />. Unrounded:{" "}
+          <MathText text={tex`$\beta=${formatNum(exact, 4)}$`} />. Same alternative as the two-sided example, but the acceptance region is now everything ≤ 51.5.
+        </figcaption>
+      </figure>
+    </SceneFrame>
+  );
+}
+
+function TypeILowerScene() {
+  const se = PROP.sigma / Math.sqrt(PROP.n);
+  const exact = stdNormalCdf((PROP.lo - PROP.mu0) / se);
+  return (
+    <SceneFrame kicker="Example · Propellant · lower-tail · Type I" title={tex`One-sided $H_1:\mu<50$ — computing $\alpha$.`}>
+      <p className={styles.lead}>
+        Lower-tail rule: reject <MathText text={tex`$H_0:\mu=50$`} /> only when <MathText text={tex`$\bar{x}<48.5$`} /> (same{" "}
+        <MathText text={tex`$\sigma/\sqrt{n}=0.79$`} />).
+      </p>
+      <Formula tex={tex`\alpha=P(\bar{X}<48.5\mid\mu=50)`} />
+      <Formula tex={tex`z=\dfrac{48.5-50}{0.79}=-1.90\ \Rightarrow\ \alpha=P(Z<-1.90)=0.0287`} />
+      <figure className={styles.figure}>
+        <PropellantPlot mode="alpha" side="lower" label="Lower tail of the null sampling distribution gives alpha" />
+        <figcaption className={styles.small}>
+          Mirror image of the upper-tail Type I calculation. Unrounded: <MathText text={tex`$\alpha=${formatNum(exact, 4)}$`} />.
+        </figcaption>
+      </figure>
+    </SceneFrame>
+  );
+}
+
+function TypeIILowerScene() {
+  const se = PROP.sigma / Math.sqrt(PROP.n);
+  const muAlt = 48;
+  const exact = stdNormalUpper((PROP.lo - muAlt) / se);
+  return (
+    <SceneFrame kicker="Example · Propellant · lower-tail · Type II" title={tex`One-sided $H_1:\mu<50$ — computing $\beta$.`}>
+      <p className={styles.lead}>
+        Keep the lower cutoff <MathText text={tex`$48.5$`} />. If the truth is <MathText text={tex`$\mu=48$`} /> (too slow), a Type II error is{" "}
+        <MathText text={tex`$\bar{x}\ge 48.5$`} /> — missing the low mean.
+      </p>
+      <Formula tex={tex`\beta=P(\bar{X}\ge 48.5\mid\mu=48)`} />
+      <Formula tex={tex`z=\dfrac{48.5-48}{0.79}=0.63\ \Rightarrow\ \beta=P(Z\ge 0.63)=0.2643`} />
+      <figure className={styles.figure}>
+        <PropellantPlot mode="beta" side="lower" muAlt={muAlt} label="Lower-tail test: beta is the area right of the cutoff under H1" />
+        <figcaption className={styles.small}>
+          Blue = <MathText text={tex`$\beta$`} />, red = <MathText text={tex`$\alpha$`} />. Unrounded:{" "}
+          <MathText text={tex`$\beta=${formatNum(exact, 4)}$`} />. Symmetric to the upper-tail case with alternative 52.
+        </figcaption>
+      </figure>
+    </SceneFrame>
+  );
+}
+
 function CutoffGameScene() {
+  const [side, setSide] = useState<Side>("upper");
   const [n, setN] = useState(10);
   const [cut, setCut] = useState(51);
   const [muAlt, setMuAlt] = useState(52);
   const se = PROP.sigma / Math.sqrt(n);
-  const alpha = stdNormalUpper((cut - PROP.mu0) / se);
-  const beta = stdNormalCdf((cut - muAlt) / se);
-  const snapTo05 = () => setCut(Math.min(54, PROP.mu0 + zUpper(0.05) * se));
+  const loCut = side === "two" ? 2 * PROP.mu0 - cut : cut;
+  const alpha =
+    side === "upper"
+      ? stdNormalUpper((cut - PROP.mu0) / se)
+      : side === "lower"
+        ? stdNormalCdf((cut - PROP.mu0) / se)
+        : stdNormalCdf((loCut - PROP.mu0) / se) + stdNormalUpper((cut - PROP.mu0) / se);
+  const beta =
+    side === "upper"
+      ? stdNormalCdf((cut - muAlt) / se)
+      : side === "lower"
+        ? stdNormalUpper((cut - muAlt) / se)
+        : Math.max(0, stdNormalCdf((cut - muAlt) / se) - stdNormalCdf((loCut - muAlt) / se));
+
+  const chooseSide = (next: Side) => {
+    setSide(next);
+    if (next === "upper") {
+      setCut(51);
+      setMuAlt(52);
+    } else if (next === "lower") {
+      setCut(49);
+      setMuAlt(48);
+    } else {
+      setCut(51.5);
+      setMuAlt(52);
+    }
+  };
+
+  const snapTo05 = () => {
+    if (side === "upper") setCut(PROP.mu0 + zUpper(0.05) * se);
+    else if (side === "lower") setCut(PROP.mu0 - zUpper(0.05) * se);
+    else setCut(PROP.mu0 + zUpper(0.025) * se);
+  };
+
+  const altChoices = side === "lower" ? [47, 48, 49] : side === "upper" ? [51, 52, 53] : [48, 52];
+  const cutMin = side === "lower" ? 46 : side === "two" ? 50.2 : 49;
+  const cutMax = side === "lower" ? 51 : 54;
+  const ruleTex =
+    side === "upper"
+      ? tex`\bar{x}>c`
+      : side === "lower"
+        ? tex`\bar{x}<c`
+        : tex`\bar{x}<${formatNum(loCut, 2)}\ \text{ or }\ \bar{x}>c`;
+  const alphaTex =
+    side === "upper"
+      ? tex`\alpha=P(\bar{X}>c\mid\mu=50)=${formatNum(alpha, 4)}`
+      : side === "lower"
+        ? tex`\alpha=P(\bar{X}<c\mid\mu=50)=${formatNum(alpha, 4)}`
+        : tex`\alpha=P(\bar{X}<${formatNum(loCut, 2)}\mid\mu=50)+P(\bar{X}>c\mid\mu=50)=${formatNum(alpha, 4)}`;
+  const betaTex =
+    side === "upper"
+      ? tex`\beta=P(\bar{X}\le c\mid\mu=${muAlt})=${formatNum(beta, 4)}`
+      : side === "lower"
+        ? tex`\beta=P(\bar{X}\ge c\mid\mu=${muAlt})=${formatNum(beta, 4)}`
+        : tex`\beta=P(${formatNum(loCut, 2)}\le\bar{X}\le c\mid\mu=${muAlt})=${formatNum(beta, 4)}`;
+
+  const shades: Shade[] =
+    side === "upper"
+      ? [
+          { from: cut, to: 70, color: RED_FILL, curve: 0 },
+          { from: 30, to: cut, color: BLUE_FILL, curve: 1 },
+        ]
+      : side === "lower"
+        ? [
+            { from: 30, to: cut, color: RED_FILL, curve: 0 },
+            { from: cut, to: 70, color: BLUE_FILL, curve: 1 },
+          ]
+        : [
+            { from: 30, to: loCut, color: RED_FILL, curve: 0 },
+            { from: cut, to: 70, color: RED_FILL, curve: 0 },
+            { from: loCut, to: cut, color: BLUE_FILL, curve: 1 },
+          ];
+
+  const vlines =
+    side === "two"
+      ? [
+          { x: loCut, label: `c₋ = ${formatNum(loCut, 2)}`, color: "#2e7190" },
+          { x: cut, label: `c₊ = ${formatNum(cut, 2)}`, color: "#2e7190" },
+        ]
+      : [{ x: cut, label: `c = ${formatNum(cut, 2)}`, color: "#2e7190" }];
+
   return (
     <SceneFrame kicker="Game" title="Cutoff explorer: α versus β." tone="gold">
       <p className={styles.lead}>
-        <MathText text={tex`$H_0:\mu=50$ versus $H_1:\mu=${muAlt}$`} />, <MathText text={tex`$\sigma=2.5$`} />. Reject <MathText text={tex`$H_0$`} /> when{" "}
-        <MathText text={tex`$\bar{x}>c$`} />. Slide the cutoff <MathText text={tex`$c$`} /> and the sample size <MathText text={tex`$n$`} />.
+        <MathText text={tex`$H_0:\mu=50$ versus $H_1:\mu=${muAlt}$`} />, <MathText text={tex`$\sigma=2.5$`} />. Reject when{" "}
+        <MathText text={ruleTex} />. Switch the alternative direction, then slide <MathText text={tex`$c$`} /> and{" "}
+        <MathText text={tex`$n$`} />.
       </p>
       <LiveOnly>
+        <SidePicker value={side} onChange={chooseSide} />
         <div className={styles.tools}>
-          {[51, 52, 53].map((value) => (
+          {altChoices.map((value) => (
             <button key={value} type="button" className={value === muAlt ? styles.toolBtnActive : styles.toolBtn} onClick={() => setMuAlt(value)}>
               <MathText text={tex`$H_1:\mu=${value}$`} />
             </button>
@@ -1085,8 +1300,8 @@ function CutoffGameScene() {
         </div>
         <div className={styles.tools}>
           <label className={styles.slider}>
-            Cutoff c = {formatNum(cut, 2)}
-            <input type="range" min={49} max={54} step={0.05} value={cut} onChange={(e) => setCut(Number(e.target.value))} />
+            {side === "two" ? `Upper cutoff c₊ = ${formatNum(cut, 2)}` : `Cutoff c = ${formatNum(cut, 2)}`}
+            <input type="range" min={cutMin} max={cutMax} step={0.05} value={cut} onChange={(e) => setCut(Number(e.target.value))} />
           </label>
           <label className={styles.slider}>
             Sample size n = {n}
@@ -1097,7 +1312,8 @@ function CutoffGameScene() {
           </button>
         </div>
       </LiveOnly>
-      <Formula tex={tex`\alpha=P(\bar{X}>c\mid\mu=50)=${formatNum(alpha, 4)},\quad \beta=P(\bar{X}\le c\mid\mu=${muAlt})=${formatNum(beta, 4)},\quad 1-\beta=${formatNum(1 - beta, 4)}`} />
+      <Formula tex={alphaTex} />
+      <Formula tex={tex`${betaTex},\quad 1-\beta=${formatNum(1 - beta, 4)}`} />
       <figure className={styles.figure}>
         <DensityPlot
           curves={[
@@ -1106,20 +1322,26 @@ function CutoffGameScene() {
           ]}
           xMin={44}
           xMax={59}
-          shades={[
-            { from: cut, to: 70, color: RED_FILL, curve: 0 },
-            { from: 30, to: cut, color: BLUE_FILL, curve: 1 },
-          ]}
-          vlines={[{ x: cut, label: `c = ${formatNum(cut, 2)}`, color: "#2e7190" }]}
+          shades={shades}
+          vlines={vlines}
           marks={[50, muAlt].map((x) => ({ x, text: String(x) }))}
-          label="Null and alternative sampling distributions with a movable cutoff"
+          label="Null and alternative sampling distributions with movable cutoffs"
         />
-        <figcaption className={styles.small}>Red area = α (type I), blue area = β (type II).</figcaption>
+        <figcaption className={styles.small}>
+          Red = α (Type I under <MathText text={tex`$\mu=50$`} />), blue = β (Type II under the chosen alternative). For two-sided,{" "}
+          <MathText text={tex`$c_-=2\cdot 50-c_+$`} /> stays symmetric about 50.
+        </figcaption>
       </figure>
       <p className={styles.small}>
-        Move <MathText text={tex`$c$`} /> right: α falls but β rises. For fixed <MathText text={tex`$c$`} />, increasing <MathText text={tex`$n$`} /> shrinks both
-        curves’ spread, so <em>both</em> errors fall.
+        Push the cutoff(s) toward the alternative: α falls but β rises. For a fixed rule, larger <MathText text={tex`$n$`} /> shrinks both sampling
+        distributions, so <em>both</em> error probabilities fall.
       </p>
+      <PrintOnly>
+        <p className={styles.small}>
+          On the website: toggle Two-sided / Upper-tail / Lower-tail, pick an alternative mean, and move <MathText text={tex`$c$`} /> and{" "}
+          <MathText text={tex`$n$`} />.
+        </p>
+      </PrintOnly>
     </SceneFrame>
   );
 }
@@ -2809,8 +3031,12 @@ export const SCENES: SceneDef[] = [
   { id: "test-statistic", chapter: "Setup", label: "Test statistic and regions", Scene: TestStatisticScene },
   { id: "hypothesis-types", chapter: "Setup", label: "Types of hypothesis", Scene: HypothesisTypesScene },
   { id: "error-table", chapter: "Errors", label: "Type I / Type II table", Scene: ErrorTableScene },
-  { id: "type-i", chapter: "Errors", label: "Propellant: α", Scene: TypeIScene },
-  { id: "type-ii", chapter: "Errors", label: "Propellant: β", Scene: TypeIIScene },
+  { id: "type-i", chapter: "Errors", label: "Propellant: two-sided α", Scene: TypeIScene },
+  { id: "type-ii", chapter: "Errors", label: "Propellant: two-sided β", Scene: TypeIIScene },
+  { id: "type-i-upper", chapter: "Errors", label: "Propellant: upper α", Scene: TypeIUpperScene },
+  { id: "type-ii-upper", chapter: "Errors", label: "Propellant: upper β", Scene: TypeIIUpperScene },
+  { id: "type-i-lower", chapter: "Errors", label: "Propellant: lower α", Scene: TypeILowerScene },
+  { id: "type-ii-lower", chapter: "Errors", label: "Propellant: lower β", Scene: TypeIILowerScene },
   { id: "game-cutoff", chapter: "Game", label: "Cutoff α–β explorer", Scene: CutoffGameScene },
   { id: "significance", chapter: "Errors", label: "Significance level", Scene: SignificanceScene },
   { id: "game-type-i-sim", chapter: "Game", label: "Simulate α", Scene: TypeISimScene },

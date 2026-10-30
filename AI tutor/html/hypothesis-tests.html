@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DOTE2011G · Hypothesis Tests</title>
+</head>
+<body>
+<article class="dote2011-knowledge">
+<h1>DOTE2011G · Hypothesis Tests</h1>
+<p><strong>Live lecture:</strong> https://kwtsang101016.github.io/dote2011/hypothesis-tests/</p>
+<p>Interactive slides condensed from <em>9 Hypothesis Test.pdf</em> (H0/H1, errors, p-values, z/t tests, proportions).</p>
+<hr />
+<section id="hypothesis-tests-page-01" data-lecture="hypothesis-tests" data-page="1"><h2>Page 01 · Title</h2>
+<p>Hypothesis Tests — H0/H1, Type I/II errors, p-values, z/t tests for means and proportions.</p>
+</section>
+<section id="hypothesis-tests-page-02" data-lecture="hypothesis-tests" data-page="2"><h2>Page 02 · Roadmap</h2>
+<p>Setup → errors & α/β → p-value → eight-step procedure → one mean (z then t) → two means → proportions → menu & practice.</p>
+</section>
+<section id="hypothesis-tests-page-03" data-lecture="hypothesis-tests" data-page="3"><h2>Page 03 · Aircrew escape system</h2>
+<p>Motivating example: burn rate must be 50 cm/s; too slow or too fast is unsafe → two-sided alternative.</p>
+</section>
+<section id="hypothesis-tests-page-04" data-lecture="hypothesis-tests" data-page="4"><h2>Page 04 · H0 versus H1</h2>
+<p>H0 = status quo / claim under test (contains “=”); H1 = what we want evidence for. Never put the equality only in H1.</p>
+</section>
+<section id="hypothesis-tests-page-05" data-lecture="hypothesis-tests" data-page="5"><h2>Page 05 · Which hypotheses?</h2>
+<p>Class activity / Live Poll A–D: choose the (H0,H1) pair for coin fairness (one-sided or two-sided) and similar stories.</p>
+</section>
+<section id="hypothesis-tests-page-06" data-lecture="hypothesis-tests" data-page="6"><h2>Page 06 · Predetermined critical region</h2>
+<p>Before seeing x̄, call |x̄−50|≥1.5 “too far” (x̄≤48.5 or x̄≥51.5); do not redefine afterward. Examples: x̄=52 reject; x̄=47 reject; x̄=51 cannot reject. Critical region = values that reject H0. P(reject H0) = P(x̄ in critical region) once the sampling distribution is known.</p>
+</section>
+<section id="hypothesis-tests-page-07" data-lecture="hypothesis-tests" data-page="7"><h2>Page 07 · Test statistic and regions</h2>
+<p>Compute a test statistic; reject H0 if it falls in the rejection region determined by α.</p>
+</section>
+<section id="hypothesis-tests-page-08" data-lecture="hypothesis-tests" data-page="8"><h2>Page 08 · Types of hypothesis</h2>
+<p>Lower-tail, upper-tail, or two-sided alternatives. Critical values use α or α/2 accordingly.</p>
+</section>
+<section id="hypothesis-tests-page-09" data-lecture="hypothesis-tests" data-page="9"><h2>Page 09 · Type I / Type II table</h2>
+<p>Type I: reject H0 when H0 true (probability α). Type II: fail to reject when H0 false (probability β). Power = 1−β.</p>
+</section>
+<section id="hypothesis-tests-page-10" data-lecture="hypothesis-tests" data-page="10"><h2>Page 10 · Propellant: two-sided α</h2>
+<p>Two-sided propellant example: reject if x̄<48.5 or x̄>51.5; compute α under μ=50.</p>
+</section>
+<section id="hypothesis-tests-page-11" data-lecture="hypothesis-tests" data-page="11"><h2>Page 11 · Propellant: two-sided β</h2>
+<p>Same two-sided rule; Type II at μ=52 is P(48.5≤x̄≤51.5|μ=52).</p>
+</section>
+<section id="hypothesis-tests-page-12" data-lecture="hypothesis-tests" data-page="12"><h2>Page 12 · Propellant: upper α</h2>
+<p>Upper-tail rule reject if x̄>51.5; α = P(x̄>51.5|μ=50) (one tail).</p>
+</section>
+<section id="hypothesis-tests-page-13" data-lecture="hypothesis-tests" data-page="13"><h2>Page 13 · Propellant: upper β</h2>
+<p>Upper-tail Type II at μ=52: β = P(x̄≤51.5|μ=52).</p>
+</section>
+<section id="hypothesis-tests-page-14" data-lecture="hypothesis-tests" data-page="14"><h2>Page 14 · Propellant: lower α</h2>
+<p>Lower-tail rule reject if x̄<48.5; α = P(x̄<48.5|μ=50).</p>
+</section>
+<section id="hypothesis-tests-page-15" data-lecture="hypothesis-tests" data-page="15"><h2>Page 15 · Propellant: lower β</h2>
+<p>Lower-tail Type II at μ=48: β = P(x̄≥48.5|μ=48).</p>
+</section>
+<section id="hypothesis-tests-page-16" data-lecture="hypothesis-tests" data-page="16"><h2>Page 16 · Cutoff α–β explorer</h2>
+<p>Game: switch two-sided / upper / lower; move c and n; watch α–β trade-off.</p>
+</section>
+<section id="hypothesis-tests-page-17" data-lecture="hypothesis-tests" data-page="17"><h2>Page 17 · Significance level</h2>
+<p>α is chosen in advance (commonly 0.01, 0.05, 0.10). It is the maximum Type I risk we allow.</p>
+</section>
+<section id="hypothesis-tests-page-18" data-lecture="hypothesis-tests" data-page="18"><h2>Page 18 · Simulate α</h2>
+<p>Game: when H0 is true, about α of repeated tests reject H0.</p>
+</section>
+<section id="hypothesis-tests-page-19" data-lecture="hypothesis-tests" data-page="19"><h2>Page 19 · Definition (p-value)</h2>
+<p>p-value = P(statistic at least as extreme as observed | H0 true). Not P(H0 true | data).</p>
+</section>
+<section id="hypothesis-tests-page-20" data-lecture="hypothesis-tests" data-page="20"><h2>Page 20 · Power supply: region</h2>
+<p>Example setup: critical-region approach for a two-sided (or one-sided) test of a mean.</p>
+</section>
+<section id="hypothesis-tests-page-21" data-lecture="hypothesis-tests" data-page="21"><h2>Page 21 · Power supply: p-values</h2>
+<p>Same data via p-value: reject iff p < α. Agrees with the critical-region decision.</p>
+</section>
+<section id="hypothesis-tests-page-22" data-lecture="hypothesis-tests" data-page="22"><h2>Page 22 · p-value explorer</h2>
+<p>Game: drag Z0 and change the alternative; see rejection region and p-value area.</p>
+</section>
+<section id="hypothesis-tests-page-23" data-lecture="hypothesis-tests" data-page="23"><h2>Page 23 · Concept check: errors</h2>
+<p>A–D quiz: Type I/II language, α–β trade-off, what “fail to reject” means, larger n reduces both α and β.</p>
+</section>
+<section id="hypothesis-tests-page-24" data-lecture="hypothesis-tests" data-page="24"><h2>Page 24 · Concept check: p-value</h2>
+<p>A–D quiz: definition, decide with p vs α, two-sided p from Z0, upper-tail p when Z0 is negative.</p>
+</section>
+<section id="hypothesis-tests-page-25" data-lecture="hypothesis-tests" data-page="25"><h2>Page 25 · Eight steps</h2>
+<p>Parameter → H0 → H1 → test statistic → reject rule → compute → decide → report in context.</p>
+</section>
+<section id="hypothesis-tests-page-26" data-lecture="hypothesis-tests" data-page="26"><h2>Page 26 · Three approaches</h2>
+<p>Critical region, p-value, and CI: for the same α they give the same reject/fail-to-reject decision.</p>
+</section>
+<section id="hypothesis-tests-page-27" data-lecture="hypothesis-tests" data-page="27"><h2>Page 27 · Which tail?</h2>
+<p>Game: the alternative decides which tail(s) count for the p-value and rejection region.</p>
+</section>
+<section id="hypothesis-tests-page-28" data-lecture="hypothesis-tests" data-page="28"><h2>Page 28 · z-test table</h2>
+<p>H0: μ=μ0, σ known: Z0=(x̄−μ0)/(σ/√n) ~ N(0,1) under H0. Critical values z_{α/2} or z_α.</p>
+</section>
+<section id="hypothesis-tests-page-29" data-lecture="hypothesis-tests" data-page="29"><h2>Page 29 · Battery life</h2>
+<p>Example: H1: μ>40, σ=1.25, n=10, x̄=40.5 → Z0≈1.26 < 1.645 → fail to reject at α=0.05.</p>
+</section>
+<section id="hypothesis-tests-page-30" data-lecture="hypothesis-tests" data-page="30"><h2>Page 30 · Response time</h2>
+<p>Example: H1: μ>75, σ=8, n=25, x̄=79.25 → reject H0; lower CI excludes 75.</p>
+</section>
+<section id="hypothesis-tests-page-31" data-lecture="hypothesis-tests" data-page="31"><h2>Page 31 · t-test table</h2>
+<p>σ unknown: t0=(x̄−μ0)/(s/√n) ~ t(n−1). Use t critical values.</p>
+</section>
+<section id="hypothesis-tests-page-32" data-lecture="hypothesis-tests" data-page="32"><h2>Page 32 · Body temperature</h2>
+<p>Example: test mean body temperature with sample s (t-test).</p>
+</section>
+<section id="hypothesis-tests-page-33" data-lecture="hypothesis-tests" data-page="33"><h2>Page 33 · Known variances (two means)</h2>
+<p>Z0 for μ_X−μ_Y with known σ_X, σ_Y; rejection region or CI for the difference.</p>
+</section>
+<section id="hypothesis-tests-page-34" data-lecture="hypothesis-tests" data-page="34"><h2>Page 34 · Comparing paints</h2>
+<p>Example: two paints, known SDs → two-sample z-test for mean drying times.</p>
+</section>
+<section id="hypothesis-tests-page-35" data-lecture="hypothesis-tests" data-page="35"><h2>Page 35 · Pooled t-test</h2>
+<p>Independent samples, equal unknown variances: pool into s_p; df = n+m−2.</p>
+</section>
+<section id="hypothesis-tests-page-36" data-lecture="hypothesis-tests" data-page="36"><h2>Page 36 · Comparing catalysts</h2>
+<p>Example: two catalysts, small n, assume equal variances → pooled t.</p>
+</section>
+<section id="hypothesis-tests-page-37" data-lecture="hypothesis-tests" data-page="37"><h2>Page 37 · Welch t-test</h2>
+<p>Unequal variances: SE = √(s_X²/n+s_Y²/m); Welch–Satterthwaite df. Safer default if equality is doubtful.</p>
+</section>
+<section id="hypothesis-tests-page-38" data-lecture="hypothesis-tests" data-page="38"><h2>Page 38 · Paired t-test</h2>
+<p>Matched pairs: test μ_D with t0 = d̄/(s_D/√n), df = n−1. Before/after on the same units.</p>
+</section>
+<section id="hypothesis-tests-page-39" data-lecture="hypothesis-tests" data-page="39"><h2>Page 39 · One-proportion test</h2>
+<p>H0: p=p0; Z0=(p̂−p0)/√(p0(1−p0)/n). Large-sample normal under H0.</p>
+</section>
+<section id="hypothesis-tests-page-40" data-lecture="hypothesis-tests" data-page="40"><h2>Page 40 · Higher education</h2>
+<p>Example: one-proportion z-test for a claimed education rate.</p>
+</section>
+<section id="hypothesis-tests-page-41" data-lecture="hypothesis-tests" data-page="41"><h2>Page 41 · Fair die</h2>
+<p>Example: test whether P(six)=1/6 with a sample proportion.</p>
+</section>
+<section id="hypothesis-tests-page-42" data-lecture="hypothesis-tests" data-page="42"><h2>Page 42 · Proportion calculator</h2>
+<p>Game: enter n, x, p0, α, side → Z0, p-value, decision.</p>
+</section>
+<section id="hypothesis-tests-page-43" data-lecture="hypothesis-tests" data-page="43"><h2>Page 43 · Two proportions</h2>
+<p>H0: p1=p2; under H0 use pooled p̂ in the SE. CI for p1−p2 does not pool.</p>
+</section>
+<section id="hypothesis-tests-page-44" data-lecture="hypothesis-tests" data-page="44"><h2>Page 44 · Sparrows</h2>
+<p>Example: male vs female return rates → two-proportion z-test.</p>
+</section>
+<section id="hypothesis-tests-page-45" data-lecture="hypothesis-tests" data-page="45"><h2>Page 45 · Low birth weight</h2>
+<p>Example: compare two proportions (treatment vs control).</p>
+</section>
+<section id="hypothesis-tests-page-46" data-lecture="hypothesis-tests" data-page="46"><h2>Page 46 · The test menu</h2>
+<p>Summary table: which statistic/distribution for one mean, two means (z/pooled/Welch/paired), one/two proportions.</p>
+</section>
+<section id="hypothesis-tests-page-47" data-lecture="hypothesis-tests" data-page="47"><h2>Page 47 · Which test?</h2>
+<p>A–D Live Poll: match each story to z-mean, t-mean, two-mean z, pooled, Welch, paired, or proportion tests.</p>
+</section>
+<section id="hypothesis-tests-page-48" data-lecture="hypothesis-tests" data-page="48"><h2>Page 48 · Three methods agree</h2>
+<p>Battery-style demo: critical region, p-value, and one-sided CI flip together as x̄ moves.</p>
+</section>
+<section id="hypothesis-tests-page-49" data-lecture="hypothesis-tests" data-page="49"><h2>Page 49 · Which answer?</h2>
+<p>Final A–D quiz: z_α vs z_{α/2}, t critical value, pooled df, CI rejection rule, paired design, pooled p̂ in two-prop SE.</p>
+</section>
+<section id="hypothesis-tests-page-50" data-lecture="hypothesis-tests" data-page="50"><h2>Page 50 · Takeaways</h2>
+<p>State H0/H1; pick the statistic; decide via region / p / CI; report. Fail to reject ≠ prove H0.</p>
+</section>
+</article>
+</body>
+</html>
