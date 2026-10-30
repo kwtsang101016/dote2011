@@ -1285,8 +1285,8 @@ function CutoffGameScene() {
   return (
     <SceneFrame kicker="Game" title="Cutoff explorer: α versus β." tone="gold">
       <p className={styles.lead}>
-        <MathText text={tex`$H_0:\mu=50$ versus $H_1:\mu=${muAlt}$`} />, <MathText text={tex`$\sigma=2.5$`} />. Reject when{" "}
-        <MathText text={ruleTex} />. Switch the alternative direction, then slide <MathText text={tex`$c$`} /> and{" "}
+        <MathText text={tex`$H_0:\mu=50$`} />, <MathText text={tex`$\sigma=2.5$`} />. Reject when{" "}
+        <InlineMath tex={ruleTex} />. Choose the alternative below, then slide <MathText text={tex`$c$`} /> and{" "}
         <MathText text={tex`$n$`} />.
       </p>
       <LiveOnly>
