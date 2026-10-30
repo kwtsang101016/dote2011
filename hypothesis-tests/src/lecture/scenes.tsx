@@ -1368,13 +1368,18 @@ function SignificanceScene() {
       </p>
       <p className={styles.small}>
         Worked example · two-sided propellant · <MathText text={tex`$H_0:\mu=50$`} />, <MathText text={tex`$\sigma/\sqrt{n}=0.79$`} />, alternative{" "}
-        <MathText text={tex`$\mu=52$`} />, target <MathText text={tex`$\alpha=0.05$`} />.
+        <MathText text={tex`$\mu=52$`} />, target <MathText text={tex`$\alpha=0.05$`} />. Write the cutoffs as{" "}
+        <MathText text={tex`$c_\pm=50\pm c$`} /> and solve for <MathText text={tex`$c=c_\alpha$`} />.
       </p>
+      <Formula tex={tex`\text{Step 1.}\ \text{Fix }\alpha=0.05\text{ (significance level).}`} />
       <Formula
-        tex={tex`\text{Step 1.}\ \alpha=0.05\ \Rightarrow\ \alpha/2=0.025\ \Rightarrow\ z_{0.025}=1.96`}
+        tex={tex`\text{Step 2.}\ \alpha=P(\text{reject }H_0\mid H_0)=P(\bar{X}\le 50-c\ \text{ or }\ \bar{X}\ge 50+c\mid\mu=50)`}
       />
       <Formula
-        tex={tex`\text{Step 2.}\ c_\pm=50\pm 1.96\times 0.79\ \Rightarrow\ \text{reject }H_0\text{ if }\bar{x}<${formatNum(ex.lo, 2)}\ \text{ or }\ \bar{x}>${formatNum(ex.hi, 2)}`}
+        tex={tex`=2P\!\left(Z\ge\dfrac{c}{0.79}\right)=0.05\ \Rightarrow\ P\!\left(Z\ge\dfrac{c}{0.79}\right)=0.025\ \Rightarrow\ \dfrac{c}{0.79}=z_{0.025}=1.96`}
+      />
+      <Formula
+        tex={tex`c=c_{0.05}=1.96\times 0.79=${formatNum(1.96 * seRound, 2)}\ \Rightarrow\ c_\pm=50\pm ${formatNum(1.96 * seRound, 2)}\ \Rightarrow\ [${formatNum(ex.lo, 2)},\ ${formatNum(ex.hi, 2)}]`}
       />
       <Formula
         tex={tex`\text{Step 3.}\ \beta=P(${formatNum(ex.lo, 2)}\le\bar{X}\le ${formatNum(ex.hi, 2)}\mid\mu=52)`}
@@ -1415,9 +1420,11 @@ function SignificanceScene() {
         </table>
       </div>
       <p className={styles.small}>
-        Same three steps for every row: smaller <MathText text={tex`$\alpha$`} /> → larger <MathText text={tex`$|z_{\alpha/2}|$`} /> → wider acceptance region → larger{" "}
-        <MathText text={tex`$\beta$`} />. For a one-sided test use <MathText text={tex`$z_\alpha$`} /> and a single cutoff instead of{" "}
-        <MathText text={tex`$z_{\alpha/2}$`} /> and <MathText text={tex`$c_\pm$`} />. Only a larger <MathText text={tex`$n$`} /> can shrink both errors at once.
+        Every table row uses the same Step 2: set <MathText text={tex`$\alpha=2P(Z\ge c/(\sigma/\sqrt{n}))$`} />, solve{" "}
+        <MathText text={tex`$c=z_{\alpha/2}\,\sigma/\sqrt{n}$`} />, then compute <MathText text={tex`$\beta$`} />. Smaller{" "}
+        <MathText text={tex`$\alpha$`} /> → larger <MathText text={tex`$c$`} /> → larger <MathText text={tex`$\beta$`} />. One-sided:{" "}
+        <MathText text={tex`$\alpha=P(Z\ge c/(\sigma/\sqrt{n}))$`} /> so <MathText text={tex`$c=z_\alpha\,\sigma/\sqrt{n}$`} />. Only larger{" "}
+        <MathText text={tex`$n$`} /> shrinks both errors.
       </p>
     </SceneFrame>
   );

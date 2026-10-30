@@ -72,7 +72,7 @@ Game: switch two-sided / upper / lower; move c and n; watch α–β trade-off.
 
 ## Page 17 · Significance level
 
-Fix α first → two-sided cutoffs c± = μ0 ± z_{α/2} σ/√n → then β = P(c−≤x̄≤c+|μ=μ1). Worked α=0.05 propellant example; table compares α=0.10,0.05,0.01. One-sided uses z_α and one cutoff.
+Fix α → from α=P(reject H0|H0)=P(x̄≤50−c or x̄≥50+c|μ=50) solve c=z_{α/2}σ/√n → then β under μ=52. Worked α=0.05; table for 0.10,0.05,0.01. One-sided: c=z_α σ/√n.
 
 ## Page 18 · Simulate α
 
