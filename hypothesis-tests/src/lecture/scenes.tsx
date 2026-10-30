@@ -742,6 +742,53 @@ function HypothesesScene() {
   );
 }
 
+function PredeterminedCutoffScene() {
+  return (
+    <SceneFrame kicker="A predetermined rule" title={tex`Decide what “too far from 50” means before seeing $\bar{x}$.`}>
+      <p className={styles.lead}>
+        Under <MathText text={tex`$H_0:\mu=50$`} />, say we call <MathText text={tex`$\bar{x}$`} /> <strong>too far</strong> from 50 if{" "}
+        <MathText text={tex`$|\bar{x}-50|\ge 1.5$`} />, i.e. <MathText text={tex`$\bar{x}\ge 51.5$`} /> or{" "}
+        <MathText text={tex`$\bar{x}\le 48.5$`} />. Fix this threshold <strong>before</strong> observing{" "}
+        <MathText text={tex`$\bar{X}$`} /> — do not redefine “too far” afterward to get a nicer conclusion.
+      </p>
+      <div className={styles.three}>
+        <article className={styles.card}>
+          <p className={styles.kicker}>
+            Observe <MathText text={tex`$\bar{x}=52$`} />
+          </p>
+          <p>
+            Too large for <MathText text={tex`$H_0$`} /> by the predetermined rule → <strong>reject</strong>{" "}
+            <MathText text={tex`$H_0$`} />.
+          </p>
+        </article>
+        <article className={styles.card}>
+          <p className={styles.kicker}>
+            Observe <MathText text={tex`$\bar{x}=47$`} />
+          </p>
+          <p>
+            Too small for <MathText text={tex`$H_0$`} /> by the predetermined rule → <strong>reject</strong>{" "}
+            <MathText text={tex`$H_0$`} />.
+          </p>
+        </article>
+        <article className={styles.card}>
+          <p className={styles.kicker}>
+            Observe <MathText text={tex`$\bar{x}=51$`} />
+          </p>
+          <p>
+            Acceptable under the rule → we <strong>cannot reject</strong> <MathText text={tex`$H_0$`} />.
+          </p>
+        </article>
+      </div>
+      <Formula tex={tex`\text{critical region}=\{\bar{x}:\ \bar{x}\le 48.5\text{ or }\bar{x}\ge 51.5\}`} />
+      <p className={styles.small}>
+        The <strong>critical region</strong> is the set of <MathText text={tex`$\bar{x}$`} /> values that lead to rejecting{" "}
+        <MathText text={tex`$H_0$`} />. Once the sampling distribution of <MathText text={tex`$\bar{x}$`} /> is known,{" "}
+        <MathText text={tex`$P(\text{reject }H_0)$`} /> is simply the probability that <MathText text={tex`$\bar{x}$`} /> falls in that region.
+      </p>
+    </SceneFrame>
+  );
+}
+
 function TestStatisticScene() {
   return (
     <SceneFrame kicker="Testing a hypothesis" title="Take a sample, compute a test statistic, decide.">
@@ -2758,6 +2805,7 @@ export const SCENES: SceneDef[] = [
   { id: "aircrew", chapter: "Start", label: "Aircrew escape system", Scene: AircrewScene },
   { id: "hypotheses", chapter: "Setup", label: "H0 versus H1", Scene: HypothesesScene },
   { id: "class-activity", chapter: "Setup", label: "Which hypotheses?", Scene: ClassActivityScene },
+  { id: "predetermined-cutoff", chapter: "Setup", label: "Predetermined critical region", Scene: PredeterminedCutoffScene },
   { id: "test-statistic", chapter: "Setup", label: "Test statistic and regions", Scene: TestStatisticScene },
   { id: "hypothesis-types", chapter: "Setup", label: "Types of hypothesis", Scene: HypothesisTypesScene },
   { id: "error-table", chapter: "Errors", label: "Type I / Type II table", Scene: ErrorTableScene },
