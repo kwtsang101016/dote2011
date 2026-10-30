@@ -72,7 +72,7 @@ Game: switch two-sided / upper / lower; move c and n; watch α–β trade-off.
 
 ## Page 17 · Significance level
 
-α is chosen in advance (commonly 0.01, 0.05, 0.10). It is the maximum Type I risk we allow.
+Fix α first → two-sided cutoffs c± = μ0 ± z_{α/2} σ/√n → then β = P(c−≤x̄≤c+|μ=μ1). Worked α=0.05 propellant example; table compares α=0.10,0.05,0.01. One-sided uses z_α and one cutoff.
 
 ## Page 18 · Simulate α
 

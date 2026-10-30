@@ -87,7 +87,10 @@ HT_NOTES: list[tuple[str, str]] = [
     ("Propellant: lower α", "Lower-tail rule reject if x̄<48.5; α = P(x̄<48.5|μ=50)."),
     ("Propellant: lower β", "Lower-tail Type II at μ=48: β = P(x̄≥48.5|μ=48)."),
     ("Cutoff α–β explorer", "Game: switch two-sided / upper / lower; move c and n; watch α–β trade-off."),
-    ("Significance level", "α is chosen in advance (commonly 0.01, 0.05, 0.10). It is the maximum Type I risk we allow."),
+    (
+        "Significance level",
+        "Fix α first → two-sided cutoffs c± = μ0 ± z_{α/2} σ/√n → then β = P(c−≤x̄≤c+|μ=μ1). Worked α=0.05 propellant example; table compares α=0.10,0.05,0.01. One-sided uses z_α and one cutoff.",
+    ),
     ("Simulate α", "Game: when H0 is true, about α of repeated tests reject H0."),
     ("Definition (p-value)", "p-value = P(statistic at least as extreme as observed | H0 true). Not P(H0 true | data)."),
     ("Power supply: region", "Example setup: critical-region approach for a two-sided (or one-sided) test of a mean."),

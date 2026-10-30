@@ -1348,6 +1348,7 @@ function CutoffGameScene() {
 
 function SignificanceScene() {
   const se = PROP.sigma / Math.sqrt(PROP.n);
+  const seRound = 0.79;
   const rows = SIGNIF_LEVELS.map((alpha) => {
     const half = zUpper(alpha / 2);
     const lo = PROP.mu0 - half * se;
@@ -1355,24 +1356,32 @@ function SignificanceScene() {
     const beta = stdNormalCdf((hi - PROP.muAlt) / se) - stdNormalCdf((lo - PROP.muAlt) / se);
     return { alpha, half, lo, hi, beta };
   });
+  const ex = rows.find((row) => row.alpha === 0.05) ?? rows[1];
+  const zLoAlt = (ex.lo - PROP.muAlt) / seRound;
+  const zHiAlt = (ex.hi - PROP.muAlt) / seRound;
   return (
-    <SceneFrame kicker="Significance level" title={tex`Fix $\alpha$ in advance, then live with $\beta$.`}>
-      <div className={styles.two}>
-        <article className={styles.card}>
-          <p className={styles.kicker}>Idea</p>
-          <p>
-            The statistician controls the Type I error probability <MathText text={tex`$\alpha$`} /> when choosing the critical values. The value she sets is
-            the <strong>significance level</strong>; the corresponding Type II error <MathText text={tex`$\beta$`} /> is whatever results.
-          </p>
-        </article>
-        <article className={styles.card}>
-          <p className={styles.kicker}>Typical values</p>
-          <p>
-            <MathText text={tex`$\alpha=0.1,\ 0.05,\ 0.01$`} /> (sometimes 0.001). Smaller <MathText text={tex`$\alpha$`} /> means we require stronger
-            evidence before rejecting.
-          </p>
-        </article>
-      </div>
+    <SceneFrame kicker="Significance level" title={tex`Choose $\alpha$ $\to$ set the cutoffs $\to$ then $\beta$ follows.`}>
+      <p className={styles.lead}>
+        The <strong>significance level</strong> <MathText text={tex`$\alpha$`} /> is fixed first. Critical values are chosen so that the Type I error equals{" "}
+        <MathText text={tex`$\alpha$`} />; <MathText text={tex`$\beta$`} /> is then computed under a specific alternative. Typical choices:{" "}
+        <MathText text={tex`$\alpha=0.10,\ 0.05,\ 0.01$`} />.
+      </p>
+      <p className={styles.small}>
+        Worked example · two-sided propellant · <MathText text={tex`$H_0:\mu=50$`} />, <MathText text={tex`$\sigma/\sqrt{n}=0.79$`} />, alternative{" "}
+        <MathText text={tex`$\mu=52$`} />, target <MathText text={tex`$\alpha=0.05$`} />.
+      </p>
+      <Formula
+        tex={tex`\text{Step 1.}\ \alpha=0.05\ \Rightarrow\ \alpha/2=0.025\ \Rightarrow\ z_{0.025}=1.96`}
+      />
+      <Formula
+        tex={tex`\text{Step 2.}\ c_\pm=50\pm 1.96\times 0.79\ \Rightarrow\ \text{reject }H_0\text{ if }\bar{x}<${formatNum(ex.lo, 2)}\ \text{ or }\ \bar{x}>${formatNum(ex.hi, 2)}`}
+      />
+      <Formula
+        tex={tex`\text{Step 3.}\ \beta=P(${formatNum(ex.lo, 2)}\le\bar{X}\le ${formatNum(ex.hi, 2)}\mid\mu=52)`}
+      />
+      <Formula
+        tex={tex`z_1=\dfrac{${formatNum(ex.lo, 2)}-52}{0.79}=${formatNum(zLoAlt, 2)},\quad z_2=\dfrac{${formatNum(ex.hi, 2)}-52}{0.79}=${formatNum(zHiAlt, 2)}\ \Rightarrow\ \beta=${formatNum(ex.beta, 4)}`}
+      />
       <div className={styles.tableWrap}>
         <table>
           <thead>
@@ -1383,7 +1392,9 @@ function SignificanceScene() {
               <th>
                 <MathText text={tex`$z_{\alpha/2}$`} />
               </th>
-              <th>Acceptance region for x̄ (propellant, n = 10)</th>
+              <th>
+                Cutoffs <MathText text={tex`$c_\pm$`} /> (same recipe)
+              </th>
               <th>
                 β at <MathText text={tex`$\mu=52$`} />
               </th>
@@ -1404,8 +1415,9 @@ function SignificanceScene() {
         </table>
       </div>
       <p className={styles.small}>
-        Shrinking <MathText text={tex`$\alpha$`} /> widens the acceptance region, which lets more false nulls slip through: <MathText text={tex`$\beta$`} /> grows.
-        Only a larger sample can reduce both.
+        Same three steps for every row: smaller <MathText text={tex`$\alpha$`} /> → larger <MathText text={tex`$|z_{\alpha/2}|$`} /> → wider acceptance region → larger{" "}
+        <MathText text={tex`$\beta$`} />. For a one-sided test use <MathText text={tex`$z_\alpha$`} /> and a single cutoff instead of{" "}
+        <MathText text={tex`$z_{\alpha/2}$`} /> and <MathText text={tex`$c_\pm$`} />. Only a larger <MathText text={tex`$n$`} /> can shrink both errors at once.
       </p>
     </SceneFrame>
   );
