@@ -91,6 +91,22 @@ HT_NOTES: list[tuple[str, str]] = [
         "Significance level",
         "Fix α → from α=P(reject H0|H0)=P(x̄≤50−c or x̄≥50+c|μ=50) solve c=z_{α/2}σ/√n → then β under μ=52. Worked α=0.05; table for 0.10,0.05,0.01. One-sided: c=z_α σ/√n.",
     ),
+    (
+        "Sample-size planning",
+        "Budget view: fix α and β at a planning alternative μ1, then solve for required n and cutoff c (n is not given).",
+    ),
+    (
+        "Plan n (one-sided)",
+        "Upper-tail: c=μ0+z_α σ/√n = μ1−z_β σ/√n ⇒ n=((z_α+z_β)σ/(μ1−μ0))². Propellant α=0.05, β=0.10, μ1=52, σ=2.5.",
+    ),
+    (
+        "Plan n (two-sided)",
+        "Use z_{α/2} in place of z_α: n≈((z_{α/2}+z_β)σ/|μ1−μ0|)²; then c±=μ0±z_{α/2}σ/√n. Check β under μ1.",
+    ),
+    (
+        "Budget explorer",
+        "Game: choose one-/two-sided, α, β, and gap |μ1−μ0|; see required n and cutoffs on the propellant scale.",
+    ),
     ("Simulate α", "Game: when H0 is true, about α of repeated tests reject H0."),
     (
         "Definition (p-value)",

@@ -1424,8 +1424,224 @@ function SignificanceScene() {
         <MathText text={tex`$c=z_{\alpha/2}\,\sigma/\sqrt{n}$`} />, then compute <MathText text={tex`$\beta$`} />. Smaller{" "}
         <MathText text={tex`$\alpha$`} /> → larger <MathText text={tex`$c$`} /> → larger <MathText text={tex`$\beta$`} />. One-sided:{" "}
         <MathText text={tex`$\alpha=P(Z\ge c/(\sigma/\sqrt{n}))$`} /> so <MathText text={tex`$c=z_\alpha\,\sigma/\sqrt{n}$`} />. Only larger{" "}
-        <MathText text={tex`$n$`} /> shrinks both errors.
+        <MathText text={tex`$n$`} /> shrinks both errors — next we plan that <MathText text={tex`$n$`} /> when both{" "}
+        <MathText text={tex`$\alpha$`} /> and <MathText text={tex`$\beta$`} /> are fixed in advance.
       </p>
+    </SceneFrame>
+  );
+}
+
+function SampleSizePlanScene() {
+  return (
+    <SceneFrame kicker="Sample-size planning" title={tex`Fix $\alpha$ and $\beta$, then find $n$ and $c$.`}>
+      <p className={styles.lead}>
+        On the previous page <MathText text={tex`$n$`} /> was given, so choosing <MathText text={tex`$\alpha$`} /> fixed the cutoffs and{" "}
+        <MathText text={tex`$\beta$`} /> followed. In a budget / study plan the opposite is common: management sets the maximum Type I risk{" "}
+        <MathText text={tex`$\alpha$`} /> and the maximum Type II risk <MathText text={tex`$\beta$`} /> at a scientifically important alternative{" "}
+        <MathText text={tex`$\mu_1$`} />, and we solve for the required sample size and the matching cutoff.
+      </p>
+      <div className={styles.two}>
+        <article className={styles.card}>
+          <p className={styles.kicker}>Given (planning inputs)</p>
+          <p>
+            <MathText text={tex`$\alpha$`} />, <MathText text={tex`$\beta$`} /> at a chosen <MathText text={tex`$\mu_1\neq\mu_0$`} />, and{" "}
+            <MathText text={tex`$\sigma$`} /> (known or planned).
+          </p>
+        </article>
+        <article className={styles.card}>
+          <p className={styles.kicker}>Find (design outputs)</p>
+          <p>
+            Required <MathText text={tex`$n$`} /> and the rejection cutoff <MathText text={tex`$c$`} /> so both error targets are met.
+          </p>
+        </article>
+      </div>
+      <p className={styles.small}>
+        Intuition: <MathText text={tex`$\alpha$`} /> and <MathText text={tex`$\beta$`} /> pin down how far the cutoff sits from{" "}
+        <MathText text={tex`$\mu_0$`} /> and from <MathText text={tex`$\mu_1$`} /> in SE units. Those two distances must add up to the gap{" "}
+        <MathText text={tex`$|\mu_1-\mu_0|$`} />, which forces a unique SE — hence a unique <MathText text={tex`$n$`} />.
+      </p>
+    </SceneFrame>
+  );
+}
+
+function SampleSizeOneSidedScene() {
+  const mu0 = PROP.mu0;
+  const mu1 = PROP.muAlt;
+  const sigma = PROP.sigma;
+  const delta = mu1 - mu0;
+  const alpha = 0.05;
+  const beta = 0.1;
+  const za = zUpper(alpha);
+  const zb = zUpper(beta);
+  const nRaw = ((za + zb) * sigma / delta) ** 2;
+  const n = Math.ceil(nRaw);
+  const se = sigma / Math.sqrt(n);
+  const cFromNull = mu0 + za * se;
+  const cFromAlt = mu1 - zb * se;
+  const c = (cFromNull + cFromAlt) / 2;
+  return (
+    <SceneFrame kicker="Sample-size planning · one-sided" title={tex`Solve $\alpha$ and $\beta$ for $n$ and $c$.`}>
+      <p className={styles.lead}>
+        Upper-tail test: reject <MathText text={tex`$H_0:\mu=\mu_0$`} /> when <MathText text={tex`$\bar{x}\ge c$`} />, against the planning
+        alternative <MathText text={tex`$\mu=\mu_1>\mu_0$`} />. Propellant: <MathText text={tex`$\mu_0=50$`} />,{" "}
+        <MathText text={tex`$\mu_1=52$`} />, <MathText text={tex`$\sigma=2.5$`} />, targets <MathText text={tex`$\alpha=0.05$`} />,{" "}
+        <MathText text={tex`$\beta=0.10$`} />.
+      </p>
+      <Formula
+        tex={tex`\alpha=P(\bar{X}\ge c\mid\mu=\mu_0)\ \Rightarrow\ \dfrac{c-\mu_0}{\sigma/\sqrt{n}}=z_{\alpha}\ \Rightarrow\ c=\mu_0+z_{\alpha}\,\dfrac{\sigma}{\sqrt{n}}`}
+      />
+      <Formula
+        tex={tex`\beta=P(\bar{X}<c\mid\mu=\mu_1)\ \Rightarrow\ \dfrac{c-\mu_1}{\sigma/\sqrt{n}}=-z_{\beta}\ \Rightarrow\ c=\mu_1-z_{\beta}\,\dfrac{\sigma}{\sqrt{n}}`}
+      />
+      <Formula
+        tex={tex`\mu_0+z_{\alpha}\dfrac{\sigma}{\sqrt{n}}=\mu_1-z_{\beta}\dfrac{\sigma}{\sqrt{n}}\ \Rightarrow\ n=\left(\dfrac{(z_{\alpha}+z_{\beta})\,\sigma}{\mu_1-\mu_0}\right)^2`}
+      />
+      <Formula
+        tex={tex`z_{0.05}=${formatNum(za, 3)},\ z_{0.10}=${formatNum(zb, 3)}\ \Rightarrow\ n=\left(\dfrac{(${formatNum(za, 3)}+${formatNum(zb, 3)})\cdot 2.5}{2}\right)^2=${formatNum(nRaw, 2)}\ \Rightarrow\ n=${n}`}
+      />
+      <Formula
+        tex={tex`c=50+${formatNum(za, 3)}\cdot\dfrac{2.5}{\sqrt{${n}}}=${formatNum(cFromNull, 2)}\quad(\text{check: }52-${formatNum(zb, 3)}\cdot\dfrac{2.5}{\sqrt{${n}}}=${formatNum(cFromAlt, 2)})`}
+      />
+      <p className={styles.small}>
+        Round <MathText text={tex`$n$`} /> <strong>up</strong>. Use either expression for <MathText text={tex`$c$`} /> (they agree once{" "}
+        <MathText text={tex`$n$`} /> is exact; after ceiling they differ slightly — either is fine, or average ≈{" "}
+        <MathText text={tex`$${formatNum(c, 2)}$`} />). Lower-tail planning is the mirror image with{" "}
+        <MathText text={tex`$|\mu_1-\mu_0|$`} />.
+      </p>
+    </SceneFrame>
+  );
+}
+
+function SampleSizeTwoSidedScene() {
+  const mu0 = PROP.mu0;
+  const mu1 = PROP.muAlt;
+  const sigma = PROP.sigma;
+  const delta = mu1 - mu0;
+  const alpha = 0.05;
+  const beta = 0.1;
+  const za2 = zUpper(alpha / 2);
+  const zb = zUpper(beta);
+  const nRaw = ((za2 + zb) * sigma / delta) ** 2;
+  const n = Math.ceil(nRaw);
+  const se = sigma / Math.sqrt(n);
+  const half = za2 * se;
+  const lo = mu0 - half;
+  const hi = mu0 + half;
+  // Approximate β under μ=52: P(lo ≤ X ≤ hi | μ=52)
+  const betaApprox = stdNormalCdf((hi - mu1) / se) - stdNormalCdf((lo - mu1) / se);
+  return (
+    <SceneFrame kicker="Sample-size planning · two-sided" title={tex`Same idea with $z_{\alpha/2}$.`}>
+      <p className={styles.lead}>
+        For a two-sided test, <MathText text={tex`$\alpha$`} /> is split into two tails, so replace <MathText text={tex`$z_\alpha$`} /> by{" "}
+        <MathText text={tex`$z_{\alpha/2}$`} />. When the planning alternative is well away from <MathText text={tex`$\mu_0$`} />, nearly all of{" "}
+        <MathText text={tex`$\beta$`} /> comes from the nearer cutoff, and the one-sided derivation still applies with that swap.
+      </p>
+      <Formula tex={tex`n\approx\left(\dfrac{(z_{\alpha/2}+z_{\beta})\,\sigma}{|\mu_1-\mu_0|}\right)^2`} />
+      <Formula
+        tex={tex`\alpha=0.05,\ \beta=0.10,\ \mu_0=50,\ \mu_1=52,\ \sigma=2.5:\quad n\approx\left(\dfrac{(1.960+1.282)\cdot 2.5}{2}\right)^2=${formatNum(nRaw, 2)}\ \Rightarrow\ n=${n}`}
+      />
+      <Formula
+        tex={tex`c_\pm=50\pm z_{0.025}\dfrac{2.5}{\sqrt{${n}}}\ \Rightarrow\ [${formatNum(lo, 2)},\ ${formatNum(hi, 2)}]`}
+      />
+      <p className={styles.small}>
+        Check under <MathText text={tex`$\mu=52$`} />: <MathText text={tex`$\beta=P(${formatNum(lo, 2)}\le\bar{X}\le${formatNum(hi, 2)}\mid\mu=52)\approx${formatNum(betaApprox, 3)}$`} />{" "}
+        (near the target 0.10). Stricter <MathText text={tex`$\alpha$`} /> or <MathText text={tex`$\beta$`} />, or a smaller gap{" "}
+        <MathText text={tex`$|\mu_1-\mu_0|$`} />, all force a larger <MathText text={tex`$n$`} /> — that is the budget trade-off.
+      </p>
+    </SceneFrame>
+  );
+}
+
+function SampleSizeExplorerScene() {
+  const [alpha, setAlpha] = useState(0.05);
+  const [beta, setBeta] = useState(0.1);
+  const [delta, setDelta] = useState(2);
+  const [side, setSide] = useState<"upper" | "two">("upper");
+  const sigma = PROP.sigma;
+  const mu0 = PROP.mu0;
+  const zA = zUpper(side === "two" ? alpha / 2 : alpha);
+  const zB = zUpper(beta);
+  const nRaw = ((zA + zB) * sigma / delta) ** 2;
+  const n = Math.max(2, Math.ceil(nRaw));
+  const se = sigma / Math.sqrt(n);
+  const cUpper = mu0 + zA * se;
+  const cLower = mu0 - zA * se;
+  const mu1 = mu0 + delta;
+  return (
+    <SceneFrame kicker="Game" title="Budget explorer: α, β, and the gap drive n." tone="gold">
+      <p className={styles.lead}>
+        Propellant scale with <MathText text={tex`$\sigma=2.5$`} />, <MathText text={tex`$\mu_0=50$`} />. Choose the error targets and how far the
+        important alternative sits from 50; watch the required <MathText text={tex`$n$`} /> and cutoff(s).
+      </p>
+      <LiveOnly>
+        <div className={styles.tools}>
+          <button type="button" className={side === "upper" ? styles.toolBtnActive : styles.toolBtn} onClick={() => setSide("upper")}>
+            One-sided (&gt;)
+          </button>
+          <button type="button" className={side === "two" ? styles.toolBtnActive : styles.toolBtn} onClick={() => setSide("two")}>
+            Two-sided (≠)
+          </button>
+        </div>
+        <div className={styles.tools}>
+          {[0.1, 0.05, 0.01].map((value) => (
+            <button key={`a${value}`} type="button" className={value === alpha ? styles.toolBtnActive : styles.toolBtn} onClick={() => setAlpha(value)}>
+              <MathText text={tex`$\alpha=${value}$`} />
+            </button>
+          ))}
+          {[0.2, 0.1, 0.05].map((value) => (
+            <button key={`b${value}`} type="button" className={value === beta ? styles.toolBtnActive : styles.toolBtn} onClick={() => setBeta(value)}>
+              <MathText text={tex`$\beta=${value}$`} />
+            </button>
+          ))}
+        </div>
+        <label className={styles.slider}>
+          Gap |μ₁ − μ₀| = {formatNum(delta, 2)}
+          <input type="range" min={0.5} max={4} step={0.1} value={delta} onChange={(e) => setDelta(Number(e.target.value))} />
+        </label>
+      </LiveOnly>
+      <Formula
+        tex={
+          side === "upper"
+            ? tex`n=\left(\dfrac{(z_{\alpha}+z_{\beta})\sigma}{\delta}\right)^2=${formatNum(nRaw, 2)}\ \Rightarrow\ n=${n},\quad c=50+z_{\alpha}\dfrac{\sigma}{\sqrt{n}}=${formatNum(cUpper, 2)}`
+            : tex`n\approx\left(\dfrac{(z_{\alpha/2}+z_{\beta})\sigma}{\delta}\right)^2=${formatNum(nRaw, 2)}\ \Rightarrow\ n=${n},\quad c_\pm=50\pm z_{\alpha/2}\dfrac{\sigma}{\sqrt{n}}=[${formatNum(cLower, 2)},\,${formatNum(cUpper, 2)}]`
+        }
+      />
+      <figure className={styles.figure}>
+        <DensityPlot
+          curves={[
+            { pdf: normalCurve(mu0, se), color: "#16213c", label: "H0: μ = 50" },
+            { pdf: normalCurve(mu1, se), color: "#df4a3e", label: `H1: μ = ${formatNum(mu1, 1)}` },
+          ]}
+          xMin={44}
+          xMax={58}
+          shades={
+            side === "upper"
+              ? [
+                  { from: cUpper, to: 70, color: RED_FILL, curve: 0 },
+                  { from: 30, to: cUpper, color: BLUE_FILL, curve: 1 },
+                ]
+              : [
+                  { from: 30, to: cLower, color: RED_FILL, curve: 0 },
+                  { from: cUpper, to: 70, color: RED_FILL, curve: 0 },
+                  { from: cLower, to: cUpper, color: BLUE_FILL, curve: 1 },
+                ]
+          }
+          vlines={
+            side === "upper"
+              ? [{ x: cUpper, label: `c = ${formatNum(cUpper, 2)}`, color: "#2e7190" }]
+              : [
+                  { x: cLower, label: `c₋`, color: "#2e7190" },
+                  { x: cUpper, label: `c₊`, color: "#2e7190" },
+                ]
+          }
+          marks={[50, mu1].map((x) => ({ x, text: String(x) }))}
+          label="Planned null and alternative sampling distributions"
+        />
+        <figcaption className={styles.small}>Red ≈ α region under H0; blue ≈ β region under the planning alternative.</figcaption>
+      </figure>
+      <PrintOnly>
+        <p className={styles.small}>On the website: toggle one-/two-sided and slide α, β, and the gap |μ₁−μ₀|.</p>
+      </PrintOnly>
     </SceneFrame>
   );
 }
@@ -3110,6 +3326,10 @@ export const SCENES: SceneDef[] = [
   { id: "type-ii-lower", chapter: "Errors", label: "Propellant: lower β", Scene: TypeIILowerScene },
   { id: "game-cutoff", chapter: "Game", label: "Cutoff α–β explorer", Scene: CutoffGameScene },
   { id: "significance", chapter: "Errors", label: "Significance level", Scene: SignificanceScene },
+  { id: "sample-size-plan", chapter: "Errors", label: "Sample-size planning", Scene: SampleSizePlanScene },
+  { id: "sample-size-one", chapter: "Errors", label: "Plan n (one-sided)", Scene: SampleSizeOneSidedScene },
+  { id: "sample-size-two", chapter: "Errors", label: "Plan n (two-sided)", Scene: SampleSizeTwoSidedScene },
+  { id: "game-sample-size", chapter: "Game", label: "Budget explorer", Scene: SampleSizeExplorerScene },
   { id: "game-type-i-sim", chapter: "Game", label: "Simulate α", Scene: TypeISimScene },
   { id: "p-value", chapter: "p-value", label: "Definition", Scene: PValueDefScene },
   { id: "psu-critical", chapter: "p-value", label: "Power supply: region", Scene: PowerSupplySetupScene },

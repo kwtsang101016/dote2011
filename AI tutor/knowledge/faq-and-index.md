@@ -7,7 +7,7 @@
 ## How page numbers work
 
 - **Page N** = the N-th slide in the interactive lecture (same order as the PDF handout).
-- **Introduction** = 16 pages · **Descriptive Statistics** = 27 pages · **Probability** = 22 pages · **Discrete Distributions** = 28 pages · **Continuous Distributions** = 24 pages · **Sampling Distributions** = 22 pages · **Interval Estimation** = 56 pages · **Hypothesis Tests** = 50 pages.
+- **Introduction** = 16 pages · **Descriptive Statistics** = 27 pages · **Probability** = 22 pages · **Discrete Distributions** = 28 pages · **Continuous Distributions** = 24 pages · **Sampling Distributions** = 22 pages · **Interval Estimation** = 56 pages · **Hypothesis Tests** = 54 pages.
 - If a student says “Page 3” without naming the lecture, ask which topic.
 
 | Lecture | Page 3 title |
