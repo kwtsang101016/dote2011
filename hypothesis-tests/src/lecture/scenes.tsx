@@ -2003,8 +2003,9 @@ function BatteryScene() {
   return (
     <SceneFrame kicker="Example · Battery life" title="Does the new battery last longer than 40 hours?">
       <p className={styles.lead}>
-        <MathText text={tex`$\sigma=1.25$`} />, <MathText text={tex`$n=10$`} />, <MathText text={tex`$\bar{x}=40.5$`} />, <MathText text={tex`$\alpha=0.05$`} />.
-        Parameter: <MathText text={tex`$\mu$`} />.
+        Battery life (hours) is approximately normal with known <MathText text={tex`$\sigma=1.25$`} />. A random sample of{" "}
+        <MathText text={tex`$n=10$`} /> batteries has mean life <MathText text={tex`$\bar{x}=40.5$`} />. Is there evidence that mean life exceeds 40
+        hours? Use <MathText text={tex`$\alpha=0.05$`} />. Parameter: <MathText text={tex`$\mu$`} />.
       </p>
       <Formula
         tex={tex`H_0:\mu=40\ \text{vs.}\ H_1:\mu>40,\qquad Z_0=\dfrac{\bar{x}-\mu_0}{\sigma/\sqrt{n}}=\dfrac{40.5-40}{1.25/\sqrt{10}}=${formatNum(z0, 3)}`}
@@ -2097,8 +2098,10 @@ function BodyTemperatureScene() {
   return (
     <SceneFrame kicker="Example · Body temperature" title="Is the mean body temperature 98.6 °F?">
       <p className={styles.lead}>
-        <MathText text={tex`$n=25$`} /> women: <MathText text={tex`$\bar{x}=98.264$`} />, <MathText text={tex`$s^2=0.2324$`} />. Parameter: mean body
-        temperature <MathText text={tex`$\mu$`} />; <MathText text={tex`$\alpha=0.05$`} />.
+        A 1992 <em>JAMA</em> article (“A Critical Appraisal of 98.6°F …”) reported body temperatures for many subjects. For{" "}
+        <MathText text={tex`$n=25$`} /> female subjects the sample mean is <MathText text={tex`$\bar{x}=98.264$`} /> °F and{" "}
+        <MathText text={tex`$s^2=0.2324$`} />. Test whether mean body temperature equals the traditional 98.6°F (
+        <MathText text={tex`$H_0:\mu=98.6$`} /> vs <MathText text={tex`$H_1:\mu\neq98.6$`} />) at <MathText text={tex`$\alpha=0.05$`} />.
       </p>
       <Formula
         tex={tex`H_0:\mu=98.6\ \text{vs.}\ H_1:\mu\neq98.6,\qquad t_0=\dfrac{98.264-98.6}{\sqrt{0.2324/25}}=${formatNum(t0, 4)}`}
@@ -2151,21 +2154,27 @@ function PaintsScene() {
   const z0 = (121 - 112) / se;
   const lower = 9 - zUpper(0.05) * se;
   return (
-    <SceneFrame kicker="Example · Comparing two paints" title="Does paint X dry slower than paint Y?">
+    <SceneFrame kicker="Example · Comparing two paints" title="Does the new drying ingredient work?">
       <p className={styles.lead}>
-        <MathText text={tex`$\sigma_X=\sigma_Y=8$`} />, <MathText text={tex`$n=m=10$`} />, <MathText text={tex`$\bar{x}=121$`} />,{" "}
-        <MathText text={tex`$\bar{y}=112$`} />, <MathText text={tex`$\alpha=0.05$`} />.
+        A product developer wants to reduce primer drying time. Formulation 1 is the standard chemistry; formulation 2 adds a new drying ingredient that
+        should dry faster. Experience says the SD of drying time is 8 minutes for both. Ten specimens of each formulation are painted in random order;
+        the sample means are <MathText text={tex`$\bar{x}_1=121$`} /> and <MathText text={tex`$\bar{x}_2=112$`} /> minutes. What can we conclude at{" "}
+        <MathText text={tex`$\alpha=0.05$`} />?
       </p>
-      <Formula tex={tex`H_0:\mu_X=\mu_Y\ \text{vs.}\ H_1:\mu_X>\mu_Y,\qquad Z_0=\dfrac{\bar{x}-\bar{y}}{8\sqrt{\tfrac1{10}+\tfrac1{10}}}=${formatNum(z0, 4)}`} />
+      <Formula
+        tex={tex`H_0:\mu_1=\mu_2\ \text{vs.}\ H_1:\mu_1>\mu_2\ \text{(new paint faster)},\qquad Z_0=\dfrac{\bar{x}_1-\bar{x}_2}{8\sqrt{\tfrac1{10}+\tfrac1{10}}}=${formatNum(z0, 4)}`}
+      />
       <VerdictCards
         rows={[
           { name: "① Critical region", calc: tex`$z_{0.05}=1.645$ and $Z_0=${formatNum(z0, 3)}>1.645$.`, reject: true },
           { name: "② p-value", calc: tex`$P(Z>${formatNum(z0, 4)})=${formatNum(stdNormalUpper(z0), 4)}<0.05$.`, reject: true },
-          { name: "③ Lower CI", calc: tex`$[\bar{x}-\bar{y}-z_\alpha\sqrt{\sigma_X^2/n+\sigma_Y^2/m},\infty)=[${formatNum(lower, 3)},\infty)$ does not contain 0.`, reject: true },
+          { name: "③ Lower CI", calc: tex`$[\bar{x}_1-\bar{x}_2-z_\alpha\sqrt{\sigma_1^2/n+\sigma_2^2/m},\infty)=[${formatNum(lower, 3)},\infty)$ does not contain 0.`, reject: true },
         ]}
       />
       <CiBar lo={lower} hi={Infinity} point={9} domain={[-2, 14]} nullValue={0} digits={1} />
-      <p className={styles.small}>Strong evidence to reject H0: paint X has the larger mean (p-value very small).</p>
+      <p className={styles.small}>
+        Strong evidence to reject <MathText text={tex`$H_0$`} />: the new ingredient shortens mean drying time (p-value very small).
+      </p>
     </SceneFrame>
   );
 }
@@ -2210,6 +2219,11 @@ function CatalystScene() {
   const hi = xBar - yBar + crit * se;
   return (
     <SceneFrame kicker="Example · Comparing catalysts" title="Do the two catalysts give the same mean yield?">
+      <p className={styles.lead}>
+        Two catalysts are studied for the mean yield of a chemical process. Catalyst 1 is in use; catalyst 2 is acceptable and cheaper, so it should be
+        adopted if it does not change the yield. Pilot-plant data (Table 10-1) are below. Is there a difference in mean yields? Use{" "}
+        <MathText text={tex`$\alpha=0.05$`} /> and assume equal variances.
+      </p>
       <div className={styles.two}>
         <article className={styles.card}>
           <p className={styles.kicker}>Catalyst 1 (n = 8)</p>
@@ -2268,6 +2282,10 @@ function WelchScene() {
   const sePooled = sp * Math.sqrt(2 / n);
   return (
     <SceneFrame kicker="Two means · unknown, unequal variances" title="Welch’s t-test.">
+      <p className={styles.lead}>
+        When equal variances are doubtful (as with the two catalysts, or any two groups with very different sample SDs), use Welch’s t-test instead of
+        pooling.
+      </p>
       <Formula tex={tex`X_i\sim N(\mu_X,\sigma_X^2),\ Y_j\sim N(\mu_Y,\sigma_Y^2)\qquad t_0=\dfrac{\bar{X}-\bar{Y}-\Delta_0}{\sqrt{S_X^2/n+S_Y^2/m}}\ \approx\ t(r)`} />
       <Formula tex={tex`r=\dfrac{\left(S_X^2/n+S_Y^2/m\right)^2}{\dfrac{(S_X^2/n)^2}{n-1}+\dfrac{(S_Y^2/m)^2}{m-1}}\quad(\text{round down; Satterthwaite})`} />
       <ProcedureTable
@@ -2322,16 +2340,18 @@ function PairedScene() {
   return (
     <SceneFrame kicker="Two means · paired data" title="Paired t-test.">
       <p className={styles.lead}>
-        <MathText text={tex`$n$`} /> independent pairs <MathText text={tex`$(X_i,Y_i)$`} />, but within a pair <MathText text={tex`$X_i,Y_i$`} /> are dependent
-        (same unit, before/after). Work with the differences <MathText text={tex`$D_i=X_i-Y_i$`} />: a one-sample t-test.
+        <MathText text={tex`$n$`} /> independent pairs <MathText text={tex`$(X_i,Y_i)$`} />, but within a pair the observations are dependent (same unit,
+        before/after). Work with differences <MathText text={tex`$D_i=X_i-Y_i$`} />: a one-sample t-test.
       </p>
       <Formula tex={tex`t_0=\dfrac{\bar{D}-\Delta_0}{S_D/\sqrt{n}}\ \sim\ t(n-1)\ \text{under }H_0:\mu_X-\mu_Y=\Delta_0\ (\mu_D=\Delta_0)`} />
       <div className={styles.two}>
         <article className={styles.card}>
           <p className={styles.kicker}>Example · 40-yard dash (n = 24 girls)</p>
           <p>
-            <MathText text={tex`$W$`} /> = before − after time. Test <MathText text={tex`$H_0:\mu_W=0$`} /> against <MathText text={tex`$H_1:\mu_W>0$`} /> at{" "}
-            <MathText text={tex`$\alpha=0.05$`} />.
+            Twenty-four girls in grades 9–10 joined an ultraheavy rope-jumping program aimed at improving 40-yard-dash speed. Let{" "}
+            <MathText text={tex`$W$`} /> = before-program time − after-program time (positive means faster after). Assume{" "}
+            <MathText text={tex`$W\sim N(\mu_W,\sigma_W^2)$`} /> approximately. Test <MathText text={tex`$H_0:\mu_W=0$`} /> vs{" "}
+            <MathText text={tex`$H_1:\mu_W>0$`} /> at <MathText text={tex`$\alpha=0.05$`} />.
           </p>
           <p className={styles.small}>
             Data: <MathText text={tex`$\bar{w}=${formatNum(mean(PAIRED_W), 4)}$`} />, <MathText text={tex`$s_W=${formatNum(sampleSd(PAIRED_W), 4)}$`} />.
@@ -2397,9 +2417,10 @@ function FortuneScene() {
   return (
     <SceneFrame kicker="Example · Higher education" title="Do half of all engineers continue to graduate study?">
       <p className={styles.lead}>
-        <em>Fortune</em> claimed nearly one-half of engineers continue academic studies beyond the B.S. <em>Engineering Horizons</em> data: 117 of 484 new
-        graduates planned graduate study. Test <MathText text={tex`$H_0:p=0.5$`} /> versus <MathText text={tex`$H_1:p\ne0.5$`} /> at{" "}
-        <MathText text={tex`$\alpha=0.05$`} />.
+        An article in <em>Fortune</em> (21 Sep 1992) claimed that nearly one-half of all engineers continue academic studies beyond the B.S., ultimately
+        receiving an M.S. or Ph.D. Data from <em>Engineering Horizons</em> (Spring 1990) showed that 117 of 484 new engineering graduates were planning
+        graduate study. Are those data consistent with the Fortune claim? Test <MathText text={tex`$H_0:p=0.5$`} /> versus{" "}
+        <MathText text={tex`$H_1:p\ne0.5$`} /> at <MathText text={tex`$\alpha=0.05$`} />.
       </p>
       <Formula tex={tex`\hat{p}=\dfrac{117}{484}\approx0.242,\qquad Z_0=\dfrac{0.242-0.5}{\sqrt{0.25/484}}=${formatNum(z0, 3)}`} />
       <VerdictCards
@@ -2428,8 +2449,10 @@ function FairDieScene() {
   return (
     <SceneFrame kicker="Example · Fair die" title="Do these dice favour the six?">
       <p className={styles.lead}>
-        Let <MathText text={tex`$p$`} /> = probability of rolling a 6. Test <MathText text={tex`$H_0:p=1/6$`} /> against <MathText text={tex`$H_1:p>1/6$`} />{" "}
-        with <MathText text={tex`$n=8000$`} /> rolls, <MathText text={tex`$\alpha=0.05$`} />. The experiment gave <MathText text={tex`$y=1389$`} /> sixes.
+        Commercially manufactured dice are sometimes claimed to be unfair because the “spots” are indentations, so the 6-side is lighter than the 1-side.
+        Let <MathText text={tex`$p$`} /> = probability of rolling a 6. Test <MathText text={tex`$H_0:p=1/6$`} /> against{" "}
+        <MathText text={tex`$H_1:p>1/6$`} /> with <MathText text={tex`$n=8000$`} /> rolls at <MathText text={tex`$\alpha=0.05$`} />. The experiment gave{" "}
+        <MathText text={tex`$y=1389$`} /> sixes.
       </p>
       <Formula tex={tex`Z_0=\dfrac{Y/n-1/6}{\sqrt{(1/6)(5/6)/n}}=\dfrac{1389/8000-1/6}{\sqrt{(1/6)(5/6)/8000}}=${formatNum(z0, 2)}`} />
       <div className={styles.two}>
@@ -2604,8 +2627,9 @@ function SparrowScene() {
   return (
     <SceneFrame kicker="Example · White-crowned sparrows" title="Do males and females return to the hatching site equally often?">
       <p className={styles.lead}>
-        <MathText text={tex`$p_m,p_f$`} /> = proportions of male and female sparrows that return. 124 of 894 males and 70 of 700 females returned. Give a 95%
-        interval for <MathText text={tex`$p_m-p_f$`} /> and test <MathText text={tex`$H_0:p_1=p_2$`} /> against <MathText text={tex`$H_1:p_1\ne p_2$`} /> at{" "}
+        Let <MathText text={tex`$p_m$`} /> and <MathText text={tex`$p_f$`} /> be the proportions of male and female white-crowned sparrows that return to their
+        hatching site (<em>The Condor</em>, 1992). Observed: 124 of 894 males and 70 of 700 females returned. Give a 95% CI for{" "}
+        <MathText text={tex`$p_m-p_f$`} /> and test <MathText text={tex`$H_0:p_m=p_f$`} /> against <MathText text={tex`$H_1:p_m\neq p_f$`} /> at{" "}
         <MathText text={tex`$\alpha=0.05$`} />.
       </p>
       <Formula tex={tex`\hat{p}_1=\dfrac{124}{894}=${formatNum(p1, 3)},\ \ \hat{p}_2=\dfrac{70}{700}=${formatNum(p2, 3)},\ \ \hat{p}=\dfrac{194}{1594}=${formatNum(pPool, 3)},\ \ Z_0=${formatNum(z0, 2)}`} />
@@ -2639,8 +2663,10 @@ function BirthWeightScene() {
   return (
     <SceneFrame kicker="Example · Low birth weight" title="Is the low-birth-weight rate the same in two countries?">
       <p className={styles.lead}>
-        Country 1: 22 low-birth-weight babies among <MathText text={tex`$n=200$`} />. Country 2: 16 among <MathText text={tex`$m=100$`} />. Test{" "}
-        <MathText text={tex`$H_0:p_1=p_2$`} /> versus <MathText text={tex`$H_1:p_1\ne p_2$`} /> at 5%.
+        Public-health researchers compare the proportion of low-birth-weight infants in two countries. In a sample of{" "}
+        <MathText text={tex`$n=200$`} /> births from country 1 there were 22 low-birth-weight babies; in a sample of <MathText text={tex`$m=100$`} /> from
+        country 2 there were 16. Test whether the two population proportions are equal (
+        <MathText text={tex`$H_0:p_1=p_2$`} /> vs <MathText text={tex`$H_1:p_1\neq p_2$`} />) at <MathText text={tex`$\alpha=0.05$`} />.
       </p>
       <Formula tex={tex`Z_0=\dfrac{\tfrac{22}{200}-\tfrac{16}{100}}{\sqrt{\tfrac{38}{300}\left(1-\tfrac{38}{300}\right)\left(\tfrac1{200}+\tfrac1{100}\right)}}=${formatNum(z0, 2)}`} />
       <VerdictCards

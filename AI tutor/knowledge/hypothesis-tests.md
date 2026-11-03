@@ -120,11 +120,11 @@ H0: μ=μ0, σ known: Z0=(x̄−μ0)/(σ/√n) ~ N(0,1) under H0. Critical value
 
 ## Page 29 · Battery life
 
-Example: H1: μ>40, σ=1.25, n=10, x̄=40.5 → Z0≈1.26 < 1.645 → fail to reject at α=0.05.
+Battery life ~N with σ=1.25; n=10, x̄=40.5. Evidence mean life exceeds 40 hours? α=0.05 upper-tail z-test.
 
 ## Page 30 · Response time
 
-Example: H1: μ>75, σ=8, n=25, x̄=79.25 → reject H0; lower CI excludes 75.
+Distributed system: does mean response to a command exceed 75 ms? σ=8, n=25, x̄=79.25; α=0.05.
 
 ## Page 31 · t-test table
 
@@ -132,7 +132,7 @@ Example: H1: μ>75, σ=8, n=25, x̄=79.25 → reject H0; lower CI excludes 75.
 
 ## Page 32 · Body temperature
 
-Example: test mean body temperature with sample s (t-test).
+JAMA 1992 critique of 98.6°F; n=25 women, x̄=98.264, s²=0.2324. Two-sided t-test of μ=98.6 at α=0.05.
 
 ## Page 33 · Known variances (two means)
 
@@ -140,7 +140,7 @@ Z0 for μ_X−μ_Y with known σ_X, σ_Y; rejection region or CI for the differe
 
 ## Page 34 · Comparing paints
 
-Example: two paints, known SDs → two-sample z-test for mean drying times.
+Primer drying: formulation 1 (standard) vs 2 (new ingredient); σ=8 both; n=m=10; x̄1=121, x̄2=112. Upper-tail z for μ1>μ2.
 
 ## Page 35 · Pooled t-test
 
@@ -148,7 +148,7 @@ Independent samples, equal unknown variances: pool into s_p; df = n+m−2.
 
 ## Page 36 · Comparing catalysts
 
-Example: two catalysts, small n, assume equal variances → pooled t.
+Catalyst 1 in use vs cheaper catalyst 2; adopt 2 if mean yield unchanged. Pilot Table 10-1; pooled t, α=0.05.
 
 ## Page 37 · Welch t-test
 
@@ -156,7 +156,7 @@ Unequal variances: SE = √(s_X²/n+s_Y²/m); Welch–Satterthwaite df. Safer de
 
 ## Page 38 · Paired t-test
 
-Matched pairs: test μ_D with t0 = d̄/(s_D/√n), df = n−1. Before/after on the same units.
+24 girls, ultraheavy rope-jumping program; W=before−after 40-yard time; H1:μW>0; paired t.
 
 ## Page 39 · One-proportion test
 
@@ -164,11 +164,11 @@ H0: p=p0; Z0=(p̂−p0)/√(p0(1−p0)/n). Large-sample normal under H0.
 
 ## Page 40 · Higher education
 
-Example: one-proportion z-test for a claimed education rate.
+Fortune (1992) claim ~1/2 of engineers continue past B.S.; Engineering Horizons 117/484 planning graduate study.
 
 ## Page 41 · Fair die
 
-Example: test whether P(six)=1/6 with a sample proportion.
+Dice spots are indentations so 6-side lighter; H0:p=1/6 vs H1:p>1/6; n=8000, y=1389 sixes, α=0.05.
 
 ## Page 42 · Proportion calculator
 
@@ -180,11 +180,11 @@ H0: p1=p2; under H0 use pooled p̂ in the SE. CI for p1−p2 does not pool.
 
 ## Page 44 · Sparrows
 
-Example: male vs female return rates → two-proportion z-test.
+White-crowned sparrows (The Condor 1992): 124/894 males vs 70/700 females return; CI and two-sided test for pm−pf.
 
 ## Page 45 · Low birth weight
 
-Example: compare two proportions (treatment vs control).
+Two countries: 22/200 vs 16/100 low-birth-weight infants; two-proportion z for equal rates.
 
 ## Page 46 · The test menu
 
