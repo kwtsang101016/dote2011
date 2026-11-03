@@ -84,7 +84,7 @@ Upper-tail: c=μ0+z_α σ/√n = μ1−z_β σ/√n ⇒ n=((z_α+z_β)σ/(μ1−
 
 ## Page 20 · Plan n (two-sided)
 
-Use z_{α/2} in place of z_α: n≈((z_{α/2}+z_β)σ/|μ1−μ0|)²; then c±=μ0±z_{α/2}σ/√n. Check β under μ1.
+From α=2P(Z≥d/(σ/√n)) get d=z_{α/2}σ/√n; if μ1>μ0 then β≈P(X̄≤c+|μ1) ⇒ c+=μ1−z_β σ/√n; equate ⇒ n=((z_{α/2}+z_β)σ/(μ1−μ0))².
 
 ## Page 21 · Budget explorer
 

@@ -1527,26 +1527,46 @@ function SampleSizeTwoSidedScene() {
   const half = za2 * se;
   const lo = mu0 - half;
   const hi = mu0 + half;
-  // Approximate β under μ=52: P(lo ≤ X ≤ hi | μ=52)
-  const betaApprox = stdNormalCdf((hi - mu1) / se) - stdNormalCdf((lo - mu1) / se);
+  const hiFromAlt = mu1 - zb * se;
+  // Exact β under μ=52: P(lo ≤ X ≤ hi | μ=52)
+  const betaExact = stdNormalCdf((hi - mu1) / se) - stdNormalCdf((lo - mu1) / se);
+  const farTail = stdNormalCdf((lo - mu1) / se);
   return (
-    <SceneFrame kicker="Sample-size planning · two-sided" title={tex`Same idea with $z_{\alpha/2}$.`}>
+    <SceneFrame kicker="Sample-size planning · two-sided" title={tex`Solve $\alpha$ and $\beta$ for $n$ and $c_\pm$.`}>
       <p className={styles.lead}>
-        For a two-sided test, <MathText text={tex`$\alpha$`} /> is split into two tails, so replace <MathText text={tex`$z_\alpha$`} /> by{" "}
-        <MathText text={tex`$z_{\alpha/2}$`} />. When the planning alternative is well away from <MathText text={tex`$\mu_0$`} />, nearly all of{" "}
-        <MathText text={tex`$\beta$`} /> comes from the nearer cutoff, and the one-sided derivation still applies with that swap.
+        Two-sided rule: reject when <MathText text={tex`$\bar{x}\le\mu_0-d$`} /> or <MathText text={tex`$\bar{x}\ge\mu_0+d$`} />. Same propellant
+        targets: <MathText text={tex`$\mu_0=50$`} />, planning alternative <MathText text={tex`$\mu_1=52$`} />,{" "}
+        <MathText text={tex`$\sigma=2.5$`} />, <MathText text={tex`$\alpha=0.05$`} />, <MathText text={tex`$\beta=0.10$`} />.
       </p>
-      <Formula tex={tex`n\approx\left(\dfrac{(z_{\alpha/2}+z_{\beta})\,\sigma}{|\mu_1-\mu_0|}\right)^2`} />
       <Formula
-        tex={tex`\alpha=0.05,\ \beta=0.10,\ \mu_0=50,\ \mu_1=52,\ \sigma=2.5:\quad n\approx\left(\dfrac{(1.960+1.282)\cdot 2.5}{2}\right)^2=${formatNum(nRaw, 2)}\ \Rightarrow\ n=${n}`}
+        tex={tex`\alpha=P(\bar{X}\le\mu_0-d\ \text{ or }\ \bar{X}\ge\mu_0+d\mid\mu=\mu_0)=2P\!\left(Z\ge\dfrac{d}{\sigma/\sqrt{n}}\right)`}
       />
       <Formula
-        tex={tex`c_\pm=50\pm z_{0.025}\dfrac{2.5}{\sqrt{${n}}}\ \Rightarrow\ [${formatNum(lo, 2)},\ ${formatNum(hi, 2)}]`}
+        tex={tex`\Rightarrow\ \dfrac{d}{\sigma/\sqrt{n}}=z_{\alpha/2}\ \Rightarrow\ d=z_{\alpha/2}\,\dfrac{\sigma}{\sqrt{n}}\ \Rightarrow\ c_\pm=\mu_0\pm z_{\alpha/2}\,\dfrac{\sigma}{\sqrt{n}}`}
+      />
+      <Formula
+        tex={tex`\beta=P(c_-\le\bar{X}\le c_+\mid\mu=\mu_1)`}
       />
       <p className={styles.small}>
-        Check under <MathText text={tex`$\mu=52$`} />: <MathText text={tex`$\beta=P(${formatNum(lo, 2)}\le\bar{X}\le${formatNum(hi, 2)}\mid\mu=52)\approx${formatNum(betaApprox, 3)}$`} />{" "}
-        (near the target 0.10). Stricter <MathText text={tex`$\alpha$`} /> or <MathText text={tex`$\beta$`} />, or a smaller gap{" "}
-        <MathText text={tex`$|\mu_1-\mu_0|$`} />, all force a larger <MathText text={tex`$n$`} /> — that is the budget trade-off.
+        If <MathText text={tex`$\mu_1>\mu_0$`} /> is not too close to <MathText text={tex`$\mu_0$`} />, the far lower cutoff contributes almost nothing:{" "}
+        <MathText text={tex`$P(\bar{X}\le c_-\mid\mu_1)\approx0$`} />, so
+      </p>
+      <Formula
+        tex={tex`\beta\approx P(\bar{X}\le c_+\mid\mu=\mu_1)\ \Rightarrow\ \dfrac{c_+-\mu_1}{\sigma/\sqrt{n}}=-z_{\beta}\ \Rightarrow\ c_+=\mu_1-z_{\beta}\,\dfrac{\sigma}{\sqrt{n}}`}
+      />
+      <Formula
+        tex={tex`\mu_0+z_{\alpha/2}\dfrac{\sigma}{\sqrt{n}}=\mu_1-z_{\beta}\dfrac{\sigma}{\sqrt{n}}\ \Rightarrow\ n=\left(\dfrac{(z_{\alpha/2}+z_{\beta})\,\sigma}{\mu_1-\mu_0}\right)^2`}
+      />
+      <Formula
+        tex={tex`z_{0.025}=${formatNum(za2, 3)},\ z_{0.10}=${formatNum(zb, 3)}\ \Rightarrow\ n=\left(\dfrac{(${formatNum(za2, 3)}+${formatNum(zb, 3)})\cdot 2.5}{2}\right)^2=${formatNum(nRaw, 2)}\ \Rightarrow\ n=${n}`}
+      />
+      <Formula
+        tex={tex`c_\pm=50\pm ${formatNum(za2, 3)}\cdot\dfrac{2.5}{\sqrt{${n}}}=[${formatNum(lo, 2)},\ ${formatNum(hi, 2)}]\quad(\text{check }c_+:\ 52-${formatNum(zb, 3)}\cdot\dfrac{2.5}{\sqrt{${n}}}=${formatNum(hiFromAlt, 2)})`}
+      />
+      <p className={styles.small}>
+        Exact check: <MathText text={tex`$P(\bar{X}\le${formatNum(lo, 2)}\mid\mu=52)\approx${formatNum(farTail, 4)}$`} /> (tiny), and{" "}
+        <MathText text={tex`$\beta=P(${formatNum(lo, 2)}\le\bar{X}\le${formatNum(hi, 2)}\mid\mu=52)\approx${formatNum(betaExact, 3)}$`} /> near the target
+        0.10. Same formula with <MathText text={tex`$|\mu_1-\mu_0|$`} /> if the planning alternative is below 50.
       </p>
     </SceneFrame>
   );
