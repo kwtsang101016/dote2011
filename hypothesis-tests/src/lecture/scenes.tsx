@@ -1757,20 +1757,20 @@ const ERROR_QUIZ: QuizItem[] = [
   },
   {
     q: tex`Keeping $n$ fixed, making $\alpha$ smaller (a narrower rejection region) typically …`,
-    options: [tex`increases $\beta$`, tex`decreases $\beta$`, tex`leaves $\beta$ unchanged`, tex`sets $\beta=\alpha$`],
-    answer: 0,
+    options: [tex`decreases $\beta$`, tex`leaves $\beta$ unchanged`, tex`increases $\beta$`, tex`sets $\beta=\alpha$`],
+    answer: 2,
     why: tex`There is a trade-off: fewer false alarms means more missed detections, unless $n$ grows.`,
   },
   {
     q: tex`Which probability does the statistician fix in advance?`,
-    options: [tex`$\alpha$ (significance level)`, tex`$\beta$`, tex`the power $1-\beta$`, tex`$P(H_0\text{ is true})$`],
-    answer: 0,
+    options: [tex`$\beta$`, tex`the power $1-\beta$`, tex`$P(H_0\text{ is true})$`, tex`$\alpha$ (significance level)`],
+    answer: 3,
     why: tex`We choose $\alpha$ when selecting the critical values and then deal with the resulting $\beta$.`,
   },
   {
     q: tex`What reduces both $\alpha$ and $\beta$ at the same time?`,
-    options: [tex`moving the cutoff`, tex`a larger sample size $n$`, tex`choosing a smaller $\alpha$`, tex`choosing a larger $\alpha$`],
-    answer: 1,
+    options: [tex`moving the cutoff`, tex`choosing a smaller $\alpha$`, tex`a larger sample size $n$`, tex`choosing a larger $\alpha$`],
+    answer: 2,
     why: tex`A larger $n$ shrinks $\sigma/\sqrt{n}$, so both sampling distributions become narrower and overlap less.`,
   },
   {
