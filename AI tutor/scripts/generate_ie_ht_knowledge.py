@@ -131,7 +131,7 @@ HT_NOTES: list[tuple[str, str]] = [
         "Comparing catalysts",
         "Catalyst 1 in use vs cheaper catalyst 2; adopt 2 if mean yield unchanged. Pilot Table 10-1; pooled t, α=0.05.",
     ),
-    ("Welch t-test", "Unequal variances: SE = √(s_X²/n+s_Y²/m); Welch–Satterthwaite df. Safer default if equality is doubtful."),
+    ("Welch t-test", "Unequal variances: SE = √(s_X²/n+s_Y²/m); df r = floor of the Welch formula. Safer default if equality is doubtful."),
     (
         "Paired t-test",
         "24 girls, ultraheavy rope-jumping program; W=before−after 40-yard time; H1:μW>0; paired t.",

@@ -2264,7 +2264,7 @@ function CatalystScene() {
   );
 }
 
-/** Welch–Satterthwaite degrees of freedom r. */
+/** Welch degrees of freedom (continuous value; round down for the t table). */
 function welchDf(s1: number, s2: number, n: number, m: number): number {
   const a = (s1 * s1) / n;
   const b = (s2 * s2) / m;
@@ -2287,7 +2287,9 @@ function WelchScene() {
         pooling.
       </p>
       <Formula tex={tex`X_i\sim N(\mu_X,\sigma_X^2),\ Y_j\sim N(\mu_Y,\sigma_Y^2)\qquad t_0=\dfrac{\bar{X}-\bar{Y}-\Delta_0}{\sqrt{S_X^2/n+S_Y^2/m}}\ \approx\ t(r)`} />
-      <Formula tex={tex`r=\dfrac{\left(S_X^2/n+S_Y^2/m\right)^2}{\dfrac{(S_X^2/n)^2}{n-1}+\dfrac{(S_Y^2/m)^2}{m-1}}\quad(\text{round down; Satterthwaite})`} />
+      <Formula
+        tex={tex`r=\left\lfloor\dfrac{\left(S_X^2/n+S_Y^2/m\right)^2}{\dfrac{(S_X^2/n)^2}{n-1}+\dfrac{(S_Y^2/m)^2}{m-1}}\right\rfloor`}
+      />
       <ProcedureTable
         spec={{
           stat: tex`t_0`,
@@ -2317,8 +2319,9 @@ function WelchScene() {
         </div>
       </LiveOnly>
       <p>
-        Welch df <MathText text={tex`$r=${formatNum(r, 2)}$`} /> versus pooled df <MathText text={tex`$n+m-2=${2 * n - 2}$`} />. With x̄ − ȳ = −0.478: Welch{" "}
-        <MathText text={tex`$t_0=${formatNum(diff / se, 3)}$`} />, pooled <MathText text={tex`$t_0=${formatNum(diff / sePooled, 3)}$`} />.
+        Welch df <MathText text={tex`$r=\lfloor ${formatNum(r, 2)}\rfloor=${Math.floor(r)}$`} /> versus pooled df{" "}
+        <MathText text={tex`$n+m-2=${2 * n - 2}$`} />. With x̄ − ȳ = −0.478: Welch <MathText text={tex`$t_0=${formatNum(diff / se, 3)}$`} />, pooled{" "}
+        <MathText text={tex`$t_0=${formatNum(diff / sePooled, 3)}$`} />.
       </p>
       <p className={styles.small}>
         Defaults are the catalyst data. When <MathText text={tex`$n=m$`} /> the two statistics coincide; they differ once the sample sizes or the variances
@@ -2803,7 +2806,7 @@ const TEST_STORIES: McSituation[] = [
       "z-test, one mean (σ known)",
     ],
     answer: 0,
-    why: "Unknown and unequal variances ⇒ Welch’s t-test with Satterthwaite df.",
+    why: "Unknown and unequal variances ⇒ Welch’s t-test (df rounded down).",
   },
   {
     title: "Training programme",

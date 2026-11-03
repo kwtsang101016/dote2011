@@ -152,7 +152,7 @@ Catalyst 1 in use vs cheaper catalyst 2; adopt 2 if mean yield unchanged. Pilot 
 
 ## Page 37 · Welch t-test
 
-Unequal variances: SE = √(s_X²/n+s_Y²/m); Welch–Satterthwaite df. Safer default if equality is doubtful.
+Unequal variances: SE = √(s_X²/n+s_Y²/m); df r = floor of the Welch formula. Safer default if equality is doubtful.
 
 ## Page 38 · Paired t-test
 
