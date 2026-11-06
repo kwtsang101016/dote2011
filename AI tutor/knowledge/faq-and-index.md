@@ -7,7 +7,7 @@
 ## How page numbers work
 
 - **Page N** = the N-th slide in the interactive lecture (same order as the PDF handout).
-- **Introduction** = 16 pages · **Descriptive Statistics** = 27 pages · **Probability** = 22 pages · **Discrete Distributions** = 28 pages · **Continuous Distributions** = 24 pages · **Sampling Distributions** = 22 pages · **Interval Estimation** = 56 pages · **Hypothesis Tests** = 54 pages.
+- **Introduction** = 16 pages · **Descriptive Statistics** = 27 pages · **Probability** = 22 pages · **Discrete Distributions** = 28 pages · **Continuous Distributions** = 24 pages · **Sampling Distributions** = 22 pages · **Interval Estimation** = 56 pages · **Hypothesis Tests** = 54 pages · **Linear Regression** = 45 pages.
 - If a student says “Page 3” without naming the lecture, ask which topic.
 
 | Lecture | Page 3 title |
@@ -20,6 +20,7 @@
 | Sampling Distributions | Why we sample |
 | Interval Estimation | Warm-up: CUHK heights |
 | Hypothesis Tests | Aircrew escape system |
+| Linear Regression | Useful properties |
 
 ---
 
@@ -35,6 +36,7 @@
 | Sampling and Sampling Distributions | https://kwtsang101016.github.io/dote2011/sampling-distributions/ |
 | Interval Estimation | https://kwtsang101016.github.io/dote2011/interval-estimation/ |
 | Hypothesis Tests | https://kwtsang101016.github.io/dote2011/hypothesis-tests/ |
+| Linear Regression | https://kwtsang101016.github.io/dote2011/linear-regression/ |
 
 ---
 
@@ -102,6 +104,16 @@ Ask: **Is this a name/label, or a number with meaning?**
 - Critical region, p-value, and CI agree at the same α  
 - Menu: one-mean z/t; two-mean z / pooled / Welch / paired; one- and two-proportion z  
 
+## Quick linear-regression facts
+
+- S_xy = (1/n) Σ (x_i − x̄)(y_i − ȳ) and S_xx = (1/n) Σ (x_i − x̄)². Divisor is n, not n−1. Do not call S_xx the sample variance.
+- β̂₁ = S_xy / S_xx and β̂₀ = ȳ − β̂₁ x̄. Residual e_i = y_i − ŷ_i.
+- V(β̂₁) = σ² / (n S_xx). V(β̂₀) = σ² [1/n + x̄² / (n S_xx)].
+- σ̂² = SS_E / (n−2), with SS_E = Σ e_i² = n (S_yy − β̂₁ S_xy). df = n−2 because two coefficients are estimated.
+- Mean-response CI at x₀ drops the extra 1; the prediction interval keeps √[1 + 1/n + (x₀ − x̄)² / (n S_xx)] and is wider.
+- Test H₀: β₁ = β_{1,0} with t₀ = (β̂₁ − β_{1,0}) / √(σ̂² / (n S_xx)) ~ t(n−2). Two-sided reject if |t₀| > t_{α/2}(n−2).
+- Failing to reject H₀: β₁ = 0 means no linear relationship. A curve can still be there. ANOVA is not in this lecture.
+
 ---
 
 ## Population vs sample
@@ -133,7 +145,7 @@ The platform allows **5 uploads**. Prof. Tsang chooses **two** lecture HTML file
 | Question type | Primary HTML file |
 |---------------|-------------------|
 | Midterm (time, venue LKC LT1, coverage, format, allowed A4 sheet / calculator), grading, schedule, policies, **HW1** (questions / in-class grading rule / Blackboard submission / official solutions) | course-admin.html |
-| A lecture that was uploaded | That lecture’s HTML (introduction / descriptive-statistics / probability / discrete-distributions / continuous-distributions / sampling-distributions / interval-estimation / hypothesis-tests) |
+| A lecture that was uploaded | That lecture’s HTML (introduction / descriptive-statistics / probability / discrete-distributions / continuous-distributions / sampling-distributions / interval-estimation / hypothesis-tests / linear-regression) |
 | Any lecture, including one not in the two lecture uploads | older-lectures.html |
 | “Which page?” / routing | faq-and-index.html |
 
@@ -147,6 +159,7 @@ Live lecture URLs (always available to students):
 - Sampling and Sampling Distributions — https://kwtsang101016.github.io/dote2011/sampling-distributions/
 - Interval Estimation — https://kwtsang101016.github.io/dote2011/interval-estimation/
 - Hypothesis Tests — https://kwtsang101016.github.io/dote2011/hypothesis-tests/
+- Linear Regression — https://kwtsang101016.github.io/dote2011/linear-regression/
 
 ---
 
@@ -165,3 +178,5 @@ Live lecture URLs (always available to students):
 **Interval Estimation:** Page 11 coverage · Page 20 z vs t · Page 30 lab · Page 31 which interval? · Page 55 which answer?
 
 **Hypothesis Tests:** Page 05 which hypotheses? · Page 11 α–β explorer · Page 13 simulate α · Page 17 p-value explorer · Page 22 which tail? · Page 37 proportion calculator · Page 42 which test? · Pages 18–19 / 44 quizzes
+
+**Linear Regression:** Page 04 sign of Cov · Page 07 line explorer · Page 19 fit check · Page 36 interval explorer · Page 38 interval quiz · Page 45 coefficient-test quiz

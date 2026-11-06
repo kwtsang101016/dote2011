@@ -22,6 +22,9 @@ FILES: list[tuple[str, str | None]] = [
     ("discrete-distributions.md", "discrete-distributions"),
     ("continuous-distributions.md", "continuous-distributions"),
     ("sampling-distributions.md", "sampling-distributions"),
+    ("interval-estimation.md", "interval-estimation"),
+    ("hypothesis-tests.md", "hypothesis-tests"),
+    ("linear-regression.md", "linear-regression"),
     ("faq-and-index.md", None),
     ("older-lectures.md", None),
 ]

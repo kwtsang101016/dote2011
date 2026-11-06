@@ -4,19 +4,13 @@ This file contains the **full tutor notes** for every lecture that has its own H
 
 When a new lecture HTML is created, add that lecture to `FILES` in `AI tutor/scripts/build_knowledge_html.py` and run the script. This file then includes it. **Do not delete** the separate lecture HTML files. Those stay on disk so two of them can still be uploaded on their own.
 
-The lectures currently copied below are Introduction, Descriptive Statistics, Probability, Discrete Probability Distributions, Continuous Probability Distributions, and Sampling and Sampling Distributions. Search by lecture name and by headings such as `Page 03 · …`.
+The lectures currently copied below are Introduction, Descriptive Statistics, Probability, Discrete Probability Distributions, Continuous Probability Distributions, Sampling and Sampling Distributions, Interval Estimation, Hypothesis Tests, and Linear Regression. Search by lecture name and by headings such as `Page 03 · …`.
 
 ---
 
 ## Topics not yet on the interactive site
 
-These topics are **not** in the notes below yet.
-
-| Topic | Status |
-|-------|--------|
-| Interval Estimation | Coming — after midterm |
-| Hypothesis Tests | Coming |
-| Regression Analysis | Coming |
+Every lecture currently on the interactive site is copied below, through Linear Regression. ANOVA is not taught this year.
 
 **For schedule dates**, see course-admin.html.
 
@@ -24,8 +18,9 @@ These topics are **not** in the notes below yet.
 
 ## Midterm reminder
 
-- **Date:** Wednesday, **21 October 2026**
-- Open notes and books; 1.5 hours
+- **Date:** Wednesday, **21 October 2026**, 10:35–12:05 at **LKC LT1**
+- Covers Slides 1 (Introduction) to 6 (Sampling and Sampling Distributions); 5 long questions in HW1 format
+- Allowed: one A4 sheet (both sides) and an approved CUHK exam calculator
 - See course-admin.html for full assessment rules
 
 ---

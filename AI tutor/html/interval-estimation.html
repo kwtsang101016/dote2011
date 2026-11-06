@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DOTE2011G · Interval Estimation</title>
+</head>
+<body>
+<article class="dote2011-knowledge">
+<h1>DOTE2011G · Interval Estimation</h1>
+<p><strong>Live lecture:</strong> https://kwtsang101016.github.io/dote2011/interval-estimation/</p>
+<p>Interactive slides condensed from <em>8 Interval Estimation.pdf</em>, plus pooled / Welch / paired and two-proportion intervals.</p>
+<hr />
+<section id="interval-estimation-page-01" data-lecture="interval-estimation" data-page="1"><h2>Page 01 · Title</h2>
+<p>Interval Estimation — confidence intervals for means, proportions, sample size, and differences of means/proportions.</p>
+</section>
+<section id="interval-estimation-page-02" data-lecture="interval-estimation" data-page="2"><h2>Page 02 · Roadmap</h2>
+<p>Six blocks: mean σ known; mean σ unknown (t); one-sided bounds; sample size; proportion; two means & two proportions (pooled / Welch / paired, then p1−p2).</p>
+</section>
+<section id="interval-estimation-page-03" data-lecture="interval-estimation" data-page="3"><h2>Page 03 · Warm-up: CUHK heights</h2>
+<p>μ=168, σ=5, n=25 → P(166<x̄<170)≈0.9545. Motivates: with unknown μ, x̄±2 catches μ about 95% of the time.</p>
+</section>
+<section id="interval-estimation-page-04" data-lecture="interval-estimation" data-page="4"><h2>Page 04 · Margin of error</h2>
+<p>Interval estimate = point estimate ± margin of error. For a mean: x̄ ± ME; for a proportion: p̂ ± ME.</p>
+</section>
+<section id="interval-estimation-page-05" data-lecture="interval-estimation" data-page="5"><h2>Page 05 · When is σ known?</h2>
+<p>Use historical or process σ when it is trusted. Then the sampling distribution of x̄ uses σ/√n and z critical values.</p>
+</section>
+<section id="interval-estimation-page-06" data-lecture="interval-estimation" data-page="6"><h2>Page 06 · 1 − α of all x̄</h2>
+<p>About 100(1−α)% of all sample means lie within z_{α/2} σ/√n of μ. That statement rearranges into a CI for μ.</p>
+</section>
+<section id="interval-estimation-page-07" data-lecture="interval-estimation" data-page="7"><h2>Page 07 · Derivation</h2>
+<p>Start from P(−z_{α/2} ≤ (x̄−μ)/(σ/√n) ≤ z_{α/2})=1−α and rearrange to x̄ − z_{α/2}σ/√n ≤ μ ≤ x̄ + z_{α/2}σ/√n.</p>
+</section>
+<section id="interval-estimation-page-08" data-lecture="interval-estimation" data-page="8"><h2>Page 08 · Interval formula</h2>
+<p>Two-sided CI (σ known): x̄ ± z_{α/2} σ/√n. Confidence coefficient 1−α.</p>
+</section>
+<section id="interval-estimation-page-09" data-lecture="interval-estimation" data-page="9"><h2>Page 09 · Common z values</h2>
+<p>Common: 90% → z=1.645; 95% → 1.960; 99% → 2.576.</p>
+</section>
+<section id="interval-estimation-page-10" data-lecture="interval-estimation" data-page="10"><h2>Page 10 · Meaning of confidence</h2>
+<p>“95% confident” describes the method’s long-run success rate, not P(μ in this one interval). μ is fixed; the interval is random.</p>
+</section>
+<section id="interval-estimation-page-11" data-lecture="interval-estimation" data-page="11"><h2>Page 11 · Coverage simulator</h2>
+<p>Game: simulate many intervals; green covers μ, red misses. Higher confidence → wider bars, fewer misses.</p>
+</section>
+<section id="interval-estimation-page-12" data-lecture="interval-estimation" data-page="12"><h2>Page 12 · HMV setup</h2>
+<p>HMV retail outlet: n=36, x̄=41100, σ=4500. Plan a CI for mean annual income.</p>
+</section>
+<section id="interval-estimation-page-13" data-lecture="interval-estimation" data-page="13"><h2>Page 13 · HMV margin and interval</h2>
+<p>95%: ME = 1.96×4500/√36 = 1470 → [39630, 42570]. Higher confidence widens the interval.</p>
+</section>
+<section id="interval-estimation-page-14" data-lecture="interval-estimation" data-page="14"><h2>Page 14 · Adequate sample size</h2>
+<p>For a planned margin E with σ known: n = (z_{α/2} σ / E)²; always round up.</p>
+</section>
+<section id="interval-estimation-page-15" data-lecture="interval-estimation" data-page="15"><h2>Page 15 · Light bulbs</h2>
+<p>Example: normal lifetime, σ known, n=27, x̄=1478 → 95% CI for μ.</p>
+</section>
+<section id="interval-estimation-page-16" data-lecture="interval-estimation" data-page="16"><h2>Page 16 · Orange juice</h2>
+<p>Example: large-n approximate CI even if population is not normal (n>30 rule of thumb).</p>
+</section>
+<section id="interval-estimation-page-17" data-lecture="interval-estimation" data-page="17"><h2>Page 17 · When σ is unknown</h2>
+<p>Replace σ by s and z by t_{α/2}(n−1). Requires normal population or large n.</p>
+</section>
+<section id="interval-estimation-page-18" data-lecture="interval-estimation" data-page="18"><h2>Page 18 · From Z to t</h2>
+<p>(x̄−μ)/(s/√n) ~ t(n−1) when sampling from N(μ,σ²). t has heavier tails than z.</p>
+</section>
+<section id="interval-estimation-page-19" data-lecture="interval-estimation" data-page="19"><h2>Page 19 · Degrees of freedom</h2>
+<p>df = n−1. As df grows, t → z. Interactive compare of t vs standard normal.</p>
+</section>
+<section id="interval-estimation-page-20" data-lecture="interval-estimation" data-page="20"><h2>Page 20 · z versus t</h2>
+<p>Game: for the same confidence, t critical value > z, so the t-interval is wider.</p>
+</section>
+<section id="interval-estimation-page-21" data-lecture="interval-estimation" data-page="21"><h2>Page 21 · Interval formula (σ unknown)</h2>
+<p>x̄ ± t_{α/2}(n−1) s/√n.</p>
+</section>
+<section id="interval-estimation-page-22" data-lecture="interval-estimation" data-page="22"><h2>Page 22 · Apartment rents</h2>
+<p>Example: n=16, x̄=750, s=55 → use t with 15 df for a CI for mean rent.</p>
+</section>
+<section id="interval-estimation-page-23" data-lecture="interval-estimation" data-page="23"><h2>Page 23 · Non-normal data</h2>
+<p>If population is skewed and n is small, t-interval coverage can miss the target; n≳30 helps.</p>
+</section>
+<section id="interval-estimation-page-24" data-lecture="interval-estimation" data-page="24"><h2>Page 24 · Butterfat</h2>
+<p>Example: n=20 cows, σ unknown → 90% t-interval for mean butterfat.</p>
+</section>
+<section id="interval-estimation-page-25" data-lecture="interval-estimation" data-page="25"><h2>Page 25 · Bounds, σ known</h2>
+<p>One-sided: put all α in one tail → use z_α. Lower CI [x̄−z_α σ/√n, ∞); upper (−∞, x̄+z_α σ/√n].</p>
+</section>
+<section id="interval-estimation-page-26" data-lecture="interval-estimation" data-page="26"><h2>Page 26 · Which formula for μ?</h2>
+<p>Summary flow: σ known → z; σ unknown → t. One-sided written with brackets including equality on the finite end.</p>
+</section>
+<section id="interval-estimation-page-27" data-lecture="interval-estimation" data-page="27"><h2>Page 27 · Plastic containers</h2>
+<p>Example: σ=15, n=20, x̄=246 → 95% lower bound ≈ 240.48 → [240.48, ∞).</p>
+</section>
+<section id="interval-estimation-page-28" data-lecture="interval-estimation" data-page="28"><h2>Page 28 · Bounds, σ unknown</h2>
+<p>One-sided with s: use t_α(n−1). Same bracket forms as the z case.</p>
+</section>
+<section id="interval-estimation-page-29" data-lecture="interval-estimation" data-page="29"><h2>Page 29 · Alloy specimens</h2>
+<p>Example: n=22, x̄=13.71, s=3.55 → 95% lower bound ≈ 12.41 → [12.41, ∞).</p>
+</section>
+<section id="interval-estimation-page-30" data-lecture="interval-estimation" data-page="30"><h2>Page 30 · Interval lab</h2>
+<p>Game: switch normal/skewed, σ known/unknown, one-/two-sided; watch simulated coverage.</p>
+</section>
+<section id="interval-estimation-page-31" data-lecture="interval-estimation" data-page="31"><h2>Page 31 · Which interval?</h2>
+<p>A–D Live Poll: pick the right CI type for each story (σ known/unknown, lower/upper/two-sided).</p>
+</section>
+<section id="interval-estimation-page-32" data-lecture="interval-estimation" data-page="32"><h2>Page 32 · AI · Apple mean CI</h2>
+<p>Practice prompt: download AAPL returns; build one-sided 95% CIs treating s like σ (z) and with t.</p>
+</section>
+<section id="interval-estimation-page-33" data-lecture="interval-estimation" data-page="33"><h2>Page 33 · Formula for a mean</h2>
+<p>n ≥ z_{α/2}² σ² / E² for desired margin E.</p>
+</section>
+<section id="interval-estimation-page-34" data-lecture="interval-estimation" data-page="34"><h2>Page 34 · Planning value of σ</h2>
+<p>Use historical σ, a pilot sample, or a conservative planning value.</p>
+</section>
+<section id="interval-estimation-page-35" data-lecture="interval-estimation" data-page="35"><h2>Page 35 · HMV: n = 312</h2>
+<p>Example: E=500, 95%, σ=4500 → n = (1.96×4500/500)² ≈ 312 (round up).</p>
+</section>
+<section id="interval-estimation-page-36" data-lecture="interval-estimation" data-page="36"><h2>Page 36 · Sampling distribution of p̂</h2>
+<p>E(p̂)=p; σ_p̂=√(p(1−p)/n). Normal approx when np and n(1−p) > 5.</p>
+</section>
+<section id="interval-estimation-page-37" data-lecture="interval-estimation" data-page="37"><h2>Page 37 · Interval formula (proportion)</h2>
+<p>p̂ ± z_{α/2} √(p̂(1−p̂)/n).</p>
+</section>
+<section id="interval-estimation-page-38" data-lecture="interval-estimation" data-page="38"><h2>Page 38 · PSI poll</h2>
+<p>Example: 220/500 favour → 95% CI about [.3965, .4835].</p>
+</section>
+<section id="interval-estimation-page-39" data-lecture="interval-estimation" data-page="39"><h2>Page 39 · Formula for a proportion</h2>
+<p>n = z_{α/2}² p<em>(1−p</em>) / E². With no information use p*=0.5 (largest n).</p>
+</section>
+<section id="interval-estimation-page-40" data-lecture="interval-estimation" data-page="40"><h2>Page 40 · PSI: n = 1817</h2>
+<p>Example: E=0.03, 99%, p*=0.44 → n≈1817.</p>
+</section>
+<section id="interval-estimation-page-41" data-lecture="interval-estimation" data-page="41"><h2>Page 41 · Two-sided, known variances</h2>
+<p>μ_X−μ_Y: x̄−ȳ ± z_{α/2} √(σ_X²/n + σ_Y²/m). Also OK for large n,m if non-normal.</p>
+</section>
+<section id="interval-estimation-page-42" data-lecture="interval-estimation" data-page="42"><h2>Page 42 · Filling machines</h2>
+<p>Example: two machines, known σ’s, n=m=10 → 95% CI for difference of mean fills; covers 0.</p>
+</section>
+<section id="interval-estimation-page-43" data-lecture="interval-estimation" data-page="43"><h2>Page 43 · One-sided bounds (two means)</h2>
+<p>Use z_α: lower [L, ∞) and upper (−∞, U] for μ_X−μ_Y.</p>
+</section>
+<section id="interval-estimation-page-44" data-lecture="interval-estimation" data-page="44"><h2>Page 44 · Three designs (σ unknown)</h2>
+<p>Independent equal σ² → pooled t; unequal → Welch; matched units → paired t on D_i=X_i−Y_i.</p>
+</section>
+<section id="interval-estimation-page-45" data-lecture="interval-estimation" data-page="45"><h2>Page 45 · Equal variances (pooled)</h2>
+<p>x̄−ȳ ± t_{α/2}(n+m−2) s_p √(1/n+1/m), with s_p² = [(n−1)s_X²+(m−1)s_Y²]/(n+m−2).</p>
+</section>
+<section id="interval-estimation-page-46" data-lecture="interval-estimation" data-page="46"><h2>Page 46 · Two schools</h2>
+<p>Example: n=9, m=15, common variance assumed → 95% pooled CI ≈ [−3.65, 9.05], covers 0.</p>
+</section>
+<section id="interval-estimation-page-47" data-lecture="interval-estimation" data-page="47"><h2>Page 47 · Unequal variances (Welch)</h2>
+<p>x̄−ȳ ± t_{α/2}(r) √(s_X²/n+s_Y²/m); r = floored Welch–Satterthwaite df.</p>
+</section>
+<section id="interval-estimation-page-48" data-lecture="interval-estimation" data-page="48"><h2>Page 48 · Schools, no pooling</h2>
+<p>Same school data without pooling → slightly wider CI than pooled; still covers 0.</p>
+</section>
+<section id="interval-estimation-page-49" data-lecture="interval-estimation" data-page="49"><h2>Page 49 · Paired samples</h2>
+<p>Each X matched to a Y (before/after, same subject). Analyse differences, not two independent lists.</p>
+</section>
+<section id="interval-estimation-page-50" data-lecture="interval-estimation" data-page="50"><h2>Page 50 · Paired CI</h2>
+<p>d̄ ± t_{α/2}(n−1) s_D/√n — same as a one-sample t for μ_D=μ_X−μ_Y.</p>
+</section>
+<section id="interval-estimation-page-51" data-lecture="interval-estimation" data-page="51"><h2>Page 51 · Reaction times</h2>
+<p>Example: n=8, d̄=−0.0625, s_D=0.0765 → 95% paired CI barely covers 0; unpaired CIs are wider.</p>
+</section>
+<section id="interval-estimation-page-52" data-lecture="interval-estimation" data-page="52"><h2>Page 52 · Width comparison</h2>
+<p>Same center d̄=x̄−ȳ. Typical order when ρ>0: paired < pooled < Welch. Var(X−Y)=σ_X²+σ_Y²−2ρσ_Xσ_Y.</p>
+</section>
+<section id="interval-estimation-page-53" data-lecture="interval-estimation" data-page="53"><h2>Page 53 · Difference p1 − p2</h2>
+<p>Special case of two means for 0–1 data: p̂1−p̂2 ± z_{α/2} √(p̂1(1−p̂1)/n1 + p̂2(1−p̂2)/n2). CI does not pool p̂.</p>
+</section>
+<section id="interval-estimation-page-54" data-lecture="interval-estimation" data-page="54"><h2>Page 54 · Gaming example</h2>
+<p>p̂1=0.6 (n1=2000), p̂2=0.4 (n2=2200) → 95% CI ≈ [0.17, 0.23], entirely above 0.</p>
+</section>
+<section id="interval-estimation-page-55" data-lecture="interval-estimation" data-page="55"><h2>Page 55 · Which answer?</h2>
+<p>A–D practice quiz: confidence width, t df, sample size ×4, meaning of CI, p*, one-sided z_α, pooled vs paired, SE for p1−p2.</p>
+</section>
+<section id="interval-estimation-page-56" data-lecture="interval-estimation" data-page="56"><h2>Page 56 · Takeaways</h2>
+<p>Point ± critical × SE. Mean: z or t; one-sided brackets; sample-size formulas; proportions; two means (z / pooled / Welch / paired) and p1−p2.</p>
+</section>
+</article>
+</body>
+</html>

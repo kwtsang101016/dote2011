@@ -1,0 +1,188 @@
+/* Compact handout layout: one mirrored slide should fit one A4 page. */
+
+.slides {
+  width: 100%;
+  background: #fff4d2;
+}
+
+.slidePage {
+  break-after: page;
+  page-break-after: always;
+  break-inside: avoid;
+  page-break-inside: avoid;
+  min-height: 0;
+  padding-bottom: 6px;
+  background: #fff4d2;
+  overflow: visible;
+}
+
+.slidePage:last-child {
+  break-after: auto;
+  page-break-after: auto;
+}
+
+.slideHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 5px 16px;
+  color: #fff4d2;
+  background: #16213c;
+  border-top: 4px solid #f5cf6b;
+  font: 800 10px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.slideHeader :global(.katex) {
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.slidePage > section {
+  min-height: 0 !important;
+  padding: 14px 18px 10px !important;
+}
+
+.slidePage > section#cover {
+  min-height: 480px !important;
+}
+
+.slidePage h1 {
+  font-size: clamp(20px, 3.2vw, 30px) !important;
+  line-height: 1.05 !important;
+  margin: 0 !important;
+}
+
+.slidePage > section > p {
+  font-size: 13px !important;
+  line-height: 1.3 !important;
+  margin-top: 8px !important;
+}
+
+.slidePage :global(.lead) {
+  font-size: 14px !important;
+  line-height: 1.35 !important;
+  margin-top: 8px !important;
+}
+
+.slidePage :global(.note),
+.slidePage :global(.answer),
+.slidePage :global(.small),
+.slidePage :global(.muted) {
+  margin-top: 8px !important;
+  padding: 8px 10px !important;
+  font-size: 12px !important;
+  line-height: 1.35 !important;
+}
+
+.slidePage :global(.formula) {
+  margin-top: 8px !important;
+  padding: 8px 10px !important;
+  font-size: 14px !important;
+  line-height: 1.35 !important;
+  overflow: visible !important;
+}
+
+.slidePage :global(.mathDisplay) {
+  overflow: visible !important;
+  overflow-x: visible !important;
+  white-space: nowrap !important;
+}
+
+/* Keep display formulas intact; do not force all inline KaTeX nowrap
+   (that widens captions and can push SVGs past the capture edge). */
+.slidePage :global(.formula .katex),
+.slidePage :global(.formula .katex-display),
+.slidePage :global(.mathDisplay .katex) {
+  white-space: nowrap !important;
+}
+
+.slidePage :global(.split),
+.slidePage :global(.splitWide) {
+  gap: 12px !important;
+  margin-top: 8px !important;
+}
+
+.slidePage :global(table) {
+  font-size: 11px !important;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.slidePage :global(th),
+.slidePage :global(td) {
+  padding: 3px 5px !important;
+}
+
+.slidePage :global(.tableWrap),
+.slidePage :global(.treeBox),
+.slidePage :global(.chartCard),
+.slidePage :global(.chipsScroll),
+.slidePage :global(.vennFigure),
+.slidePage :global(.mathDisplay) {
+  overflow: visible !important;
+  overflow-x: visible !important;
+  overflow-y: visible !important;
+}
+
+.slidePage :global(.treeSvg),
+.slidePage :global(.vennSvg),
+.slidePage :global(svg) {
+  max-width: 100% !important;
+  width: 100% !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+.slidePage :global(.treeSvg) {
+  max-width: 100% !important;
+}
+
+.slidePage :global(.vennSvg) {
+  max-width: 100% !important;
+}
+
+.slidePage :global(.katex-display),
+.slidePage :global(.formula),
+.slidePage :global(.mathDisplay),
+.slidePage :global(table),
+.slidePage :global(tr),
+.slidePage :global(img),
+.slidePage :global(svg),
+.slidePage :global(figure) {
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+}
+
+.slides :global(.printNote) {
+  margin-top: 8px;
+  padding: 8px 10px;
+  background: #fffaf0;
+  border-left: 4px solid #2e7190;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.slides :global(.printGrid2) {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.slides :global(.printGrid4) {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.slides :global(.printAnswer) {
+  margin-top: 8px;
+  padding: 8px 10px;
+  background: #d9edf1;
+  border: 2px solid #16213c;
+  font-size: 12px;
+  line-height: 1.35;
+}

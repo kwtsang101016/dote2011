@@ -10,15 +10,14 @@
 <h1>DOTE2011G · Older lectures</h1>
 <p>This file contains the <strong>full tutor notes</strong> for every lecture that has its own HTML file. The notes are copied here automatically when you run <code>python &quot;AI tutor/scripts/build_knowledge_html.py&quot;</code>.</p>
 <p>When a new lecture HTML is created, add that lecture to <code>FILES</code> in <code>AI tutor/scripts/build_knowledge_html.py</code> and run the script. This file then includes it. <strong>Do not delete</strong> the separate lecture HTML files. Those stay on disk so two of them can still be uploaded on their own.</p>
-<p>The lectures currently copied below are Introduction, Descriptive Statistics, Probability, Discrete Probability Distributions, Continuous Probability Distributions, and Sampling and Sampling Distributions. Search by lecture name and by headings such as <code>Page 03 · …</code>.</p>
+<p>The lectures currently copied below are Introduction, Descriptive Statistics, Probability, Discrete Probability Distributions, Continuous Probability Distributions, Sampling and Sampling Distributions, Interval Estimation, Hypothesis Tests, and Linear Regression. Search by lecture name and by headings such as <code>Page 03 · …</code>.</p>
 <hr />
 <h2>Topics not yet on the interactive site</h2>
-<p>These topics are <strong>not</strong> in the notes below yet.</p>
-<table><thead><tr><th>Topic</th><th>Status</th></tr></thead><tbody><tr><td>Interval Estimation</td><td>Coming — after midterm</td></tr><tr><td>Hypothesis Tests</td><td>Coming</td></tr><tr><td>Regression Analysis</td><td>Coming</td></tr></tbody></table>
+<p>Every lecture currently on the interactive site is copied below, through Linear Regression. ANOVA is not taught this year.</p>
 <p><strong>For schedule dates</strong>, see course-admin.html.</p>
 <hr />
 <h2>Midterm reminder</h2>
-<ul><li><strong>Date:</strong> Wednesday, <strong>21 October 2026</strong></li><li>Open notes and books; 1.5 hours</li><li>See course-admin.html for full assessment rules</li></ul>
+<ul><li><strong>Date:</strong> Wednesday, <strong>21 October 2026</strong>, 10:35–12:05 at <strong>LKC LT1</strong></li><li>Covers Slides 1 (Introduction) to 6 (Sampling and Sampling Distributions); 5 long questions in HW1 format</li><li>Allowed: one A4 sheet (both sides) and an approved CUHK exam calculator</li><li>See course-admin.html for full assessment rules</li></ul>
 <hr />
 <h2>Lectures copied in full</h2>
 <p>The sections after this heading are the same notes as each lecture’s own HTML file, in course order.</p>
@@ -618,6 +617,486 @@
 </section>
 <section id="sampling-distributions-page-22" data-lecture="sampling-distributions" data-page="22"><h2>Page 22 · Takeaways</h2>
 <p>SRS (finite equal chance / infinite independent from population of interest). Point estimators x̄, s, p̂. Mean: E(x̄)=μ, σ_x̄=σ/√n (+ FPC). Proportion: E(p̂)=p, σ_p̂=√(p(1−p)/n), normal if np and n(1−p) > 5. CLT / n ≥ 30 for the shape of x̄.</p>
+</section>
+<hr />
+<h1>DOTE2011G · Interval Estimation</h1>
+<p><strong>Live lecture:</strong> https://kwtsang101016.github.io/dote2011/interval-estimation/</p>
+<p>Interactive slides condensed from <em>8 Interval Estimation.pdf</em>, plus pooled / Welch / paired and two-proportion intervals.</p>
+<hr />
+<section id="interval-estimation-page-01" data-lecture="interval-estimation" data-page="1"><h2>Page 01 · Title</h2>
+<p>Interval Estimation — confidence intervals for means, proportions, sample size, and differences of means/proportions.</p>
+</section>
+<section id="interval-estimation-page-02" data-lecture="interval-estimation" data-page="2"><h2>Page 02 · Roadmap</h2>
+<p>Six blocks: mean σ known; mean σ unknown (t); one-sided bounds; sample size; proportion; two means & two proportions (pooled / Welch / paired, then p1−p2).</p>
+</section>
+<section id="interval-estimation-page-03" data-lecture="interval-estimation" data-page="3"><h2>Page 03 · Warm-up: CUHK heights</h2>
+<p>μ=168, σ=5, n=25 → P(166<x̄<170)≈0.9545. Motivates: with unknown μ, x̄±2 catches μ about 95% of the time.</p>
+</section>
+<section id="interval-estimation-page-04" data-lecture="interval-estimation" data-page="4"><h2>Page 04 · Margin of error</h2>
+<p>Interval estimate = point estimate ± margin of error. For a mean: x̄ ± ME; for a proportion: p̂ ± ME.</p>
+</section>
+<section id="interval-estimation-page-05" data-lecture="interval-estimation" data-page="5"><h2>Page 05 · When is σ known?</h2>
+<p>Use historical or process σ when it is trusted. Then the sampling distribution of x̄ uses σ/√n and z critical values.</p>
+</section>
+<section id="interval-estimation-page-06" data-lecture="interval-estimation" data-page="6"><h2>Page 06 · 1 − α of all x̄</h2>
+<p>About 100(1−α)% of all sample means lie within z_{α/2} σ/√n of μ. That statement rearranges into a CI for μ.</p>
+</section>
+<section id="interval-estimation-page-07" data-lecture="interval-estimation" data-page="7"><h2>Page 07 · Derivation</h2>
+<p>Start from P(−z_{α/2} ≤ (x̄−μ)/(σ/√n) ≤ z_{α/2})=1−α and rearrange to x̄ − z_{α/2}σ/√n ≤ μ ≤ x̄ + z_{α/2}σ/√n.</p>
+</section>
+<section id="interval-estimation-page-08" data-lecture="interval-estimation" data-page="8"><h2>Page 08 · Interval formula</h2>
+<p>Two-sided CI (σ known): x̄ ± z_{α/2} σ/√n. Confidence coefficient 1−α.</p>
+</section>
+<section id="interval-estimation-page-09" data-lecture="interval-estimation" data-page="9"><h2>Page 09 · Common z values</h2>
+<p>Common: 90% → z=1.645; 95% → 1.960; 99% → 2.576.</p>
+</section>
+<section id="interval-estimation-page-10" data-lecture="interval-estimation" data-page="10"><h2>Page 10 · Meaning of confidence</h2>
+<p>“95% confident” describes the method’s long-run success rate, not P(μ in this one interval). μ is fixed; the interval is random.</p>
+</section>
+<section id="interval-estimation-page-11" data-lecture="interval-estimation" data-page="11"><h2>Page 11 · Coverage simulator</h2>
+<p>Game: simulate many intervals; green covers μ, red misses. Higher confidence → wider bars, fewer misses.</p>
+</section>
+<section id="interval-estimation-page-12" data-lecture="interval-estimation" data-page="12"><h2>Page 12 · HMV setup</h2>
+<p>HMV retail outlet: n=36, x̄=41100, σ=4500. Plan a CI for mean annual income.</p>
+</section>
+<section id="interval-estimation-page-13" data-lecture="interval-estimation" data-page="13"><h2>Page 13 · HMV margin and interval</h2>
+<p>95%: ME = 1.96×4500/√36 = 1470 → [39630, 42570]. Higher confidence widens the interval.</p>
+</section>
+<section id="interval-estimation-page-14" data-lecture="interval-estimation" data-page="14"><h2>Page 14 · Adequate sample size</h2>
+<p>For a planned margin E with σ known: n = (z_{α/2} σ / E)²; always round up.</p>
+</section>
+<section id="interval-estimation-page-15" data-lecture="interval-estimation" data-page="15"><h2>Page 15 · Light bulbs</h2>
+<p>Example: normal lifetime, σ known, n=27, x̄=1478 → 95% CI for μ.</p>
+</section>
+<section id="interval-estimation-page-16" data-lecture="interval-estimation" data-page="16"><h2>Page 16 · Orange juice</h2>
+<p>Example: large-n approximate CI even if population is not normal (n>30 rule of thumb).</p>
+</section>
+<section id="interval-estimation-page-17" data-lecture="interval-estimation" data-page="17"><h2>Page 17 · When σ is unknown</h2>
+<p>Replace σ by s and z by t_{α/2}(n−1). Requires normal population or large n.</p>
+</section>
+<section id="interval-estimation-page-18" data-lecture="interval-estimation" data-page="18"><h2>Page 18 · From Z to t</h2>
+<p>(x̄−μ)/(s/√n) ~ t(n−1) when sampling from N(μ,σ²). t has heavier tails than z.</p>
+</section>
+<section id="interval-estimation-page-19" data-lecture="interval-estimation" data-page="19"><h2>Page 19 · Degrees of freedom</h2>
+<p>df = n−1. As df grows, t → z. Interactive compare of t vs standard normal.</p>
+</section>
+<section id="interval-estimation-page-20" data-lecture="interval-estimation" data-page="20"><h2>Page 20 · z versus t</h2>
+<p>Game: for the same confidence, t critical value > z, so the t-interval is wider.</p>
+</section>
+<section id="interval-estimation-page-21" data-lecture="interval-estimation" data-page="21"><h2>Page 21 · Interval formula (σ unknown)</h2>
+<p>x̄ ± t_{α/2}(n−1) s/√n.</p>
+</section>
+<section id="interval-estimation-page-22" data-lecture="interval-estimation" data-page="22"><h2>Page 22 · Apartment rents</h2>
+<p>Example: n=16, x̄=750, s=55 → use t with 15 df for a CI for mean rent.</p>
+</section>
+<section id="interval-estimation-page-23" data-lecture="interval-estimation" data-page="23"><h2>Page 23 · Non-normal data</h2>
+<p>If population is skewed and n is small, t-interval coverage can miss the target; n≳30 helps.</p>
+</section>
+<section id="interval-estimation-page-24" data-lecture="interval-estimation" data-page="24"><h2>Page 24 · Butterfat</h2>
+<p>Example: n=20 cows, σ unknown → 90% t-interval for mean butterfat.</p>
+</section>
+<section id="interval-estimation-page-25" data-lecture="interval-estimation" data-page="25"><h2>Page 25 · Bounds, σ known</h2>
+<p>One-sided: put all α in one tail → use z_α. Lower CI [x̄−z_α σ/√n, ∞); upper (−∞, x̄+z_α σ/√n].</p>
+</section>
+<section id="interval-estimation-page-26" data-lecture="interval-estimation" data-page="26"><h2>Page 26 · Which formula for μ?</h2>
+<p>Summary flow: σ known → z; σ unknown → t. One-sided written with brackets including equality on the finite end.</p>
+</section>
+<section id="interval-estimation-page-27" data-lecture="interval-estimation" data-page="27"><h2>Page 27 · Plastic containers</h2>
+<p>Example: σ=15, n=20, x̄=246 → 95% lower bound ≈ 240.48 → [240.48, ∞).</p>
+</section>
+<section id="interval-estimation-page-28" data-lecture="interval-estimation" data-page="28"><h2>Page 28 · Bounds, σ unknown</h2>
+<p>One-sided with s: use t_α(n−1). Same bracket forms as the z case.</p>
+</section>
+<section id="interval-estimation-page-29" data-lecture="interval-estimation" data-page="29"><h2>Page 29 · Alloy specimens</h2>
+<p>Example: n=22, x̄=13.71, s=3.55 → 95% lower bound ≈ 12.41 → [12.41, ∞).</p>
+</section>
+<section id="interval-estimation-page-30" data-lecture="interval-estimation" data-page="30"><h2>Page 30 · Interval lab</h2>
+<p>Game: switch normal/skewed, σ known/unknown, one-/two-sided; watch simulated coverage.</p>
+</section>
+<section id="interval-estimation-page-31" data-lecture="interval-estimation" data-page="31"><h2>Page 31 · Which interval?</h2>
+<p>A–D Live Poll: pick the right CI type for each story (σ known/unknown, lower/upper/two-sided).</p>
+</section>
+<section id="interval-estimation-page-32" data-lecture="interval-estimation" data-page="32"><h2>Page 32 · AI · Apple mean CI</h2>
+<p>Practice prompt: download AAPL returns; build one-sided 95% CIs treating s like σ (z) and with t.</p>
+</section>
+<section id="interval-estimation-page-33" data-lecture="interval-estimation" data-page="33"><h2>Page 33 · Formula for a mean</h2>
+<p>n ≥ z_{α/2}² σ² / E² for desired margin E.</p>
+</section>
+<section id="interval-estimation-page-34" data-lecture="interval-estimation" data-page="34"><h2>Page 34 · Planning value of σ</h2>
+<p>Use historical σ, a pilot sample, or a conservative planning value.</p>
+</section>
+<section id="interval-estimation-page-35" data-lecture="interval-estimation" data-page="35"><h2>Page 35 · HMV: n = 312</h2>
+<p>Example: E=500, 95%, σ=4500 → n = (1.96×4500/500)² ≈ 312 (round up).</p>
+</section>
+<section id="interval-estimation-page-36" data-lecture="interval-estimation" data-page="36"><h2>Page 36 · Sampling distribution of p̂</h2>
+<p>E(p̂)=p; σ_p̂=√(p(1−p)/n). Normal approx when np and n(1−p) > 5.</p>
+</section>
+<section id="interval-estimation-page-37" data-lecture="interval-estimation" data-page="37"><h2>Page 37 · Interval formula (proportion)</h2>
+<p>p̂ ± z_{α/2} √(p̂(1−p̂)/n).</p>
+</section>
+<section id="interval-estimation-page-38" data-lecture="interval-estimation" data-page="38"><h2>Page 38 · PSI poll</h2>
+<p>Example: 220/500 favour → 95% CI about [.3965, .4835].</p>
+</section>
+<section id="interval-estimation-page-39" data-lecture="interval-estimation" data-page="39"><h2>Page 39 · Formula for a proportion</h2>
+<p>n = z_{α/2}² p<em>(1−p</em>) / E². With no information use p*=0.5 (largest n).</p>
+</section>
+<section id="interval-estimation-page-40" data-lecture="interval-estimation" data-page="40"><h2>Page 40 · PSI: n = 1817</h2>
+<p>Example: E=0.03, 99%, p*=0.44 → n≈1817.</p>
+</section>
+<section id="interval-estimation-page-41" data-lecture="interval-estimation" data-page="41"><h2>Page 41 · Two-sided, known variances</h2>
+<p>μ_X−μ_Y: x̄−ȳ ± z_{α/2} √(σ_X²/n + σ_Y²/m). Also OK for large n,m if non-normal.</p>
+</section>
+<section id="interval-estimation-page-42" data-lecture="interval-estimation" data-page="42"><h2>Page 42 · Filling machines</h2>
+<p>Example: two machines, known σ’s, n=m=10 → 95% CI for difference of mean fills; covers 0.</p>
+</section>
+<section id="interval-estimation-page-43" data-lecture="interval-estimation" data-page="43"><h2>Page 43 · One-sided bounds (two means)</h2>
+<p>Use z_α: lower [L, ∞) and upper (−∞, U] for μ_X−μ_Y.</p>
+</section>
+<section id="interval-estimation-page-44" data-lecture="interval-estimation" data-page="44"><h2>Page 44 · Three designs (σ unknown)</h2>
+<p>Independent equal σ² → pooled t; unequal → Welch; matched units → paired t on D_i=X_i−Y_i.</p>
+</section>
+<section id="interval-estimation-page-45" data-lecture="interval-estimation" data-page="45"><h2>Page 45 · Equal variances (pooled)</h2>
+<p>x̄−ȳ ± t_{α/2}(n+m−2) s_p √(1/n+1/m), with s_p² = [(n−1)s_X²+(m−1)s_Y²]/(n+m−2).</p>
+</section>
+<section id="interval-estimation-page-46" data-lecture="interval-estimation" data-page="46"><h2>Page 46 · Two schools</h2>
+<p>Example: n=9, m=15, common variance assumed → 95% pooled CI ≈ [−3.65, 9.05], covers 0.</p>
+</section>
+<section id="interval-estimation-page-47" data-lecture="interval-estimation" data-page="47"><h2>Page 47 · Unequal variances (Welch)</h2>
+<p>x̄−ȳ ± t_{α/2}(r) √(s_X²/n+s_Y²/m); r = floored Welch–Satterthwaite df.</p>
+</section>
+<section id="interval-estimation-page-48" data-lecture="interval-estimation" data-page="48"><h2>Page 48 · Schools, no pooling</h2>
+<p>Same school data without pooling → slightly wider CI than pooled; still covers 0.</p>
+</section>
+<section id="interval-estimation-page-49" data-lecture="interval-estimation" data-page="49"><h2>Page 49 · Paired samples</h2>
+<p>Each X matched to a Y (before/after, same subject). Analyse differences, not two independent lists.</p>
+</section>
+<section id="interval-estimation-page-50" data-lecture="interval-estimation" data-page="50"><h2>Page 50 · Paired CI</h2>
+<p>d̄ ± t_{α/2}(n−1) s_D/√n — same as a one-sample t for μ_D=μ_X−μ_Y.</p>
+</section>
+<section id="interval-estimation-page-51" data-lecture="interval-estimation" data-page="51"><h2>Page 51 · Reaction times</h2>
+<p>Example: n=8, d̄=−0.0625, s_D=0.0765 → 95% paired CI barely covers 0; unpaired CIs are wider.</p>
+</section>
+<section id="interval-estimation-page-52" data-lecture="interval-estimation" data-page="52"><h2>Page 52 · Width comparison</h2>
+<p>Same center d̄=x̄−ȳ. Typical order when ρ>0: paired < pooled < Welch. Var(X−Y)=σ_X²+σ_Y²−2ρσ_Xσ_Y.</p>
+</section>
+<section id="interval-estimation-page-53" data-lecture="interval-estimation" data-page="53"><h2>Page 53 · Difference p1 − p2</h2>
+<p>Special case of two means for 0–1 data: p̂1−p̂2 ± z_{α/2} √(p̂1(1−p̂1)/n1 + p̂2(1−p̂2)/n2). CI does not pool p̂.</p>
+</section>
+<section id="interval-estimation-page-54" data-lecture="interval-estimation" data-page="54"><h2>Page 54 · Gaming example</h2>
+<p>p̂1=0.6 (n1=2000), p̂2=0.4 (n2=2200) → 95% CI ≈ [0.17, 0.23], entirely above 0.</p>
+</section>
+<section id="interval-estimation-page-55" data-lecture="interval-estimation" data-page="55"><h2>Page 55 · Which answer?</h2>
+<p>A–D practice quiz: confidence width, t df, sample size ×4, meaning of CI, p*, one-sided z_α, pooled vs paired, SE for p1−p2.</p>
+</section>
+<section id="interval-estimation-page-56" data-lecture="interval-estimation" data-page="56"><h2>Page 56 · Takeaways</h2>
+<p>Point ± critical × SE. Mean: z or t; one-sided brackets; sample-size formulas; proportions; two means (z / pooled / Welch / paired) and p1−p2.</p>
+</section>
+<hr />
+<h1>DOTE2011G · Hypothesis Tests</h1>
+<p><strong>Live lecture:</strong> https://kwtsang101016.github.io/dote2011/hypothesis-tests/</p>
+<p>Interactive slides condensed from <em>9 Hypothesis Test.pdf</em> (H0/H1, errors, p-values, z/t tests, proportions).</p>
+<hr />
+<section id="hypothesis-tests-page-01" data-lecture="hypothesis-tests" data-page="1"><h2>Page 01 · Title</h2>
+<p>Hypothesis Tests — H0/H1, Type I/II errors, p-values, z/t tests for means and proportions.</p>
+</section>
+<section id="hypothesis-tests-page-02" data-lecture="hypothesis-tests" data-page="2"><h2>Page 02 · Roadmap</h2>
+<p>Setup → errors & α/β → p-value → eight-step procedure → one mean (z then t) → two means → proportions → menu & practice.</p>
+</section>
+<section id="hypothesis-tests-page-03" data-lecture="hypothesis-tests" data-page="3"><h2>Page 03 · Aircrew escape system</h2>
+<p>Motivating example: burn rate must be 50 cm/s; too slow or too fast is unsafe → two-sided alternative.</p>
+</section>
+<section id="hypothesis-tests-page-04" data-lecture="hypothesis-tests" data-page="4"><h2>Page 04 · H0 versus H1</h2>
+<p>H0 = status quo / claim under test (contains “=”); H1 = what we want evidence for. Never put the equality only in H1.</p>
+</section>
+<section id="hypothesis-tests-page-05" data-lecture="hypothesis-tests" data-page="5"><h2>Page 05 · Which hypotheses?</h2>
+<p>Class activity / Live Poll A–D: choose the (H0,H1) pair for coin fairness (one-sided or two-sided) and similar stories.</p>
+</section>
+<section id="hypothesis-tests-page-06" data-lecture="hypothesis-tests" data-page="6"><h2>Page 06 · Predetermined critical region</h2>
+<p>Before seeing x̄, call |x̄−50|≥1.5 “too far” (x̄≤48.5 or x̄≥51.5); do not redefine afterward. Examples: x̄=52 reject; x̄=47 reject; x̄=51 cannot reject. Critical region = values that reject H0. P(reject H0) = P(x̄ in critical region) once the sampling distribution is known.</p>
+</section>
+<section id="hypothesis-tests-page-07" data-lecture="hypothesis-tests" data-page="7"><h2>Page 07 · Test statistic and regions</h2>
+<p>Compute a test statistic; reject H0 if it falls in the rejection region determined by α.</p>
+</section>
+<section id="hypothesis-tests-page-08" data-lecture="hypothesis-tests" data-page="8"><h2>Page 08 · Types of hypothesis</h2>
+<p>Lower-tail, upper-tail, or two-sided alternatives. Critical values use α or α/2 accordingly.</p>
+</section>
+<section id="hypothesis-tests-page-09" data-lecture="hypothesis-tests" data-page="9"><h2>Page 09 · Type I / Type II table</h2>
+<p>Type I: reject H0 when H0 true (probability α). Type II: fail to reject when H0 false (probability β). Power = 1−β.</p>
+</section>
+<section id="hypothesis-tests-page-10" data-lecture="hypothesis-tests" data-page="10"><h2>Page 10 · Propellant: two-sided α</h2>
+<p>Two-sided propellant example: reject if x̄<48.5 or x̄>51.5; compute α under μ=50.</p>
+</section>
+<section id="hypothesis-tests-page-11" data-lecture="hypothesis-tests" data-page="11"><h2>Page 11 · Propellant: two-sided β</h2>
+<p>Same two-sided rule; Type II at μ=52 is P(48.5≤x̄≤51.5|μ=52).</p>
+</section>
+<section id="hypothesis-tests-page-12" data-lecture="hypothesis-tests" data-page="12"><h2>Page 12 · Propellant: upper α</h2>
+<p>Upper-tail rule reject if x̄>51.5; α = P(x̄>51.5|μ=50) (one tail).</p>
+</section>
+<section id="hypothesis-tests-page-13" data-lecture="hypothesis-tests" data-page="13"><h2>Page 13 · Propellant: upper β</h2>
+<p>Upper-tail Type II at μ=52: β = P(x̄≤51.5|μ=52).</p>
+</section>
+<section id="hypothesis-tests-page-14" data-lecture="hypothesis-tests" data-page="14"><h2>Page 14 · Propellant: lower α</h2>
+<p>Lower-tail rule reject if x̄<48.5; α = P(x̄<48.5|μ=50).</p>
+</section>
+<section id="hypothesis-tests-page-15" data-lecture="hypothesis-tests" data-page="15"><h2>Page 15 · Propellant: lower β</h2>
+<p>Lower-tail Type II at μ=48: β = P(x̄≥48.5|μ=48).</p>
+</section>
+<section id="hypothesis-tests-page-16" data-lecture="hypothesis-tests" data-page="16"><h2>Page 16 · Cutoff α–β explorer</h2>
+<p>Game: switch two-sided / upper / lower; move c and n; watch α–β trade-off.</p>
+</section>
+<section id="hypothesis-tests-page-17" data-lecture="hypothesis-tests" data-page="17"><h2>Page 17 · Significance level</h2>
+<p>Fix α → from α=P(reject H0|H0)=P(x̄≤50−c or x̄≥50+c|μ=50) solve c=z_{α/2}σ/√n → then β under μ=52. Worked α=0.05; table for 0.10,0.05,0.01. One-sided: c=z_α σ/√n.</p>
+</section>
+<section id="hypothesis-tests-page-18" data-lecture="hypothesis-tests" data-page="18"><h2>Page 18 · Sample-size planning</h2>
+<p>Budget view: fix α and β at a planning alternative μ1, then solve for required n and cutoff c (n is not given).</p>
+</section>
+<section id="hypothesis-tests-page-19" data-lecture="hypothesis-tests" data-page="19"><h2>Page 19 · Plan n (one-sided)</h2>
+<p>Upper-tail: c=μ0+z_α σ/√n = μ1−z_β σ/√n ⇒ n=((z_α+z_β)σ/(μ1−μ0))². Propellant α=0.05, β=0.10, μ1=52, σ=2.5.</p>
+</section>
+<section id="hypothesis-tests-page-20" data-lecture="hypothesis-tests" data-page="20"><h2>Page 20 · Plan n (two-sided)</h2>
+<p>From α=2P(Z≥d/(σ/√n)) get d=z_{α/2}σ/√n; if μ1>μ0 then β≈P(X̄≤c+|μ1) ⇒ c+=μ1−z_β σ/√n; equate ⇒ n=((z_{α/2}+z_β)σ/(μ1−μ0))².</p>
+</section>
+<section id="hypothesis-tests-page-21" data-lecture="hypothesis-tests" data-page="21"><h2>Page 21 · Budget explorer</h2>
+<p>Game: choose one-/two-sided, α, β, and gap |μ1−μ0|; see required n and cutoffs on the propellant scale.</p>
+</section>
+<section id="hypothesis-tests-page-22" data-lecture="hypothesis-tests" data-page="22"><h2>Page 22 · Simulate α</h2>
+<p>Game: when H0 is true, about α of repeated tests reject H0.</p>
+</section>
+<section id="hypothesis-tests-page-23" data-lecture="hypothesis-tests" data-page="23"><h2>Page 23 · Definition (p-value)</h2>
+<p>Z=(X̄−μ0)/(σ/√n)~N(0,1) under H0; observed Z0=(x̄−μ0)/(σ/√n). p-value = P(Z at least as extreme as Z0|H0): two-sided 2P(Z>|Z0|), upper P(Z>Z0), lower P(Z<Z0).</p>
+</section>
+<section id="hypothesis-tests-page-24" data-lecture="hypothesis-tests" data-page="24"><h2>Page 24 · Power supply: region</h2>
+<p>Example setup: critical-region approach for a two-sided (or one-sided) test of a mean.</p>
+</section>
+<section id="hypothesis-tests-page-25" data-lecture="hypothesis-tests" data-page="25"><h2>Page 25 · Power supply: p-values</h2>
+<p>Same data via p-value: reject iff p < α. Agrees with the critical-region decision.</p>
+</section>
+<section id="hypothesis-tests-page-26" data-lecture="hypothesis-tests" data-page="26"><h2>Page 26 · p-value explorer</h2>
+<p>Game: drag Z0 and change the alternative; see rejection region and p-value area.</p>
+</section>
+<section id="hypothesis-tests-page-27" data-lecture="hypothesis-tests" data-page="27"><h2>Page 27 · Concept check: errors</h2>
+<p>A–D quiz: Type I/II language, α–β trade-off, what “fail to reject” means, larger n reduces both α and β.</p>
+</section>
+<section id="hypothesis-tests-page-28" data-lecture="hypothesis-tests" data-page="28"><h2>Page 28 · Concept check: p-value</h2>
+<p>A–D quiz: definition; decide with p vs α; two-sided p-value = 2P(Z>2) when Z0=2; upper-tail with Z0=−1.2 equals P(Z>−1.2). Options are expressions, not table lookups.</p>
+</section>
+<section id="hypothesis-tests-page-29" data-lecture="hypothesis-tests" data-page="29"><h2>Page 29 · Eight steps</h2>
+<p>Parameter → H0 → H1 → test statistic → reject rule → compute → decide → report in context.</p>
+</section>
+<section id="hypothesis-tests-page-30" data-lecture="hypothesis-tests" data-page="30"><h2>Page 30 · Three approaches</h2>
+<p>Critical region, p-value, and CI: for the same α they give the same reject/fail-to-reject decision.</p>
+</section>
+<section id="hypothesis-tests-page-31" data-lecture="hypothesis-tests" data-page="31"><h2>Page 31 · Which tail?</h2>
+<p>Game: the alternative decides which tail(s) count for the p-value and rejection region.</p>
+</section>
+<section id="hypothesis-tests-page-32" data-lecture="hypothesis-tests" data-page="32"><h2>Page 32 · z-test table</h2>
+<p>H0: μ=μ0, σ known: Z0=(x̄−μ0)/(σ/√n) ~ N(0,1) under H0. Critical values z_{α/2} or z_α.</p>
+</section>
+<section id="hypothesis-tests-page-33" data-lecture="hypothesis-tests" data-page="33"><h2>Page 33 · Battery life</h2>
+<p>Battery life ~N with σ=1.25; n=10, x̄=40.5. Evidence mean life exceeds 40 hours? α=0.05 upper-tail z-test.</p>
+</section>
+<section id="hypothesis-tests-page-34" data-lecture="hypothesis-tests" data-page="34"><h2>Page 34 · Response time</h2>
+<p>Distributed system: does mean response to a command exceed 75 ms? σ=8, n=25, x̄=79.25; α=0.05.</p>
+</section>
+<section id="hypothesis-tests-page-35" data-lecture="hypothesis-tests" data-page="35"><h2>Page 35 · t-test table</h2>
+<p>σ unknown: t0=(x̄−μ0)/(s/√n) ~ t(n−1). Use t critical values.</p>
+</section>
+<section id="hypothesis-tests-page-36" data-lecture="hypothesis-tests" data-page="36"><h2>Page 36 · Body temperature</h2>
+<p>JAMA 1992 critique of 98.6°F; n=25 women, x̄=98.264, s²=0.2324. Two-sided t-test of μ=98.6 at α=0.05.</p>
+</section>
+<section id="hypothesis-tests-page-37" data-lecture="hypothesis-tests" data-page="37"><h2>Page 37 · Known variances (two means)</h2>
+<p>Z0 for μ_X−μ_Y with known σ_X, σ_Y; rejection region or CI for the difference.</p>
+</section>
+<section id="hypothesis-tests-page-38" data-lecture="hypothesis-tests" data-page="38"><h2>Page 38 · Comparing paints</h2>
+<p>Primer drying: formulation 1 (standard) vs 2 (new ingredient); σ=8 both; n=m=10; x̄1=121, x̄2=112. Upper-tail z for μ1>μ2.</p>
+</section>
+<section id="hypothesis-tests-page-39" data-lecture="hypothesis-tests" data-page="39"><h2>Page 39 · Pooled t-test</h2>
+<p>Independent samples, equal unknown variances: pool into s_p; df = n+m−2.</p>
+</section>
+<section id="hypothesis-tests-page-40" data-lecture="hypothesis-tests" data-page="40"><h2>Page 40 · Comparing catalysts</h2>
+<p>Catalyst 1 in use vs cheaper catalyst 2; adopt 2 if mean yield unchanged. Pilot Table 10-1; pooled t, α=0.05.</p>
+</section>
+<section id="hypothesis-tests-page-41" data-lecture="hypothesis-tests" data-page="41"><h2>Page 41 · Welch t-test</h2>
+<p>Unequal variances: SE = √(s_X²/n+s_Y²/m); df r = floor of the Welch formula. Safer default if equality is doubtful.</p>
+</section>
+<section id="hypothesis-tests-page-42" data-lecture="hypothesis-tests" data-page="42"><h2>Page 42 · Paired t-test</h2>
+<p>24 girls, ultraheavy rope-jumping program; W=before−after 40-yard time; H1:μW>0; paired t.</p>
+</section>
+<section id="hypothesis-tests-page-43" data-lecture="hypothesis-tests" data-page="43"><h2>Page 43 · One-proportion test</h2>
+<p>H0: p=p0; Z0=(p̂−p0)/√(p0(1−p0)/n). Large-sample normal under H0.</p>
+</section>
+<section id="hypothesis-tests-page-44" data-lecture="hypothesis-tests" data-page="44"><h2>Page 44 · Higher education</h2>
+<p>Fortune (1992) claim ~1/2 of engineers continue past B.S.; Engineering Horizons 117/484 planning graduate study.</p>
+</section>
+<section id="hypothesis-tests-page-45" data-lecture="hypothesis-tests" data-page="45"><h2>Page 45 · Fair die</h2>
+<p>Dice spots are indentations so 6-side lighter; H0:p=1/6 vs H1:p>1/6; n=8000, y=1389 sixes, α=0.05.</p>
+</section>
+<section id="hypothesis-tests-page-46" data-lecture="hypothesis-tests" data-page="46"><h2>Page 46 · Proportion calculator</h2>
+<p>Game: enter n, x, p0, α, side → Z0, p-value, decision.</p>
+</section>
+<section id="hypothesis-tests-page-47" data-lecture="hypothesis-tests" data-page="47"><h2>Page 47 · Two proportions</h2>
+<p>H0: p1=p2; under H0 use pooled p̂ in the SE. CI for p1−p2 does not pool.</p>
+</section>
+<section id="hypothesis-tests-page-48" data-lecture="hypothesis-tests" data-page="48"><h2>Page 48 · Sparrows</h2>
+<p>White-crowned sparrows (The Condor 1992): 124/894 males vs 70/700 females return; CI and two-sided test for pm−pf.</p>
+</section>
+<section id="hypothesis-tests-page-49" data-lecture="hypothesis-tests" data-page="49"><h2>Page 49 · Low birth weight</h2>
+<p>Two countries: 22/200 vs 16/100 low-birth-weight infants; two-proportion z for equal rates.</p>
+</section>
+<section id="hypothesis-tests-page-50" data-lecture="hypothesis-tests" data-page="50"><h2>Page 50 · The test menu</h2>
+<p>Summary table: which statistic/distribution for one mean, two means (z/pooled/Welch/paired), one/two proportions.</p>
+</section>
+<section id="hypothesis-tests-page-51" data-lecture="hypothesis-tests" data-page="51"><h2>Page 51 · Which test?</h2>
+<p>A–D Live Poll: match each story to z-mean, t-mean, two-mean z, pooled, Welch, paired, or proportion tests.</p>
+</section>
+<section id="hypothesis-tests-page-52" data-lecture="hypothesis-tests" data-page="52"><h2>Page 52 · Three methods agree</h2>
+<p>Battery-style demo: critical region, p-value, and one-sided CI flip together as x̄ moves.</p>
+</section>
+<section id="hypothesis-tests-page-53" data-lecture="hypothesis-tests" data-page="53"><h2>Page 53 · Which answer?</h2>
+<p>Final A–D quiz: z_α vs z_{α/2}, t critical value, pooled df, CI rejection rule, paired design, pooled p̂ in two-prop SE.</p>
+</section>
+<section id="hypothesis-tests-page-54" data-lecture="hypothesis-tests" data-page="54"><h2>Page 54 · Takeaways</h2>
+<p>State H0/H1; pick the statistic; decide via region / p / CI; report. Fail to reject ≠ prove H0.</p>
+</section>
+<hr />
+<h1>DOTE2011G · Linear Regression</h1>
+<p><strong>Live lecture:</strong> https://kwtsang101016.github.io/dote2011/linear-regression/</p>
+<p>Interactive slides for simple linear regression. ANOVA is not taught this year. Notation used on every page: S_xy = (1/n) Σ (x_i − x̄)(y_i − ȳ) and S_xx = (1/n) Σ (x_i − x̄)². The divisor is n, not n−1. Do not call S_xx the sample variance (that name is reserved for the n−1 estimator). When a formula needs the raw sum of squares, it uses n S_xx (and n S_xy).</p>
+<hr />
+<section id="linear-regression-page-01" data-lecture="linear-regression" data-page="1"><h2>Page 01 · Cover</h2>
+<p>Linear Regression. Covariance, least squares, residual checks, confidence intervals, and hypothesis tests for the coefficients.</p>
+</section>
+<section id="linear-regression-page-02" data-lecture="linear-regression" data-page="2"><h2>Page 02 · How do X and Y move together?</h2>
+<p>Cov(X,Y) = E[(X − μ_X)(Y − μ_Y)] = E(XY) − μ_X μ_Y. Same direction (both above or both below their means) tends to make the product positive, so covariance is positive. Opposite directions tend to make covariance negative.</p>
+</section>
+<section id="linear-regression-page-03" data-lecture="linear-regression" data-page="3"><h2>Page 03 · Useful properties</h2>
+<p>Cov(X, c) = 0 for a constant c. Cov(X, X) = Var(X). Cov(βX, Y) = Cov(X, βY) = β Cov(X, Y). Cov(X_1 + X_2, Y) = Cov(X_1, Y) + Cov(X_2, Y). If X and Y are independent, then Cov(X, Y) = 0. The converse is false: zero covariance does not imply independence.</p>
+</section>
+<section id="linear-regression-page-04" data-lecture="linear-regression" data-page="4"><h2>Page 04 · Sign of Cov(X,Y) for a perfect line</h2>
+<p>Live Poll A–D. Each equation holds exactly (no noise). Answers: Y = 3 + 0.2X → Positive (A), because Cov = 0.2 Var(X) > 0. Y = 5 − 1.5X → Negative (C). Y = 3 + 0·X and Y = −4 and Y = 10 − 0·X → Zero (B), because Y is constant. Y = 0.2X → Positive (A).</p>
+</section>
+<section id="linear-regression-page-05" data-lecture="linear-regression" data-page="5"><h2>Page 05 · If Y = β₀ + β₁ X, then Cov(X,Y) = β₁ Var(X)</h2>
+<p>Steps: Cov(X, β₀ + β₁ X) = Cov(X, β₀) + Cov(X, β₁ X) = 0 + β₁ Cov(X, X) = β₁ Var(X). Uses additivity, pulling out a constant, Cov(X, c) = 0, and Cov(X, X) = Var(X).</p>
+</section>
+<section id="linear-regression-page-06" data-lecture="linear-regression" data-page="6"><h2>Page 06 · β₁ Estimation</h2>
+<p>So β₁ = Cov(X, Y) / Var(X) when Var(X) > 0. From pairs (x_i, y_i), S_xx = (1/n) Σ (x_i − x̄)² and S_xy = (1/n) Σ (x_i − x̄)(y_i − ȳ). Then β̂₁ = S_xy / S_xx. S_xy estimates Cov(X, Y) and S_xx estimates Var(X), but the divisor is n, not n−1.</p>
+</section>
+<section id="linear-regression-page-07" data-lecture="linear-regression" data-page="7"><h2>Page 07 · y = β₀ + β₁ x</h2>
+<p>Explorer: drag β₀ from −3 to 3 and β₁ from −2 to 2 and watch the straight line. Intercept shifts the line up or down; slope sets the direction and steepness.</p>
+</section>
+<section id="linear-regression-page-08" data-lecture="linear-regression" data-page="8"><h2>Page 08 · Relationships between two variables</h2>
+<p>A scatter diagram is the first look at two quantitative variables before fitting a line.</p>
+</section>
+<section id="linear-regression-page-09" data-lecture="linear-regression" data-page="9"><h2>Page 09 · Oxygen purity and hydrocarbon levels</h2>
+<p>Table 11-1, n = 20. Response y is oxygen purity (%); predictor x is hydrocarbon level (%). The cloud slopes upward.</p>
+</section>
+<section id="linear-regression-page-10" data-lecture="linear-regression" data-page="10"><h2>Page 10 · Mean of Y related to X by a straight line</h2>
+<p>Model: Y_i = β₀ + β₁ X_i + ε_i, i = 1,…,n, with ε_i ~ N(0, σ²). Then E(Y | x) = β₀ + β₁ x and V(Y | x) = σ². Y is the response, X the predictor, β₀ the intercept, β₁ the slope. Simple linear regression means one predictor and one response.</p>
+</section>
+<section id="linear-regression-page-11" data-lecture="linear-regression" data-page="11"><h2>Page 11 · Minimize vertical squared gaps</h2>
+<p>Least squares estimates β₀ and β₁ by minimizing L = Σ (y_i − β₀ − β₁ x_i)², the sum of squared vertical deviations. The minimizers are β̂₁ = S_xy / S_xx and β̂₀ = ȳ − β̂₁ x̄. Fitted values ŷ_i = β̂₀ + β̂₁ x_i and residuals e_i = y_i − ŷ_i. No derivatives are shown. Because S_xx and S_xy already divide by n, later formulas that need the raw sum use n S_xx.</p>
+</section>
+<section id="linear-regression-page-12" data-lecture="linear-regression" data-page="12"><h2>Page 12 · Purity vs hydrocarbon — find the least-squares line</h2>
+<p>Computational forms: S_xx = (1/n) Σ x_i² − x̄² and S_xy = (1/n) Σ x_i y_i − x̄ ȳ. Oxygen sums: Σ x = 23.92, Σ y = 1843.21, Σ x² = 29.2892, Σ xy = 2214.6566.</p>
+</section>
+<section id="linear-regression-page-13" data-lecture="linear-regression" data-page="13"><h2>Page 13 · Oxygen purity least-squares line</h2>
+<p>S_xx = 0.03404, S_xy = 0.50887, so β̂₁ = 14.94748 and β̂₀ = 74.28331. Fitted line ŷ = 74.283 + 14.947 x. At x = 1.00, ŷ = 89.23%. That number is a point estimate of the mean purity at x = 1 and also a point forecast for a new observation. Both are subject to error; intervals come later.</p>
+</section>
+<section id="linear-regression-page-14" data-lecture="linear-regression" data-page="14"><h2>Page 14 · Body fat vs BMI</h2>
+<p>n = 250 men. BMI x = mass(kg) / height(m)² is a proxy for body fat y. Sums: Σ x = 6322.28, Σ x² = 162674.18, Σ y = 4757.90, Σ y² = 107679.27, Σ xy = 125471.10.</p>
+</section>
+<section id="linear-regression-page-15" data-lecture="linear-regression" data-page="15"><h2>Page 15 · Body fat least-squares estimates</h2>
+<p>x̄ = 25.28912, ȳ = 19.0316, S_xx = 11.157, S_xy = 20.592. β̂₁ = 1.846, β̂₀ = −27.643. Fitted: body fat ≈ −27.643 + 1.846 (BMI).</p>
+</section>
+<section id="linear-regression-page-16" data-lecture="linear-regression" data-page="16"><h2>Page 16 · Prediction and a residual</h2>
+<p>At BMI = 30, ŷ = −27.643 + 1.846×30 = 27.726. At BMI = 25 with observed fat 25%, ŷ = 18.498 and the residual e = 25 − 18.498 = 6.502.</p>
+</section>
+<section id="linear-regression-page-17" data-lecture="linear-regression" data-page="17"><h2>Page 17 · Check residuals' assumptions</h2>
+<p>After fitting, e_i = y_i − ŷ_i. To check leftover association with the predictor, plot (x_i, e_i) or compute S_xe = (1/n) Σ (x_i − x̄)(e_i − ē). Hope S_xe ≈ 0. A trend means the straight-line mean is wrong; a funnel means the variance is not constant. Do not diagnose this by plotting residuals against Y. Oxygen data: S_xe is about 0.</p>
+</section>
+<section id="linear-regression-page-18" data-lecture="linear-regression" data-page="18"><h2>Page 18 · Normality of residuals: histogram and QQ-plot</h2>
+<p>s_e² = (1/(n−2)) Σ e_i². This is the sample variance of the residuals, and it equals σ̂². The denominator is n−2 because β̂₀ and β̂₁ were both estimated. The histogram is overlaid with the N(0, s_e²) density. The QQ-plot has both axes; points near a straight line support approximate normality. Oxygen: s_e² = 1.18.</p>
+</section>
+<section id="linear-regression-page-19" data-lecture="linear-regression" data-page="19"><h2>Page 19 · Before confidence intervals — quick poll</h2>
+<p>Answers: (1) β₁ > 0 implies Cov(X, Y) positive — A. (2) Slope estimator is S_xy / S_xx — B. (3) Residual is e_i = y_i − ŷ_i — C. (4) Check leftover link to the predictor by plotting (x_i, e_i) or checking S_xe ≈ 0 — B. Plotting (y_i, e_i) is the wrong check. (5) A residual QQ-plot checks normality — C. (6) Independence of X and Y implies Cov(X, Y) = 0 — B. Zero covariance does not imply independence.</p>
+</section>
+<section id="linear-regression-page-20" data-lecture="linear-regression" data-page="20"><h2>Page 20 · Confidence intervals</h2>
+<p>Section divider for interval estimation on the regression model.</p>
+</section>
+<section id="linear-regression-page-21" data-lecture="linear-regression" data-page="21"><h2>Page 21 · Model for inference</h2>
+<p>Y_i = β₀ + β₁ X_i + ε_i with ε_i ~ N(0, σ²), so Y_i ~ N(β₀ + β₁ X_i, σ²). Estimates remain β̂₁ = S_xy / S_xx and β̂₀ = ȳ − β̂₁ x̄. Next: the distribution of those estimates.</p>
+</section>
+<section id="linear-regression-page-22" data-lecture="linear-regression" data-page="22"><h2>Page 22 · Estimates are linear combinations of the y_i</h2>
+<p>β̂₁ = (1/(n S_xx)) Σ y_i (x_i − x̄). β̂₀ = Σ y_i [1/n − (x̄ /(n S_xx))(x_i − x̄)]. If the Y_i are normal, these linear combinations are normal.</p>
+</section>
+<section id="linear-regression-page-23" data-lecture="linear-regression" data-page="23"><h2>Page 23 · A linear combination of independent normals is still normal</h2>
+<p>If Y_1 ~ N(μ_1, σ_1²) and Y_2 ~ N(μ_2, σ_2²) are independent, then a_1 Y_1 + a_2 Y_2 ~ N(a_1 μ_1 + a_2 μ_2, a_1² σ_1² + a_2² σ_2²). This is how the sampling distribution of a difference of two means is derived. In general, Σ a_i Y_i ~ N(Σ a_i μ_i, Σ a_i² σ_i²) when the Y_i are independent normals.</p>
+</section>
+<section id="linear-regression-page-24" data-lecture="linear-regression" data-page="24"><h2>Page 24 · Means, variances, and normal laws</h2>
+<p>E(β̂₁) = β₁ and V(β̂₁) = σ² / (n S_xx), so β̂₁ ~ N(β₁, σ²/(n S_xx)). E(β̂₀) = β₀ and V(β̂₀) = σ² [1/n + x̄²/(n S_xx)], so β̂₀ is normal with that mean and variance. The extra n in the denominator is there because S_xx already divides by n.</p>
+</section>
+<section id="linear-regression-page-25" data-lecture="linear-regression" data-page="25"><h2>Page 25 · Unbiased estimator of σ²</h2>
+<p>σ̂² = SS_E / (n − 2). SS_E = Σ e_i² = Σ (y_i − ŷ_i)² = Σ (y_i − β̂₀ − β̂₁ x_i)² = n (S_yy − β̂₁ S_xy). S_yy = (1/n) Σ (y_i − ȳ)². There is no SS_T in this lecture.</p>
+</section>
+<section id="linear-regression-page-26" data-lecture="linear-regression" data-page="26"><h2>Page 26 · Oxygen purity: SSE and σ̂²</h2>
+<p>S_yy = 8.6688, S_xy = 0.50887, β̂₁ = 14.94748. SS_E = n(S_yy − β̂₁ S_xy) = 21.2498. σ̂² = 21.2498 / 18 = 1.18.</p>
+</section>
+<section id="linear-regression-page-27" data-lecture="linear-regression" data-page="27"><h2>Page 27 · Body fat: SSE and σ̂²</h2>
+<p>S_yy = 68.515. SS_E = 7627.50. σ̂² = 7627.50 / 248 = 30.76.</p>
+</section>
+<section id="linear-regression-page-28" data-lecture="linear-regression" data-page="28"><h2>Page 28 · Student-t pivots</h2>
+<p>Replace σ by σ̂. Then (β̂₁ − β₁) / (σ̂ / √(n S_xx)) ~ t(n−2), and (β̂₀ − β₀) / (σ̂ √[1/n + x̄²/(n S_xx)]) ~ t(n−2). σ̂² = (1/(n−2)) Σ (y_i − β̂₀ − β̂₁ x_i)².</p>
+</section>
+<section id="linear-regression-page-29" data-lecture="linear-regression" data-page="29"><h2>Page 29 · Intervals for β₁ and β₀</h2>
+<p>Slope: β̂₁ ± t_{α/2}(n−2) √(σ̂² / (n S_xx)). Intercept: β̂₀ ± t_{α/2}(n−2) √{σ̂² [1/n + x̄²/(n S_xx)]}. Width describes the quality of the fitted line.</p>
+</section>
+<section id="linear-regression-page-30" data-lecture="linear-regression" data-page="30"><h2>Page 30 · 95% CI on the slope</h2>
+<p>Oxygen: β̂₁ = 14.947, S_xx = 0.03404, σ̂² = 1.18, n S_xx = 0.68088, t_{0.025, 18} = 2.101. Interval is 14.947 ± 2.766, so 12.181 ≤ β₁ ≤ 17.714. It excludes 0, so at α = 0.05 there is strong evidence the slope is not zero.</p>
+</section>
+<section id="linear-regression-page-31" data-lecture="linear-regression" data-page="31"><h2>Page 31 · CI for the mean response</h2>
+<p>A 100(1−α)% CI for μ_{Y|x₀} = β₀ + β₁ x₀ is ŷ at x₀ ± t_{α/2}(n−2) √{σ̂² [1/n + (x₀ − x̄)²/(n S_xx)]}, where the center is β̂₀ + β̂₁ x₀.</p>
+</section>
+<section id="linear-regression-page-32" data-lecture="linear-regression" data-page="32"><h2>Page 32 · 95% CI on mean purity at x₀ = 1.00</h2>
+<p>Center ŷ = 89.23. Interval 89.23 ± 0.74, so 88.49 ≤ μ_{Y|1.00} ≤ 89.98.</p>
+</section>
+<section id="linear-regression-page-33" data-lecture="linear-regression" data-page="33"><h2>Page 33 · Predicting a new response</h2>
+<p>The new observation is independent of the data used to fit the line. Prediction interval: ŷ₀ ± t_{α/2}(n−2) √{σ̂² [1 + 1/n + (x₀ − x̄)²/(n S_xx)]}.</p>
+</section>
+<section id="linear-regression-page-34" data-lecture="linear-regression" data-page="34"><h2>Page 34 · 95% prediction interval at x₀ = 1.00</h2>
+<p>Same center 89.23. The interval is 86.83 ≤ Y_0 ≤ 91.63. It is wider than the mean-response CI at the same x₀.</p>
+</section>
+<section id="linear-regression-page-35" data-lecture="linear-regression" data-page="35"><h2>Page 35 · Why the prediction interval is wider</h2>
+<p>The prediction interval includes both the error from fitting the line and the randomness of a new observation. The mean CI uses √[1/n + (x₀ − x̄)²/(n S_xx)]. The prediction interval uses √[1 + 1/n + (x₀ − x̄)²/(n S_xx)]. The extra 1 is the new error.</p>
+</section>
+<section id="linear-regression-page-36" data-lecture="linear-regression" data-page="36"><h2>Page 36 · Move x₀: mean CI vs prediction</h2>
+<p>Explorer. Blue band is the mean-response CI; red band is the prediction interval. Both get wider as x₀ moves away from x̄. The red band stays wider.</p>
+</section>
+<section id="linear-regression-page-37" data-lecture="linear-regression" data-page="37"><h2>Page 37 · Parameters, estimates, and CIs</h2>
+<p>Summary. Model Y_i = β₀ + β₁ X_i + ε_i. β̂₁ = S_xy / S_xx is normal with variance σ²/(n S_xx); its CI uses √(σ̂²/(n S_xx)). β̂₀ is normal with variance σ²[1/n + x̄²/(n S_xx)]. σ̂² = (1/(n−2)) Σ (y_i − β̂₀ − β̂₁ x_i)².</p>
+</section>
+<section id="linear-regression-page-38" data-lecture="linear-regression" data-page="38"><h2>Page 38 · Intervals and sampling distributions — quick poll</h2>
+<p>Answers: (1) t critical value for a CI on β₁ uses df = n−2 — C. (2) σ̂² = Σ e_i² / (n−2) — C. (3) V(β̂₁) = σ² / (n S_xx) — B. (4) A prediction interval is wider than the mean CI at the same x₀ because of the extra 1 under the square root — B. (5) Moving x₀ away from x̄ makes both intervals wider — C. (6) A 95% CI for β₁ that excludes 0 rejects H₀: β₁ = 0 at α = 0.05 — B.</p>
+</section>
+<section id="linear-regression-page-39" data-lecture="linear-regression" data-page="39"><h2>Page 39 · Hypothesis tests</h2>
+<p>Section divider. Tests on the regression parameters, especially H₀: β₁ = 0 (significance of regression).</p>
+</section>
+<section id="linear-regression-page-40" data-lecture="linear-regression" data-page="40"><h2>Page 40 · Slope and intercept</h2>
+<p>Slope: H₀: β₁ = β_{1,0} vs H₁: β₁ ≠ β_{1,0}, with t₀ = (β̂₁ − β_{1,0}) / √(σ̂² / (n S_xx)). Intercept: H₀: β₀ = β_{0,0} vs H₁: β₀ ≠ β_{0,0}, with t₀ = (β̂₀ − β_{0,0}) / √{σ̂² [1/n + x̄²/(n S_xx)]}. Reject H₀ if |t₀| > t_{α/2, n−2}. The matching confidence interval can be used for the same two-sided test.</p>
+</section>
+<section id="linear-regression-page-41" data-lecture="linear-regression" data-page="41"><h2>Page 41 · Special case: H₀: β₁ = 0</h2>
+<p>H₀: β₁ = 0 vs H₁: β₁ ≠ 0 is the significance-of-regression test. Failing to reject H₀ means there is no linear relationship between x and Y. A curve can still be present. The slide contrasts a cloud with no pattern and a nonlinear pattern.</p>
+</section>
+<section id="linear-regression-page-42" data-lecture="linear-regression" data-page="42"><h2>Page 42 · Test H₀: β₁ = 0 for oxygen data</h2>
+<p>t₀ = β̂₁ / √(σ̂² / (n S_xx)) = 14.947 / 1.317 = 11.35. Critical value t_{0.025, 18} = 2.101. Two-sided p-value = 2 P(T_18 > |t₀|) < 0.0001. Reject H₀ at the usual levels: hydrocarbon level is a significant linear predictor of purity.</p>
+</section>
+<section id="linear-regression-page-43" data-lecture="linear-regression" data-page="43"><h2>Page 43 · Inference on the slope β₁</h2>
+<p>Under H₀: β₁ = β_{1,0}, t₀ = (β̂₁ − β_{1,0}) / √(σ̂² / (n S_xx)) ~ t(n−2). Two-sided H₁: reject if |t₀| > t_{α/2}(n−2); p-value 2 P(T > |t₀|); CI is β̂₁ ± t_{α/2}(n−2) √(σ̂²/(n S_xx)). Upper tail H₁: β₁ > β_{1,0}: reject if t₀ > t_α(n−2); p-value P(T > t₀); interval [β̂₁ − t_α(n−2) √(σ̂²/(n S_xx)), ∞). Lower tail: reject if t₀ < −t_α(n−2); p-value P(T < t₀); interval (−∞, β̂₁ + t_α(n−2) √(σ̂²/(n S_xx))]. Reject when the p-value is less than α, or when the interval does not include β_{1,0}.</p>
+</section>
+<section id="linear-regression-page-44" data-lecture="linear-regression" data-page="44"><h2>Page 44 · Inference on the intercept β₀</h2>
+<p>t₀ = (β̂₀ − β_{0,0}) / √{σ̂² [1/n + x̄²/(n S_xx)]} ~ t(n−2) under H₀. Same three alternatives as the slope: two-sided uses |t₀| and t_{α/2}; upper tail uses t₀ > t_α and P(T > t₀); lower tail uses t₀ < −t_α and P(T < t₀). Two-sided CI: β̂₀ ± t_{α/2}(n−2) √{σ̂² (1/n + x̄²/(n S_xx))}. Reject when the p-value is less than α, or when the CI does not include β_{0,0}.</p>
+</section>
+<section id="linear-regression-page-45" data-lecture="linear-regression" data-page="45"><h2>Page 45 · Hypothesis tests for the coefficients — quick poll</h2>
+<p>Answers: (1) The statistic for H₀: β₁ = β_{1,0} is (β̂₁ − β_{1,0}) / √(σ̂² / (n S_xx)) — B. (2) Two-sided level-α test rejects when |t₀| > t_{α/2, n−2} — C. (3) For H₁: β₁ > β_{1,0}, the p-value is P(T > t₀) — B. (4) Failing to reject H₀: β₁ = 0 means there is no linear relationship between x and Y — C. It does not prove independence, and it does not rule out a curve. (5) The denominator of t₀ for β₀ is √{σ̂² [1/n + x̄²/(n S_xx)]} — C. (6) A 95% CI for β₁ that excludes β_{1,0} rejects the two-sided test of that value at α = 0.05 — B.</p>
 </section>
 </article>
 </body>
