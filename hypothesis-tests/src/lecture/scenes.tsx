@@ -3225,15 +3225,15 @@ function EquivalenceScene() {
 const FINAL_QUIZ: QuizItem[] = [
   {
     q: tex`One-sided test, $\alpha=0.05$, $\sigma$ known. Reject $H_0$ for $H_1:\mu>\mu_0$ when $Z_0>$ …`,
-    options: [tex`$1.960$`, tex`$1.645$`, tex`$2.576$`, tex`$1.282$`],
+    options: [tex`$z_{0.025}$`, tex`$z_{0.05}$`, tex`$z_{0.005}$`, tex`$z_{0.10}$`],
     answer: 1,
-    why: tex`All of $\alpha=0.05$ is in one tail: $z_{0.05}=1.645$.`,
+    why: tex`All of $\alpha=0.05$ is in one tail, so the critical value is $z_{0.05}$.`,
   },
   {
     q: tex`$\sigma$ unknown, $n=16$, two-sided $\alpha=0.05$. Reject if $|t_0|>$ …`,
-    options: [tex`$1.960$`, tex`$2.120$`, tex`$2.131$`, tex`$1.645$`],
+    options: [tex`$z_{0.025}$`, tex`$t_{0.025}(16)$`, tex`$t_{0.025}(15)$`, tex`$t_{0.05}(15)$`],
     answer: 2,
-    why: tex`Use $t_{0.025}(15)=2.131$ (df $=n-1=15$).`,
+    why: tex`Use $t_{0.025}(15)$ (df $=n-1=15$).`,
   },
   {
     q: tex`Pooled two-sample t-test, $n=m=8$. Degrees of freedom …`,
