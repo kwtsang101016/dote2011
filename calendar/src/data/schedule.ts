@@ -40,9 +40,9 @@ export const COURSE_EVENTS: CourseEvent[] = [
   { date: "2026-10-30", title: "Hypothesis Tests", kind: "lecture", attendanceFile: "2026-10-30.json" },
   { date: "2026-10-30", title: "In-class Ex.2", kind: "assignment", special: true },
   { date: "2026-11-04", title: "Hypothesis Tests", kind: "lecture", attendanceFile: "2026-11-04.json" },
-  { date: "2026-11-06", title: "Hypothesis Tests", kind: "lecture" },
-  { date: "2026-11-11", title: "Hypothesis Tests", kind: "lecture" },
-  { date: "2026-11-13", title: "Regression Analysis", kind: "lecture" },
+  { date: "2026-11-06", title: "Hypothesis Tests", kind: "lecture", attendanceFile: "2026-11-06.json" },
+  { date: "2026-11-11", title: "Hypothesis Tests", kind: "lecture", attendanceFile: "2026-11-11.json" },
+  { date: "2026-11-13", title: "Regression Analysis", kind: "lecture", attendanceFile: "2026-11-13.json" },
   { date: "2026-11-18", title: "Regression Analysis", kind: "lecture" },
   // Outline writes "HW1 out" here; HW1 is already due 14 Oct and HW2 is due 25 Nov.
   { date: "2026-11-18", title: "HW2 out", kind: "assignment", special: true },
