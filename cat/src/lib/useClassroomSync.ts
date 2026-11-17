@@ -88,16 +88,16 @@ function normalizeClientState(state: ClassroomState): ClassroomState {
 export function useClassroomSync(): ClassroomSync {
   const socketRef = useRef<Socket | null>(null);
   const isInstructorRef = useRef(false);
-  const sessionOpenRef = useRef(false);
+  const sessionOpenRef = useRef(true);
   const wantConnectedRef = useRef(false);
   const closedKickTimerRef = useRef<number | null>(null);
-  /** Students leave quickly when closed; instructors need time to enter the PIN. */
-  const CLOSED_KICK_MS = 3 * 60 * 1000;
+  /** Disabled: Render suspend replaces session close / auto-kick. */
+  const CLOSED_KICK_MS = 0;
 
   const [state, setState] = useState<ClassroomState>(DEFAULT_STATE);
   const [connectedCount, setConnectedCount] = useState(0);
   const [status, setStatus] = useState<ConnectionStatus>("idle");
-  const [sessionOpen, setSessionOpen] = useState(false);
+  const [sessionOpen, setSessionOpen] = useState(true);
   const [poll, setPoll] = useState<LivePoll | null>(null);
   const [myPollChoice, setMyPollChoice] = useState<PollChoice | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -166,20 +166,9 @@ export function useClassroomSync(): ClassroomSync {
         }
       };
 
-      const scheduleClosedKick = (delayMs = CLOSED_KICK_MS) => {
+      const scheduleClosedKick = (_delayMs = CLOSED_KICK_MS) => {
+        // No-op: do not auto-disconnect when a session flag flips.
         clearClosedKickTimer();
-        closedKickTimerRef.current = window.setTimeout(() => {
-          if (!wantConnectedRef.current) {
-            return;
-          }
-          if (!sessionOpenRef.current && !isInstructorRef.current) {
-            wantConnectedRef.current = false;
-            teardownSocket("closed");
-            setErrorMessage(
-              "Classroom session is closed. Instructors: Join, tap Instructor PIN within a few minutes, then Open session. Students: wait until the session is open.",
-            );
-          }
-        }, delayMs);
       };
 
       socket.on("connect", () => {
@@ -196,16 +185,16 @@ export function useClassroomSync(): ClassroomSync {
           return;
         }
         if (reason === "io server disconnect") {
-          wantConnectedRef.current = false;
-          teardownSocket(sessionOpenRef.current ? "idle" : "closed");
+          // Server forced disconnect (e.g. deploy). Reconnect when possible.
+          setStatus("reconnecting");
           return;
         }
-        if (allowReconnectWhileOpen && sessionOpenRef.current) {
+        if (allowReconnectWhileOpen) {
           setStatus("reconnecting");
           return;
         }
         wantConnectedRef.current = false;
-        teardownSocket(sessionOpenRef.current ? "offline" : "closed");
+        teardownSocket("offline");
       });
 
       socket.on("connect_error", () => {
@@ -216,42 +205,25 @@ export function useClassroomSync(): ClassroomSync {
       });
 
       socket.on("session-status", (payload: { open?: boolean; reason?: string }) => {
-        const open = Boolean(payload?.open);
+        const open = payload?.open !== false;
         sessionOpenRef.current = open;
         setSessionOpen(open);
-        if (open) {
-          clearClosedKickTimer();
-          setStatus("live");
-          return;
-        }
-        if (payload?.reason === "idle" || payload?.reason === "closed") {
-          setErrorMessage(
-            payload.reason === "idle"
-              ? "Session closed after idle time (no instructor). Tap Join when class starts again."
-              : "Instructor closed the classroom session.",
-          );
-        }
-        if (isInstructorRef.current) {
-          clearClosedKickTimer();
-          return;
-        }
-        scheduleClosedKick();
+        clearClosedKickTimer();
+        setStatus("live");
+        void scheduleClosedKick;
       });
 
       socket.on("session-closed", () => {
-        sessionOpenRef.current = false;
-        setSessionOpen(false);
-        wantConnectedRef.current = false;
-        teardownSocket("closed");
+        // Stay connected; session open/close is optional and no longer kicks clients.
+        sessionOpenRef.current = true;
+        setSessionOpen(true);
       });
 
       socket.on("snapshot", (snapshot: ServerSnapshot) => {
         setState(normalizeClientState(snapshot.state));
         setConnectedCount(snapshot.connectedCount);
         setPoll(snapshot.poll ?? null);
-        if (sessionOpenRef.current || isInstructorRef.current) {
-          setStatus("live");
-        }
+        setStatus("live");
       });
 
       socket.on("poll-state", (next: LivePoll | null) => {
@@ -276,11 +248,8 @@ export function useClassroomSync(): ClassroomSync {
           isInstructorRef.current = nextInstructor;
           setIsInstructor(nextInstructor);
           setAuthorizedIds(new Set(payload.authorizedIds ?? []));
-          if (nextInstructor) {
-            clearClosedKickTimer();
-          } else if (!sessionOpenRef.current) {
-            scheduleClosedKick();
-          }
+          clearClosedKickTimer();
+          void nextInstructor;
         },
       );
     },
@@ -292,39 +261,19 @@ export function useClassroomSync(): ClassroomSync {
   }, [attachSocket]);
 
   const holdConnectionForAuth = useCallback(() => {
-    // Extend grace so entering the instructor PIN is not racing a short kick timer.
-    if (closedKickTimerRef.current != null) {
-      window.clearTimeout(closedKickTimerRef.current);
-      closedKickTimerRef.current = null;
-    }
-    if (!socketRef.current?.connected && wantConnectedRef.current === false) {
-      attachSocket(true);
-      return;
-    }
+    clearClosedKickTimer();
     if (!socketRef.current) {
       attachSocket(true);
-      return;
     }
-    closedKickTimerRef.current = window.setTimeout(() => {
-      if (!wantConnectedRef.current) {
-        return;
-      }
-      if (!sessionOpenRef.current && !isInstructorRef.current) {
-        wantConnectedRef.current = false;
-        teardownSocket("closed");
-        setErrorMessage(
-          "Classroom session is closed. Instructors: Join, tap Instructor PIN, then Open session.",
-        );
-      }
-    }, CLOSED_KICK_MS);
-  }, [attachSocket, teardownSocket]);
+  }, [attachSocket]);
 
   useEffect(() => {
+    attachSocket(true);
     return () => {
       wantConnectedRef.current = false;
       teardownSocket("idle");
     };
-  }, [teardownSocket]);
+  }, [attachSocket, teardownSocket]);
 
   return useMemo(
     () => ({

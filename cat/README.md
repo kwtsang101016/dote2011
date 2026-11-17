@@ -24,20 +24,13 @@ With that PIN you can manage any card, change row / seat counts, reset seats, **
 
 Local default PIN if unset: `change-me-dote2011` — change it before class.
 
-### Open / Close session (Render free hours)
+### Always-on session (Render suspend/resume)
 
-The classroom starts **closed** after every cold start. Students cannot use seating until you open a session.
-
-1. Tap **Join classroom**
-2. Tap **Instructor PIN** (or use a saved PIN) and enter `INSTRUCTOR_PIN`
-3. Tap **Open session** — students can then Join and sit
-4. After class, tap **Close session** (disconnects everyone)
-
-If no instructor stays connected for **3 hours** while the session is open, the server **auto-closes** the session. Prefer **Suspend** `dote2011-cat` on Render between teaching weeks.
+The classroom stays **open** whenever the service is awake. Clients auto-connect; no Join / Open / Close session steps. Use **Instructor PIN** only when you need instructor controls. Prefer **Suspend** `dote2011-cat` on Render between teaching weeks.
 
 ### Live poll (A–D)
 
-While the session is open, the instructor can start an anonymous multiple-choice poll. Anyone connected may vote; live bars are visible to everyone. Lock voting to discuss, then clear for the next question. Auto-close after **3 hours** with no instructor is only a safety net — tap **Close session** after class. Prefer **Suspend** `dote2011-cat` on Render between teaching weeks.
+While connected, the instructor can start an anonymous multiple-choice poll. Anyone connected may vote; live bars are visible to everyone. Lock voting to discuss, then clear for the next question.
 
 
 ## Layout

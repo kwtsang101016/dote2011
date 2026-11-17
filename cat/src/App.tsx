@@ -382,72 +382,35 @@ export default function App() {
           <StatusPill
             status={sync.status}
             connectedCount={sync.connectedCount}
-            sessionOpen={sync.sessionOpen}
+            sessionOpen={true}
           />
           <p className="seated-count">
             {seatedCount} / {rosterCount} seated
             {sync.isInstructor ? " · instructor" : ""}
-            {sync.sessionOpen ? " · session open" : " · session closed"}
+            
           </p>
         </div>
       </header>
-
-      {sync.status === "idle" || sync.status === "closed" || sync.status === "offline" ? (
-        <section className="session-gate" aria-label="Classroom session">
-          <h2>{sync.sessionOpen ? "Reconnect to the classroom" : "Classroom session is closed"}</h2>
-          <p>
-            {sync.sessionOpen
-              ? "You are not connected. Tap Join to sync seats with the live board."
-              : "The instructor opens the session at the start of class. Students: wait, then tap Join. Instructors: Join, enter the PIN when asked, then tap Open session."}
-          </p>
-          <div className="session-gate__actions">
-            <button type="button" className="primary-button" onClick={() => sync.join()}>
-              Join classroom
-            </button>
-            <button
-              type="button"
-              className="ghost-button"
-              onClick={() => {
-                sync.join();
-                sync.holdConnectionForAuth();
-                setAuthError(null);
-                window.setTimeout(() => setPending({ type: "becomeInstructor" }), 0);
-              }}
-            >
-              Instructor: Join with PIN
-            </button>
-          </div>
-        </section>
-      ) : null}
 
       {sync.status === "connecting" || sync.status === "reconnecting" ? (
         <p className="howto">Connecting to the classroom…</p>
       ) : null}
 
+      {sync.status === "offline" || sync.status === "closed" || sync.status === "idle" ? (
+        <section className="session-gate" aria-label="Classroom connection">
+          <h2>Not connected</h2>
+          <p>The board reconnects when the Render service is awake. Tap Retry if needed.</p>
+          <div className="session-gate__actions">
+            <button type="button" className="primary-button" onClick={() => sync.join()}>
+              Retry connection
+            </button>
+          </div>
+        </section>
+      ) : null}
+
       {sync.status === "live" || sync.status === "reconnecting" ? (
         <div className="session-controls" role="group" aria-label="Session controls">
-          {sync.isInstructor ? (
-            sync.sessionOpen ? (
-              <button
-                type="button"
-                className="ghost-button"
-                onClick={() => {
-                  const confirmed = window.confirm(
-                    "Close the session? Everyone will be disconnected until you open it again.",
-                  );
-                  if (confirmed) {
-                    sync.closeSession();
-                  }
-                }}
-              >
-                Close session
-              </button>
-            ) : (
-              <button type="button" className="primary-button" onClick={() => sync.openSession()}>
-                Open session
-              </button>
-            )
-          ) : !sync.sessionOpen ? (
+          {!sync.isInstructor ? (
             <button
               type="button"
               className="ghost-button"
@@ -459,19 +422,18 @@ export default function App() {
             >
               Instructor PIN
             </button>
-          ) : null}
-          <button type="button" className="ghost-button" onClick={() => sync.leave()}>
-            Leave (disconnect)
-          </button>
+          ) : (
+            <span className="howto">Instructor mode on</span>
+          )}
         </div>
       ) : null}
 
-      {sync.status === "live" && sync.sessionOpen ? (
+      {sync.status === "live" ? (
         <PollPanel
           poll={sync.poll}
           myChoice={sync.myPollChoice}
           isInstructor={sync.isInstructor}
-          sessionOpen={sync.sessionOpen}
+          sessionOpen={true}
           onStart={sync.startPoll}
           onLock={sync.lockPoll}
           onClear={sync.clearPoll}
@@ -542,7 +504,7 @@ export default function App() {
         </p>
       ) : null}
 
-      {sync.status === "live" && sync.sessionOpen ? (
+      {sync.status === "live" ? (
       <>
       <section className="controls" aria-label="Table layout">
         <label>
@@ -870,9 +832,7 @@ function StatusPill({
 }) {
   const label =
     status === "live"
-      ? sessionOpen
-        ? "Live"
-        : "Connected"
+      ? "Live"
       : status === "reconnecting"
         ? "Reconnecting"
         : status === "offline"
@@ -882,6 +842,7 @@ function StatusPill({
             : status === "idle"
               ? "Idle"
               : "Connecting";
+  void sessionOpen;
 
   return (
     <p className={`status status--${status === "closed" || status === "idle" ? "offline" : status}`}>

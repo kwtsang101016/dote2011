@@ -34,9 +34,7 @@ export function PollPanel({
     D: "",
   });
 
-  if (!sessionOpen) {
-    return null;
-  }
+  void sessionOpen;
 
   const maxCount = poll ? Math.max(1, ...CHOICES.map((key) => poll.counts[key])) : 1;
   const startQuick = () => {
