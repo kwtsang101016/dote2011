@@ -1,6 +1,6 @@
 /** Course schedule for DOTE2011G Fall 2026–27 (from Outline_2627.docx). */
 
-export type EventKind = "lecture" | "midterm" | "assignment" | "review" | "break";
+export type EventKind = "lecture" | "midterm" | "final" | "assignment" | "review" | "break";
 
 export interface CourseEvent {
   /** ISO date YYYY-MM-DD */
@@ -46,10 +46,28 @@ export const COURSE_EVENTS: CourseEvent[] = [
   { date: "2026-11-18", title: "Regression Analysis", kind: "lecture", attendanceFile: "2026-11-18.json" },
   // Outline writes "HW1 out" here; HW1 is already due 14 Oct and HW2 is due 25 Nov.
   { date: "2026-11-18", title: "HW2 out", kind: "assignment", special: true },
-  { date: "2026-11-20", title: "Regression Analysis", kind: "lecture" },
+  { date: "2026-11-20", title: "Regression Analysis", kind: "lecture", attendanceFile: "2026-11-20.json" },
   { date: "2026-11-25", title: "Comprehensive Review", kind: "review" },
   { date: "2026-11-25", title: "HW2 due", kind: "assignment", special: true },
   { date: "2026-11-27", title: "Voluntary Q&A Session", kind: "review" },
+  {
+    date: "2026-12-18",
+    title: "Final exam 13:30–15:00 · New Asia College Gymnasium",
+    kind: "final",
+    special: true,
+  },
+  {
+    date: "2026-12-18",
+    title: "Coverage: Slides 1 (Introduction) to 9 (Linear Regression)",
+    kind: "final",
+    special: true,
+  },
+  {
+    date: "2026-12-18",
+    title: "Format: 5 long questions (same as HW2); ONE A4 sheet (both sides) + approved CUHK calculator",
+    kind: "final",
+    special: true,
+  },
 ];
 
 export function eventsByDate(events: CourseEvent[]): Map<string, CourseEvent[]> {
@@ -63,5 +81,5 @@ export function eventsByDate(events: CourseEvent[]): Map<string, CourseEvent[]> 
 }
 
 export function isSpecialEvent(event: CourseEvent): boolean {
-  return Boolean(event.special) || event.kind === "midterm" || event.kind === "assignment";
+  return Boolean(event.special) || event.kind === "midterm" || event.kind === "final" || event.kind === "assignment";
 }

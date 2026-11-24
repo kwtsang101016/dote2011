@@ -153,7 +153,7 @@ export function MonthCalendar({
           <i className="legend-swatch legend-swatch--lecture" /> Lecture / review
         </span>
         <span>
-          <i className="legend-swatch legend-swatch--special" /> Midterm / assignment due
+          <i className="legend-swatch legend-swatch--special" /> Midterm / final / assignment due
         </span>
         <span>
           <i className="legend-swatch legend-swatch--attendance" /> Attendance available
